@@ -8,7 +8,7 @@
 #include "Load.h"
 #include "Save.h"
 
-#include "saiwenos.h"
+#include "SHOCK.h"
 #include "Functions.h"
 #include "Import.h"
 #include "Export.h"
@@ -87,19 +87,19 @@ int main(int argc, char *argv[])
 			&configuration.MPI_rank);
 
 
-	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
-	if(configuration.MPI_rank==0){printf("saiWENOs:                Start\n");}
-	if(configuration.MPI_rank==0){printf("saiWENOs: (git-ID: %s)\n",GITID);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: (MPI_Version: %d.%d.%d)\n",OMPI_MAJOR_VERSION,OMPI_MINOR_VERSION,OMPI_RELEASE_VERSION);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: (CGNS_Version: %d)\n",CGNS_VERSION);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: (HDF5_Version: %d.%d.%d)\n",H5_VERS_MAJOR,H5_VERS_MINOR,H5_VERS_RELEASE);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK:                Start\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: (git-ID: %s)\n",GITID);}
+	if(configuration.MPI_rank==0){printf("SHOCK: (MPI_Version: %d.%d.%d)\n",OMPI_MAJOR_VERSION,OMPI_MINOR_VERSION,OMPI_RELEASE_VERSION);}
+	if(configuration.MPI_rank==0){printf("SHOCK: (CGNS_Version: %d)\n",CGNS_VERSION);}
+	if(configuration.MPI_rank==0){printf("SHOCK: (HDF5_Version: %d.%d.%d)\n",H5_VERS_MAJOR,H5_VERS_MINOR,H5_VERS_RELEASE);}
+	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
 	if(argv[1]!=NULL)
 	{
 		strcpy(configuration.chr_configPath,argv[1]);
 	}
 
-	if(configuration.MPI_rank==0){printf("saiWENOs: Einstellungen werden geladen aus: %s \n",configuration.chr_configPath);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Einstellungen werden geladen aus: %s \n",configuration.chr_configPath);}
 
 	if(check_ConfigFile(&configuration)){
 		ConfigImport(
@@ -125,13 +125,13 @@ int main(int argc, char *argv[])
 	//Hier werden einige Variablen gesetzt, die später gebraucht werden
 	DefineParameters(
 			&configuration);
-	if(configuration.MPI_rank==0){printf("saiWENOs: Definition der Variablen fertig!\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: Definition der Variablen fertig!\n");}
 	double ts;
 
 	ts = MPI_Wtime( );
 	if(configuration.int_IOType==1)
 	{
-		if(configuration.MPI_rank==0){printf("saiWENOs: Parallel Loading of CGNS-file...!\n");}
+		if(configuration.MPI_rank==0){printf("SHOCK: Parallel Loading of CGNS-file...!\n");}
 
 		vta x = { NULL },y = { NULL },z = { NULL },u = { NULL },v = { NULL },w = { NULL },rho = { NULL },p = { NULL };
 
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-		if(configuration.MPI_rank==0){printf("saiWENOs: Serial Loading of CGNS-file...!\n");}
+		if(configuration.MPI_rank==0){printf("SHOCK: Serial Loading of CGNS-file...!\n");}
 
 		//	Fuer den Fall, dass sehr viele Prozesse auf die MeshFile zugreifen muessen, ist es sinnvoll diese vorher zu splitten.
 		//	Sofern die MeshFile gesplittet werden soll, ist dies das einzige, das gemacht wird und das Programm endet im Anschluß
@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
 							&configuration);
 				}
 				goto exit;
-				printf("saiWENOs: Mesh-File-Splitting fertig!\n");
+				printf("SHOCK: Mesh-File-Splitting fertig!\n");
 				break;
 			case 2:
 				if(configuration.int_initializeType!=1)
@@ -201,7 +201,7 @@ int main(int argc, char *argv[])
 				&Film,
 				&U_backup1,
 				&U_backup2);
-		if(configuration.MPI_rank==0){printf("saiWENOs: Speicherallokierung fertig!\n");}
+		if(configuration.MPI_rank==0){printf("SHOCK: Speicherallokierung fertig!\n");}
 
 
 
@@ -213,7 +213,7 @@ int main(int argc, char *argv[])
 	}
 
 	MPI_Barrier( MPI_COMM_WORLD );
-	if(configuration.MPI_rank==0){printf("saiWENOs: Loading %s fertig (%f min.)!\n",configuration.chr_MeshFile,(MPI_Wtime( )-ts)/60. );}
+	if(configuration.MPI_rank==0){printf("SHOCK: Loading %s fertig (%f min.)!\n",configuration.chr_MeshFile,(MPI_Wtime( )-ts)/60. );}
 
 //	printf("rank: %d left %d right %d top %d bottom %d behind %d inFront %d \n",
 //			configuration.MPI_rank,
@@ -226,7 +226,7 @@ int main(int argc, char *argv[])
 	ExtrapolateGhostCells(
 			&configuration,
 			&mesh);
-	if(configuration.MPI_rank==0){printf("saiWENOs: GhostCells-Extrapolation fertig!\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: GhostCells-Extrapolation fertig!\n");}
 
 
 	//Berechnung der Metrik
@@ -282,7 +282,7 @@ int main(int argc, char *argv[])
 			&configuration,
 			&mesh);
 
-	if(configuration.MPI_rank==0){printf("saiWENOs: Metrik-Erstellung fertig!\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: Metrik-Erstellung fertig!\n");}
 
 	if(configuration.flag_IBC==1)
 	{
@@ -302,7 +302,7 @@ int main(int argc, char *argv[])
 						&configuration,
 						&mesh,
 						&U_lastStep);
-				if(configuration.MPI_rank==0){printf("saiWENOs: Neu-Initialisierung des Rechengebietes fertig!\n");}
+				if(configuration.MPI_rank==0){printf("SHOCK: Neu-Initialisierung des Rechengebietes fertig!\n");}
 				break;
 
 			case 1:
@@ -316,7 +316,7 @@ int main(int argc, char *argv[])
 						&mesh,
 						&U_lastStep);
 
-				if(configuration.MPI_rank==0){printf("saiWENOs: Import der Ergebnisse fertig! (Iteration: %d, Time: %g)\n",
+				if(configuration.MPI_rank==0){printf("SHOCK: Import der Ergebnisse fertig! (Iteration: %d, Time: %g)\n",
 						configuration.int_StartIteration,
 						configuration.start_Time);}
 
@@ -343,13 +343,13 @@ int main(int argc, char *argv[])
 						&mesh,
 						&U_lastStep);
 
-				if(configuration.MPI_rank==0){printf("saiWENOs: Import der Ergebnisse fertig!\n");}
+				if(configuration.MPI_rank==0){printf("SHOCK: Import der Ergebnisse fertig!\n");}
 
 				InitializeOtherConditions(
 						&configuration,
 						&mesh,
 						&U_lastStep);
-				if(configuration.MPI_rank==0){printf("saiWENOs: Modifikation der Ergebnisse fertig.\n");}
+				if(configuration.MPI_rank==0){printf("SHOCK: Modifikation der Ergebnisse fertig.\n");}
 				break;
 
 			default:
@@ -357,11 +357,11 @@ int main(int argc, char *argv[])
 						&configuration,
 						&mesh,
 						&U_lastStep);
-				if(configuration.MPI_rank==0){printf("saiWENOs: Alternative Initialisierung. Case %d\n",configuration.int_initializeType);}
+				if(configuration.MPI_rank==0){printf("SHOCK: Alternative Initialisierung. Case %d\n",configuration.int_initializeType);}
 				break;
 
 		}
-		if(configuration.MPI_rank==0){printf("saiWENOs: Initialisierung des Rechengebietes fertig!\n");}
+		if(configuration.MPI_rank==0){printf("SHOCK: Initialisierung des Rechengebietes fertig!\n");}
 
 	}
 
@@ -377,7 +377,7 @@ int main(int argc, char *argv[])
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> OPTIONS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	if(configuration.MPI_rank==0){printf("saiWENOs: Moegliche Optionen werden gesetzt...\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: Moegliche Optionen werden gesetzt...\n");}
 	setOptions(
 			&configuration,
 			&mesh,
@@ -389,25 +389,25 @@ int main(int argc, char *argv[])
 			&Flux_PlusHalf,
 			&Film);
 	MPI_Barrier(configuration.MPI_comm);
-	if(configuration.MPI_rank==0){printf("saiWENOs: Optionen sind gesetzt!\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: Optionen sind gesetzt!\n");}
 
 
 
 	if(configuration.MPI_rank==0){printf("\n");}
-	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
-	if(configuration.MPI_rank==0){printf("saiWENOs: Mesh: '%s'\n",configuration.chr_MeshPath);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: %d Prozesse werden %d Iterationen rechnen!\n",configuration.MPI_size,configuration.int_TotalIterations);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: Angle of Attack: %g [Degree] | Ma: %g | Re: %g | Pr: %g \n",
+	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: Mesh: '%s'\n",configuration.chr_MeshPath);}
+	if(configuration.MPI_rank==0){printf("SHOCK: %d Prozesse werden %d Iterationen rechnen!\n",configuration.MPI_size,configuration.int_TotalIterations);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Angle of Attack: %g [Degree] | Ma: %g | Re: %g | Pr: %g \n",
 			configuration.dbl_AoA,configuration.dbl_machNumber,configuration.dbl_reynoldsNumber*abs(configuration.flag_Inviscid-1),configuration.dbl_prandtlNumber);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: SpaceOrder: %d | TimeOrder: %d | numerisches delta t (Tau): %g | Epsilon: %g\n",
+	if(configuration.MPI_rank==0){printf("SHOCK: SpaceOrder: %d | TimeOrder: %d | numerisches delta t (Tau): %g | Epsilon: %g\n",
 				configuration.int_SpaceOrder,configuration.int_TimeOrder,configuration.dbl_numericalTau,configuration.dbl_wenoEpsilon);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
 	if(configuration.MPI_rank==0){printf("\n");}
 
 
 	MPI_Barrier(configuration.MPI_comm);
 	t1 = MPI_Wtime();
-	if(configuration.MPI_rank==0){printf("saiWENOS: Die Initialisierung fertig (%f min.)\n",(t1-t0)/60);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Die Initialisierung fertig (%f min.)\n",(t1-t0)/60);}
 
 	//########################################
 	//########################################
@@ -422,7 +422,7 @@ int main(int argc, char *argv[])
 			&U_lastStep,
 			&U_RK);
 
-	if(configuration.MPI_rank==0){printf("saiWENOs: %dD Simulation wird gestartet...\n",configuration.int_meshDimensions);}
+	if(configuration.MPI_rank==0){printf("SHOCK: %dD Simulation wird gestartet...\n",configuration.int_meshDimensions);}
 	startSimulation(
 			&configuration,
 			&mesh,
@@ -436,10 +436,10 @@ int main(int argc, char *argv[])
 			&U_backup1,
 			&U_backup2);
 	MPI_Barrier(configuration.MPI_comm);
-	if(configuration.MPI_rank==0){printf("saiWENOs: %dD Simulation fertig (%f min.)!\n",configuration.int_meshDimensions,(MPI_Wtime()-t1)/60.);}
-	if(configuration.MPI_rank==0){printf("saiWENOS: Gesamtkommunikationsdauer: %g min.\n",configuration.comm_time/60.);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: Letztes Tau: %g!\n",configuration.dbl_numericalTau);}
-	if(configuration.MPI_rank==0){printf("saiWENOs: Letztes DistanceForwad: %d!\n",configuration.int_distanceForward);}
+	if(configuration.MPI_rank==0){printf("SHOCK: %dD Simulation fertig (%f min.)!\n",configuration.int_meshDimensions,(MPI_Wtime()-t1)/60.);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Gesamtkommunikationsdauer: %g min.\n",configuration.comm_time/60.);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Letztes Tau: %g!\n",configuration.dbl_numericalTau);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Letztes DistanceForwad: %d!\n",configuration.int_distanceForward);}
 
 
 
@@ -484,7 +484,7 @@ int main(int argc, char *argv[])
 				&configuration,
 				&mesh,
 				&U_lastStep);
-		if(configuration.MPI_rank==0){printf("saiWENOs: Metric-Export fertig! \n");}
+		if(configuration.MPI_rank==0){printf("SHOCK: Metric-Export fertig! \n");}
 	}
 	//	Film wird herausgeschrieben
 	if(configuration.flag_exportFilm==1)
@@ -495,7 +495,7 @@ int main(int argc, char *argv[])
 		else
 			CGNS_FilmExportParallel(&configuration,&mesh,&Film);
 
-		if(configuration.MPI_rank==0){printf("saiWENOs: CGNS Film-Export (%d Samples) fertig (%f min.)!\n",configuration.int_Samples,(MPI_Wtime( )-ts)/60.);}
+		if(configuration.MPI_rank==0){printf("SHOCK: CGNS Film-Export (%d Samples) fertig (%f min.)!\n",configuration.int_Samples,(MPI_Wtime( )-ts)/60.);}
 	}
 
 	//	Snapshot wird herausgeschrieben
@@ -508,7 +508,7 @@ int main(int argc, char *argv[])
 				&mesh,
 				&U_lastStep);
 
-			if(configuration.MPI_rank==0){printf("saiWENOs: CGNS Snapshot-Export fertig!\n");}
+			if(configuration.MPI_rank==0){printf("SHOCK: CGNS Snapshot-Export fertig!\n");}
 		}
 	}
 
@@ -535,7 +535,7 @@ int main(int argc, char *argv[])
 			}
 			MPI_Barrier(configuration.MPI_comm);
 		}
-		if(configuration.MPI_rank==0){printf("saiWENOs: PressureHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+		if(configuration.MPI_rank==0){printf("SHOCK: PressureHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
 	}
 
 	if(configuration.flag_VelocityHistory==1)
@@ -561,7 +561,7 @@ int main(int argc, char *argv[])
 			}
 			MPI_Barrier(configuration.MPI_comm);
 		}
-		if(configuration.MPI_rank==0){printf("saiWENOs: VelocityHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+		if(configuration.MPI_rank==0){printf("SHOCK: VelocityHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
 	}
 
 
@@ -579,13 +579,13 @@ int main(int argc, char *argv[])
 			&Q_sum,
 			&Film);
 
-if(configuration.MPI_rank==0){printf("saiWENOs: Speicher freigegeben (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+if(configuration.MPI_rank==0){printf("SHOCK: Speicher freigegeben (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
 
 //	if(configuration.MPI_rank==0){printf("Glaettungsindikatoren: Durchschnitt: %le   Minimum: %le  Maximum: %le,\n",
 //			(configuration.dbl_is_avrg/configuration.dbl_is_avrg_counter),configuration.dbl_is_minimum,configuration.dbl_is_maximum);}
 
 	exit:
-	if(configuration.MPI_rank==0){printf("saiWENOs: Exit!\n");}
+	if(configuration.MPI_rank==0){printf("SHOCK: Exit!\n");}
 	MPI_Finalize();
 	return 0;
 }
@@ -628,7 +628,7 @@ void startSimulation(
 //  char chr_SnapshotPath_new[500];
 //  char command[500];
 
-////		printf("saiWENOS: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
+////		printf("SHOCK: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
 ////		printf(": Left: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourLeft]);
 ////		printf(": Right: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourRight]);
 ////		printf(": Bottom: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBottom]);
@@ -699,7 +699,7 @@ void startSimulation(
 			if(int_ResetCounter>=pnt_config->int_NumberResets)
 			{
 				pnt_config->int_actualIteration=pnt_config->int_EndIteration;
-				if(pnt_config->MPI_rank==0){printf("saiwenos: Maximal Number of Resets reached. Aborting Simulation!\n");}
+				if(pnt_config->MPI_rank==0){printf("SHOCK: Maximal Number of Resets reached. Aborting Simulation!\n");}
 				if(pnt_config->flag_NAN==1){NANExport( pnt_config,pnt_mesh,pnt_U_RK);}
 //				MPI_Abort(pnt_config->MPI_comm,1337);
 				break;
@@ -711,7 +711,7 @@ void startSimulation(
 
 			if(pnt_config->int_actualIteration_backup1<pnt_config->int_actualIteration_backup2)
 			{
-				if(pnt_config->MPI_rank==0){printf("saiWENOs: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup1,pnt_config->dbl_numericalTau);}
+				if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup1,pnt_config->dbl_numericalTau);}
 				WriteValuesFromU1ToU2(
 						pnt_config,
 						pnt_U_backup1,
@@ -726,7 +726,7 @@ void startSimulation(
 			}
 			else
 			{
-				if(pnt_config->MPI_rank==0){printf("saiWENOs: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup2,pnt_config->dbl_numericalTau);}
+				if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup2,pnt_config->dbl_numericalTau);}
 				WriteValuesFromU1ToU2(
 						pnt_config,
 						pnt_U_backup2,
@@ -752,7 +752,7 @@ void startSimulation(
 			pnt_config->int_distanceForward=pnt_config->int_distanceForwardStart;
 			pnt_config->dbl_numericalTau=pnt_config->dbl_numericalTauStart;
 			pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
-			if(pnt_config->MPI_rank==0){printf("saiWENOs: ----> Tau-Resetting bei Iterationsschritt %d (Neues Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
+			if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Tau-Resetting bei Iterationsschritt %d (Neues Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
 		}
 //		Tau-Beschleuniger
 		else if(
@@ -766,7 +766,7 @@ void startSimulation(
 			pnt_config->int_distanceForward*=4.;
 			pnt_config->dbl_numericalTau*=pnt_config->dbl_TauAccelerator_factor;
 			pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
-			if(pnt_config->MPI_rank==0){printf("saiWENOs: Tau-Erhoehung bei Iterationsschritt %d (Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
+			if(pnt_config->MPI_rank==0){printf("SHOCK: Tau-Erhoehung bei Iterationsschritt %d (Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
 		}
 
 		//	In U_RK sind nach dem vierten RK-Schritt die aktuellen Ergebnisse des Zeitschrittes n+1
@@ -810,9 +810,9 @@ void startSimulation(
 			int_iterationCounterSamples++;
 			if((int_iterationCounterSamples%pnt_config->int_IterationsBetweenSamples==0)&&(pnt_config->int_actualSample<pnt_config->int_Samples)&&(pnt_config->int_actualIteration>=(pnt_config->int_StartSampling)))
 			{
-				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("saiWENOs: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
-				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("saiWENOs:           Start Sampling.\n");}
-				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("saiWENOs: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
+				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
+				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK:           Start Sampling.\n");}
+				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
 
 				CalcValuesForPost(
 						 pnt_config,
@@ -868,7 +868,7 @@ void startSimulation(
 	//				  sprintf(chr_SnapshotPath_new,"%sSnapshot_%d/",pnt_config->chr_folder,pnt_config->int_actualIteration);
 	//				  sprintf(command,"cp -r %s %s",chr_SnapshotPath_normal,chr_SnapshotPath_new);
 	//				  system(command);
-					  printf("saiWENOs: Backup wurde geschrieben.\n");}
+					  printf("SHOCK: Backup wurde geschrieben.\n");}
 					int_iterationCounterBackupOut=0;
 				}
 			}
@@ -879,7 +879,7 @@ void startSimulation(
 		if(int_iterationCounterStdOut==(pnt_config->int_TotalIterations/100)||(pnt_config->int_EndIteration<100))
 		{
 			int_iterationCounterStdOut=0;
-			if(pnt_config->MPI_rank==0){printf("saiWENOs: Iteration: %d von %d (Zeit: %g [sec])\n",pnt_config->int_actualIteration,pnt_config->int_EndIteration,pnt_config->dbl_time_dim);}
+			if(pnt_config->MPI_rank==0){printf("SHOCK: Iteration: %d von %d (Zeit: %g [sec])\n",pnt_config->int_actualIteration,pnt_config->int_EndIteration,pnt_config->dbl_time_dim);}
 			if(pnt_config->MPI_rank==0){printf("\t rho[x=%g, y=%g, z=%g] = %g \n",
 				pnt_mesh->x[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid],
 				pnt_mesh->y[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid],
@@ -887,7 +887,7 @@ void startSimulation(
 				pnt_U_lastStep->rho[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid]);}
 			if((pnt_config->flag_IBC_Moving==1)&&(pnt_config->flag_IBC==1))
 			{
-				if(pnt_config->MPI_rank==0){printf("saiWENOs: MovingWall at x-Position %g!\n",
+				if(pnt_config->MPI_rank==0){printf("SHOCK: MovingWall at x-Position %g!\n",
 						pnt_config->IBC_MovingActualPosition);}
 			}
 		}

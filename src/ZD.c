@@ -1,4 +1,4 @@
-#include "saiwenos.h"
+#include "SHOCK.h"
 #include "Functions.h"
 #include "ZD.h"
 #include <stdio.h>
@@ -581,7 +581,7 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 }
 
 
-#include "saiwenos.h"
+#include "SHOCK.h"
 #include "Functions.h"
 #include "ZD.h"
 #include <stdio.h>

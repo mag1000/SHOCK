@@ -1,5 +1,5 @@
 #include "Import.h"
-#include "saiwenos.h"
+#include "SHOCK.h"
 #include "Functions.h"
 #include "BC.h"
 #include <stdio.h>
@@ -69,7 +69,7 @@ void ConfigImport(
 			pnt_config->flag_BC_option_inflow_isentrop_sub+
 			pnt_config->flag_BC_option_inflow_normal_super)!=1)
 	{
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: ERROR: Fehlerhafte Eingabe fuer Inflow-Randbedingung\n");}
+		if(pnt_config->MPI_rank==0){printf("SHOCK: ERROR: Fehlerhafte Eingabe fuer Inflow-Randbedingung\n");}
 		MPI_Barrier(pnt_config->MPI_comm);
 		MPI_Abort(pnt_config->MPI_comm,13371);
 	}
@@ -82,7 +82,7 @@ void ConfigImport(
 			pnt_config->flag_BC_option_outflow_riemann_sub+
 			pnt_config->flag_BC_option_outflow_rudy_sub)!=1)
 	{
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: ERROR: Fehlerhafte Eingabe fuer Outflow-Randbedingung\n");}
+		if(pnt_config->MPI_rank==0){printf("SHOCK: ERROR: Fehlerhafte Eingabe fuer Outflow-Randbedingung\n");}
 		MPI_Barrier(pnt_config->MPI_comm);
 		MPI_Abort(pnt_config->MPI_comm,13372);
 	}
@@ -241,7 +241,7 @@ void ConfigImport(
 
 	if((pnt_config->flag_rotation_symmetric==1)&&(pnt_config->int_meshDimensions==3))
 	{
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: ERROR: Rotationssymmetrisch und 3D schliesst sich aus\n");}
+		if(pnt_config->MPI_rank==0){printf("SHOCK: ERROR: Rotationssymmetrisch und 3D schliesst sich aus\n");}
 		MPI_Barrier(pnt_config->MPI_comm);
 		MPI_Abort(pnt_config->MPI_comm,13373);
 	}
@@ -320,7 +320,7 @@ void MeshImport_CGNS(
 		    cg_nzones(index_file,index_base,&nzone);
 		    if (nzone != pnt_config->MPI_size)
 		    {
-		      printf("saiWENOS: Error. Es werden %d Zonen erwartet. %d sind vorhanden.\n",pnt_config->MPI_size,nzone);
+		      printf("SHOCK: Error. Es werden %d Zonen erwartet. %d sind vorhanden.\n",pnt_config->MPI_size,nzone);
 		    }
 	    }
 
@@ -452,7 +452,7 @@ void ResultImport_CGNS(
 //		    cg_nzones(index_file,index_base,&nzone);
 //		    if (nzone != pnt_config->MPI_size)
 //		    {
-//		      printf("saiWENOS: Error. Es werden %d Zonen erwartet. %d sind vorhanden.\n",pnt_config->MPI_size,nzone);
+//		      printf("SHOCK: Error. Es werden %d Zonen erwartet. %d sind vorhanden.\n",pnt_config->MPI_size,nzone);
 //		    }
 //	    }
 	    cg_zone_read(index_file,index_base,index_zone,zonename,isize[0]);
@@ -505,7 +505,7 @@ void ResultImport_CGNS(
 			pnt_config->start_Time=time[index_flow-1];
 		    if(pnt_config->MPI_rank==0)
 		    {
-		    	printf("saiWENOs: Es gibt %d timesteps in Datei %s. Der letzte (t=%le) wird importiert.\n",
+		    	printf("SHOCK: Es gibt %d timesteps in Datei %s. Der letzte (t=%le) wird importiert.\n",
 		    			index_flow,actual_path,pnt_config->start_Time);
 		    }
 		}
@@ -514,7 +514,7 @@ void ResultImport_CGNS(
 	    	index_flow=1;
 		    if(pnt_config->MPI_rank==0)
 		    {
-		    	printf("saiWENOs: Es gibt nur einen timestep in Datei %s. Dieser wird importiert.\n",
+		    	printf("SHOCK: Es gibt nur einen timestep in Datei %s. Dieser wird importiert.\n",
 		    			actual_path);
 		    }
 	    }
@@ -1213,7 +1213,7 @@ void MeshConfig_CGNS(
 	}
 
 
-//	printf("saiWENOS: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
+//	printf("SHOCK: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
 //	printf(": Left: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourLeft]);
 //	printf(": Right: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourRight]);
 //	printf(": Bottom: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBottom]);
@@ -1299,7 +1299,7 @@ void BCImport_CGNS(
 
 	BCType_t BCType;
 
-	if (pnt_config->MPI_rank==0){printf("saiWENOS: Folgende Randbedingungen wurden gesetzt: ");}
+	if (pnt_config->MPI_rank==0){printf("SHOCK: Folgende Randbedingungen wurden gesetzt: ");}
 
 	for(i=1;i<=nfamilies;i++)
 	{

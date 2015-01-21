@@ -657,18 +657,18 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 				target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( double ):sizeof( float ) ) );
 				target->dt = dt;
 				#if DIM==2
-						if(pnt_config->MPI_rank==0){printf("saiWENOS: Using command 'cgp_field_read_data'\n");}
+						if(pnt_config->MPI_rank==0){printf("SHOCK: Using command 'cgp_field_read_data'\n");}
 						CG( cgp_field_read_data( file,base,zone,sol,field,corners[ 0 ],corners[ 1 ],target->ptr) );
 				#endif
 				#if ( HDF5_HAVE_MULTI_DATASETS_ == 0 && DIM == 3 )
-						if(pnt_config->MPI_rank==0){printf("saiWENOS: Using command 'cgp_field_read_data'\n");}
+						if(pnt_config->MPI_rank==0){printf("SHOCK: Using command 'cgp_field_read_data'\n");}
 						CG( cgp_field_read_data( file,base,zone,sol,field,corners[ 0 ],corners[ 1 ],target->ptr) );
 				#endif
 			}
 		}
 
 		#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
-			if(pnt_config->MPI_rank==0){printf("saiWENOS: Using command 'cgp_field_multi_read_data'\n");}
+			if(pnt_config->MPI_rank==0){printf("SHOCK: Using command 'cgp_field_multi_read_data'\n");}
 			CG( cgp_field_multi_read_data( file,base,zone,sol,fieldVec,corners[ 0 ],corners[ 1 ],5,u->ptr,v->ptr,w->ptr,rho->ptr,p->ptr) );
 		#endif
 

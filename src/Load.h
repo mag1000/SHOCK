@@ -1,9 +1,9 @@
-#ifndef _SAIWENOS_LOAD_
-#define _SAIWENOS_LOAD_
+#ifndef _SHOCK_LOAD_
+#define _SHOCK_LOAD_
 
 #include <stdbool.h>
 
-#include "saiwenos.h"
+#include "SHOCK.h"
 
 /** Struct for passing variable type arrays
  *

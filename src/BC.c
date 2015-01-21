@@ -1,5 +1,5 @@
 #include "BC.h"
-#include "saiwenos.h"
+#include "SHOCK.h"
 #include "WENO.h"
 #include "ZD.h"
 #include "Functions.h"
@@ -155,7 +155,7 @@ void ControlBoundaryLowerI(
 	}
 	else
 	{
-		printf("saiWENOS: Error: Rank %d hat links weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
+		printf("SHOCK: Error: Rank %d hat links weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
 	}
 }
 
@@ -240,7 +240,7 @@ void ControlBoundaryLowerJ(
 	}
 	else
 	{
-		printf("saiWENOS: Error: Rank %d hat unten weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
+		printf("SHOCK: Error: Rank %d hat unten weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
 	}
 //	else if(strcmp(pnt_config->BC_Bottom,pnt_config->BCInflowSupersonic)==0)
 //	{
@@ -333,7 +333,7 @@ void ControlBoundaryLowerK(
 	}
 	else
 	{
-		printf("saiWENOS: Error: Rank %d hat hinten weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
+		printf("SHOCK: Error: Rank %d hat hinten weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
 	}
 }
 
@@ -418,7 +418,7 @@ void ControlBoundaryUpperI(
 	}
 	else
 	{
-		printf("saiWENOS: Error: Rank %d hat rechts weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
+		printf("SHOCK: Error: Rank %d hat rechts weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
 	}
 }
 
@@ -503,7 +503,7 @@ void ControlBoundaryUpperJ(
 	}
 	else
 	{
-		printf("saiWENOS: Error: Rank %d hat oben weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
+		printf("SHOCK: Error: Rank %d hat oben weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
 	}
 }
 
@@ -588,7 +588,7 @@ void ControlBoundaryUpperK(
 	}
 	else
 	{
-		printf("saiWENOS: Error: Rank %d hat vorne weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
+		printf("SHOCK: Error: Rank %d hat vorne weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
 	}
 }
 

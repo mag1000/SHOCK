@@ -1479,7 +1479,7 @@ Ein Gedanke, dieses Problem zu umgehen, ist die Spiegelung der Metrik.
 Eine gespiegelte Metrik und gespiegelte Strömungsgrößen p,$\rho$,u,v,w führen zu einer direkten Kontrolle der Flüsse.
 Allerdings gibt es Probleme bei den Impulsflüssen, da hier das Produkt aus u,v,w und $\theta$ steht.
 Ein Vorzeichenverlust ist die Folge.
-Dies kann korrigiert werden, indem eine Hilfsvariable (BC\_Corrector in saiwenos) verwendet wird, aber dennoch sind diese Randbedingungen von zwei Fehlern geprägt.
+Dies kann korrigiert werden, indem eine Hilfsvariable (BC\_Corrector in SHOCK) verwendet wird, aber dennoch sind diese Randbedingungen von zwei Fehlern geprägt.
 Auf diese Weise sind die Flüsse symmetrisch. 
 Im Weiteren kann gezeigt werden, dass bei der verwendeten Approximation $\frac{\partial F}{\partial x}=\frac{F_{i+1/2}-F_{i-1/2}}{\varDelta X}$ die Ableitung gleich 0 wird sofern die optimalen Koeffizienten für das WENO Verfahren eingesetzt werden. (Klioutchnikov hat eine entsprechende Umformung).
 Die Wand befindet sich zwischen dem ersten realen Gitterpunkt und der ersten GhostCell.

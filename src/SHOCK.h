@@ -15,8 +15,8 @@
 #define MESHDIMENSIONS 2
 #endif
 
-#ifndef SAIWENOS_H
-#define SAIWENOS_H
+#ifndef SHOCK_H
+#define SHOCK_H
 
 #ifndef OMPI_MAJOR_VERSION
 #define OMPI_MAJOR_VERSION 0
@@ -663,5 +663,5 @@ void setOptions(
 //Variables of MeshImport
 
 int flag;
-#endif /*SAIWENOS_H */
+#endif /*SHOCK_H */
 

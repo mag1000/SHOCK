@@ -387,7 +387,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 			CG( cg_field_info( file,base,zone,sol,field,&dt,fieldname ) );
 
 			#if DIM==2
-				if((pnt_config->MPI_rank==0)&&(field==1)&&(sol==1)){printf("saiWENOs: using cgp_field_write_data (2D).\n");}
+				if((pnt_config->MPI_rank==0)&&(field==1)&&(sol==1)){printf("SHOCK: using cgp_field_write_data (2D).\n");}
 				if( !strcmp( fieldname,"VelocityX" ) ) {
 					CG( cgp_field_write_data( file,base,zone,sol,field,from,to,u ) );fieldVec[0]=field;
 				} else if( !strcmp( fieldname,"VelocityY" ) ) {
@@ -408,7 +408,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 			#endif
 
 			#if ( HDF5_HAVE_MULTI_DATASETS_ == 0 && DIM == 3 )
-				if((pnt_config->MPI_rank==0)&&(field==1)&&(sol==1)){printf("saiWENOs: using cgp_field_write_data (3D-Hdf5<1.8.14).\n");}
+				if((pnt_config->MPI_rank==0)&&(field==1)&&(sol==1)){printf("SHOCK: using cgp_field_write_data (3D-Hdf5<1.8.14).\n");}
 				if( !strcmp( fieldname,"VelocityX" ) ) {
 					CG( cgp_field_write_data( file,base,zone,sol,field,from,to,u ) );fieldVec[0]=field;
 				} else if( !strcmp( fieldname,"VelocityY" ) ) {
@@ -430,7 +430,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 
 		}
 		#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
-			if((pnt_config->MPI_rank==0)&&(field==1)){printf("saiWENOs: using cgp_field_multi_write_data.\n");}
+			if((pnt_config->MPI_rank==0)&&(field==1)){printf("SHOCK: using cgp_field_multi_write_data.\n");}
 			if(nfields==5)
 			{	CG( cgp_field_multi_write_data( file,base,zone,sol,fieldVec,from,to,nfields,u,v,w,rho,p ) );}
 			if(nfields==8)

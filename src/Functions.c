@@ -12,7 +12,7 @@
 #include <sys/types.h>  /* Linux/UNIX */
 #include <sys/stat.h>   /* Linux/UNIX */
 
-#include "saiwenos.h"
+#include "SHOCK.h"
 #include "Functions.h"
 #include "Import.h"
 #include "Export.h"
@@ -707,7 +707,7 @@ void postprocessLoad(
 						pnt_config);
 		}
 
-//	printf("saiWENOS: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
+//	printf("SHOCK: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
 //	printf(": Left: %d, index: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourLeft],pnt_config->InterfaceNeighbourLeft);
 //	printf(": Right: %d, index: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourRight],pnt_config->InterfaceNeighbourRight);
 //	printf(": Bottom: %d, index: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBottom],pnt_config->InterfaceNeighbourBottom);
@@ -740,7 +740,7 @@ void postprocessLoad(
 			pnt_U_backup1,
 			pnt_U_backup2);
 
-	if(pnt_config->MPI_rank==0){printf("saiWENOs: Speicherallokierung fertig!\n");}
+	if(pnt_config->MPI_rank==0){printf("SHOCK: Speicherallokierung fertig!\n");}
 
 	Initialize(
 			pnt_config,
@@ -749,7 +749,7 @@ void postprocessLoad(
 
 	if (pnt_config->int_initializeType==0)
 	{
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: Neu-Initialisierung des Rechengebietes fertig!\n");}
+		if(pnt_config->MPI_rank==0){printf("SHOCK: Neu-Initialisierung des Rechengebietes fertig!\n");}
 	}
 
 
@@ -871,7 +871,7 @@ void postprocessLoad(
 				}
 			}
 		}
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: Import der Ergebnisse fertig! (Iteration: %d, Time: %g)\n",
+		if(pnt_config->MPI_rank==0){printf("SHOCK: Import der Ergebnisse fertig! (Iteration: %d, Time: %g)\n",
 				pnt_config->int_StartIteration,
 				pnt_config->start_Time);}
 	}
@@ -1440,7 +1440,7 @@ void InitializeOtherConditions(
 	double rho,p,u,v,w;
 	double x_start;
 	double eta,delta_y,T_unendl,T_ad;
-	double length,u_tmp,v_tmp,u0;
+	double u_tmp,v_tmp,u0;
 
 	gebiet=0;
 	rho=1.0;
@@ -1593,7 +1593,6 @@ void InitializeOtherConditions(
 
 //				Kanal, glatte Startloesung
 				case 7:
-					length=1.;
 //					if (pnt_mesh->x[ijk]<5.0)
 //					{
 //						p=pnt_config->InitializeValues_p0;
@@ -4466,7 +4465,7 @@ int check_CGNSFile(
 	if(datei == NULL)
 	{
 
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: CGNS-Datei '%s' wurde nicht gefunden.\n",pnt_config->chr_MeshPath);}
+		if(pnt_config->MPI_rank==0){printf("SHOCK: CGNS-Datei '%s' wurde nicht gefunden.\n",pnt_config->chr_MeshPath);}
 		return 0;
 	}
 	else
@@ -4485,7 +4484,7 @@ int check_ConfigFile(
 	if(datei == NULL)
 	{
 
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: Config-Datei '%s' wurde nicht gefunden.\n",pnt_config->chr_configPath);}
+		if(pnt_config->MPI_rank==0){printf("SHOCK: Config-Datei '%s' wurde nicht gefunden.\n",pnt_config->chr_configPath);}
 		return 0;
 	}
 	else
@@ -4543,10 +4542,6 @@ void IBC_prepare(
 	//####################
 	double y_kolben_max;
 	//####################
-    // piston_crev
-	double l0, y_kanal, A, B, C, D, E, F;
-	double x_head_vor, x_head_hin, x_crev_hin, x_head_mit ;
-	double y_head_vor, y_head_hin, y_crev_hin;
 	
 	switch (pnt_config->IBC_Type)
 	{
@@ -4596,7 +4591,7 @@ void IBC_prepare(
 		//####################
 		//	VG
 		//####################
-		if(pnt_config->MPI_rank==0){printf("saiWENOs: IBC for VG is set.\n");}
+		if(pnt_config->MPI_rank==0){printf("SHOCK: IBC for VG is set.\n");}
 		VG_height= 0.4/80.;
 		VG_length= 1.0/80.;
 		VG_start_x=0.65;
@@ -4637,7 +4632,7 @@ void IBC_prepare(
 
 				ijk=i_min*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jStartReal*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kStartReal;
 				ijk_tmp=i_max*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j_max*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kStartReal;
-				printf("saiWENOs: VG defined between x=%.3f, y=%.3f and y=%.3f, y=%.3f\n",
+				printf("SHOCK: VG defined between x=%.3f, y=%.3f and y=%.3f, y=%.3f\n",
 						pnt_mesh->x[ijk],pnt_mesh->y[ijk],pnt_mesh->x[ijk_tmp],pnt_mesh->y[ijk_tmp]);
 
 				for (i=i_min; i <= i_max; i++)
@@ -5327,7 +5322,7 @@ void SplitMeshFile(
 	RangeOfInterface= (cgsize_t *)calloc(2*int_meshDimensions, sizeof(cgsize_t));
 	DonorRangeOfInterface= (cgsize_t *)calloc(2*int_meshDimensions, sizeof(cgsize_t));
 
-	printf("saiWENOS: Die Mesh-Datei %s wird in %d Dateien zerteilt.\n",pnt_config->chr_MeshFile,number_zones);
+	printf("SHOCK: Die Mesh-Datei %s wird in %d Dateien zerteilt.\n",pnt_config->chr_MeshFile,number_zones);
 	char foldername[200];
 	sprintf(foldername,"%sMesh/",pnt_config->chr_folder);
 	if (pnt_config->MPI_rank==0)
@@ -5396,7 +5391,7 @@ void SplitMeshFile(
 		//##################################################
 		sprintf(actual_file,"%sMesh/tmp_MeshFile_Zone%d_%s",pnt_config->chr_folder,index_zone,pnt_config->chr_MeshFile);
 
-		printf("saiWENOS: %s wird geschrieben.\r",actual_file);
+		printf("SHOCK: %s wird geschrieben.\r",actual_file);
 		fflush(stdout);
 
 		if (cg_open(actual_file,CG_MODE_WRITE,&index_file_out)) cg_error_exit();
@@ -5729,7 +5724,7 @@ int checkNAN(
 				if( (isinf(pnt_U->rho[ijk])||isnan(pnt_U->rho[ijk])) && (pnt_mesh->flag_IBC[ijk]==0))
 				{
 					NANCounter++;
-					printf("saiWENOs: NAN bei x=%g, y=%g, z=%g\n",pnt_mesh->x[ijk],pnt_mesh->y[ijk],pnt_mesh->z[ijk]);
+					printf("SHOCK: NAN bei x=%g, y=%g, z=%g\n",pnt_mesh->x[ijk],pnt_mesh->y[ijk],pnt_mesh->z[ijk]);
 //					MPI_Abort(pnt_config->MPI_comm,13370);
 					pnt_config->flag_NAN=1;
 
@@ -5748,7 +5743,7 @@ int checkNAN(
 	free(NANCounterArray);
 	if (sum>0)
 	{
-//		if(pnt_config->MPI_rank==0){printf("\nsaiWENOs: ---->  NAN bei %d\n",pnt_config->int_actualIteration);}
+//		if(pnt_config->MPI_rank==0){printf("\nSHOCK: ---->  NAN bei %d\n",pnt_config->int_actualIteration);}
 		return 1;
 	}
 	else

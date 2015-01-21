@@ -1,10 +1,10 @@
-#ifndef _SAIWENOS_SAVE
-#define _SAIWENOS_SAVE
+#ifndef _SHOCK_SAVE
+#define _SHOCK_SAVE
 
 #include <stdbool.h>
 #include <pcgnslib.h>
 
-#include "saiwenos.h"
+#include "SHOCK.h"
 
 /** Store data to disk
  *

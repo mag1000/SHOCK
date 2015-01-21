@@ -1,4 +1,4 @@
-#include "saiwenos.h"
+#include "SHOCK.h"
 
 #ifndef BC_H
 #define BC_H
@@ -447,6 +447,22 @@ void WriteWallNoSlipIsothermalBoundary(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U);
+		
+void WriteMovingWallNoSlipIsothermalBoundary(
+		double corrector[3],
+		int ijk,
+		int ijkSymmetry,
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U);
+		
+void WriteMovingWallSlipBoundary(
+		double corrector[3],
+		int ijk,
+		int ijkSymmetry,
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U);		
 
 void WriteWallNoSlipIsothermalBoundaryLowerJ(
 		struct strct_configuration * pnt_config,
@@ -477,5 +493,6 @@ extern void WriteWallNoSlipIsothermalBoundaryLowerK(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U);
+		
 
 #endif
