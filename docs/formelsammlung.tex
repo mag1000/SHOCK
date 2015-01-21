@@ -1,0 +1,1546 @@
+\section{Erhaltungsgleichungen}
+\subsection{In Vektorschriebweise}
+\begin{align*}
+\frac{\partial \tilde{U}}{\partial \tilde{t}}+\frac{\partial \tilde{F}}{\partial \tilde{x}}+\frac{\partial \tilde{G}}{\partial \tilde{y}}+\frac{\partial \tilde{H}}{\partial \tilde{z}}
+=
+\frac{\partial \tilde{F}^\nu}{\partial \tilde{x}}+\frac{\partial \tilde{G}^\nu}{\partial \tilde{y}}+\frac{\partial \tilde{H}^\nu}{\partial \tilde{z}}
+\end{align*}
+
+\begin{align*}
+\frac{\partial}{\partial \tilde{t}}
+\begin{pmatrix}
+\tilde{\rho}
+\\
+\tilde{\rho} \tilde{u}
+\\
+\tilde{\rho} \tilde{v}
+\\
+\tilde{\rho} \tilde{w}
+\\
+\tilde{\rho} \tilde{e}
+\end{pmatrix}
++
+\frac{\partial}{\partial \tilde{x}}
+\begin{pmatrix}
+\tilde{\rho} \tilde{u}
+\\
+\tilde{\rho} \tilde{u}^2 + \tilde{p}
+\\
+\tilde{\rho} \tilde{u}\tilde{v}
+\\
+\tilde{\rho} \tilde{u}\tilde{w}
+\\
+\tilde{\rho} \tilde{u}\left(\tilde{e}+\frac{\tilde{p}}{\tilde{\rho}}\right)
+\end{pmatrix}
++
+\frac{\partial}{\partial \tilde{y}}       
+\begin{pmatrix}
+\tilde{\rho} \tilde{v}
+\\
+\tilde{\rho} \tilde{u}\tilde{v}
+\\
+\tilde{\rho} \tilde{v}^2 + \tilde{p}
+\\
+\tilde{\rho} \tilde{v}\tilde{w}
+\\
+\tilde{\rho} \tilde{v}\left(\tilde{e}+\frac{\tilde{p}}{\tilde{\rho}}\right)
+\end{pmatrix}
++
+\frac{\partial}{\partial \tilde{z}}
+\begin{pmatrix}
+\tilde{\rho} \tilde{w}
+\\
+\tilde{\rho} \tilde{u}\tilde{w}
+\\
+\tilde{\rho} \tilde{v}\tilde{w}
+\\
+\tilde{\rho} \tilde{w}^2 + \tilde{p}
+\\
+\tilde{\rho} \tilde{w}\left(\tilde{e}+\frac{\tilde{p}}{\tilde{\rho}}\right)
+\end{pmatrix}
+=
+\frac{\partial}{\partial \tilde{x}}
+\begin{pmatrix}
+0
+\\
+\tilde{\tau}_{\tilde{x}\tilde{x}}
+\\
+\tilde{\tau}_{\tilde{x}\tilde{y}}
+\\
+\tilde{\tau}_{\tilde{x}\tilde{z}}
+\\
+\tilde{\tau}_{\tilde{x}\tilde{x}}\tilde{u}+\tilde{\tau}_{\tilde{x}\tilde{y}}\tilde{v}+\tilde{\tau}_{\tilde{x}\tilde{z}}\tilde{w}+\tilde{q}_{\tilde{x}}
+\end{pmatrix}
++\frac{\partial}{\partial \tilde{y}}
+\begin{pmatrix}
+0
+\\
+\tilde{\tau}_{\tilde{y}\tilde{x}}
+\\
+\tilde{\tau}_{\tilde{y}\tilde{y}}
+\\
+\tilde{\tau}_{\tilde{y}\tilde{z}}
+\\
+\tilde{\tau}_{\tilde{y}\tilde{x}}\tilde{u}+\tilde{\tau}_{\tilde{y}\tilde{y}}\tilde{v}+\tilde{\tau}_{\tilde{y}\tilde{z}}\tilde{w}+\tilde{q}_{\tilde{y}}
+\end{pmatrix}
++
+\frac{\partial}{\partial \tilde{z}}
+\begin{pmatrix}
+0
+\\
+\tilde{\tau}_{\tilde{z}\tilde{x}}
+\\
+\tilde{\tau}_{\tilde{z}\tilde{y}}
+\\
+\tilde{\tau}_{\tilde{z}\tilde{z}}
+\\
+\tilde{\tau}_{\tilde{z}\tilde{x}}\tilde{u}+\tilde{\tau}_{\tilde{z}\tilde{y}}\tilde{v}+\tilde{\tau}_{\tilde{z}\tilde{z}}\tilde{w}+\tilde{q}_{\tilde{z}}
+\end{pmatrix}
+\end{align*}
+
+
+\subsection{Einführung von dimensionslosen Größen}
+\begin{align*}
+x=\frac{\tilde{x}}{\tilde{L}},\ 
+y=\frac{\tilde{y}}{\tilde{L}},\ 
+z=\frac{\tilde{z}}{\tilde{L}},\ 
+t=\frac{\tilde{t}}{\tilde{u}_\infty \tilde{L}},\ 
+u=\frac{\tilde{u}}{\tilde{u}_\infty},\
+v=\frac{\tilde{v}}{\tilde{u}_\infty},\ 
+w=\frac{\tilde{w}}{\tilde{u}_\infty},\  
+\rho=\frac{\tilde{\rho}}{\tilde{\rho}},\ 
+e=\frac{\tilde{e}}{\tilde{u}_\infty^2},\ 
+p=\frac{\tilde{p}}{\tilde{p}_\infty},\ 
+T=\frac{\tilde{T}}{\tilde{T}_\infty},\
+\mu=\frac{\tilde{\mu}}{\tilde{\mu}_\infty},\ 
+\lambda=\frac{\tilde{\lambda}}{\tilde{\lambda}_\infty},\  
+\end{align*}
+
+
+\begin{align*}
+\frac{\partial}{\partial t}
+\begin{pmatrix}
+\rho
+\\
+\rho u
+\\
+\rho v
+\\
+\rho w
+\\
+\rho e
+\end{pmatrix}
++
+\frac{\partial}{\partial x}
+\begin{pmatrix}
+\rho u
+\\
+\rho u^2 + \Upsilon p
+\\
+\rho uv
+\\
+\rho uw
+\\
+u\left(\rho e+\Upsilon p\right)
+\end{pmatrix}
++
+\frac{\partial}{\partial y}
+\begin{pmatrix}
+\rho v
+\\
+\rho uv
+\\
+\rho v^2 + \Upsilon p
+\\
+\rho vw
+\\
+v\left(\rho e+\Upsilon p\right)
+\end{pmatrix}
++
+\frac{\partial}{\partial z}
+\begin{pmatrix}
+\rho w
+\\
+\rho uw
+\\
+\rho vw
+\\
+\rho w^2 + \Upsilon p
+\\
+w\left(\rho e+\Upsilon p\right)
+\end{pmatrix}
+=
+\frac{\partial}{\partial x}
+\begin{pmatrix}
+0
+\\
+\Psi \tau_{xx}
+\\
+\Psi \tau_{xy}
+\\
+\Psi \tau_{xz}
+\\
+\Psi \tau_{xx}u+\Psi \tau_{xy}v+\Psi \tau_{xz}w+\Gamma q_x
+\end{pmatrix}
++\frac{\partial}{\partial y}
+\begin{pmatrix}
+0
+\\
+\Psi \tau_{yx}
+\\
+\Psi \tau_{yy}
+\\
+\Psi \tau_{yz}
+\\
+\Psi \tau_{yx}u+\Psi \tau_{yy}v+\Psi \tau_{yz}w+\Gamma q_y
+\end{pmatrix}
++
+\frac{\partial}{\partial z}
+\begin{pmatrix}
+0
+\\
+\Psi \tau_{zx}
+\\
+\Psi \tau_{zy}
+\\
+\Psi \tau_{zz}
+\\
+\Psi \tau_{zx}u+\Psi \tau_{zy}v+\Psi \tau_{zz}w+\Gamma q_z
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+\Upsilon (Upsilon)=\frac{1}{\gamma Ma_\infty^2}
+\ \ \ \ \ \ \ \ \ 
+\Psi (Psi)=\frac{1}{Re_\infty}
+\ \ \ \ \ \ \ \ \ 
+\Gamma (Gamma)=\frac{1}{\left(\gamma -1 \right)Ma_\infty^2 Re_\infty Pr_\infty}
+\end{align*}
+\begin{align*}
+e=\frac{T}{\gamma \left(\gamma -1\right)Ma_\infty^2}+\frac{1}{2}\left(u^2+v^2+w^2\right)
+\ \ \ \ \ \ \ \ \ 
+p=\rho T
+\ \ \ \ \ \ \ \ \ 
+\mu=\frac{1+S}{T+S}T^\frac{3}{2},\ S=\frac{100,4K}{\tilde{T_\infty}}
+\ \ \ \ \ \ \ \ \ 
+\lambda=\mu
+\end{align*}
+\begin{align*}
+q_x=\lambda \frac{\partial T}{\partial x}
+\ \ \ \ \ \ \ \ \ 
+q_y=\lambda \frac{\partial T}{\partial y}
+\ \ \ \ \ \ \ \ \ 
+q_z=\lambda \frac{\partial T}{\partial z}
+\end{align*}
+
+\begin{align*}
+\tau_{xx}=\mu \left(\frac{4}{3}\frac{\partial u}{\partial x}-\frac{2}{3}\frac{\partial v}{\partial y}-\frac{2}{3}\frac{\partial w}{\partial z} \right)
+\ \ \ \ \ \ \ \ \ 
+\tau_{xy}=\tau_{yx}=\mu \left(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x} \right)
+\end{align*}
+\begin{align*}
+\tau_{yy}=\mu \left(\frac{4}{3}\frac{\partial v}{\partial y}-\frac{2}{3}\frac{\partial u}{\partial x}-\frac{2}{3}\frac{\partial w}{\partial z} \right)
+\ \ \ \ \ \ \ \ \ 
+\tau_{xz}=\tau_{zx}=\mu \left(\frac{\partial u}{\partial z}+\frac{\partial w}{\partial x} \right)
+\end{align*}
+\begin{align*}
+\tau_{zz}=\mu \left(\frac{4}{3}\frac{\partial w}{\partial z}-\frac{2}{3}\frac{\partial u}{\partial x}-\frac{2}{3}\frac{\partial v}{\partial y} \right)
+\ \ \ \ \ \ \ \ \ 
+\tau_{yz}=\tau_{zy}=\mu \left(\frac{\partial v}{\partial z}+\frac{\partial w}{\partial y} \right)
+\end{align*}
+
+\subsection{Koordinatentransformation $x,y,z\rightarrow\xi,\eta,\zeta$}
+Die allgemeine Beziehung der Koordinatentransformation lautet:
+\begin{align*}
+\frac{\partial f}{\partial x}=\xi_x\frac{\partial f}{\partial \xi}+\eta_x\frac{\partial f}{\partial \eta}+\zeta_x\frac{\partial f}{\partial \zeta}
+\ \ \ \ \ \ \ \ \ 
+\frac{\partial f}{\partial y}=\xi_y\frac{\partial f}{\partial \xi}+\eta_y\frac{\partial f}{\partial \eta}+\zeta_y\frac{\partial f}{\partial \zeta}
+\ \ \ \ \ \ \ \ \ 
+\frac{\partial f}{\partial z}=\xi_z\frac{\partial f}{\partial \xi}+\eta_z\frac{\partial f}{\partial \eta}+\zeta_z\frac{\partial f}{\partial \zeta}
+\end{align*}
+Angewendet auf die Erhaltungsgleichungen ergibt dies:
+\begin{align*}
+\frac{\partial U}{\partial t}+
+\xi_x\frac{\partial F}{\partial \xi}+\eta_x\frac{\partial F}{\partial \eta}+\zeta_x\frac{\partial F}{\partial \zeta}+
+\xi_y\frac{\partial G}{\partial \xi}+\eta_y\frac{\partial G}{\partial \eta}+\zeta_y\frac{\partial G}{\partial \zeta}+
+\xi_z\frac{\partial H}{\partial \xi}+\eta_z\frac{\partial H}{\partial \eta}+\zeta_z\frac{\partial H}{\partial \zeta}
+=
+\xi_x\frac{\partial F^\nu}{\partial \xi}+\eta_x\frac{\partial F^\nu}{\partial \eta}+\zeta_x\frac{\partial F^\nu}{\partial \zeta}+
+\xi_y\frac{\partial G^\nu}{\partial \xi}+\eta_y\frac{\partial G^\nu}{\partial \eta}+\zeta_y\frac{\partial G^\nu}{\partial \zeta}+
+\xi_z\frac{\partial H^\nu}{\partial \xi}+\eta_z\frac{\partial H^\nu}{\partial \eta}+\zeta_z\frac{\partial H^\nu}{\partial \zeta}
+\end{align*}
+Auf diese Gleichung wird die Produktregel angewandt
+\begin{align*}
+\frac{\partial \left(\xi_x F\right)}{\partial \xi}=\xi_x\frac{\partial F}{\partial \xi}+F\frac{\partial \xi_x}{\partial \xi}
+\Leftrightarrow
+\xi_x\frac{\partial F}{\partial \xi}=F\frac{\partial \xi_x}{\partial \xi}-\frac{\partial \left(\xi_x F\right)}{\partial \xi}
+\end{align*}
+und mit der Jakobischen J multipliziert um folgende Form zu erhalten
+\begin{align*}
+\frac{\partial \left( JU\right)}{\partial t}
+\\
++F\frac{\partial \left(J\xi_x\right)}{\partial \xi}-\frac{\partial \left(J\xi_x F\right)}{\partial \xi}+F\frac{\partial \left(J\eta_x\right)}{\partial \eta}-\frac{\partial \left(J\eta_x F\right)}{\partial \eta}+F\frac{\partial \left(J\zeta_x\right)}{\partial \zeta}-\frac{\partial \left(J\zeta_x F\right)}{\partial \zeta}
+\\
++G\frac{\partial \left(J\xi_y\right)}{\partial \xi}-\frac{\partial \left(J\xi_y G\right)}{\partial \xi}+G\frac{\partial \left(J\eta_y\right)}{\partial \eta}-\frac{\partial \left(J\eta_y G\right)}{\partial \eta}+G\frac{\partial \left(J\zeta_y\right)}{\partial \zeta}-\frac{\partial \left(J\zeta_y G\right)}{\partial \zeta}
+\\
++H\frac{\partial \left(J\xi_z\right)}{\partial \xi}-\frac{\partial \left(\xi_z H\right)}{\partial \xi}+H\frac{\partial \left(J\eta_z\right)}{\partial \eta}-\frac{\partial \left(J\eta_z H\right)}{\partial \eta}+H\frac{\partial \left(J\zeta_z\right)}{\partial \zeta}-\frac{\partial \left(J\zeta_z H\right)}{\partial \zeta}
+\\
+=
+\\
+F^\nu\frac{\partial \left(J\xi_x\right)}{\partial \xi}-\frac{\partial \left(J\xi_x F^\nu\right)}{\partial \xi}+F^\nu\frac{\partial \left(J\eta_x\right)}{\partial \eta}-\frac{\partial \left(J\eta_x F^\nu\right)}{\partial \eta}+F^\nu\frac{\partial \left(J\zeta_x\right)}{\partial \zeta}-\frac{\partial \left(J\zeta_x F^\nu\right)}{\partial \zeta}
+\\
++G^\nu\frac{\partial \left(J\xi_y\right)}{\partial \xi}-\frac{\partial \left(J\xi_y G^\nu\right)}{\partial \xi}+G^\nu\frac{\partial \left(J\eta_y\right)}{\partial \eta}-\frac{\partial \left(J\eta_y G^\nu\right)}{\partial \eta}+G^\nu\frac{\partial \left(J\zeta_y\right)}{\partial \zeta}-\frac{\partial \left(J\zeta_y G^\nu\right)}{\partial \zeta}
+\\
++H^\nu\frac{\partial \left(J\xi_z\right)}{\partial \xi}-\frac{\partial \left(J\xi_z H^\nu\right)}{\partial \xi}+H^\nu\frac{\partial \left(J\eta_z\right)}{\partial \eta}-\frac{\partial \left(J\eta_z H^\nu\right)}{\partial \eta}+H^\nu\frac{\partial \left(J\zeta_z\right)}{\partial \zeta}-\frac{\partial \left(J\zeta_z H^\nu\right)}{\partial \zeta}
+\end{align*}
+In dieser Gleichung kommen ``metrische Invarianten'' vor, welche analytisch null sind und daher gestrichen werden können 
+(Ausmultiplizieren von Jakobischer mit metrischen Koeffizienten, im Anschluß kürzen sich die Terme gegeneinander heraus).
+Hermes beschreibt dies genauer im Anhang seiner Diss und weist darauf hin, dass die Produktregel und damit sämtliche anderen Umformungen bei Finiten Differenzen nicht erfüllt sind.
+Er zitiert alternative Vorschläge in der Literatur.
+Verwendet wird aber folgende Form, die: \\
+\textbf{Stark Konservative Form}
+\begin{align*}
+\frac{\partial U}{\partial t}
++\frac{\partial \left(\xi_x J F+\xi_y J G+\xi_z J H\right)}{\partial \xi}
++\frac{\partial \left(\eta_x J F+\eta_y J G+\eta_z J H\right)}{\partial \eta}
++\frac{\partial \left(\zeta_x J F+\zeta_y J G+\zeta_z J H\right)}{\partial \zeta}
+=
+\frac{\partial \left(\xi_x J F^\nu+\xi_y J G^\nu+\xi_z J H^\nu\right)}{\partial \xi}
++\frac{\partial \left(\eta_x J F^\nu+\eta_y J G^\nu+\eta_z J H^\nu\right)}{\partial \eta}
++\frac{\partial \left(\zeta_x J F^\nu+\zeta_y J G^\nu+\zeta_z J H^\nu\right)}{\partial \zeta}
+\end{align*}
+
+\subsection{Einführung der transformierten Flüsse $\hat{F},\hat{G},\hat{H}$}
+\begin{align*}
+\overbrace{
+\frac{\partial U}{\partial t}
+}^{Runge\ Kutta}
++
+\overbrace{
+\frac{\partial \hat{F}}{\partial \xi}+\frac{\partial \hat{G}}{\partial \eta}+\frac{\partial \hat{H}}{\partial \zeta}
+}^{WENO}
+=
+\overbrace{
+\frac{\partial \hat{F}^\nu}{\partial \xi}+\frac{\partial \hat{G}^\nu}{\partial \eta}+\frac{\partial \hat{H}^\nu}{\partial \zeta}
+}^{Zentrale Differenzen}
+\end{align*}
+
+\subsection{Erhaltungsgrößen [Runge Kutta]}
+\subsubsection{Erhaltungsvektor $U$}
+\begin{align*}
+U
+=
+J
+\begin{pmatrix}
+\rho
+\\
+\rho u
+\\
+\rho v
+\\
+\rho w
+\\
+\rho e
+\end{pmatrix}
+\end{align*}
+
+
+\subsection{Viskose Flüsse [Zentrale Differenzen]}
+
+\begin{align*}
+\frac{\partial \hat{F}^\nu}{\partial \xi}=\frac{\partial}{\partial \xi}
+\begin{pmatrix}
+0
+\\
+\Psi J \left(\xi_x \tau_{xx}+\xi_y \tau_{xy}+\xi_z \tau_{xz}\right)
+\\
+\Psi J \left(\xi_x \tau_{xy}+\xi_y \tau_{yy}+\xi_z \tau_{yz}\right)
+\\
+\Psi J \left(\xi_x \tau_{xz}+\xi_y \tau_{yz}+\xi_z \tau_{zz}\right)
+\\
+J \left(\Psi \left(
+u\left(\xi_x \tau_{xx} + \xi_y \tau_{xy} + \xi_z \tau_{xz}\right)+
+v\left(\xi_x \tau_{xy} + \xi_y \tau_{yy} + \xi_z \tau_{yz}\right)+
+w\left(\xi_x \tau_{xz} + \xi_y \tau_{yz} + \xi_z \tau_{zz}\right)+
+\right)+
+\Gamma \left(
+\xi_x q_x+\xi_y q_y+\xi_z q_z
+\right)
+\right)
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+\frac{\partial \hat{G}^\nu}{\partial \eta}=\frac{\partial}{\partial \eta}
+\begin{pmatrix}
+0
+\\
+\Psi J \left(\eta_x \tau_{xx}+\eta_y \tau_{xy}+\eta_z \tau_{xz}\right)
+\\
+\Psi J \left(\eta_x \tau_{xy}+\eta_y \tau_{yy}+\eta_z \tau_{yz}\right)
+\\
+\Psi J \left(\eta_x \tau_{xz}+\eta_y \tau_{yz}+\eta_z \tau_{zz}\right)
+\\
+J \left(\Psi \left(
+u\left(\eta_x \tau_{xx} + \eta_y \tau_{xy} + \eta_z \tau_{xz}\right)+
+v\left(\eta_x \tau_{xy} + \eta_y \tau_{yy} + \eta_z \tau_{yz}\right)+
+w\left(\eta_x \tau_{xz} + \eta_y \tau_{yz} + \eta_z \tau_{zz}\right)+
+\right)+
+\Gamma \left(
+\eta_x q_x+\eta_y q_y+\eta_z q_z
+\right)
+\right)
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+\frac{\partial \hat{H}^\nu}{\partial \zeta}=\frac{\partial}{\partial \zeta}
+\begin{pmatrix}
+0
+\\
+\Psi J \left(\zeta_x \tau_{xx}+\zeta_y \tau_{xy}+\zeta_z \tau_{xz}\right)
+\\
+\Psi J \left(\zeta_x \tau_{xy}+\zeta_y \tau_{yy}+\zeta_z \tau_{yz}\right)
+\\
+\Psi J \left(\zeta_x \tau_{xz}+\zeta_y \tau_{yz}+\zeta_z \tau_{zz}\right)
+\\
+J \left(\Psi \left(
+u\left(\zeta_x \tau_{xx} + \zeta_y \tau_{xy} + \zeta_z \tau_{xz}\right)+
+v\left(\zeta_x \tau_{xy} + \zeta_y \tau_{yy} + \zeta_z \tau_{yz}\right)+
+w\left(\zeta_x \tau_{xz} + \zeta_y \tau_{yz} + \zeta_z \tau_{zz}\right)+
+\right)+
+\Gamma \left(
+\zeta_x q_x+\zeta_y q_y+\zeta_z q_z
+\right)
+\right)
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+q_x&=\lambda\frac{\partial T}{\partial x}=\lambda \left(\xi_x\frac{\partial T}{\partial \xi}+\eta_x\frac{\partial T}{\partial \eta}+\zeta_x\frac{\partial T}{\partial \zeta}\right)
+\\
+q_y&=\lambda\frac{\partial T}{\partial y}=\lambda \left(\xi_y\frac{\partial T}{\partial \xi}+\eta_y\frac{\partial T}{\partial \eta}+\zeta_y\frac{\partial T}{\partial \zeta}\right)
+\\
+q_z&=\lambda\frac{\partial T}{\partial z}=\lambda \left(\xi_z\frac{\partial T}{\partial \xi}+\eta_z\frac{\partial T}{\partial \eta}+\zeta_z\frac{\partial T}{\partial \zeta}\right)
+\end{align*}
+
+\begin{align*}
+\tau_{xx}&=
+\mu \left(\frac{4}{3}\left(\xi_x\frac{\partial u}{\partial \xi}+\eta_x\frac{\partial u}{\partial \eta}+\zeta_x\frac{\partial u}{\partial \zeta}\right)-\frac{2}{3}\left(\xi_y\frac{\partial v}{\partial \xi}+\eta_y\frac{\partial v}{\partial \eta}+\zeta_y\frac{\partial v}{\partial \zeta}\right)-\frac{2}{3}\left(\xi_z\frac{\partial w}{\partial \xi}+\eta_z\frac{\partial w}{\partial \eta}+\zeta_z\frac{\partial w}{\partial \zeta}\right) \right)
+\\
+\tau_{xy}&=\tau_{yx}=
+\mu \left(\left(\xi_y\frac{\partial u}{\partial \xi}+\eta_y\frac{\partial u}{\partial \eta}+\zeta_y\frac{\partial u}{\partial \zeta}\right)+\left(\xi_x\frac{\partial v}{\partial \xi}+\eta_x\frac{\partial v}{\partial \eta}+\zeta_x\frac{\partial v}{\partial \zeta}\right) \right)
+\\
+\tau_{yy}&=
+\mu \left(\frac{4}{3}\left(\xi_y\frac{\partial v}{\partial \xi}+\eta_y\frac{\partial v}{\partial \eta}+\zeta_y\frac{\partial v}{\partial \zeta}\right)-\frac{2}{3}\left(\xi_x\frac{\partial u}{\partial \xi}+\eta_x\frac{\partial u}{\partial \eta}+\zeta_x\frac{\partial u}{\partial \zeta}\right)-\frac{2}{3}\left(\xi_z\frac{\partial w}{\partial \xi}+\eta_z\frac{\partial w}{\partial \eta}+\zeta_z\frac{\partial w}{\partial \zeta}\right) \right)
+\\
+\tau_{xz}&=\tau_{zx}=
+\mu \left(\left(\xi_z\frac{\partial u}{\partial \xi}+\eta_z\frac{\partial u}{\partial \eta}+\zeta_z\frac{\partial u}{\partial \zeta}\right)+\left(\xi_x\frac{\partial w}{\partial \xi}+\eta_x\frac{\partial w}{\partial \eta}+\zeta_x\frac{\partial w}{\partial \zeta}\right) \right)
+\\
+\tau_{zz}&=
+\mu \left(\frac{4}{3}\left(\xi_z\frac{\partial w}{\partial \xi}+\eta_z\frac{\partial w}{\partial \eta}+\zeta_z\frac{\partial w}{\partial \zeta}\right)-\frac{2}{3}\left(\xi_x\frac{\partial u}{\partial \xi}+\eta_x\frac{\partial u}{\partial \eta}+\zeta_x\frac{\partial u}{\partial \zeta}\right)-\frac{2}{3}\left(\xi_y\frac{\partial v}{\partial \xi}+\eta_y\frac{\partial v}{\partial \eta}+\zeta_y\frac{\partial v}{\partial \zeta}\right) \right)
+\\
+\tau_{yz}&=\tau_{zy}=
+\mu \left(\left(\xi_z\frac{\partial v}{\partial \xi}+\eta_z\frac{\partial v}{\partial \eta}+\zeta_z\frac{\partial v}{\partial \zeta}\right)+\left(\xi_y\frac{\partial w}{\partial \xi}+\eta_y\frac{\partial w}{\partial \eta}+\zeta_y\frac{\partial w}{\partial \zeta}\right) \right)
+\end{align*}
+Die Schubspannungen und Wärmeflüsse wurde mit der Software Mathematika eingesetzt und entsprechend der Ableitungen ausgeklammert und sortiert.
+Folgende Gleichungen erhält man:
+\begin{align*}
+\frac{\partial \hat{F}^\nu}{\partial \xi}=\frac{\partial}{\partial \xi}
+\begin{pmatrix}
+0
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \left(\frac{4}{3} \xi _x^2+\xi _y^2+\xi _z^2\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3}\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial v}{\partial \xi} \frac{1}{3} \xi _x \xi _y+\frac{\partial v}{\partial \eta} \left(-\frac{2}{3} \eta _y \xi _x+\eta _x \xi _y\right)+\frac{\partial v}{\partial \zeta} \left(-\frac{2}{3} \zeta _y \xi _x+\zeta _x \xi _y\right)+\frac{\partial w}{\partial \xi}\frac{1}{3} \xi _x \xi _z+\frac{\partial w}{\partial \eta} \left(-\frac{2}{3} \eta _z \xi _x+\eta _x \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \xi _x+\zeta _x \xi _z\right)
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \frac{1}{3} \xi _x \xi _y+\frac{\partial u}{\partial \eta} \left(\eta _y \xi _x-\frac{2}{3} \eta _x \xi _y\right)+\frac{\partial u}{\partial \zeta} \left(\zeta _y \xi _x-\frac{2}{3}\zeta _x \xi _y\right)+\frac{\partial v}{\partial \xi} \left(\xi _x^2+\frac{4}{3}\xi _y^2+\xi _z^2\right)+\frac{\partial v}{\partial \eta} \left(\eta _x \xi _x+\frac{4}{3}\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x \xi _x+\frac{4}{3}\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial w}{\partial \xi} \frac{1}{3} \xi _y \xi _z+\frac{\partial w}{\partial \eta} \left(-\frac{2}{3} \eta _z \xi _y+\eta _y \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \xi _y+\zeta _y \xi _z\right)
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \frac{1}{3} \xi _x \xi _z+\frac{\partial u}{\partial \eta} \left(\eta _z \xi _x-\frac{2}{3}\eta _x \xi _z\right)+\frac{\partial u}{\partial \zeta} \left(\zeta _z \xi _x-\frac{2}{3}\zeta _x \xi _z\right)+\frac{\partial v}{\partial \xi} \frac{1}{3} \xi _y \xi _z+\frac{\partial v}{\partial \eta} \left(\eta _z \xi _y-\frac{2}{3}\eta _y \xi _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _z \xi _y-\frac{2}{3}\zeta _y \xi _z\right)+\frac{\partial w}{\partial \xi} \left(\xi _x^2+\xi _y^2+\frac{4}{3} \xi _z^2\right)+\frac{\partial w}{\partial \eta} \left(\eta _x \xi _x+\eta _y \xi _y+\frac{4}{3}\eta _z \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x \xi _x+\zeta _y \xi _y+\frac{4}{3}\zeta _z \xi _z\right)
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\Gamma}{\Psi} \left[
+\frac{\partial T}{\partial \xi} \left(\xi _x^2+\xi _y^2+\xi _z^2\right)+\frac{\partial T}{\partial \eta} \left(\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)
+\right] \right.
+\\
++u \left(
+\frac{\partial u}{\partial \xi} \left(\frac{4}{3} \xi _x^2+\xi _y^2+\xi _z^2\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3}\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial v}{\partial \xi} \frac{1}{3} \xi _x \xi _y+\frac{\partial v}{\partial \eta} \left(-\frac{2}{3} \eta _y \xi _x+\eta _x \xi _y\right)+\frac{\partial v}{\partial \zeta} \left(-\frac{2}{3} \zeta _y \xi _x+\zeta _x \xi _y\right)+\frac{\partial w}{\partial \xi}\frac{1}{3} \xi _x \xi _z+\frac{\partial w}{\partial \eta} \left(-\frac{2}{3} \eta _z \xi _x+\eta _x \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \xi _x+\zeta _x \xi _z\right)
+\right)
+\\
++v \left(
+\frac{\partial u}{\partial \xi} \frac{1}{3} \xi _x \xi _y+\frac{\partial u}{\partial \eta} \left(\eta _y \xi _x-\frac{2}{3} \eta _x \xi _y\right)+\frac{\partial u}{\partial \zeta} \left(\zeta _y \xi _x-\frac{2}{3}\zeta _x \xi _y\right)+\frac{\partial v}{\partial \xi} \left(\xi _x^2+\frac{4}{3}\xi _y^2+\xi _z^2\right)+\frac{\partial v}{\partial \eta} \left(\eta _x \xi _x+\frac{4}{3}\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x \xi _x+\frac{4}{3}\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial w}{\partial \xi} \frac{1}{3} \xi _y \xi _z+\frac{\partial w}{\partial \eta} \left(-\frac{2}{3} \eta _z \xi _y+\eta _y \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \xi _y+\zeta _y \xi _z\right)
+\right)
+\\
++w \left( \left.
+\frac{\partial u}{\partial \xi} \frac{1}{3} \xi _x \xi _z+\frac{\partial u}{\partial \eta} \left(\eta _z \xi _x-\frac{2}{3}\eta _x \xi _z\right)+\frac{\partial u}{\partial \zeta} \left(\zeta _z \xi _x-\frac{2}{3}\zeta _x \xi _z\right)+\frac{\partial v}{\partial \xi} \frac{1}{3} \xi _y \xi _z+\frac{\partial v}{\partial \eta} \left(\eta _z \xi _y-\frac{2}{3}\eta _y \xi _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _z \xi _y-\frac{2}{3}\zeta _y \xi _z\right)+\frac{\partial w}{\partial \xi} \left(\xi _x^2+\xi _y^2+\frac{4}{3} \xi _z^2\right)+\frac{\partial w}{\partial \eta} \left(\eta _x \xi _x+\eta _y \xi _y+\frac{4}{3}\eta _z \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x \xi _x+\zeta _y \xi _y+\frac{4}{3}\zeta _z \xi _z\right)
+\right) \right\}
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+\frac{\partial \hat{G}^\nu}{\partial \eta}=\frac{\partial}{\partial \eta}
+\begin{pmatrix}
+0
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \left(\frac{4}{3}\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3} \eta _x^2+\eta _y^2+\eta _z^2\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial v}{\partial \xi} \left(\eta _y \xi _x-\frac{2}{3}\eta _x \xi _y\right)+\frac{\partial v}{\partial \eta} \frac{1}{3} \eta _x \eta _y+\frac{\partial v}{\partial \zeta} \left(-\frac{2}{3} \zeta _y \eta _x+\zeta _x \eta _y\right)+\frac{\partial w}{\partial \xi} \left(\eta _z \xi _x-\frac{2}{3}\eta _x \xi _z\right)+\frac{\partial w}{\partial \eta}\frac{1}{3} \eta _x \eta _z+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \eta _x+\zeta _x \eta _z\right)
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \eta _y \xi _x+\eta _x \xi _y\right)+\frac{\partial u}{\partial \eta}\frac{1}{3} \eta _x \eta _y+\frac{\partial u}{\partial \zeta} \left(\zeta _y \eta _x-\frac{2}{3}\zeta _x \eta _y\right)+\frac{\partial v}{\partial \xi} \left(\eta _x \xi _x+\frac{4}{3}\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial v}{\partial \eta} \left(\eta _x^2+\frac{4}{3}\eta _y^2+\eta _z^2\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x \eta _x+\frac{4}{3}\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial w}{\partial \xi} \left(\eta _z \xi _y-\frac{2}{3}\eta _y \xi _z\right)+\frac{\partial w}{\partial \eta}\frac{1}{3} \eta _y \eta _z+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \eta _y+\zeta _y \eta _z\right)
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \eta _z \xi _x+\eta _x \xi _z\right)+\frac{\partial u}{\partial \eta} \frac{1}{3} \eta _x \eta _z+\frac{\partial u}{\partial \zeta} \left(\zeta _z \eta _x-\frac{2}{3}\zeta _x \eta _z\right)+\frac{\partial v}{\partial \xi} \left(-\frac{2}{3} \eta _z \xi _y+\eta _y \xi _z\right)+\frac{\partial v}{\partial \eta}\frac{1}{3} \eta _y \eta _z+\frac{\partial v}{\partial \zeta} \left(\zeta _z \eta _y-\frac{2}{3}\zeta _y \eta _z\right)+\frac{\partial w}{\partial \xi} \left(\eta _x \xi _x+\eta _y \xi _y+\frac{4}{3}\eta _z \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\eta _x^2+\eta _y^2+\frac{4}{3}\eta _z^2\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\frac{4}{3}\zeta _z \eta _z\right)
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\Gamma}{\Psi} \left[
+\frac{\partial T}{\partial \xi} \left(\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+ \frac{\partial T}{\partial \eta} \left(\eta _x^2+\eta _y^2+\eta _z^2\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)
+\right] \right.
+\\+u \left(
+\frac{\partial u}{\partial \xi} \left(\frac{4}{3}\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3} \eta _x^2+\eta _y^2+\eta _z^2\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial v}{\partial \xi} \left(\eta _y \xi _x-\frac{2}{3}\eta _x \xi _y\right)+\frac{\partial v}{\partial \eta} \frac{1}{3} \eta _x \eta _y+\frac{\partial v}{\partial \zeta} \left(-\frac{2}{3} \zeta _y \eta _x+\zeta _x \eta _y\right)+\frac{\partial w}{\partial \xi} \left(\eta _z \xi _x-\frac{2}{3}\eta _x \xi _z\right)+\frac{\partial w}{\partial \eta}\frac{1}{3} \eta _x \eta _z+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \eta _x+\zeta _x \eta _z\right)
+\right)
+\\+v \left(
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \eta _y \xi _x+\eta _x \xi _y\right)+\frac{\partial u}{\partial \eta}\frac{1}{3} \eta _x \eta _y+\frac{\partial u}{\partial \zeta} \left(\zeta _y \eta _x-\frac{2 \zeta _x \eta _y}{3}\right)+\frac{\partial v}{\partial \xi} \left(\eta _x \xi _x+\frac{4}{3}\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial v}{\partial \eta} \left(\eta _x^2+\frac{4}{3}\eta _y^2+\eta _z^2\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x \eta _x+\frac{4}{3}\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial w}{\partial \xi} \left(\eta _z \xi _y-\frac{2}{3}\eta _y \xi _z\right)+\frac{\partial w}{\partial \eta}\frac{1}{3} \eta _y \eta _z+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \eta _y+\zeta _y \eta _z\right)
+\right)
+\\+w \left(
+\left.
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \eta _z \xi _x+\eta _x \xi _z\right)+\frac{\partial u}{\partial \eta} \frac{1}{3} \eta _x \eta _z+\frac{\partial u}{\partial \zeta} \left(\zeta _z \eta _x-\frac{2}{3}\zeta _x \eta _z\right)+\frac{\partial v}{\partial \xi} \left(-\frac{2}{3} \eta _z \xi _y+\eta _y \xi _z\right)+\frac{\partial v}{\partial \eta}\frac{1}{3} \eta _y \eta _z+\frac{\partial v}{\partial \zeta} \left(\zeta _z \eta _y-\frac{2}{3}\zeta _y \eta _z\right)+\frac{\partial w}{\partial \xi} \left(\eta _x \xi _x+\eta _y \xi _y+\frac{4}{3}\eta _z \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\eta _x^2+\eta _y^2+\frac{4}{3}\eta _z^2\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\frac{4}{3}\zeta _z \eta _z\right)
+\right)
+\right\}
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+\frac{\partial \hat{H}^\nu}{\partial \zeta}=\frac{\partial}{\partial \zeta}
+\begin{pmatrix}
+0
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \left(\frac{4}{3}\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3}\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x^2+\zeta _y^2+\zeta _z^2\right)+\frac{\partial v}{\partial \xi} \left(\zeta _y \xi _x-\frac{2}{3}\zeta _x \xi _y\right)+\frac{\partial v}{\partial \eta} \left(\zeta _y \eta _x-\frac{2}{3}\zeta _x \eta _y\right)+\frac{\partial v}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _y+\frac{\partial w}{\partial \xi} \left(\zeta _z \xi _x-\frac{2}{3}\zeta _x \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _z \eta _x-\frac{2}{3}\zeta _x \eta _z\right)+\frac{\partial w}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _z
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \zeta _y \xi _x+\zeta _x \xi _y\right)+\frac{\partial u}{\partial \eta} \left(-\frac{2}{3} \zeta _y \eta _x+\zeta _x \eta _y\right)+\frac{\partial u}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _y+\frac{\partial v}{\partial \xi} \left(\zeta _x \xi _x+\frac{4}{3}\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial v}{\partial \eta} \left(\zeta _x \eta _x+\frac{4}{3}\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x^2+\frac{4}{3}\zeta _y^2+\zeta _z^2\right)+\frac{\partial w}{\partial \xi} \left(\zeta _z \xi _y-\frac{2}{3}\zeta _y \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _z \eta _y-\frac{2}{3}\zeta _y \eta _z\right)+\frac{\partial w}{\partial \zeta}\frac{1}{3} \zeta _y \zeta _z
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \zeta _z \xi _x+\zeta _x \xi _z\right)+\frac{\partial u}{\partial \eta} \left(-\frac{2}{3} \zeta _z \eta _x+\zeta _x \eta _z\right)+\frac{\partial u}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _z+\frac{\partial v}{\partial \xi} \left(-\frac{2}{3} \zeta _z \xi _y+\zeta _y \xi _z\right)+\frac{\partial v}{\partial \eta} \left(-\frac{2}{3} \zeta _z \eta _y+\zeta _y \eta _z\right)+\frac{\partial v}{\partial \zeta}\frac{1}{3} \zeta _y \zeta _z+\frac{\partial w}{\partial \xi} \left(\zeta _x \xi _x+\zeta _y \xi _y+\frac{4}{3}\zeta _z \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\frac{4}{3}\zeta _z \eta _z\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x^2+\zeta _y^2+\frac{4}{3}\zeta _z^2\right)
+\right\}
+\\
+\\
+\Psi J \mu  \left\{
+\frac{\Gamma}{\Psi} \left[
+\frac{\partial T}{\partial \xi} \left(\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial T}{\partial \eta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x^2+\zeta _y^2+\zeta _z^2\right)
+\right] \right.
+\\+u \left(
+\frac{\partial u}{\partial \xi} \left(\frac{4}{3}\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3}\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x^2+\zeta _y^2+\zeta _z^2\right)+\frac{\partial v}{\partial \xi} \left(\zeta _y \xi _x-\frac{2}{3}\zeta _x \xi _y\right)+\frac{\partial v}{\partial \eta} \left(\zeta _y \eta _x-\frac{2}{3}\zeta _x \eta _y\right)+\frac{\partial v}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _y+\frac{\partial w}{\partial \xi} \left(\zeta _z \xi _x-\frac{2}{3}\zeta _x \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _z \eta _x-\frac{2}{3}\zeta _x \eta _z\right)+\frac{\partial w}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _z
+\right)
+\\+v \left(
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \zeta _y \xi _x+\zeta _x \xi _y\right)+\frac{\partial u}{\partial \eta} \left(-\frac{2}{3} \zeta _y \eta _x+\zeta _x \eta _y\right)+\frac{\partial u}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _y+\frac{\partial v}{\partial \xi} \left(\zeta _x \xi _x+\frac{4}{3}\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial v}{\partial \eta} \left(\zeta _x \eta _x+\frac{4}{3}\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x^2+\frac{4}{3}\zeta _y^2+\zeta _z^2\right)+\frac{\partial w}{\partial \xi} \left(\zeta _z \xi _y-\frac{2}{3}\zeta _y \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _z \eta _y-\frac{2}{3}\zeta _y \eta _z\right)+\frac{\partial w}{\partial \zeta}\frac{1}{3} \zeta _y \zeta _z
+\right)
+\\+w \left(
+\left.
+\frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \zeta _z \xi _x+\zeta _x \xi _z\right)+\frac{\partial u}{\partial \eta} \left(-\frac{2}{3} \zeta _z \eta _x+\zeta _x \eta _z\right)+\frac{\partial u}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _z+\frac{\partial v}{\partial \xi} \left(-\frac{2}{3} \zeta _z \xi _y+\zeta _y \xi _z\right)+\frac{\partial v}{\partial \eta} \left(-\frac{2}{3} \zeta _z \eta _y+\zeta _y \eta _z\right)+\frac{\partial v}{\partial \zeta}\frac{1}{3} \zeta _y \zeta _z+\frac{\partial w}{\partial \xi} \left(\zeta _x \xi _x+\zeta _y \xi _y+\frac{4}{3}\zeta _z \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\frac{4}{3}\zeta _z \eta _z\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x^2+\zeta _y^2+\frac{4}{3}\zeta _z^2\right)
+\right)
+\right\}
+\end{pmatrix}
+\end{align*}
+
+\subsection{Konvektive Flüsse [WENO]}
+\subsubsection{Flussvektor $\hat{F}$}
+\begin{align*}
+\hat{F}
+=
+J
+\begin{pmatrix}
+\rho \left(u \xi_x+v \xi_y +w \xi_z\right)
+\\
+\rho \left(u \xi_x+v \xi_y +w \xi_z\right) u +\xi_x p \Upsilon
+\\
+\rho \left(u \xi_x+v \xi_y +w \xi_z\right) v +\xi_y p \Upsilon
+\\
+\rho \left(u \xi_x+v \xi_y +w \xi_z\right) w +\xi_z p \Upsilon
+\\
+\rho \left(u \xi_x+v \xi_y +w \xi_z\right) \left( e+\frac{p}{\rho} \Upsilon\right)
+\end{pmatrix}
+=
+J
+\begin{pmatrix}
+\rho \theta_1
+\\
+\rho \theta_1 u +\xi_x p \Upsilon
+\\
+\rho \theta_1 v +\xi_y p \Upsilon
+\\
+\rho \theta_1 w +\xi_z p \Upsilon
+\\
+\rho \theta_1 \left( e+\frac{p}{\rho} \Upsilon\right)
+\end{pmatrix}
+\end{align*}
+
+\subsubsection{Flussvektor $\hat{G}$}
+\begin{align*}
+\hat{G}
+=
+J
+\begin{pmatrix}
+\rho \left(u \eta_x+v \eta_y +w \eta_z\right)
+\\
+\rho \left(u \eta_x+v \eta_y +w \eta_z\right) u +\eta_x p \Upsilon
+\\
+\rho \left(u \eta_x+v \eta_y +w \eta_z\right) v +\eta_y p \Upsilon
+\\
+\rho \left(u \eta_x+v \eta_y +w \eta_z\right) w +\eta_z p \Upsilon
+\\
+\rho \left(u \eta_x+v \eta_y +w \eta_z\right) \left( e+\frac{p}{\rho} \Upsilon\right)
+\end{pmatrix}
+=
+J
+\begin{pmatrix}
+\rho \theta_2
+\\
+\rho \theta_2 u +\eta_x p \Upsilon
+\\
+\rho \theta_2 v +\eta_y p \Upsilon
+\\
+\rho \theta_2 w +\eta_z p \Upsilon
+\\
+\rho \theta_2 \left( e+\frac{p}{\rho} \Upsilon\right)
+\end{pmatrix}
+\end{align*}
+
+\subsubsection{Flussvektor $\hat{H}$}
+\begin{align*}
+\hat{H}
+=
+J
+\begin{pmatrix}
+\rho \left(u \zeta_x+v \zeta_y +w \zeta_z\right)
+\\
+\rho \left(u \zeta_x+v \zeta_y +w \zeta_z\right) u +\zeta_x p \Upsilon
+\\
+\rho \left(u \zeta_x+v \zeta_y +w \zeta_z\right) v +\zeta_y p \Upsilon
+\\
+\rho \left(u \zeta_x+v \zeta_y +w \zeta_z\right) w +\zeta_z p \Upsilon
+\\
+\rho \left(u \zeta_x+v \zeta_y +w \zeta_z\right) \left( e+\frac{p}{\rho} \Upsilon\right)
+\\
+\end{pmatrix}
+=
+J
+\begin{pmatrix}
+\rho \theta_3
+\\
+\rho \theta_3 u +\zeta_x p \Upsilon
+\\
+\rho \theta_3 v +\zeta_y p \Upsilon
+\\
+\rho \theta_3 w +\zeta_z p \Upsilon
+\\
+\rho \theta_3 \left( e+\frac{p}{\rho} \Upsilon\right)
+\\
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+\theta_1&=u \xi_x+v \xi_x+w \xi_x\\
+\theta_2&=u \eta_x+v \eta_x+w \eta_x\\
+\theta_3&=u \zeta_x+v \zeta_x+w \zeta_x
+\end{align*}
+\begin{align*}
+u = -\frac{\theta_1 \eta_y \zeta_z-\theta_1 \eta_z \zeta_y-\theta_2 \xi_y \zeta_z+\theta_2 \xi_z \zeta_y+\theta_3 \xi_y \eta_z-\theta_3 \xi_z \eta_y}{-\xi_x \eta_y \zeta_z+\xi_x \eta_z \zeta_y+\xi_y \eta_x \zeta_z-\xi_y \eta_z \zeta_x-\xi_z \eta_x \zeta_y+\xi_z \eta_y \zeta_x}\\
+v = -\frac{-\theta_1 \eta_x \zeta_z+\theta_1 \eta_z \zeta_x+\theta_2 \xi_x \zeta_z-\theta_2 \xi_z \zeta_x-\theta_3 \xi_x \eta_z+\theta_3 \xi_z \eta_x}{-\xi_x \eta_y \zeta_z+\xi_x \eta_z \zeta_y+\xi_y \eta_x \zeta_z-\xi_y \eta_z \zeta_x-\xi_z \eta_x \zeta_y+\xi_z \eta_y \zeta_x}\\ 
+w = -\frac{-\theta_1 \eta_x \zeta_y+\theta_1 \eta_y \zeta_x+\theta_2 \xi_x \zeta_y-\theta_2 \xi_y \zeta_x-\theta_3 \xi_x \eta_y+\theta_3 \xi_y \eta_x}{\xi_x \eta_y \zeta_z-\xi_x \eta_z \zeta_y-\xi_y \eta_x \zeta_z+\xi_y \eta_z \zeta_x+\xi_z \eta_x \zeta_y-\xi_z \eta_y \zeta_x}
+\end{align*}
+
+\subsection{2D-Rotationssymmetrisch}
+X-Achse ist Symmetrieachse und y entspricht dem Radius r.
+
+\begin{align*}
+\frac{\partial}{\partial t}
+\begin{pmatrix}
+\rho
+\\
+\rho u
+\\
+\rho v
+\\
+\rho e
+\end{pmatrix}
++
+\frac{\partial}{\partial x}
+\begin{pmatrix}
+\rho u
+\\
+\rho u^2 + \Upsilon p
+\\
+\rho uv
+\\
+u\left(\rho e+\Upsilon p\right)
+\end{pmatrix}
++
+\frac{\partial}{\partial y}
+\begin{pmatrix}
+\rho v
+\\
+\rho uv
+\\
+\rho v^2 + \Upsilon p
+\\
+v\left(\rho e+\Upsilon p\right)
+\end{pmatrix}
++
+\frac{1}{y}
+\begin{pmatrix}
+\rho v
+\\
+\rho uv - \Psi \tau_{xy}
+\\
+\rho v^2 - \Psi \tau_{yy}
+\\
+v\left(\rho e+\Upsilon p\right) - \Psi \tau_{xy} u - \Psi \tau_{yy} v - \Gamma q_y
+\end{pmatrix}
+=
+\frac{\partial}{\partial x}
+\begin{pmatrix}
+0
+\\
+\Psi \tau_{xx}
+\\
+\Psi \tau_{xy}
+\\
+\Psi \tau_{xx}u+\Psi \tau_{xy}v+\Gamma q_x
+\end{pmatrix}
++\frac{\partial}{\partial y}
+\begin{pmatrix}
+0
+\\
+\Psi \tau_{yx}
+\\
+\Psi \tau_{yy}
+\\
+\Psi \tau_{yx}u+\Psi \tau_{yy}v+\Gamma q_y
+\end{pmatrix}
+\end{align*}
+
+\begin{align*}
+\Upsilon (Upsilon)=\frac{1}{\gamma Ma_\infty^2}
+\ \ \ \ \ \ \ \ \ 
+\Psi (Psi)=\frac{1}{Re_\infty}
+\ \ \ \ \ \ \ \ \ 
+\Gamma (Gamma)=\frac{1}{\left(\gamma -1 \right)Ma_\infty^2 Re_\infty Pr_\infty}
+\end{align*}
+\begin{align*}
+e=\frac{T}{\gamma \left(\gamma -1\right)Ma_\infty^2}+\frac{1}{2}\left(u^2+v^2\right)
+\ \ \ \ \ \ \ \ \ 
+p=\rho T
+\ \ \ \ \ \ \ \ \ 
+\mu=\frac{1+S}{T+S}T^\frac{3}{2},\ S=\frac{100,4K}{\tilde{T_\infty}}
+\ \ \ \ \ \ \ \ \ 
+\lambda=\mu
+\end{align*}
+\begin{align*}
+q_x=\lambda \frac{\partial T}{\partial x}
+\ \ \ \ \ \ \ \ \ 
+q_y=\lambda \frac{\partial T}{\partial y}
+\end{align*}
+\begin{align*}
+\tau_{xx}=\mu \left(\frac{4}{3}\frac{\partial u}{\partial x}-\frac{2}{3}\left(\frac{\partial v}{\partial y} +\frac{v}{y}\right)\right)
+\ \ \ \ \ \ \ \ \
+\tau_{yy}=\mu \left(\frac{4}{3}\frac{\partial v}{\partial y}-\frac{2}{3}\left(\frac{\partial u}{\partial x} +\frac{v}{y}\right)\right)
+\ \ \ \ \ \ \ \ \ 
+\tau_{xy}=\tau_{yx}=\mu \left(\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x} \right)
+\end{align*}
+
+
+\section{Numerische Methode}
+\subsection{Approximation der zeitlichen Ableitung [Runge-Kutta]}
+\begin{align*}
+\left. \frac{\partial U}{\partial t} \right|_n &=Q\left(U^{n}\right)
+\\
+Q\left(U^{n}\right)&=
+-\frac{\partial \hat{F}}{\partial \xi}-\frac{\partial \hat{F}}{\partial \eta}-\frac{\partial \hat{G}}{\partial \zeta}
++
+\frac{\partial \hat{F}^\nu}{\partial \xi}+\frac{\partial \hat{G}^\nu}{\partial \eta}+\frac{\partial \hat{H}^\nu}{\partial \zeta}
+% \frac{U^{n+1}-U^{n}}{\varDelta t}&=Q\left(U^{n}\right)
+\end{align*}
+Folgende Definitionen der Zwischenschritte sind verwendet:
+\subsubsection{TVD 3.Ordnung}
+\begin{align*}
+U_{A}&=U^{n}+\varDelta t Q\left(U^{n}\right)
+\\
+U_{B}&=\frac{3}{4}U^{n}+\frac{1}{4}U_A+\frac{1}{4}\varDelta t Q\left(U_{A}\right)
+\\
+U^{n+1}&=\frac{1}{3}U^{n}+\frac{2}{3}U_B+\frac{2}{3}\varDelta t Q\left(U_{B}\right)
+\end{align*}
+
+
+\subsubsection{4.Ordnung}
+\begin{align*}
+U_{A}&=U^{n}+ \frac{\varDelta t}{2} Q\left(U^{n}\right)
+\\
+U_{B}&=U_{A}+ \frac{\varDelta t}{2} \left(-Q\left(U^{n}\right)+Q\left(U_{A}\right)\right)
+\\
+U_{C}&=U_{B}+ \frac{\varDelta t}{2} \left(-Q\left(U_{A}\right)+2Q\left(U_{B}\right)\right)
+\\
+U^{n+1}&=U_{C}+\frac{\varDelta t}{6} \left(Q\left(U^{n}\right)+2Q\left(U_{A}\right)-4Q\left(U_{B}\right)+Q\left(U_{C}\right)\right)
+\end{align*}
+
+Eingesetzt erhält man:
+\begin{align*}
+U_{A}&=U^{n}+ \frac{\varDelta t}{2} Q\left(U^{n}\right)
+\\
+U_{B}&=U^{n}+ \frac{\varDelta t}{2} Q\left(U_{A}\right)
+\\
+U_{C}&=U^{n}+ \varDelta t\ Q\left(U_{B}\right)
+\\
+U^{n+1}&=U^{n}+\frac{\varDelta t}{6}Q\left(U_{C}\right)+\frac{\varDelta t}{6} \overbrace{ \left[Q\left(U^{n}\right)+2 Q\left(U_{A}\right)+2 Q\left(U_{B}\right)\right]}^{Q_{Summe}}
+\end{align*}
+
+
+\subsection{Approximation der viskosen Flüsse - ausmultipliziert [Zentrale Differenzen]}
+\subsubsection{Doppelte Ableitung: $\frac{\partial^2}{\partial \xi^2}$}
+\begin{align*}
+\text{Approximation der Ableitung über Taylor-Reihe}&:
+\\
+\left. \frac{\partial^2 u}{\partial \xi^2}\right|_{i,j}&=\frac{A_{i+\frac{1}{2},j} \left(\frac{\partial u}{\partial \xi}\right)_{i+\frac{1}{2},j}-A_{i-\frac{1}{2},j} \left(\frac{\partial u}{\partial \xi}\right)_{i-\frac{1}{2},j}}{\varDelta \xi}
++\mathcal O\left(\varDelta \xi^{10}\right)
+\\
+\text{Mit}&:\\
+\\
+\left(A \frac{\partial u}{\partial \xi}\right)_{i+\frac{1}{2},j}&=
+C_{D,0}\left(u_{i+1}-u_{i} \right)-
+C_{D,1}\left(u_{i+2}-u_{i-1} \right)+
+C_{D,2}\left(u_{i+3}-u_{i-2} \right)-
+C_{D,3}\left(u_{i+4}-u_{i-3} \right)+
+C_{D,4}\left(u_{i+5}-u_{i-4} \right)\\
+% &-
+% C_{D,5}\left(u_{i+6}-u_{i-5} \right)+
+% C_{D,6}\left(u_{i+7}-u_{i-6} \right)-
+% C_{D,7}\left(u_{i+8}-u_{i-7} \right)+
+% C_{D,8}\left(u_{i+9}-u_{i-8} \right)-
+% C_{D,9}\left(u_{i+10}-u_{i-9} \right)\\
+\\
+\left(\frac{\partial u}{\partial \xi}\right)_{i-\frac{1}{2},j}&=
+C_{D,0}\left(u_{i}-u_{i-1} \right)-
+C_{D,1}\left(u_{i+1}-u_{i-2} \right)+
+C_{D,2}\left(u_{i+2}-u_{i-3} \right)-
+C_{D,3}\left(u_{i+3}-u_{i-4} \right)+
+C_{D,4}\left(u_{i+4}-u_{i-5} \right)\\
+\end{align*}
+\begin{align*}
+C_{D,0}&=-\frac{3}{9450}\ \ 
+C_{D,1}=\frac{351}{75600}\ \ 
+C_{D,2}=-\frac{2649}{75600}\ \ 
+C_{D,3}=\frac{15351}{75600}\ \ 
+C_{D,4}=-\frac{110649}{75600}\\
+% C_{D,5}&=\frac{110649}{75600}\ \ 
+% C_{D,6}=-\frac{15351}{75600}\ \ 
+% C_{D,7}=\frac{2649}{75600}\ \ 
+% C_{D,8}=-\frac{351}{75600}\ \ 
+% C_{D,9}=-\frac{3}{9450}
+\end{align*}
+
+\subsubsection{Gemischte Ableitung: $\frac{\partial}{\partial \xi} \left(A\frac{\partial u}{ \partial \eta}\right)$}
+\begin{align*}
+\frac{\partial}{\partial \xi} \left(A\frac{\partial u}{ \partial \eta}\right)&=
+\frac{ \left. A\frac{\partial u}{\partial \eta}\right|_{i+\frac{1}{2},j} - \left. A\frac{\partial u}{\partial \eta}\right|_{i-\frac{1}{2},j}}{\varDelta \xi}
++\mathcal O\left(\varDelta \xi^{10}+\varDelta \eta^{10}\right)
+\end{align*}
+\begin{align*}
+\text{Mittels folgender Interpolation}&:\\
+\left. A\frac{\partial u}{\partial \eta}\right|_{i+\frac{1}{2},j}&=
+C_{P,0}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+1,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i,j} \right)-
+C_{P,1}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+2,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-1,j} \right)+
+C_{P,2}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+3,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-2,j} \right)-
+C_{P,3}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+4,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-3,j} \right)+
+C_{P,4}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+5,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-4,j} \right)\\
+% &-
+% C_{P,5}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+6,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-5,j} \right)+
+% C_{P,6}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+7,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-6,j} \right)-
+% C_{P,7}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+8,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-7,j} \right)+
+% C_{P,8}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+9,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-8,j} \right)-
+% C_{P,9}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+10,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-9,j} \right)\\
+\\
+\left. A\frac{\partial u}{\partial \eta}\right|_{i-\frac{1}{2},j}&=
+C_{P,0}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-1,j} \right)-
+C_{P,1}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+1,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-2,j} \right)+
+C_{P,2}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+2,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-3,j} \right)-
+C_{P,3}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+3,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-4,j} \right)+
+C_{P,4}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+4,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-5,j} \right)\\
+% &-
+% C_{P,5}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+5,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-6,j} \right)+
+% C_{P,6}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+6,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-7,j} \right)-
+% C_{P,7}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+7,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-8,j} \right)+
+% C_{P,8}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+8,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-9,j} \right)-
+% C_{P,9}\left(\left. A\frac{\partial u}{\partial \eta}\right|_{i+9,j}+\left. A\frac{\partial u}{\partial \eta}\right|_{i-10,j} \right)\\
+\\
+\text{Dabei werden die Ableitungen so gebildet}&:\\
+\left. \frac{\partial u}{\partial \eta}\right|_{i,j}&=\frac{u_{i,j+\frac{1}{2}}-u_{i,j-\frac{1}{2}}}{\varDelta \eta}\\
+\\
+\text{Mit}&:\\
+\\
+u_{i,j+\frac{1}{2}}&=
+C_{P,0}\left(u_{i,j+1}+u_{i,j} \right)-
+C_{P,1}\left(u_{i,j+2}+u_{i,j-1} \right)+
+C_{P,2}\left(u_{i,j+3}+u_{i,j-2} \right)-
+C_{P,3}\left(u_{i,j+4}+u_{i,j-3} \right)+
+C_{P,4}\left(u_{i,j+5}+u_{i,j-4} \right)\\
+% &-
+% C_{P,5}\left(u_{i,j+6}+u_{i,j-5} \right)+
+% C_{P,6}\left(u_{i,j+7}+u_{i,j-6} \right)-
+% C_{P,7}\left(u_{i,j+8}+u_{i,j-7} \right)+
+% C_{P,8}\left(u_{i,j+9}+u_{i,j-8} \right)-
+% C_{P,9}\left(u_{i,j+10}+u_{i,j-9} \right)\\
+\\
+u_{i,j-\frac{1}{2}}&=
+C_{P,0}\left(u_{i,j}+u_{i,j-1} \right)-
+C_{P,1}\left(u_{i,j+1}+u_{i,j-2} \right)+
+C_{P,2}\left(u_{i,j+2}+u_{i,j-3} \right)-
+C_{P,3}\left(u_{i,j+3}+u_{i,j-4} \right)+
+C_{P,4}\left(u_{i,j+4}+u_{i,j-5} \right)\\
+% &-
+% C_{P,5}\left(u_{i,j+5}+u_{i,j-6} \right)+
+% C_{P,6}\left(u_{i,j+6}+u_{i,j-7} \right)-
+% C_{P,7}\left(u_{i,j+7}+u_{i,j-8} \right)+
+% C_{P,8}\left(u_{i,j+8}+u_{i,j-9} \right)-
+% C_{P,9}\left(u_{i,j+9}+u_{i,j-10} \right)\\
+\end{align*}
+\begin{align*}
+C_{P,0}&=\frac{1}{1260}\ \ 
+C_{P,1}=-\frac{23}{2520}\ \ 
+C_{P,2}=\frac{127}{2520}\ \ 
+C_{P,3}=-\frac{473}{2520}\ \ 
+C_{P,4}=\frac{1627}{2520}\\
+% C_{P,5}&=\frac{1627}{2520}\ \ 
+% C_{P,6}=-\frac{473}{2520}\ \ 
+% C_{P,7}=\frac{127}{2520}\ \ 
+% C_{P,8}=-\frac{23}{2520}\ \ 
+% C_{P,9}=\frac{1}{1260}
+\end{align*}
+
+
+\subsection{Approximation der konvektiven Flüsse inkl. Flux Vector Splitting}
+ \paragraph*{Flussberechnung mit Hilfe der Stencil}
+\begin{align*}
+\frac{\partial \tilde{F}}{\partial \tilde{\xi}}&=
+\frac{\hat{F}_{i+\frac{1}{2},j,k} -\hat{F}_{i-\frac{1}{2},j,k}}{\varDelta \xi}
+\\
+\hat{F}_{i+\frac{1}{2},j,k}&=\sum_{m=0}^{r-1} \omega_m M^r_m
+\\
+M^r_m&=\sum_{l=i+m-r+1}^{i+m} a^r_{m,l} \hat{F}_{l,j,k}
+\\
+\text{Gewichtskoeffizienten}:
+\omega_m &=\frac{\bar{\omega}_m}{\bar{\omega}_0+...+\bar{\omega}_{r-1}}
+\\
+\bar{\omega}_m&=\frac{b_m^r}{\left(\epsilon+IS_m\right)^p}
+\\
+\epsilon &= 10^{-6} (schlecht)
+\\
+\epsilon &= 10*\sqrt{DBL\_ MIN}\approx 10^{-150} (gut)
+\end{align*}
+ \paragraph*{Flux Vector Splitting}
+\begin{align*}
+\hat{F}_{i,j,k}&=\hat{F}^{+}_{i,j,k}+\hat{F}^{-}_{i,j,k}
+\\
+ \varDelta \hat{F}^{\pm}_{i+\frac{1}{2},j,k}&=\hat{F}^{\pm}_{i+1,j,k}-\hat{F}^{\pm}_{i,j,k}
+\\
+\hat{F}^{\pm}_{i,j,k}&=\frac{1}{2}\left(\hat{F}_{i,j,k} \pm \lambda_{i,j,k}^{max} J \hat{U}_{i,j,k} \right)
+\end{align*}
+Es gibt drei Varianten für das J, welches mit dem U in diese Gleichung kommt:\\
+Variante 1): Für den gesamten Stencil wird ein mittleres $\bar{J}=0.5/(J_i+J_{i+1})$ berechnet. \\
+Variante 2): $J$ wird über den stencil nicht mehr als konstant angesehen, sondern man nimmt für jeden Punkt den lokalen Wert. \\
+Variante 3): $J$ wird mit in die $\lambda_{Max}$-Berechnung genommen und findet sich dann als Faktor in $\lambda$ wieder.
+\begin{align*}
+\hat{F}_{i+\frac{1}{2},j,k}&=\Theta_{i+\frac{1}{2}}\left(\hat{F}_{i-\frac{N-1}{2}+1,j,k},...,\hat{F}_{i+\frac{N-1}{2},j,k}\right)
+\\
+&+\sum^N_{c=1}
+\left[ 
+\varphi\left(\hat{R}^{-1,c}_{i+\frac{1}{2},j,k}\varDelta \hat{F}^{-}_{i-\frac{N}{2},j,k},...,\hat{R}^{-1,c}_{i+\frac{1}{2},j,k}\varDelta \hat{F}^{-}_{i+\frac{N}{2}-2,j,k} \right)
+\right.
+\\
+&-
+\left.
+\varphi\left(\hat{R}^{-1,c}_{i+\frac{1}{2},j,k}\varDelta \hat{F}^{+}_{i-\frac{N}{2}+1,j,k},...,\hat{R}^{-1,c}_{i+\frac{1}{2},j,k}\varDelta \hat{F}^{+}_{i+\frac{N}{2}-1,j,k} \right)
+\right]\hat{R}^{c}_{i+\frac{1}{2},j,k}
+\end{align*}
+
+\subsubsection{WENO9 (r=5)}
+\begin{align*}
+\Theta_{i+\frac{1}{2}} \left(\hat{F}_{i-3},\hat{F}_{i-2},\hat{F}_{i-1},\hat{F}_{i},\hat{F}_{i+1},\hat{F}_{i+2},\hat{F}_{i+3},\hat{F}_{i+4}\right)&=
+\frac{1}{840}
+\left[
+ 533\left(\hat{F}_{i+1}+\hat{F}_{i} \right)
+-139\left(\hat{F}_{i+2}+\hat{F}_{i-1} \right)
++29\left(\hat{F}_{i+3}+\hat{F}_{i-2} \right)
+-3\left(\hat{F}_{i+4}+\hat{F}_{i-3} \right)
+\right]
+\\
+\varphi \left( F_1,F_2,F_3,F_4,F_5,F_6,F_7,F_8,F_9 \right) &=
+\frac{1}{5}\omega_0 q_1+\frac{1}{20}\omega_2 q_2
++\frac{1}{60}\omega_3\left(3q_2-2q_3\right)
++\frac{1}{60}\omega_4\left(3q_2-2 q_3+3 q_4\right)
+-\frac{1}{840}\left(39 q_2-14 q_3+3 q_4\right)
+\\
+q_1&=F_1-4F_2+6F_3-4F_4+F_5\\ 
+q_2&=F_2-4F_3+6F_4-4F_5+F_6\\
+q_3&=F_3-4F_4+6F_5-4F_6+F_7\\ 
+q_4&=F_4-4F_5+6F_6-4F_7+F_8\\
+\end{align*}
+
+\begin{align*}
+\text{Optimale Gewichtskoeffizienten}:
+b_0^5 &= \frac{1}{126}
+\\
+b_1^5 &= \frac{10}{63}
+\\
+b_2^5 &= \frac{10}{21}
+\\
+b_3^5 &= \frac{20}{63}
+\\
+b_4^5 &= \frac{5}{126}
+\end{align*}
+
+\begin{align*}
+\text{Glättungsindikatoren}:
+IS^5_0 &= \hat{F}_{i-4} (22658 \hat{F}_{i-4} - 208501 \hat{F}_{i-3} + 364863 \hat{F}_{i-2} - 288007 \hat{F}_{i-1} + 86329 \hat{F}_{i})\\
+&+ \hat{F}_{i-3} (482963 \hat{F}_{i-3} - 1704396 \hat{F}_{i-2} + 1358458 \hat{F}_{i-1} - 411487 \hat{F}_{i})\\
+&+ \hat{F}_{i-2} (1521393 \hat{F}_{i-2} - 2462076 \hat{F}_{i-1} + 758823 \hat{F}_{i})\\
+&+ \hat{F}_{i-1} (1020563 \hat{F}_{i-1} - 649501 \hat{F}_{i}) + 107918 \hat{F}_{i}^2\\
+\\
+IS^5_1 &= \hat{F}_{i-3} (6908 \hat{F}_{i-3} - 60871 \hat{F}_{i-2} + 99213 \hat{F}_{i-1} - 70237 \hat{F}_{i} + 18079 \hat{F}_{i+1})\\
+&+ \hat{F}_{i-2} (138563 \hat{F}_{i-2} - 464976 \hat{F}_{i-1} + 337018 \hat{F}_{i} - 88297 \hat{F}_{i+1})\\
+&+ \hat{F}_{i-1} (406293 \hat{F}_{i-1} - 611976 \hat{F}_{i} + 165153 \hat{F}_{i+1})\\
+&+ \hat{F}_{i} (242723 \hat{F}_{i} - 140251 \hat{F}_{i+1}) + 22658 \hat{F}_{i+1}^2\\
+\\
+IS^5_2 &= \hat{F}_{i-2} (6908 \hat{F}_{i-2} - 51001 \hat{F}_{i-1} + 67923 \hat{F}_{i} - 38947 \hat{F}_{i+1} + 8209 \hat{F}_{i+2})\\
+&+ \hat{F}_{i-1} (104963 \hat{F}_{i-1} - 299076 \hat{F}_{i} + 179098 \hat{F}_{i+1} - 38947 \hat{F}_{i+2})\\
+&+ \hat{F}_{i} (231153 \hat{F}_{i} - 299076 \hat{F}_{i+1} + 67923 \hat{F}_{i+2})\\
+&+ \hat{F}_{i+1} (104963 \hat{F}_{i+1} - 51001 \hat{F}_{i+2}) + 6908 \hat{F}_{i+2}^2\\
+\\
+IS^5_3 &= \hat{F}_{i-1} (22658 \hat{F}_{i-1} - 140251 \hat{F}_{i} + 165153 \hat{F}_{i+1} - 88297 \hat{F}_{i+2} + 18079 \hat{F}_{i+3})\\
+&+ \hat{F}_{i} (242723 \hat{F}_{i} - 611976 \hat{F}_{i+1} + 337018 \hat{F}_{i+2} - 70237 \hat{F}_{i+3})\\
+&+ \hat{F}_{i+1} (406293 \hat{F}_{i+1} - 464976 \hat{F}_{i+2} + 99213 \hat{F}_{i+3})\\
+&+ \hat{F}_{i+2} (138563 \hat{F}_{i+2} - 60871 \hat{F}_{i+3}) + 6908 \hat{F}_{i+3}^2\\
+\\
+IS^5_4 &= \hat{F}_{i} (107918 \hat{F}_{i} - 649501 \hat{F}_{i+1} + 758823 \hat{F}_{i+2} - 411487 \hat{F}_{i+3} + 86329 \hat{F}_{i+4})\\
+&+ \hat{F}_{i+1} (1020563 \hat{F}_{i+1} - 2462076 \hat{F}_{i+2} + 1358458 \hat{F}_{i+3} - 288007 \hat{F}_{i+4})\\
+&+ \hat{F}_{i+2} (1521393 \hat{F}_{i+2} - 1704396 \hat{F}_{i+3} + 364863 \hat{F}_{i+4})\\
+&+ \hat{F}_{i+3} (482963 \hat{F}_{i+3} - 208501 \hat{F}_{i+4}) + 22658 \hat{F}_{i+4}^2\\
+\end{align*}
+
+\subsubsection{WENO5 (r=3)}
+\begin{align*}
+\Theta_{i+\frac{1}{2}} \left(\hat{F}_{i-1},\hat{F}_{i},\hat{F}_{i+1},\hat{F}_{i+2}\right)&=
+\frac{1}{12}
+\left[
+-\left(\hat{F}_{i-1}+\hat{F}_{i+2} \right)
++7\left(\hat{F}_{i}+\hat{F}_{i+1} \right)
+\right]
+\\
+\varphi \left( F_1,F_2,F_3,F_4\right) &=
+\frac{1}{3}\omega_0 q_1+
+\frac{1}{6} \left(\omega_2 -\frac{1}{2}\right) q_2
+\\
+q_1&=F_1-2F_2+F_3\\ 
+q_2&=F_2-2F_3+F_4\\ 
+\end{align*}
+
+\begin{align*}
+\text{Optimal Gewichtskoeffizienten}:
+b_0^3 &= \frac{1}{10}
+\\
+b_1^3 &= \frac{3}{5}
+\\
+b_2^3 &= \frac{3}{10}
+\\
+\text{Glättungsindikatoren}:
+IS^3_0 &= 13 \left(\hat{F}_{i-1}-\hat{F}_{i}\right)^2 + 3 \left(\hat{F}_{i-1}-3\hat{F}_{i}\right)^2
+\\
+IS^3_1 &= 13 \left(\hat{F}_{i}-\hat{F}_{i+1}\right)^2 + 3 \left(\hat{F}_{i}+\hat{F}_{i+1}\right)^2
+\\
+IS^3_2 &= 13 \left(\hat{F}_{i+1}-\hat{F}_{i+2}\right)^2 + 3 \left(3\hat{F}_{i+1}-\hat{F}_{i+2}\right)^2
+\end{align*}
+
+\subsubsection{Eigenvektoren für $\hat{F}$, $\hat{G}$ und $\hat{H}$}
+\begin{align*}
+\begin{matrix}
+\hat{\xi}_x=\frac{\xi_x}{\sqrt{\xi_x^2+\xi_y^2+\xi_z^2}}
+&
+\hat{\xi}_y=\frac{\xi_y}{\sqrt{\xi_x^2+\xi_y^2+\xi_z^2}}
+&
+\hat{\xi}_z=\frac{\xi_z}{\sqrt{\xi_x^2+\xi_y^2+\xi_z^2}}
+\\
+\hat{\eta}_x=\frac{\eta_x}{\sqrt{\eta_x^2+\eta_y^2+\eta_z^2}}
+&
+\hat{\eta}_y=\frac{\eta_y}{\sqrt{\eta_x^2+\eta_y^2+\eta_z^2}}
+&
+\hat{\eta}_z=\frac{\eta_z}{\sqrt{\eta_x^2+\eta_y^2+\eta_z^2}}
+\\
+\hat{\zeta}_x=\frac{\zeta_x}{\sqrt{\zeta_x^2+\zeta_y^2+\zeta_z^2}}
+&
+\hat{\zeta}_y=\frac{\zeta_y}{\sqrt{\zeta_x^2+\zeta_y^2+\zeta_z^2}}
+&
+\hat{\zeta}_z=\frac{\zeta_z}{\sqrt{\zeta_x^2+\zeta_y^2+\zeta_z^2}}
+\end{matrix}
+\end{align*}
+
+\paragraph{Eigenvektoren für $\hat{F}$}
+\begin{align*}
+R_1&=
+\begin{array}{c|c|c|c|c}
+% \begin{array}{c|c|c|c|c}
+\hat{\xi}_x
+&
+\hat{\xi}_y
+&
+\hat{\xi}_z
+&
+\frac{1}{\sqrt{2} c}
+&
+\frac{1}{\sqrt{2} c}
+\\ \hline
+u \hat{\xi}_x
+&
+u \hat{\xi}_y-\rho \hat{\xi}_z
+&
+u \hat{\xi}_z+\rho \hat{\xi}_y
+&
+\frac{1}{\sqrt{2} c}\left(u+\hat{\xi}_x c\right)
+&
+\frac{1}{\sqrt{2} c}\left(u-\hat{\xi}_x c\right)
+\\ \hline
+v \hat{\xi}_x+\rho \hat{\xi}_z
+&
+v \hat{\xi}_y
+&
+v \hat{\xi}_z-\rho \hat{\xi}_x
+&
+\frac{1}{\sqrt{2} c}\left(v+\hat{\xi}_y c\right)
+&
+\frac{1}{\sqrt{2} c}\left(v-\hat{\xi}_y c\right)
+\\ \hline
+w \hat{\xi}_x-\rho \hat{\xi}_y
+&
+w \hat{\xi}_y+\rho \hat{\xi}_x
+&
+w \hat{\xi}_z
+&
+\frac{1}{\sqrt{2} c}\left(w+\hat{\xi}_z c\right)
+&
+\frac{1}{\sqrt{2} c}\left(w-\hat{\xi}_z c\right)
+\\ \hline
+\frac{u^2+v^2+w^2}{2}\hat{\xi}_x+\rho\left(v\hat{\xi}_z-w\hat{\xi}_y\right)
+&
+\frac{u^2+v^2+w^2}{2}\hat{\xi}_y+\rho\left(w\hat{\xi}_x-u\hat{\xi}_z\right)
+&
+\frac{u^2+v^2+w^2}{2}\hat{\xi}_z+\rho\left(u\hat{\xi}_y-v\hat{\xi}_x\right)
+&
+\frac{1}{\sqrt{2} c}\left[\frac{u^2+v^2+w^2}{2}+\frac{c^2}{\gamma-1}+c\left(u\hat{\xi}_x+v\hat{\xi}_y+w\hat{\xi}_z \right) \right]
+&
+\frac{1}{\sqrt{2} c}\left[\frac{u^2+v^2+w^2}{2}+\frac{c^2}{\gamma-1}-c\left(u\hat{\xi}_x+v\hat{\xi}_y+w\hat{\xi}_z \right) \right]
+% \end{array}
+\end{array}
+\\ \\ \\
+R^{-1}_1&=
+\begin{array}{c|c|c|c|c}
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\xi}_x-\frac{1}{\rho}\left(v\hat{\xi}_z-w\hat{\xi}_y\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\xi}_x
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\xi}_x+\frac{\hat{\xi}_z}{\rho}
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\xi}_x-\frac{\hat{\xi}_y}{\rho}
+&
+-\frac{\gamma-1}{c^2}\hat{\xi}_x
+\\ \hline
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\xi}_y-\frac{1}{\rho}\left(w\hat{\xi}_x-u\hat{\xi}_z\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\xi}_y-\frac{\hat{\xi}_z}{\rho}
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\xi}_y
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\xi}_y+\frac{\hat{\xi}_x}{\rho}
+&
+-\frac{\gamma-1}{c^2}\hat{\xi}_y
+\\ \hline
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\xi}_z-\frac{1}{\rho}\left(u\hat{\xi}_y-v\hat{\xi}_x\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\xi}_z+\frac{\hat{\xi}_y}{\rho}
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\xi}_z-\frac{\hat{\xi}_x}{\rho}
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\xi}_z
+&
+-\frac{\gamma-1}{c^2}\hat{\xi}_z
+\\ \hline
+\frac{c}{\sqrt{2}}\left[\frac{\gamma-1}{2}M^2-\frac{1}{c}\left(u\hat{\xi}_x+v\hat{\xi}_y+w\hat{\xi}_z\right)\right]
+&
+\frac{1}{\sqrt{2}}\left(\hat{\xi}_x-\frac{\gamma-1}{c}u\right)
+&
+\frac{1}{\sqrt{2}}\left(\hat{\xi}_y-\frac{\gamma-1}{c}v\right)
+&
+\frac{1}{\sqrt{2}}\left(\hat{\xi}_z-\frac{\gamma-1}{c}w\right)
+&
+\frac{\gamma-1}{\sqrt{2} c}
+\\ \hline
+\frac{c}{\sqrt{2}}\left[\frac{\gamma-1}{2}M^2+\frac{1}{c}\left(u\hat{\xi}_x+v\hat{\xi}_y+w\hat{\xi}_z\right)\right]
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\xi}_x+\frac{\gamma-1}{c}u\right)
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\xi}_y+\frac{\gamma-1}{c}v\right)
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\xi}_z+\frac{\gamma-1}{c}w\right)
+&
+\frac{\gamma-1}{\sqrt{2} c}
+\end{array}
+\end{align*}
+
+
+\paragraph{Eigenvektoren für $\hat{G}$}
+\begin{align*}
+R_2&=
+\begin{array}{c|c|c|c|c}
+\hat{\eta}_x
+&
+\hat{\eta}_y
+&
+\hat{\eta}_z
+&
+\frac{1}{\sqrt{2} c}
+&
+\frac{1}{\sqrt{2} c}
+\\ \hline
+u \hat{\eta}_x
+&
+u \hat{\eta}_y-\rho \hat{\eta}_z
+&
+u \hat{\eta}_z+\rho \hat{\eta}_y
+&
+\frac{1}{\sqrt{2} c}\left(u+\hat{\eta}_x c\right)
+&
+\frac{1}{\sqrt{2} c}\left(u-\hat{\eta}_x c\right)
+\\ \hline
+v \hat{\eta}_x+\rho \hat{\eta}_z
+&
+v \hat{\eta}_y
+&
+v \hat{\eta}_z-\rho \hat{\eta}_x
+&
+\frac{1}{\sqrt{2} c}\left(v+\hat{\eta}_y c\right)
+&
+\frac{1}{\sqrt{2} c}\left(v-\hat{\eta}_y c\right)
+\\ \hline
+w \hat{\eta}_x-\rho \hat{\eta}_y
+&
+w \hat{\eta}_y+\rho \hat{\eta}_x
+&
+w \hat{\eta}_z
+&
+\frac{1}{\sqrt{2} c}\left(w+\hat{\eta}_z c\right)
+&
+\frac{1}{\sqrt{2} c}\left(w-\hat{\eta}_z c\right)
+\\ \hline
+\frac{u^2+v^2+w^2}{2}\hat{\eta}_x+\rho\left(v\hat{\eta}_z-w\hat{\eta}_y\right)
+&
+\frac{u^2+v^2+w^2}{2}\hat{\eta}_y+\rho\left(w\hat{\eta}_x-u\hat{\eta}_z\right)
+&
+\frac{u^2+v^2+w^2}{2}\hat{\eta}_z+\rho\left(u\hat{\eta}_y-v\hat{\eta}_x\right)
+&
+\frac{1}{\sqrt{2} c}\left[\frac{u^2+v^2+w^2}{2}+\frac{c^2}{\gamma-1}+c\left(u\hat{\eta}_x+v\hat{\eta}_y+w\hat{\eta}_z \right) \right]
+&
+\frac{1}{\sqrt{2} c}\left[\frac{u^2+v^2+w^2}{2}+\frac{c^2}{\gamma-1}-c\left(u\hat{\eta}_x+v\hat{\eta}_y+w\hat{\eta}_z \right) \right]
+\end{array}
+\\ \\ \\
+R^{-1}_2&=
+\begin{array}{c|c|c|c|c}
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\eta}_x-\frac{1}{\rho}\left(v\hat{\eta}_z-w\hat{\eta}_y\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\eta}_x
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\eta}_x+\frac{\hat{\eta}_z}{\rho}
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\eta}_x-\frac{\hat{\eta}_y}{\rho}
+&
+-\frac{\gamma-1}{c^2}\hat{\eta}_x
+\\ \hline
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\eta}_y-\frac{1}{\rho}\left(w\hat{\eta}_x-u\hat{\eta}_z\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\eta}_y-\frac{\hat{\eta}_z}{\rho}
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\eta}_y
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\eta}_y+\frac{\hat{\eta}_x}{\rho}
+&
+-\frac{\gamma-1}{c^2}\hat{\eta}_y
+\\ \hline
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\eta}_z-\frac{1}{\rho}\left(u\hat{\eta}_y-v\hat{\eta}_x\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\eta}_z+\frac{\hat{\eta}_y}{\rho}
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\eta}_z-\frac{\hat{\eta}_x}{\rho}
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\eta}_z
+&
+-\frac{\gamma-1}{c^2}\hat{\eta}_z
+\\ \hline
+\frac{c}{\sqrt{2}}\left[\frac{\gamma-1}{2}M^2-\frac{1}{c}\left(u\hat{\eta}_x+v\hat{\eta}_y+w\hat{\eta}_z\right)\right]
+&
+\frac{1}{\sqrt{2}}\left(\hat{\eta}_x-\frac{\gamma-1}{c}u\right)
+&
+\frac{1}{\sqrt{2}}\left(\hat{\eta}_y-\frac{\gamma-1}{c}v\right)
+&
+\frac{1}{\sqrt{2}}\left(\hat{\eta}_z-\frac{\gamma-1}{c}w\right)
+&
+\frac{\gamma-1}{\sqrt{2} c}
+\\ \hline
+\frac{c}{\sqrt{2}}\left[\frac{\gamma-1}{2}M^2+\frac{1}{c}\left(u\hat{\eta}_x+v\hat{\eta}_y+w\hat{\eta}_z\right)\right]
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\eta}_x+\frac{\gamma-1}{c}u\right)
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\eta}_y+\frac{\gamma-1}{c}v\right)
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\eta}_z+\frac{\gamma-1}{c}w\right)
+&
+\frac{\gamma-1}{\sqrt{2} c}
+\end{array}
+\end{align*}
+
+\paragraph{Eigenvektoren für $\hat{H}$}
+\begin{align*}
+R_3&=
+\begin{array}{c|c|c|c|c}
+\hat{\zeta}_x
+&
+\hat{\zeta}_y
+&
+\hat{\zeta}_z
+&
+\frac{1}{\sqrt{2} c}
+&
+\frac{1}{\sqrt{2} c}
+\\ \hline
+u \hat{\zeta}_x
+&
+u \hat{\zeta}_y-\rho \hat{\zeta}_z
+&
+u \hat{\zeta}_z+\rho \hat{\zeta}_y
+&
+\frac{1}{\sqrt{2} c}\left(u+\hat{\zeta}_x c\right)
+&
+\frac{1}{\sqrt{2} c}\left(u-\hat{\zeta}_x c\right)
+\\ \hline
+v \hat{\zeta}_x+\rho \hat{\zeta}_z
+&
+v \hat{\zeta}_y
+&
+v \hat{\zeta}_z-\rho \hat{\zeta}_x
+&
+\frac{1}{\sqrt{2} c}\left(v+\hat{\zeta}_y c\right)
+&
+\frac{1}{\sqrt{2} c}\left(v-\hat{\zeta}_y c\right)
+\\ \hline
+w \hat{\zeta}_x-\rho \hat{\zeta}_y
+&
+w \hat{\zeta}_y+\rho \hat{\zeta}_x
+&
+w \hat{\zeta}_z
+&
+\frac{1}{\sqrt{2} c}\left(w+\hat{\zeta}_z c\right)
+&
+\frac{1}{\sqrt{2} c}\left(w-\hat{\zeta}_z c\right)
+\\ \hline
+\frac{u^2+v^2+w^2}{2}\hat{\zeta}_x+\rho\left(v\hat{\zeta}_z-w\hat{\zeta}_y\right)
+&
+\frac{u^2+v^2+w^2}{2}\hat{\zeta}_y+\rho\left(w\hat{\zeta}_x-u\hat{\zeta}_z\right)
+&
+\frac{u^2+v^2+w^2}{2}\hat{\zeta}_z+\rho\left(u\hat{\zeta}_y-v\hat{\zeta}_x\right)
+&
+\frac{1}{\sqrt{2} c}\left[\frac{u^2+v^2+w^2}{2}+\frac{c^2}{\gamma-1}+c\left(u\hat{\zeta}_x+v\hat{\zeta}_y+w\hat{\zeta}_z \right) \right]
+&
+\frac{1}{\sqrt{2} c}\left[\frac{u^2+v^2+w^2}{2}+\frac{c^2}{\gamma-1}-c\left(u\hat{\zeta}_x+v\hat{\zeta}_y+w\hat{\zeta}_z \right) \right]
+\end{array}
+\\ \\ \\
+R^{-1}_3&=
+\begin{array}{c|c|c|c|c}
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\zeta}_x-\frac{1}{\rho}\left(v\hat{\zeta}_z-w\hat{\zeta}_y\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\zeta}_x
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\zeta}_x+\frac{\hat{\zeta}_z}{\rho}
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\zeta}_x-\frac{\hat{\zeta}_y}{\rho}
+&
+-\frac{\gamma-1}{c^2}\hat{\zeta}_x
+\\ \hline
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\zeta}_y-\frac{1}{\rho}\left(w\hat{\zeta}_x-u\hat{\zeta}_z\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\zeta}_y-\frac{\hat{\zeta}_z}{\rho}
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\zeta}_y
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\zeta}_y+\frac{\hat{\zeta}_x}{\rho}
+&
+-\frac{\gamma-1}{c^2}\hat{\zeta}_y
+\\ \hline
+\left(1-\frac{\gamma -1}{2}M^2\right)\hat{\zeta}_z-\frac{1}{\rho}\left(u\hat{\zeta}_y-v\hat{\zeta}_x\right)
+&
+\left(\gamma-1\right)\frac{u}{c^2}\hat{\zeta}_z+\frac{\hat{\zeta}_y}{\rho}
+&
+\left(\gamma-1\right)\frac{v}{c^2}\hat{\zeta}_z-\frac{\hat{\zeta}_x}{\rho}
+&
+\left(\gamma-1\right)\frac{w}{c^2}\hat{\zeta}_z
+&
+-\frac{\gamma-1}{c^2}\hat{\zeta}_z
+\\ \hline
+\frac{c}{\sqrt{2}}\left[\frac{\gamma-1}{2}M^2-\frac{1}{c}\left(u\hat{\zeta}_x+v\hat{\zeta}_y+w\hat{\zeta}_z\right)\right]
+&
+\frac{1}{\sqrt{2}}\left(\hat{\zeta}_x-\frac{\gamma-1}{c}u\right)
+&
+\frac{1}{\sqrt{2}}\left(\hat{\zeta}_y-\frac{\gamma-1}{c}v\right)
+&
+\frac{1}{\sqrt{2}}\left(\hat{\zeta}_z-\frac{\gamma-1}{c}w\right)
+&
+\frac{\gamma-1}{\sqrt{2} c}
+\\ \hline
+\frac{c}{\sqrt{2}}\left[\frac{\gamma-1}{2}M^2+\frac{1}{c}\left(u\hat{\zeta}_x+v\hat{\zeta}_y+w\hat{\zeta}_z\right)\right]
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\zeta}_x+\frac{\gamma-1}{c}u\right)
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\zeta}_y+\frac{\gamma-1}{c}v\right)
+&
+-\frac{1}{\sqrt{2}}\left(\hat{\zeta}_z+\frac{\gamma-1}{c}w\right)
+&
+\frac{\gamma-1}{\sqrt{2} c}
+\end{array}
+\end{align*}
+
+
+\subsubsection{Eigenwertbestimmung $\lambda_{max}$}
+Innerhalb eines Stencils wird der maximale Eigenwert $\lambda_{max}$ bestimmt
+\begin{align*}
+\begin{matrix}
+\Theta_1=u\xi_x+v\xi_y+w\xi_z
+&
+\Theta_2=u\eta_x+v\eta_y+w\eta_z
+&
+\Theta_3=u\zeta_x+v\zeta_y+w\zeta_z
+\\
+c_1=c\sqrt{\xi_x^2+\xi_y^2+\xi_z^2}
+&
+c_2=c\sqrt{\eta_x^2+\eta_y^2+\eta_z^2}
+&
+c_3=c\sqrt{\zeta_x^2+\zeta_y^2+\zeta_z^2}
+\end{matrix}
+\end{align*}
+\begin{align*}
+ \lambda_{max}&=max\left(\lambda_{k}\right)
+\\
+\lambda_{k}&=\left(\left|\Theta_k\right|,\left|\Theta_k\right|,\left|\Theta_k\right|,\left|\Theta_k+c_k\right|,\left|\Theta_k-c_k\right| \right)
+\end{align*}
+
+\subsubsection{Sonstige Formeln}
+
+\begin{align*}
+ y^+ \approx \frac{20}{Re_\infty}
+\end{align*}
+
+\section{Randbedingungen}
+Die Randbedingungen werden bisher mittels Ghostcells eingestellt. 
+Eine mögliche Alternative für Verfahren hoher Ordnung ist die Reduzierung der Ordnung zum Rand hin. 
+Dann kann man dann den Rand direkt determinieren (u=0...).\\
+Bei der Verwendung von GhostCells spielt die Tatsache eine große Rolle, dass die verwendeten Gitter in den meisten Fällen krummlinig sind.
+Die Forderung $\frac{\partial p}{\partial n}$ ist somit nicht trivial krummlinigen Koordinaten-System (KoS).
+Man stelle sich z.B. vor, dass eine Gitterlinie unter einem scharfen Winkel auf den Rand trifft.
+Verfolgt man jetzt die Ideologie, dass die Druckwerte gespiegelt werden, so erzeugt man dadurch ungewollt einen Rand der orthogonal zu dieser Gitterlinie ist.
+Als besonders klares Beispiel kann die Simulation eines Riemann Problems betrachtet werden.
+Ein Gebiet mit Riemann-Startbedingungen und freien Rändern erzeugt bei schrägen Gitterlinien am Rand eine Krümmung des Stoßes,
+weil die unsteten Druckverläufe am Rand falsch gespiegelt werden.
+Als Folge erfüllen die Ghostcells im kartesischen Koordinatensystem nicht die Forderung $\frac{\partial p}{\partial n}$ und ein Druckgradient stellt sich sein.
+\par
+Ein Gedanke, dieses Problem zu umgehen, ist die Spiegelung der Metrik.
+Eine gespiegelte Metrik und gespiegelte Strömungsgrößen p,$\rho$,u,v,w führen zu einer direkten Kontrolle der Flüsse.
+Allerdings gibt es Probleme bei den Impulsflüssen, da hier das Produkt aus u,v,w und $\theta$ steht.
+Ein Vorzeichenverlust ist die Folge.
+Dies kann korrigiert werden, indem eine Hilfsvariable (BC\_Corrector in saiwenos) verwendet wird, aber dennoch sind diese Randbedingungen von zwei Fehlern geprägt.
+Auf diese Weise sind die Flüsse symmetrisch. 
+Im Weiteren kann gezeigt werden, dass bei der verwendeten Approximation $\frac{\partial F}{\partial x}=\frac{F_{i+1/2}-F_{i-1/2}}{\varDelta X}$ die Ableitung gleich 0 wird sofern die optimalen Koeffizienten für das WENO Verfahren eingesetzt werden. (Klioutchnikov hat eine entsprechende Umformung).
+Die Wand befindet sich zwischen dem ersten realen Gitterpunkt und der ersten GhostCell.
+\par
+Für die anderen Randbedinungen werden die GhostCells extrapoliert und die Metrik berechnet wird.
+Hier ist auf zwei Dinge zu achten:
+\begin{enumerate}
+\item Das Gitter muss zum Rand orthogonal sein.
+\item Die Gitterabstände am Rand müssen symmetrisch zum Rand sein (keine Extrapolation mit konstantem Abstand).
+\end{enumerate}
+\textbf{Nur wenn sowohl Abstand als auch Winkel zum Rand (Wand) in einer GhostCell so sind, dass sie am Rand gespiegelt einer realen Gitterzelle entsprechen, ist eine Spiegelung der Strömungsgrößen p,$\rho$,u,v,w aus eben dieser realen Gitterzelle in die GhostCell zulässig.}
+\par
+Bei Einhaltung dieser Anforderungen an das Gitter spielt es keine Rolle ob $\theta_{1,2,3}$ oder u,v,w gespiegelt werden, 
+da die Metrik der GhostCells entsprechend der Metrik des realen Gebietes ist und eine Umrechnung von $\theta_{1,2,3}$ nach u,v,w und umgekehrt möglich ist. 
+\par
+\textbf{Metrikspiegelung:} Die Spiegelung der Metrik für Slip und Non-Slip Walls geschieht unter Berücksichtigung der Flüsse. Damit ist gemeint, dass die Flussgrößen nur dann antimetrisch sein können wenn die Metrik antimetrisch ist. Die Geschwindigkeiten in Form von $\theta_{1,2,3}$ und u,v,w haben allerdings das bekannte Problem, dass das Minuszeichen verschwinden kann. Dies kann vermieden werden, indem die Hilfsvariable BC\_Corrector verwendet wird.
+\par
+\textbf{Anmerkung:} Der Geschwindigkeitsvektor besitzt im kartesischen KoS die achsenparallelen Komponenten u,v,w und im krummlinigen die achsenparallelen Komponenten $\theta_{1,2,3}$.
+\begin{align*}
+\begin{pmatrix}
+\xi_x & \xi_y & \xi_z
+\\
+\eta_x & \eta_y & \eta_z
+\\
+\zeta_x & \zeta_y & \zeta_z
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+u
+\\
+v
+\\
+w
+\end{pmatrix}
+=
+\begin{pmatrix}
+u \xi_x + v \xi_y + w \xi_z 
+\\
+u \eta_x + v \eta_y + w \eta_z 
+\\
+u \zeta_x + v \zeta_y + w \zeta_z 
+\end{pmatrix}
+=\begin{pmatrix}
+\theta_1
+\\
+\theta_2
+\\
+\theta_3
+\end{pmatrix}
+\end{align*}
+
+
+\section{Ähnlichkeitsgrößen}
+\begin{tabular}{c|cccc}
+Mach-Zahl&Ma& $\frac{Stroemungsgeschwindigkeit}{Schallgeschwindigkeit}$ & $\frac{v}{c}$ & $\frac{m/s}{m/s}$\\
+\hline
+Reynolds-Zahl&Re& $\frac{Traegheitskraft}{Zaehigkeitskraft}$ & $\frac{\rho \cdot v \cdot l}{\mu}$ & $\frac{kg/m^3 \cdot m/s \cdot m}{kg/s/m}$\\
+\hline
+Prandtl-Zahl&Pr& $\frac{Impulstransport}{Waermetransport}=\frac{kinematischer\ Viskositaet}{Temperaturleitfaehigkeit}$ & $\frac{\nu}{a}$ & $\frac{m^2/s}{m^2/s}$\\
+\hline
+Schmidt-Zahl&Sc& $\frac{Impulstransport}{Stofftransport}=\frac{kinematischer\ Viskositaet}{Diffusionskoeffizient}$ & $\frac{\nu}{D}$ & $\frac{m^2/s}{m^2/s}$\\
+\hline
+Strouhal-Zahl&Sr& $\frac{Wirbelabloesefrequenz\ und\ Groesse\ des\ umstroemten\ Hindernisses}{Stroemungsgeschwindigkeit}$ & $\frac{f \cdot l}{v}$ & $\frac{1/s \cdot m}{m/s}$\\
+\end{tabular}

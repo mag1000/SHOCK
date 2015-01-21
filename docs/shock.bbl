@@ -1,0 +1,32 @@
+\begin{thebibliography}{1}
+
+\bibitem{Gageik2014}
+{\sc M~Gageik, I~Klioutchnikov  und H~Olivier}: {\em Mesh study for a direct
+  numerical simulation of the transonic flow at $Re_c$ = 500,000 around a NACA
+  0012 airfoil}.
+\newblock In: DGLR Jahrestagung - Deutscher Luft- und Raumfahrtkongress, 2014.
+
+\bibitem{Jiang1996}
+{\sc G.S. Jiang und C.W. Shu}: {\em Efficient implementation of weighted ENO
+  schemes}.
+\newblock Journal of Computational Physics, Vol.~126, No.~1, pp.~202--228,
+  1996.
+
+\bibitem{Pakalapati2005}
+{\sc Parimala~D Pakalapati und Thomas Hauser}: {\em Benchmarking Parallel I/O
+  Performance for Computational Fluid Dynamics Applications}.
+\newblock In: 43nd AIAA Aerospace Sciences Meeting and Exhibit Paper,
+  Vol.~1381, 2005.
+
+\bibitem{Slotnick2014}
+{\sc Jeffrey Slotnick, Abdollah Khodadoust, Juan Alonso, David Darmofal,
+  William Gropp, Elizabeth Lurie  und Dimitri Mavriplis}:
+\newblock {\em CFD Vision 2030 Study: A Path to Revolutionary Computational
+  Aerosciences}, 2014.
+
+\bibitem{Sodhi2013}
+{\sc Cedric Sodhi}: {\em Implementierung eines parallelen I/O für eine
+  CFD-Software}.
+\newblock 2013.
+
+\end{thebibliography}

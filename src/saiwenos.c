@@ -1,0 +1,985 @@
+#define _ISOC99_SOURCE  1
+
+#include "mpi.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "string.h"
+#include <math.h>
+#include "Load.h"
+#include "Save.h"
+
+#include "saiwenos.h"
+#include "Functions.h"
+#include "Import.h"
+#include "Export.h"
+#include "WENO.h"
+#include "ZD.h"
+#include "BC.h"
+#include "iniparser.h"
+#include <hdf5.h>
+
+int int_interationsStart;
+int int_interationsEnd;
+
+double t0,t1,t2;
+
+int int_myCPUID;
+int actualID,actualP;
+int int_MaxNumberCPUs;
+
+int i,j,k,ijk;
+
+double dbl_leftEigenvector[5][5];
+double dbl_rightEigenvector[5][5];
+
+
+int int_helpValue1;
+double dbl_helpValue2;
+
+int int_iterationCounterStdOut;
+int int_iterationCounterBackupOut;
+int int_iterationCounterSamples;
+
+int int_ResetCounter;
+
+int main(int argc, char *argv[])
+{
+	MPI_Init(
+			&argc,
+			&argv);
+
+
+	//Import of Configuration
+	struct strct_configuration configuration;
+	//Erzeugung der Strukturen für Gitter(strct_mesh), Erhaltungsgrößen(strct_U) und Flüssen(strct_Flux)
+	struct strct_mesh mesh;
+	//Erhaltungsgrößen des letzten Schrittes
+	struct strct_U U_lastStep;
+	//Erhaltungsgrößen innerhalb der RK-Schritte
+	struct strct_U U_RK;
+	//Flussvektor aller Flüsse
+	struct strct_Flux Q;
+
+	struct strct_Flux Flux;
+	struct strct_Flux Flux_PlusHalf;
+	//Flussvektor aller Flüsse über mehrere RK-Schritte
+	struct strct_Flux Q_sum;
+
+	//	Filmstruktur (U(u,v,w,rho,p) von mehreren Zeitschritten)
+	struct strct_Film Film;
+
+	//Backupspeicher für Erhaltungsgrößen
+	struct strct_U U_backup1;
+	struct strct_U U_backup2;
+
+
+	configuration.MPI_comm=MPI_COMM_WORLD;
+
+	MPI_Barrier(configuration.MPI_comm);
+	t0 = MPI_Wtime();
+
+	//Zuweisung Koordinate <-> MyID//
+	MPI_Comm_size(
+			configuration.MPI_comm,
+			&configuration.MPI_size);
+	MPI_Comm_rank(
+			configuration.MPI_comm,
+			&configuration.MPI_rank);
+
+
+	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
+	if(configuration.MPI_rank==0){printf("saiWENOs:                Start\n");}
+	if(configuration.MPI_rank==0){printf("saiWENOs: (git-ID: %s)\n",GITID);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: (MPI_Version: %d.%d.%d)\n",OMPI_MAJOR_VERSION,OMPI_MINOR_VERSION,OMPI_RELEASE_VERSION);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: (CGNS_Version: %d)\n",CGNS_VERSION);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: (HDF5_Version: %d.%d.%d)\n",H5_VERS_MAJOR,H5_VERS_MINOR,H5_VERS_RELEASE);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
+	if(argv[1]!=NULL)
+	{
+		strcpy(configuration.chr_configPath,argv[1]);
+	}
+
+	if(configuration.MPI_rank==0){printf("saiWENOs: Einstellungen werden geladen aus: %s \n",configuration.chr_configPath);}
+
+	if(check_ConfigFile(&configuration)){
+		ConfigImport(
+				&configuration);
+	}
+	else
+	{
+		goto exit;
+	}
+
+	if(check_CGNSFile(&configuration)==0)
+	{
+		goto exit;
+	}
+
+	int_iterationCounterSamples=0;
+	int_iterationCounterStdOut=0;
+	int_iterationCounterBackupOut=0;
+	configuration.int_actualSample=0;
+
+	int_ResetCounter=0;
+
+	//Hier werden einige Variablen gesetzt, die später gebraucht werden
+	DefineParameters(
+			&configuration);
+	if(configuration.MPI_rank==0){printf("saiWENOs: Definition der Variablen fertig!\n");}
+	double ts;
+
+	ts = MPI_Wtime( );
+	if(configuration.int_IOType==1)
+	{
+		if(configuration.MPI_rank==0){printf("saiWENOs: Parallel Loading of CGNS-file...!\n");}
+
+		vta x = { NULL },y = { NULL },z = { NULL },u = { NULL },v = { NULL },w = { NULL },rho = { NULL },p = { NULL };
+
+		loadFile( &configuration,&x,&y,&z,&u,&v,&w,&rho,&p );
+
+		postprocessLoad(
+			&x,&y,&z,&u,&v,&w,&rho,&p,
+			&configuration,
+			&mesh,
+			&U_lastStep,
+			&U_RK,
+			&Flux,
+			&Flux_PlusHalf,
+			&Q,
+			&Q_sum,
+			&Film,
+			&U_backup1,
+			&U_backup2);
+
+		freeVTA(&x,&y,&z,&u,&v,&w,&rho,&p);
+	}
+	else
+	{
+		if(configuration.MPI_rank==0){printf("saiWENOs: Serial Loading of CGNS-file...!\n");}
+
+		//	Fuer den Fall, dass sehr viele Prozesse auf die MeshFile zugreifen muessen, ist es sinnvoll diese vorher zu splitten.
+		//	Sofern die MeshFile gesplittet werden soll, ist dies das einzige, das gemacht wird und das Programm endet im Anschluß
+		//	Ansonsten werden nur die Pfade so gesetzt, dass die gesplitteten Files verwendet werden
+		switch(configuration.flag_SplitMeshFile)
+		{
+			case 1:
+				if(configuration.MPI_rank==0)
+				{
+					SplitMeshFile(
+							&configuration);
+				}
+				goto exit;
+				printf("saiWENOs: Mesh-File-Splitting fertig!\n");
+				break;
+			case 2:
+				if(configuration.int_initializeType!=1)
+				{
+					sprintf(configuration.chr_MeshPath,"%sMesh/tmp_MeshFile_Zone%d_%s",configuration.chr_folder,(configuration.MPI_rank+1),configuration.chr_MeshFile);
+				}
+				break;
+			default:
+				break;
+		}
+
+		MeshConfig_CGNS(
+				&configuration);
+
+		//	BoundaryConditions werden importiert
+		BCImport_CGNS(
+				&configuration);
+
+		//Speicherallokierung: abhängig von der Neztgröße werden die Variablen erzeugt (mit malloc)
+		AllocMemory(
+				&configuration,
+				&mesh,
+				&U_lastStep,
+				&U_RK,
+				&Flux,
+				&Flux_PlusHalf,
+				&Q,
+				&Q_sum,
+				&Film,
+				&U_backup1,
+				&U_backup2);
+		if(configuration.MPI_rank==0){printf("saiWENOs: Speicherallokierung fertig!\n");}
+
+
+
+
+		//Import des Gitters
+		MeshImport_CGNS(
+				&configuration,
+				&mesh);
+	}
+
+	MPI_Barrier( MPI_COMM_WORLD );
+	if(configuration.MPI_rank==0){printf("saiWENOs: Loading %s fertig (%f min.)!\n",configuration.chr_MeshFile,(MPI_Wtime( )-ts)/60. );}
+
+//	printf("rank: %d left %d right %d top %d bottom %d behind %d inFront %d \n",
+//			configuration.MPI_rank,
+//			configuration.InterfaceNeighbourLeft,
+//			configuration.InterfaceNeighbourRight,
+//			configuration.InterfaceNeighbourTop,
+//			configuration.InterfaceNeighbourBottom,
+//			configuration.InterfaceNeighbourBehind,
+//			configuration.InterfaceNeighbourInFront);
+	ExtrapolateGhostCells(
+			&configuration,
+			&mesh);
+	if(configuration.MPI_rank==0){printf("saiWENOs: GhostCells-Extrapolation fertig!\n");}
+
+
+	//Berechnung der Metrik
+//	Transfer der Gitterpunkte(Metrik ist überall noch 0)
+	TransferMeshParameter(
+			&configuration,
+			&mesh);
+	TransferMeshParameter(
+			&configuration,
+			&mesh);
+	if (MESHDIMENSIONS==3)
+	{
+		TransferMeshParameter(
+				&configuration,
+				&mesh);
+	}
+
+//	Berechnung der Metrik
+	CreateMetric(
+			&configuration,
+			&mesh);
+
+//	Transfer damit die auch in den GhostCells verfügbar ist
+	TransferMeshParameter(
+			&configuration,
+			&mesh);
+	TransferMeshParameter(
+			&configuration,
+			&mesh);
+	if (MESHDIMENSIONS==3)
+	{
+		TransferMeshParameter(
+				&configuration,
+				&mesh);
+	}
+
+	//	Entgültige Überprüfung der Metrik
+	check_Metric(
+			&configuration,
+			&mesh);
+
+//	An Wänden leglicher Art wird die Metrik gespiegelt. Bei entsprechender Einstellung der Randbedingung
+//	fuer theta und u fuehrt dies zu antimetrischen fluessen fuer masse und energie
+//	und symmetrischen fluessen fuer die impulse. die impulsfluesse sind symmetrisch,
+//	da dort stets zwei geschwindigkeiten multipliziert werden (minuszeichen verschwindet)
+//	MitHilfe der BC_Corrector-Variablen wird dieses Problem beseitigt
+	mirrorGhostCellsMetric(
+			&configuration,
+			&mesh);
+
+//	Berechnung der Hilfs-Metrik fuer viskose Fluesse
+	CreateViscidMetric(
+			&configuration,
+			&mesh);
+
+	if(configuration.MPI_rank==0){printf("saiWENOs: Metrik-Erstellung fertig!\n");}
+
+	if(configuration.flag_IBC==1)
+	{
+		IBC_prepare(
+				&configuration,
+				&mesh);
+		if(configuration.MPI_rank==0){printf(">>>>> Options: Immerged BC fertig\n");}
+	}
+
+	if((configuration.int_IOType==0)||(configuration.int_initializeType>1))
+	{
+		//Initialisiere Rechengebiet in U_lastStep & U_RK
+		switch(configuration.int_initializeType)
+		{
+			case 0:
+				Initialize(
+						&configuration,
+						&mesh,
+						&U_lastStep);
+				if(configuration.MPI_rank==0){printf("saiWENOs: Neu-Initialisierung des Rechengebietes fertig!\n");}
+				break;
+
+			case 1:
+				Initialize(
+						&configuration,
+						&mesh,
+						&U_lastStep);
+
+				ResultImport_CGNS(
+						&configuration,
+						&mesh,
+						&U_lastStep);
+
+				if(configuration.MPI_rank==0){printf("saiWENOs: Import der Ergebnisse fertig! (Iteration: %d, Time: %g)\n",
+						configuration.int_StartIteration,
+						configuration.start_Time);}
+
+		//			IBC
+				if((configuration.flag_IBC==1)&&(configuration.flag_IBC_Moving==1))
+				{
+					configuration.IBC_MovingLastPosition=IBC_getActualPosition(&configuration);
+					configuration.IBC_MovingActualPosition=IBC_getActualPosition(&configuration);
+
+					IBC_Actual2Last(
+							&configuration,
+							&mesh);
+
+					IBC_prepare(
+							&configuration,
+							&mesh);
+				}
+
+				break;
+
+			case -1:
+				ResultImport_CGNS(
+						&configuration,
+						&mesh,
+						&U_lastStep);
+
+				if(configuration.MPI_rank==0){printf("saiWENOs: Import der Ergebnisse fertig!\n");}
+
+				InitializeOtherConditions(
+						&configuration,
+						&mesh,
+						&U_lastStep);
+				if(configuration.MPI_rank==0){printf("saiWENOs: Modifikation der Ergebnisse fertig.\n");}
+				break;
+
+			default:
+				InitializeOtherConditions(
+						&configuration,
+						&mesh,
+						&U_lastStep);
+				if(configuration.MPI_rank==0){printf("saiWENOs: Alternative Initialisierung. Case %d\n",configuration.int_initializeType);}
+				break;
+
+		}
+		if(configuration.MPI_rank==0){printf("saiWENOs: Initialisierung des Rechengebietes fertig!\n");}
+
+	}
+
+	SetAllBoundaryConditions(
+			&configuration,
+			&mesh,
+			&U_lastStep,
+			&U_lastStep);
+
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> OPTIONS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(configuration.MPI_rank==0){printf("saiWENOs: Moegliche Optionen werden gesetzt...\n");}
+	setOptions(
+			&configuration,
+			&mesh,
+			&U_lastStep,
+			&U_RK,
+			&Q,
+			&Q_sum,
+			&Flux,
+			&Flux_PlusHalf,
+			&Film);
+	MPI_Barrier(configuration.MPI_comm);
+	if(configuration.MPI_rank==0){printf("saiWENOs: Optionen sind gesetzt!\n");}
+
+
+
+	if(configuration.MPI_rank==0){printf("\n");}
+	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
+	if(configuration.MPI_rank==0){printf("saiWENOs: Mesh: '%s'\n",configuration.chr_MeshPath);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: %d Prozesse werden %d Iterationen rechnen!\n",configuration.MPI_size,configuration.int_TotalIterations);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: Angle of Attack: %g [Degree] | Ma: %g | Re: %g | Pr: %g \n",
+			configuration.dbl_AoA,configuration.dbl_machNumber,configuration.dbl_reynoldsNumber*abs(configuration.flag_Inviscid-1),configuration.dbl_prandtlNumber);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: SpaceOrder: %d | TimeOrder: %d | numerisches delta t (Tau): %g | Epsilon: %g\n",
+				configuration.int_SpaceOrder,configuration.int_TimeOrder,configuration.dbl_numericalTau,configuration.dbl_wenoEpsilon);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: ####################################\n");}
+	if(configuration.MPI_rank==0){printf("\n");}
+
+
+	MPI_Barrier(configuration.MPI_comm);
+	t1 = MPI_Wtime();
+	if(configuration.MPI_rank==0){printf("saiWENOS: Die Initialisierung fertig (%f min.)\n",(t1-t0)/60);}
+
+	//########################################
+	//########################################
+	//###########SIMULATION STARTEN###########
+	//########################################
+	//########################################
+	//########################################
+
+	//	Schreibe Daten in den Tmp_U-Array U_RK
+	WriteValuesFromU1ToU2(
+			&configuration,
+			&U_lastStep,
+			&U_RK);
+
+	if(configuration.MPI_rank==0){printf("saiWENOs: %dD Simulation wird gestartet...\n",configuration.int_meshDimensions);}
+	startSimulation(
+			&configuration,
+			&mesh,
+			&U_lastStep,
+			&U_RK,
+			&Q,
+			&Q_sum,
+			&Flux,
+			&Flux_PlusHalf,
+			&Film,
+			&U_backup1,
+			&U_backup2);
+	MPI_Barrier(configuration.MPI_comm);
+	if(configuration.MPI_rank==0){printf("saiWENOs: %dD Simulation fertig (%f min.)!\n",configuration.int_meshDimensions,(MPI_Wtime()-t1)/60.);}
+	if(configuration.MPI_rank==0){printf("saiWENOS: Gesamtkommunikationsdauer: %g min.\n",configuration.comm_time/60.);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: Letztes Tau: %g!\n",configuration.dbl_numericalTau);}
+	if(configuration.MPI_rank==0){printf("saiWENOs: Letztes DistanceForwad: %d!\n",configuration.int_distanceForward);}
+
+
+
+	if(configuration.flag_constantZValues==1)
+	{
+		WriteConstantZValues(
+				&configuration,
+				&U_lastStep);
+	}
+
+
+//	Berechne Größen, die für den Export relevant sind
+	//		Strömungsparameter (rho,u,v,w) werden übertragen bzw. Randbedinungen gesetzt
+	TransferFlowParameterWithGhosts(
+			&configuration,
+			&mesh,
+			&U_lastStep);
+	TransferFlowParameterWithGhosts(
+			&configuration,
+			&mesh,
+			&U_lastStep);
+	TransferFlowParameterWithGhosts(
+			&configuration,
+			&mesh,
+			&U_lastStep);
+	CalcValuesForPost(
+			&configuration,
+			&mesh,
+			&U_lastStep);
+
+	if(configuration.flag_constantZValues==1)
+	{
+		WriteConstantZValues(
+				&configuration,
+				&U_lastStep);
+	}
+
+	//	Gitter wird herausgeschrieben
+	if(configuration.flag_exportMetric==1)
+	{
+		MeshMetricExport(
+				&configuration,
+				&mesh,
+				&U_lastStep);
+		if(configuration.MPI_rank==0){printf("saiWENOs: Metric-Export fertig! \n");}
+	}
+	//	Film wird herausgeschrieben
+	if(configuration.flag_exportFilm==1)
+	{
+		ts = MPI_Wtime( );
+		if(configuration.int_IOType==1)
+			saveFile( &configuration,&Film );
+		else
+			CGNS_FilmExportParallel(&configuration,&mesh,&Film);
+
+		if(configuration.MPI_rank==0){printf("saiWENOs: CGNS Film-Export (%d Samples) fertig (%f min.)!\n",configuration.int_Samples,(MPI_Wtime( )-ts)/60.);}
+	}
+
+	//	Snapshot wird herausgeschrieben
+	if(configuration.int_IOType==0)
+	{
+		if((configuration.flag_exportSnapshot==1)&&(configuration.int_IOType==0))
+		{
+			CGNS_SnapshotExportParallel(
+				&configuration,
+				&mesh,
+				&U_lastStep);
+
+			if(configuration.MPI_rank==0){printf("saiWENOs: CGNS Snapshot-Export fertig!\n");}
+		}
+	}
+
+	if(configuration.flag_PressureHistory==1)
+	{
+		ts = MPI_Wtime( );
+		for(actualP=0;actualP<configuration.PressureHistory_No;actualP++)
+		{
+//			for(actualID=0;actualID<configuration.MPI_size;actualID++)
+//			{
+//				if((configuration.MPI_rank==actualID)&&(configuration.flag_PressureHistory_P[actualP]==1))
+//				{
+//					CGNS_PressureHistoryValuesExportParallel(
+//							&configuration,
+//							actualP);
+//				}
+//				MPI_Barrier(configuration.MPI_comm);
+//			}
+			if(configuration.flag_PressureHistory_P[actualP]==1)
+			{
+				ASCii_PressureHistoryValuesExportParallel(
+							&configuration,
+							actualP);
+			}
+			MPI_Barrier(configuration.MPI_comm);
+		}
+		if(configuration.MPI_rank==0){printf("saiWENOs: PressureHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+	}
+
+	if(configuration.flag_VelocityHistory==1)
+	{
+		ts = MPI_Wtime( );
+		for(actualP=0;actualP<configuration.VelocityHistory_No;actualP++)
+		{
+//			for(actualID=0;actualID<configuration.MPI_size;actualID++)
+//			{
+//				if((configuration.MPI_rank==actualID)&&(configuration.flag_VelocityHistory_P[actualP]==1))
+//				{
+//					CGNS_VelocityHistoryValuesExportParallel(
+//							&configuration,
+//							actualP);
+//				}
+//				MPI_Barrier(configuration.MPI_comm);
+//			}
+			if(configuration.flag_VelocityHistory_P[actualP]==1)
+			{
+				ASCii_VelocityHistoryValuesExportParallel(
+							&configuration,
+							actualP);
+			}
+			MPI_Barrier(configuration.MPI_comm);
+		}
+		if(configuration.MPI_rank==0){printf("saiWENOs: VelocityHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+	}
+
+
+
+	ts = MPI_Wtime( );
+	//Allokierten Speicher freigeben
+	FreeMemory(
+			&configuration,
+			&mesh,
+			&U_lastStep,
+			&U_RK,
+			&Flux,
+			&Flux_PlusHalf,
+			&Q,
+			&Q_sum,
+			&Film);
+
+if(configuration.MPI_rank==0){printf("saiWENOs: Speicher freigegeben (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+
+//	if(configuration.MPI_rank==0){printf("Glaettungsindikatoren: Durchschnitt: %le   Minimum: %le  Maximum: %le,\n",
+//			(configuration.dbl_is_avrg/configuration.dbl_is_avrg_counter),configuration.dbl_is_minimum,configuration.dbl_is_maximum);}
+
+	exit:
+	if(configuration.MPI_rank==0){printf("saiWENOs: Exit!\n");}
+	MPI_Finalize();
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//########################################
+//########################################
+//###########  2D  SIMULATION  ###########
+//########################################
+//########################################
+//########################################
+
+void startSimulation(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep,
+		struct strct_U * pnt_U_RK,
+		struct strct_Flux * pnt_Q,
+		struct strct_Flux * pnt_Q_sum,
+		struct strct_Flux * pnt_Flux,
+		struct strct_Flux * pnt_Flux_PlusHalf,
+		struct strct_Film * pnt_Film,
+		struct strct_U * pnt_U_backup1,
+		struct strct_U * pnt_U_backup2)
+{
+// Nur noetig fur system_command, der aber auf juqueen nicht funktioniert
+//  char chr_SnapshotPath_normal[500];
+//  char chr_SnapshotPath_new[500];
+//  char command[500];
+
+////		printf("saiWENOS: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
+////		printf(": Left: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourLeft]);
+////		printf(": Right: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourRight]);
+////		printf(": Bottom: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBottom]);
+////		printf(": Top: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourTop]);
+////		printf(": Behind: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBehind]);
+////		printf(": InFront: %d\n",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourInFront]);
+//
+//		for (i=0;i<pnt_config->NumberInterfaces;i++)
+//		{
+//			printf("myrank: %d | rank: %d | interface:%d | transform: %d %d | range: %d %d | donorrange: %d %d \n",
+//					pnt_config->MPI_rank,
+//					 pnt_config->MPI_rankNeighbours[i],i,
+//					pnt_config->TransformMatrixOfInterface[i][0],
+//					pnt_config->TransformMatrixOfInterface[i][1],
+//					(int)pnt_config->RangeOfInterface[i][0],
+//					(int)pnt_config->RangeOfInterface[i][1],
+//					(int)pnt_config->DonorRangeOfInterface[i][0],
+//					(int)pnt_config->DonorRangeOfInterface[i][1]);
+//
+//		}
+//		if(pnt_config->MPI_rank==0)
+//		{
+//			printf("zone: %s | left: %s | right: %s | top: %s | bottom: %s | behind: %s | infront: %s | \n",
+//					pnt_config->Zonename,
+//					pnt_config->BC_Left,
+//					pnt_config->BC_Right,
+//					pnt_config->BC_Top,
+//					pnt_config->BC_Bottom,
+//					pnt_config->BC_Behind,tec
+//					pnt_config->BC_InFront);
+//		}
+
+
+	WriteValuesFromU1ToU2(
+		pnt_config,
+		pnt_U_lastStep,
+		pnt_U_backup1);
+	pnt_config->dbl_time_dim_backup1=pnt_config->dbl_time_dim;
+	pnt_config->int_actualIteration_backup1=1;
+	pnt_config->int_actualIteration_backup2=999999;
+	pnt_config->int_actualSample_backup1=pnt_config->int_actualSample;
+	pnt_config->int_iterationCounterSamples_backup1=int_iterationCounterSamples;
+	pnt_config->int_iterationCounterBackupOut_backup1=int_iterationCounterBackupOut;
+	pnt_config->int_iterationCounterStdOut_backup1=int_iterationCounterStdOut;
+
+	for(pnt_config->int_actualIteration=pnt_config->int_StartIteration+1;
+			pnt_config->int_actualIteration<=pnt_config->int_EndIteration;
+			pnt_config->int_actualIteration++)
+	{
+		pnt_config->dbl_time_dim+=
+				pnt_config->dbl_numericalTau
+				*pnt_config->dbl_L0_dim
+				/pnt_config->dbl_u0_dim;
+		CalcRungeKutta(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_lastStep,
+				pnt_U_RK,
+				pnt_Q,
+				pnt_Q_sum,
+				pnt_Flux,
+				pnt_Flux_PlusHalf);
+
+
+//		Nach jedem Iterationsschritt wird das Gebiet nach NaN abgesucht
+		if(checkNAN(pnt_config,pnt_U_RK,pnt_mesh)==1)
+		{
+			if(int_ResetCounter>=pnt_config->int_NumberResets)
+			{
+				pnt_config->int_actualIteration=pnt_config->int_EndIteration;
+				if(pnt_config->MPI_rank==0){printf("saiwenos: Maximal Number of Resets reached. Aborting Simulation!\n");}
+				if(pnt_config->flag_NAN==1){NANExport( pnt_config,pnt_mesh,pnt_U_RK);}
+//				MPI_Abort(pnt_config->MPI_comm,1337);
+				break;
+			}
+			int_ResetCounter++;
+
+			pnt_config->dbl_numericalTau*=pnt_config->dbl_TauDecelerator_factor;
+			pnt_config->int_distanceForward=pnt_config->int_distanceForwardStart;
+
+			if(pnt_config->int_actualIteration_backup1<pnt_config->int_actualIteration_backup2)
+			{
+				if(pnt_config->MPI_rank==0){printf("saiWENOs: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup1,pnt_config->dbl_numericalTau);}
+				WriteValuesFromU1ToU2(
+						pnt_config,
+						pnt_U_backup1,
+						pnt_U_RK);
+				pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
+				pnt_config->dbl_time_dim=pnt_config->dbl_time_dim_backup1;
+				pnt_config->int_actualIteration=pnt_config->int_actualIteration_backup1;
+				pnt_config->int_actualSample=pnt_config->int_actualSample_backup1;
+				int_iterationCounterSamples=pnt_config->int_iterationCounterSamples_backup1;
+				int_iterationCounterBackupOut=pnt_config->int_iterationCounterBackupOut_backup1;
+				int_iterationCounterStdOut=pnt_config->int_iterationCounterStdOut_backup1;
+			}
+			else
+			{
+				if(pnt_config->MPI_rank==0){printf("saiWENOs: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup2,pnt_config->dbl_numericalTau);}
+				WriteValuesFromU1ToU2(
+						pnt_config,
+						pnt_U_backup2,
+						pnt_U_RK);
+				pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
+				pnt_config->dbl_time_dim=pnt_config->dbl_time_dim_backup2;
+				pnt_config->int_actualIteration=pnt_config->int_actualIteration_backup2;
+				pnt_config->int_actualSample=pnt_config->int_actualSample_backup2;
+				int_iterationCounterSamples=pnt_config->int_iterationCounterSamples_backup2;
+				int_iterationCounterBackupOut=pnt_config->int_iterationCounterBackupOut_backup2;
+				int_iterationCounterStdOut=pnt_config->int_iterationCounterStdOut_backup2;
+			}
+		}
+//		Tau-Resetter
+		else if(
+			((pnt_config->dbl_time_dim-pnt_config->dbl_time_dim_lastAction)>
+		pnt_config->int_distanceNAN*pnt_config->dbl_numericalTau*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim)
+			&&(pnt_config->flag_TauAccelerator!=0)
+			&&(pnt_config->int_actualIteration+pnt_config->int_distanceBackward<pnt_config->int_EndIteration)
+			&&(pnt_config->dbl_numericalTau<pnt_config->dbl_numericalTauStart)
+			)
+		{
+			pnt_config->int_distanceForward=pnt_config->int_distanceForwardStart;
+			pnt_config->dbl_numericalTau=pnt_config->dbl_numericalTauStart;
+			pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
+			if(pnt_config->MPI_rank==0){printf("saiWENOs: ----> Tau-Resetting bei Iterationsschritt %d (Neues Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
+		}
+//		Tau-Beschleuniger
+		else if(
+			((pnt_config->dbl_time_dim-pnt_config->dbl_time_dim_lastAction)>
+		pnt_config->int_distanceForward*pnt_config->dbl_numericalTau*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim)
+			&&(pnt_config->flag_TauAccelerator!=0)
+			&&(pnt_config->int_actualIteration+pnt_config->int_distanceBackward<pnt_config->int_EndIteration)
+			&&(pnt_config->dbl_numericalTau>=pnt_config->dbl_numericalTauStart)
+			)
+		{
+			pnt_config->int_distanceForward*=4.;
+			pnt_config->dbl_numericalTau*=pnt_config->dbl_TauAccelerator_factor;
+			pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
+			if(pnt_config->MPI_rank==0){printf("saiWENOs: Tau-Erhoehung bei Iterationsschritt %d (Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
+		}
+
+		//	In U_RK sind nach dem vierten RK-Schritt die aktuellen Ergebnisse des Zeitschrittes n+1
+		//	Diese werden nun übertragen
+		WriteValuesFromU1ToU2(
+				pnt_config,
+				pnt_U_RK,
+				pnt_U_lastStep);
+
+
+		if((pnt_config->int_actualIteration)%pnt_config->int_distanceBackward==0)
+		{
+			WriteValuesFromU1ToU2(
+				pnt_config,
+				pnt_U_lastStep,
+				pnt_U_backup1);
+			pnt_config->dbl_time_dim_backup1=pnt_config->dbl_time_dim;
+			pnt_config->int_actualIteration_backup1=pnt_config->int_actualIteration;
+			pnt_config->int_actualSample_backup1=pnt_config->int_actualSample;
+			pnt_config->int_iterationCounterSamples_backup1=int_iterationCounterSamples;
+			pnt_config->int_iterationCounterBackupOut_backup1=int_iterationCounterBackupOut;
+			pnt_config->int_iterationCounterStdOut_backup1=int_iterationCounterStdOut;
+		}else if((pnt_config->int_actualIteration+pnt_config->int_distanceBackward/2)%pnt_config->int_distanceBackward==0)
+		{
+			WriteValuesFromU1ToU2(
+				pnt_config,
+				pnt_U_lastStep,
+				pnt_U_backup2);
+			pnt_config->dbl_time_dim_backup2=pnt_config->dbl_time_dim;
+			pnt_config->int_actualIteration_backup2=pnt_config->int_actualIteration;
+			pnt_config->int_actualSample_backup2=pnt_config->int_actualSample;
+			pnt_config->int_iterationCounterSamples_backup2=int_iterationCounterSamples;
+			pnt_config->int_iterationCounterBackupOut_backup2=int_iterationCounterBackupOut;
+			pnt_config->int_iterationCounterStdOut_backup2=int_iterationCounterStdOut;
+		}
+
+
+
+		if(pnt_config->flag_exportFilm==1)
+		{
+			int_iterationCounterSamples++;
+			if((int_iterationCounterSamples%pnt_config->int_IterationsBetweenSamples==0)&&(pnt_config->int_actualSample<pnt_config->int_Samples)&&(pnt_config->int_actualIteration>=(pnt_config->int_StartSampling)))
+			{
+				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("saiWENOs: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
+				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("saiWENOs:           Start Sampling.\n");}
+				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("saiWENOs: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
+
+				CalcValuesForPost(
+						 pnt_config,
+						 pnt_mesh,
+						 pnt_U_lastStep);
+
+				WriteValuesFromUToFilm(
+					 pnt_config,
+					 pnt_U_lastStep,
+					 pnt_Film,
+					 pnt_mesh);
+
+				pnt_config->int_actualSample++;
+			}
+		}
+
+		if(pnt_config->flag_PressureHistory==1)
+		{
+			WriteValuesForPressureHistory(
+				pnt_config,
+				pnt_U_lastStep);
+		}
+
+		if(pnt_config->flag_VelocityHistory==1)
+		{
+			WriteValuesForVelocityHistory(
+				pnt_config,
+				pnt_U_lastStep);
+		}
+
+		if(pnt_config->int_IOType==0)
+		{
+			if(pnt_config->int_NumberBackups>0)
+			{
+				int_iterationCounterBackupOut++;
+				if((int_iterationCounterBackupOut==(int)(pnt_config->int_TotalIterations/(pnt_config->int_NumberBackups)))
+						&&
+						(pnt_config->int_actualIteration!=pnt_config->int_EndIteration))
+				{
+					CalcValuesForPost(
+							 pnt_config,
+							 pnt_mesh,
+							 pnt_U_lastStep);
+
+					CGNS_SnapshotExportParallel(
+						pnt_config,
+						pnt_mesh,
+						pnt_U_lastStep);
+
+			if(pnt_config->MPI_rank==0){
+	//		Der Sytem-Befehl scheint unter Juqueen nicht zu funktionieren
+	//				  sprintf(chr_SnapshotPath_normal,"%sSnapshot/",pnt_config->chr_folder);
+	//				  sprintf(chr_SnapshotPath_new,"%sSnapshot_%d/",pnt_config->chr_folder,pnt_config->int_actualIteration);
+	//				  sprintf(command,"cp -r %s %s",chr_SnapshotPath_normal,chr_SnapshotPath_new);
+	//				  system(command);
+					  printf("saiWENOs: Backup wurde geschrieben.\n");}
+					int_iterationCounterBackupOut=0;
+				}
+			}
+		}
+
+
+		int_iterationCounterStdOut++;
+		if(int_iterationCounterStdOut==(pnt_config->int_TotalIterations/100)||(pnt_config->int_EndIteration<100))
+		{
+			int_iterationCounterStdOut=0;
+			if(pnt_config->MPI_rank==0){printf("saiWENOs: Iteration: %d von %d (Zeit: %g [sec])\n",pnt_config->int_actualIteration,pnt_config->int_EndIteration,pnt_config->dbl_time_dim);}
+			if(pnt_config->MPI_rank==0){printf("\t rho[x=%g, y=%g, z=%g] = %g \n",
+				pnt_mesh->x[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid],
+				pnt_mesh->y[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid],
+				pnt_mesh->z[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid],
+				pnt_U_lastStep->rho[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid]);}
+			if((pnt_config->flag_IBC_Moving==1)&&(pnt_config->flag_IBC==1))
+			{
+				if(pnt_config->MPI_rank==0){printf("saiWENOs: MovingWall at x-Position %g!\n",
+						pnt_config->IBC_MovingActualPosition);}
+			}
+		}
+	}
+}
+
+
+
+
+
+void setOptions(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep,
+		struct strct_U * pnt_U_RK,
+		struct strct_Flux * pnt_Q,
+		struct strct_Flux * pnt_Q_sum,
+		struct strct_Flux * pnt_Flux,
+		struct strct_Flux * pnt_Flux_PlusHalf,
+		struct strct_Film * pnt_Film)
+{
+//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BC_Changer<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_BC_Changer){
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: BC-Changer aktiviert!\n");}
+		MPI_Barrier(pnt_config->MPI_comm);
+		if ((pnt_mesh->y[pnt_config->ijkMid]>0.2) || (pnt_mesh->y[pnt_config->ijkMid]<-0.2)){
+			if(strcmp(pnt_config->BC_Top,"BCWallViscous")==0)
+				{printf("BC-Top von Rank%d (y-Mid: %g) geaendert von %s",pnt_config->MPI_rank,pnt_mesh->y[pnt_config->ijkMid],pnt_config->BC_Top);
+				strcpy(pnt_config->BC_Top,"BCFarfield");
+				printf(" nach %s\n",pnt_config->BC_Top);}
+			if(strcmp(pnt_config->BC_Bottom,"BCWallViscous")==0)
+				{printf("BC-Bottom von Rank%d (y-Mid: %g) geaendert von %s",pnt_config->MPI_rank,pnt_mesh->y[pnt_config->ijkMid],pnt_config->BC_Top);
+				strcpy(pnt_config->BC_Bottom,"BCFarfield");
+				printf(" nach %s\n",pnt_config->BC_Top);}}}
+	MPI_Barrier(pnt_config->MPI_comm);
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PressureWaves<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_PressureWaves==1){
+		preparePressureWaves(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_lastStep);
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Druckwellen werden bei x=%f,y=%f,z=%f mit einem Radius von %f induziert\n",
+				pnt_config->pw_x0,pnt_config->pw_y0,pnt_config->pw_z0,pnt_config->pw_r0);}}
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PressureHistory<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_PressureHistory==1)	{
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: PressureHistory (%d locations)\n",pnt_config->PressureHistory_No);}
+		MPI_Barrier(pnt_config->MPI_comm);
+		preparePressureHistoryValues(
+				pnt_config,
+				pnt_mesh);
+		MPI_Barrier(pnt_config->MPI_comm);	}
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>VelocityHistory<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_VelocityHistory==1)	{
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: VelocityHistory (%d locations)\n",pnt_config->VelocityHistory_No);}
+		MPI_Barrier(pnt_config->MPI_comm);
+		prepareVelocityHistoryValues(
+				pnt_config,
+				pnt_mesh);
+		MPI_Barrier(pnt_config->MPI_comm);	}
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LaminarBoundary<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_LaminarBoundary==1){
+		InitializeLaminarBoundary(
+							pnt_config,
+							pnt_mesh,
+							pnt_U_lastStep);
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Laminare Grenzschicht wurd ab x=%f generiert.\n",pnt_config->LaminarBoundary_xStart);}}
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Vortex<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_Vortex==1){
+		InitializeVortex(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_lastStep);
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Vortex wurde generiert (x=%lf, y=%lf, r=%lf, f=%lf, beta=%lf).\n",
+			pnt_config->Vortex_x_wirb_zentr,pnt_config->Vortex_y_wirb_zentr,pnt_config->Vortex_r_wirb_max,pnt_config->Vortex_faktor_quer,pnt_config->Vortex_beta);}
+		}
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>movingWall<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if((pnt_config->flag_IBC_Moving==1)&&(pnt_config->flag_IBC==1)){
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Moving Wall wurde eingestellt.\n");}
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Start: %g %g %g, Speed: %g, Movement: %d, SpeedFactor: %g.\n",pnt_config->IBC_StartpositionX,pnt_config->IBC_StartpositionY,pnt_config->IBC_StartpositionZ,pnt_config->IBC_MovingSpeed,pnt_config->IBC_MovingType, pnt_config->IBC_SpeedFactor);}
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Aktuelle Position %g\n",pnt_config->IBC_MovingActualPosition);}
+	}
+
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>rotation_symmetric<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_rotation_symmetric==1){
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: 2D-Rotationssymmetrisch\n");}}
+
+}
+
+
