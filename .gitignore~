@@ -1,6 +1,0 @@
-*.o
-*.d
-*.mk
-/Debug
-/Release
-/build*
