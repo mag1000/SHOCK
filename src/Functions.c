@@ -1596,8 +1596,8 @@ void InitializeSpecialConditions(
 					u0=tanh(distance)*pnt_config->InitializeValues_u0;
 					v0=tanh(distance)*pnt_config->InitializeValues_u0;
 			
-					u_tmp=(1.0*pnt_mesh->eta_y[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-					v_tmp=(-1.0*fabs(pnt_mesh->eta_x[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
+					u_tmp=(1.0*fabs(pnt_mesh->eta_y[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
+					v_tmp=(-1.0*(pnt_mesh->eta_x[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
 
 					u=u0*u_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
 					v=v0*v_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
