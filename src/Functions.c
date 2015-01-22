@@ -1435,7 +1435,8 @@ void InitializeSpecialConditions(
 	double rho,p,u,v,w;
 	double x_start;
 	double eta,delta_y,T_unendl,T_ad;
-	double u_tmp,v_tmp,u0;
+	double u_tmp,v_tmp,u0,v0;
+	float distance;
 
 	gebiet=0;
 	rho=1.0;
@@ -1588,43 +1589,18 @@ void InitializeSpecialConditions(
 
 //				gitterangepasste Startloesung (Stromlinien entlang xi-Linien)
 				case 7:
-//					if (pnt_mesh->x[ijk]<5.0)
-//					{
-//						p=pnt_config->InitializeValues_p0;
-//						rho=pnt_config->InitializeValues_rho0;
-//						u0=pnt_config->InitializeValues_u0;
-//						u_tmp=u0*(1.0*pnt_mesh->eta_y[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-//						v_tmp=u0*(-1.0*pnt_mesh->eta_x[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-//
-//						u=u_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
-//						v=v_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
-//					}
-//					if (pnt_mesh->x[ijk]>6.0)
-//					{
-//						p=pnt_config->InitializeValues_p1;
-//						rho=pnt_config->InitializeValues_rho1;
-//						u0=pnt_config->InitializeValues_u1;
-//
-//						u_tmp=(1.0*pnt_mesh->eta_y[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-//						v_tmp=(-1.0*pnt_mesh->eta_x[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-//
-//						u=u0*u_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
-//						v=u0*v_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
-//					}
-//					if ((pnt_mesh->x[ijk]<=6.0)&&(pnt_mesh->x[ijk]>=5.0))
-//					{
-//						p=(pnt_config->InitializeValues_p1-pnt_config->InitializeValues_p0)*(pnt_mesh->x[ijk]-5.0)+pnt_config->InitializeValues_p0;
-//						rho=(pnt_config->InitializeValues_rho1-pnt_config->InitializeValues_rho0)*(pnt_mesh->x[ijk]-5.0)+pnt_config->InitializeValues_rho0;
-//						u0=(pnt_config->InitializeValues_u1-pnt_config->InitializeValues_u0)*(pnt_mesh->x[ijk]-5.0)+pnt_config->InitializeValues_u0;
-						p=(pnt_config->InitializeValues_p1-pnt_config->InitializeValues_p0)*(pnt_mesh->x[ijk])+pnt_config->InitializeValues_p0;
-						rho=(pnt_config->InitializeValues_rho1-pnt_config->InitializeValues_rho0)*(pnt_mesh->x[ijk])+pnt_config->InitializeValues_rho0;
-						u0=(pnt_config->InitializeValues_u1-pnt_config->InitializeValues_u0)*(pnt_mesh->x[ijk])+pnt_config->InitializeValues_u0;
-						u_tmp=(1.0*pnt_mesh->eta_y[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-						v_tmp=(-1.0*pnt_mesh->eta_x[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
+					distance=sqrt(pow((pnt_mesh->x[ijk]-0.),2.+pow((pnt_mesh->y[ijk]-0.),2.)));
+					p=pnt_config->InitializeValues_p0;
+					rho=pnt_config->InitializeValues_rho0;
+			
+					u0=tanh(distance)*pnt_config->InitializeValues_u0;
+					v0=tanh(distance)*pnt_config->InitializeValues_u0;
+			
+					u_tmp=(1.0*pnt_mesh->eta_y[ijk]/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
+					v_tmp=(-1.0*fabs(pnt_mesh->eta_x[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
 
-						u=u0*u_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
-						v=u0*v_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
-//					}
+					u=u0*u_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
+					v=v0*v_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
 					break;
 
 				}
@@ -1634,8 +1610,7 @@ void InitializeSpecialConditions(
 				pnt_U_lastStep->v[ijk]=v;
 				pnt_U_lastStep->w[ijk]=w;
 				pnt_U_lastStep->p[ijk]=p;
-				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 			}
 		}
 	}
