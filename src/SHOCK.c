@@ -311,7 +311,7 @@ int main(int argc, char *argv[])
 
 	if(configuration.int_TotalIterations==0)
 	{
-		if(pnt_config->MPI_rank==0){printf("SHOCK: Initialisierungswerte für Export speichern.\n");}
+		if(configuration.MPI_rank==0){printf("SHOCK: Initialisierungswerte für Export speichern.\n");}
 
 		CalcValuesForPost(
 			&configuration,
