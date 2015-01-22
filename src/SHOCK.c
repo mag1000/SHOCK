@@ -309,6 +309,21 @@ int main(int argc, char *argv[])
 	if(configuration.MPI_rank==0){printf("SHOCK: Letztes Tau: %g!\n",configuration.dbl_numericalTau);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Letztes DistanceForwad: %d!\n",configuration.int_distanceForward);}
 
+	if(configuration.int_TotalIterations==0)
+	{
+		if(pnt_config->MPI_rank==0){printf("SHOCK: Initialisierungswerte für Export speichern.\n");}
+
+		CalcValuesForPost(
+				 pnt_config,
+				 pnt_mesh,
+				 pnt_U_lastStep);
+
+		WriteValuesFromUToFilm(
+			 pnt_config,
+			 pnt_U_lastStep,
+			 pnt_Film,
+			 pnt_mesh);
+	}
 
 
 	if(configuration.flag_constantZValues==1)
