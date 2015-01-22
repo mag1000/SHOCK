@@ -768,7 +768,7 @@ void setOptions(
 		MPI_Barrier(pnt_config->MPI_comm);	}
 
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>SpecialInitialisation<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	if((pnt_config->int_specialInitializeType==1)&&(pnt_config->int_initializeType==0)){
+	if((pnt_config->int_specialInitializeType>0)&&(pnt_config->int_initializeType==0)){
 		InitializeSpecialConditions(
 							pnt_config,
 							pnt_mesh,
