@@ -1589,7 +1589,7 @@ void InitializeSpecialConditions(
 
 //				gitterangepasste Startloesung (Stromlinien entlang xi-Linien)
 				case 7:
-					distance=sqrt(pow((pnt_mesh->x[ijk]-0.),2).+pow((pnt_mesh->y[ijk]-0.),2.));
+					distance=sqrt(pow((pnt_mesh->x[ijk]-0.),2.)+pow((pnt_mesh->y[ijk]-0.),2.));
 					p=pnt_config->InitializeValues_p0;
 					rho=pnt_config->InitializeValues_rho0;
 			
