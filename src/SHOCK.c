@@ -753,12 +753,12 @@ void setOptions(
 		MPI_Barrier(pnt_config->MPI_comm);	}
 
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>SpecialInitialisation<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	if(pnt_config->flag_LaminarBoundary==1){
-		InitializeLaminarBoundary(
+	if((pnt_config->int_specialInitializeType==1)&&(pnt_config->int_initializeType==0)){
+		InitializeSpecialConditions(
 							pnt_config,
 							pnt_mesh,
 							pnt_U_lastStep);
-		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Laminare Grenzschicht wurd ab x=%f generiert.\n",pnt_config->LaminarBoundary_xStart);}}
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: SpecialInitialisation: %d aktiviert.\n",pnt_config->int_specialInitializeType);}}
 		
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LaminarBoundary<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	if(pnt_config->flag_LaminarBoundary==1){

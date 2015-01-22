@@ -163,7 +163,7 @@ extern void Initialize(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep);
 
-extern void InitializeOtherConditions(
+extern void InitializeSpecialConditions(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep);

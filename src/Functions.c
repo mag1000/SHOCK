@@ -1425,7 +1425,7 @@ void InitializeLaminarBoundary(
 }
 
 
-void InitializeOtherConditions(
+void InitializeSpecialConditions(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep)
@@ -1454,7 +1454,7 @@ void InitializeOtherConditions(
 
 
 
-				switch (pnt_config->int_initializeType)
+				switch (pnt_config->int_specialInitializeType)
 				{
 //				Validatio: 1D-Riemann Test
 				case 22:
@@ -1586,7 +1586,7 @@ void InitializeOtherConditions(
 					}
 					break;
 
-//				Kanal, glatte Startloesung
+//				gitterangepasste Startloesung (Stromlinien entlang xi-Linien)
 				case 7:
 //					if (pnt_mesh->x[ijk]<5.0)
 //					{

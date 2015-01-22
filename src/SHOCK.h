@@ -50,6 +50,7 @@ struct strct_configuration
 	int flag_NAN;
 	int flag_constantZValues;
 	int flag_LaminarBoundary;
+	int int_specialInitializeType;
 	int flag_PressureHistory;
 	int *flag_PressureHistory_P;
 	int flag_VelocityHistory;

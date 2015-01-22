@@ -108,6 +108,7 @@ void ConfigImport(
 	pnt_config->flag_ReducedExport = iniparser_getboolean(ini, "export:reduced", 0);
 
 //	Options
+	pnt_config->int_specialInitializeType = iniparser_getboolean(ini, "options:SpecialInitializeType", 0);
 	pnt_config->flag_constantZValues = iniparser_getboolean(ini, "options:3Dto2D", 0);
 	pnt_config->flag_IBC = iniparser_getboolean(ini, "options:IBC", 0);
 	pnt_config->flag_LaminarBoundary = iniparser_getboolean(ini, "options:LaminarBoundary", 0);
