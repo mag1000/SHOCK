@@ -34,7 +34,6 @@ void ConfigImport(
 
 //	General
 	pnt_config->int_initializeType = iniparser_getint(ini, "general:initializationtype", 1);
-	pnt_config->int_IOType = iniparser_getint(ini, "general:IOtype", 0);
 	sprintf(pnt_config->chr_MeshPath, "%s", iniparser_getstring(ini, "general:meshpath", NULL));
 	pnt_config->int_TotalIterations= iniparser_getint(ini, "general:iterations", -1);
 	pnt_config->int_EndIteration=pnt_config->int_TotalIterations;
@@ -106,8 +105,6 @@ void ConfigImport(
 
 //	Export
 	pnt_config->flag_exportMetric = iniparser_getboolean(ini, "export:metric", -1);
-	pnt_config->flag_exportSnapshot = iniparser_getboolean(ini, "export:snapshot", -1);
-	pnt_config->flag_exportFilm = iniparser_getboolean(ini, "export:film", -1);
 	pnt_config->flag_ReducedExport = iniparser_getboolean(ini, "export:reduced", 0);
 
 //	Options
@@ -117,11 +114,9 @@ void ConfigImport(
 	pnt_config->flag_PressureHistory = iniparser_getboolean(ini, "options:PressureHistory", 0);
 	pnt_config->flag_VelocityHistory = iniparser_getboolean(ini, "options:VelocityHistory", 0);
 	pnt_config->flag_PressureWaves = iniparser_getboolean(ini, "options:PressureWaves", 0);
-	pnt_config->flag_SplitMeshFile = iniparser_getint(ini, "options:MeshSplitting", 0);
 	pnt_config->flag_Inviscid = iniparser_getboolean(ini, "options:Inviscid", 0);
 	pnt_config->flag_Vortex = iniparser_getboolean(ini, "options:Vortex", 0);
 	pnt_config->flag_rotation_symmetric = iniparser_getboolean(ini, "options:2D-Rotation-Symmetric", 0);
-	pnt_config->flag_BC_Changer = iniparser_getboolean(ini, "options:BC-Changer", 0);
 
 
 //	LaminarBoundary
@@ -309,7 +304,7 @@ void MeshImport_CGNS(
 	    index_base=1;
 	    //Sofern es nur eine Mesh-File gibt, bestimmt der rank die zone-ID.
 	    //Bei einer gesplitteten Mesh-File ist diese stets 1
-	    if((pnt_config->flag_SplitMeshFile==2)||(pnt_config->int_initializeType==1))
+	    if(pnt_config->int_initializeType==1)
 	    {
 	    	index_zone=1;
 	    }
@@ -390,189 +385,6 @@ void MeshImport_CGNS(
 }
 
 
-void ResultImport_CGNS(
-		struct strct_configuration * pnt_config,
-		struct strct_mesh * pnt_mesh,
-		struct strct_U * pnt_U_lastStep)
-{
-	/*
-	  dimension statements (note that tri-dimensional arrays
-	  x,y,z must be dimensioned exactly as [N][17][21] (N>=9)
-	  for this particular case or else they will be read from
-	  the CGNS file incorrectly!  Other options are to use 1-D
-	  arrays, use dynamic memory, or pass index values to a
-	  subroutine and dimension exactly there):
-	*/
-	    int celldim=pnt_config->int_meshDimensions;
-		cgsize_t isize[3][celldim],irmin[celldim],irmax[celldim];
-	    int index_file,index_base,index_zone;
-	    char zonename[33];
-	    char actual_path[500];
-
-	//Speicherallokierung für die dynamischen-1D Arrays, worin die 3D-Lösungen gespeichert werden
-	    int buffer=pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints;
-		int i,j,k,ijk,ijk2;
-		int i2,j2,k2;
-		int index_flow;
-
-		float* u;
-		float* v;
-		float* w;
-		float* p;
-		float* rho;
-		u = (float*) calloc(buffer,sizeof(float));
-		v = (float*) calloc(buffer,sizeof(float));
-		w = (float*) calloc(buffer,sizeof(float));
-		p = (float*) calloc(buffer,sizeof(float));
-		rho = (float*) calloc(buffer,sizeof(float));
-
-
-	/* we know there is only one base (real working code would check!) */
-	    index_base=1;
-
-	    //Sofern es nur eine Mesh-File gibt, bestimmt der rank die zone-ID.
-	    //Bei einer gesplitteten Mesh-File ist diese stets 1
-    	cg_open(pnt_config->chr_SnapshotPath,CG_MODE_READ,&index_file);
-
-    	strcpy(actual_path,pnt_config->chr_SnapshotPath);
-    	index_zone=1;
-
-//    	int nzone;
-//	    if(pnt_config->flag_SplitMeshFile==2)
-//	    {
-//	    	cg_open(pnt_config->chr_SnapshotPath,CG_MODE_READ,&index_file);
-//	    	strcpy(actual_path,pnt_config->chr_SnapshotPath);
-//	    	index_zone=1;
-//	    }
-//	    else
-//	    {
-//	    	cg_open(pnt_config->chr_MeshPath,CG_MODE_READ,&index_file);
-//	    	strcpy(actual_path,pnt_config->chr_MeshPath);
-//	    	index_zone=pnt_config->MPI_rank+1;
-//		    cg_nzones(index_file,index_base,&nzone);
-//		    if (nzone != pnt_config->MPI_size)
-//		    {
-//		      printf("SHOCK: Error. Es werden %d Zonen erwartet. %d sind vorhanden.\n",pnt_config->MPI_size,nzone);
-//		    }
-//	    }
-	    cg_zone_read(index_file,index_base,index_zone,zonename,isize[0]);
-
-	/* lower range index */
-	    irmin[0]=1;
-	    irmin[1]=1;
-	/* upper range index of vertices */
-	    irmax[0]=isize[0][0];
-	    irmax[1]=isize[0][1];
-
-	    if (pnt_config->int_meshDimensions==3)
-	    {
-		    irmin[2]=1;
-	    	irmax[2]=isize[0][2];
-	    }
-
-		char *text;
-		char name[33];
-		int ndescriptors,D;
-		cg_goto(index_file,index_base,"end");
-		cg_ndescriptors(&ndescriptors);
-		for(D=1;D<=ndescriptors;D++)
-		{
-		  cg_descriptor_read(D, name, &text);
-		  if (strcmp(name,"Iterations")==0)
-		  {
-			  pnt_config->int_StartIteration = atoi( text );
-			  pnt_config->int_actualIteration=pnt_config->int_StartIteration;
-			  pnt_config->int_EndIteration=pnt_config->int_StartIteration+pnt_config->int_TotalIterations;
-		  }
-		  if (strcmp(name,"ActualTime")==0)
-		  {
-			  pnt_config->start_Time = strtod( text,NULL );
-			  pnt_config->dbl_time_dim=pnt_config->start_Time;
-			  pnt_config->dbl_time_dim_lastAction=pnt_config->start_Time;
-
-		  }
-		}
-
-	    SimulationType_t SimulationType;
-	    cg_simulation_type_read(index_file,index_base,&SimulationType);
-	    char BaseIterName[30];
-	    if(SimulationType==TimeAccurate)
-		{
-		    cg_biter_read(index_file, index_base, BaseIterName, &index_flow);
-			cg_goto(index_file,index_base,"BaseIterativeData_t",1,"end");
-			double time[index_flow];
-			cg_array_read_as(1,RealDouble,&time);
-			pnt_config->start_Time=time[index_flow-1];
-		    if(pnt_config->MPI_rank==0)
-		    {
-		    	printf("SHOCK: Es gibt %d timesteps in Datei %s. Der letzte (t=%le) wird importiert.\n",
-		    			index_flow,actual_path,pnt_config->start_Time);
-		    }
-		}
-	    else
-	    {
-	    	index_flow=1;
-		    if(pnt_config->MPI_rank==0)
-		    {
-		    	printf("SHOCK: Es gibt nur einen timestep in Datei %s. Dieser wird importiert.\n",
-		    			actual_path);
-		    }
-	    }
-
-
-
-	/* read grid coordinates */
-	    cg_field_read(index_file,index_base,index_zone,index_flow,"VelocityX",
-	    		RealSingle,irmin,irmax,u);
-	    cg_field_read(index_file,index_base,index_zone,index_flow,"VelocityY",
-	    		RealSingle,irmin,irmax,v);
-	    cg_field_read(index_file,index_base,index_zone,index_flow,"VelocityZ",
-	    		RealSingle,irmin,irmax,w);
-	    cg_field_read(index_file,index_base,index_zone,index_flow,"Pressure",
-	    		RealSingle,irmin,irmax,p);
-	    cg_field_read(index_file,index_base,index_zone,index_flow,"Density",
-	    		RealSingle,irmin,irmax,rho);
-
-		for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
-		{
-			for (j=pnt_config->int_jStartReal; j <= pnt_config->int_jEndReal; j++)
-			{
-				for (k=pnt_config->int_kStartReal; k <= pnt_config->int_kEndReal; k++)
-				{
-					ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-	//				ijk=k*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells+j*pnt_config->int_iMeshPointsGhostCells+i;
-
-					i2=i-pnt_config->int_iStartReal;
-					j2=j-pnt_config->int_jStartReal;
-					k2=k-pnt_config->int_kStartReal;
-
-					ijk2=k2*pnt_config->int_jMeshPoints*pnt_config->int_iMeshPoints+j2*pnt_config->int_iMeshPoints+i2;
-
-					pnt_U_lastStep->u[ijk]=u[ijk2];
-					pnt_U_lastStep->v[ijk]=v[ijk2];
-					pnt_U_lastStep->w[ijk]=w[ijk2];
-					pnt_U_lastStep->rho[ijk]=rho[ijk2];
-					pnt_U_lastStep->p[ijk]=p[ijk2];
-
-					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-
-				}
-			}
-		}
-
-
-	/* close CGNS file */
-	    cg_close(index_file);
-
-		free(u);
-		free(v);
-		free(w);
-		free(rho);
-		free(p);
-}
-
-
 void MeshConfig_CGNS(
 		struct strct_configuration * pnt_config)
 {
@@ -602,7 +414,7 @@ void MeshConfig_CGNS(
 
     index_base=1;
 
-    if((pnt_config->flag_SplitMeshFile==2)||(pnt_config->int_initializeType==1))
+    if(pnt_config->int_initializeType==1)
     {
     	index_zone=1;
     }
@@ -1258,7 +1070,7 @@ void BCImport_CGNS(
 /* we know there is only one base (real working code would check!) */
 	index_base=1;
 
-    if((pnt_config->flag_SplitMeshFile==2)||(pnt_config->int_initializeType==1))
+    if(pnt_config->int_initializeType==1)
     {
     	index_zone=1;
     }

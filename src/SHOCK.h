@@ -54,7 +54,6 @@ struct strct_configuration
 	int *flag_PressureHistory_P;
 	int flag_VelocityHistory;
 	int *flag_VelocityHistory_P;
-	int flag_BC_Changer;
 
 
 	int PressureHistory_No;
@@ -88,10 +87,6 @@ struct strct_configuration
 	char chr_MeshFile[200];
 	char chr_MeshPath[500];
 	char chr_MeshPathOriginal[500];
-	char chr_SnapshotFile[200];
-	char chr_SnapshotPath[500];
-	char chr_FilmFile[200];
-	char chr_FilmPath[500];
 	char chr_PressureHistoryFile[200];
 	char chr_PressureHistoryPath[500];
 	char chr_VelocityHistoryFile[200];
@@ -103,7 +98,6 @@ struct strct_configuration
 	int int_NoCPUsK;
 
 	int int_initializeType;
-	int int_IOType;
 	int int_EndIteration;
 	int int_StartIteration;
 	int int_StartSampling;
@@ -128,9 +122,6 @@ struct strct_configuration
 
 	int flag_extrapolate3Dimension;
 	int flag_exportMetric;
-	int flag_exportSnapshot;
-	int flag_exportFilm;
-	int flag_SplitMeshFile;
 
 
 	int int_NumberBackups;

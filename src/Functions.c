@@ -931,12 +931,9 @@ AllocMemoryMesh(
 	AllocMemoryStrctFlux(
 			pnt_config,
 			pnt_Q_sum);
-	if(pnt_config->flag_exportFilm==1)
-	{
-		AllocMemoryStrctFilm(
-				pnt_config,
-				pnt_Film);
-	}
+	AllocMemoryStrctFilm(
+			pnt_config,
+			pnt_Film);
 
 	AllocMemoryBackup(
 			pnt_config,
@@ -992,11 +989,9 @@ void FreeMemory(
 			pnt_Q);
 	FreeMemoryStrctFlux(
 			pnt_Q_sum);
-	if(pnt_config->flag_exportFilm==1)
-	{
-		FreeMemoryStrctFilm(
-				pnt_Film);
-	}
+	FreeMemoryStrctFilm(
+			pnt_Film);
+	
 /*
 	for(i=0;i<pnt_config->NumberInterfaces;i++)
 	{
@@ -5242,25 +5237,15 @@ void DefineFilesPath(
 	pnt_config->chr_folder[k]=pnt_config->chr_MeshPath[strlen(pnt_config->chr_MeshPath)];
 	if (i==0){strcpy(pnt_config->chr_folder,"./");}
 
-	sprintf(pnt_config->chr_SnapshotFile,"tmp_Snapshot_Zone%d_%s",pnt_config->MPI_rank+1,pnt_config->chr_MeshFile);
-	sprintf(pnt_config->chr_FilmFile,"tmp_Film_Zone%d_%s",pnt_config->MPI_rank+1,pnt_config->chr_MeshFile);
 	sprintf(pnt_config->chr_PressureHistoryFile,"PressureHistory_%s",pnt_config->chr_MeshFile);
 	sprintf(pnt_config->chr_VelocityHistoryFile,"VelocityHistory_%s",pnt_config->chr_MeshFile);
 
 	sprintf(pnt_config->chr_DivisionPath,"%s%s",pnt_config->chr_folder,pnt_config->chr_DivisionFile);
-	sprintf(pnt_config->chr_SnapshotPath,"%sSnapshot/%s",pnt_config->chr_folder,pnt_config->chr_SnapshotFile);
-	sprintf(pnt_config->chr_FilmPath,"%sFilm/%s",pnt_config->chr_folder,pnt_config->chr_FilmFile);
 	sprintf(pnt_config->chr_PressureHistoryPath,"%s%s",pnt_config->chr_folder,pnt_config->chr_PressureHistoryFile);
 	sprintf(pnt_config->chr_VelocityHistoryPath,"%s%s",pnt_config->chr_folder,pnt_config->chr_VelocityHistoryFile);
 
 
 	strcpy(pnt_config->chr_MeshPathOriginal,pnt_config->chr_MeshPath);
-
-	if((pnt_config->int_initializeType==1)&&(pnt_config->int_IOType==0))
-	{
-		strcpy(pnt_config->chr_MeshPath,pnt_config->chr_SnapshotPath);
-	}
-
 }
 
 void SplitMeshFile(
@@ -5557,7 +5542,7 @@ void getInterfaceInformations(
 
 	//Sofern es nur eine Mesh-File gibt, bestimmt der rank die zone-ID.
 	//Bei einer gesplitteten Mesh-File ist diese stets 1
-	if((pnt_config->flag_SplitMeshFile==2)||(pnt_config->int_initializeType==1))
+	if(pnt_config->int_initializeType==1)
 	{
 		index_zone=1;
 	}

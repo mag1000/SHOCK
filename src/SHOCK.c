@@ -129,90 +129,31 @@ int main(int argc, char *argv[])
 	double ts;
 
 	ts = MPI_Wtime( );
-	if(configuration.int_IOType==1)
-	{
-		if(configuration.MPI_rank==0){printf("SHOCK: Parallel Loading of CGNS-file...!\n");}
 
-		vta x = { NULL },y = { NULL },z = { NULL },u = { NULL },v = { NULL },w = { NULL },rho = { NULL },p = { NULL };
+	if(configuration.MPI_rank==0){printf("SHOCK: Parallel Loading of CGNS-file...!\n");}
 
-		loadFile( &configuration,&x,&y,&z,&u,&v,&w,&rho,&p );
+	vta x = { NULL },y = { NULL },z = { NULL },u = { NULL },v = { NULL },w = { NULL },rho = { NULL },p = { NULL };
 
-		postprocessLoad(
-			&x,&y,&z,&u,&v,&w,&rho,&p,
-			&configuration,
-			&mesh,
-			&U_lastStep,
-			&U_RK,
-			&Flux,
-			&Flux_PlusHalf,
-			&Q,
-			&Q_sum,
-			&Film,
-			&U_backup1,
-			&U_backup2);
+	loadFile( &configuration,&x,&y,&z,&u,&v,&w,&rho,&p );
 
-		freeVTA(&x,&y,&z,&u,&v,&w,&rho,&p);
-	}
-	else
-	{
-		if(configuration.MPI_rank==0){printf("SHOCK: Serial Loading of CGNS-file...!\n");}
+	postprocessLoad(
+		&x,&y,&z,&u,&v,&w,&rho,&p,
+		&configuration,
+		&mesh,
+		&U_lastStep,
+		&U_RK,
+		&Flux,
+		&Flux_PlusHalf,
+		&Q,
+		&Q_sum,
+		&Film,
+		&U_backup1,
+		&U_backup2);
 
-		//	Fuer den Fall, dass sehr viele Prozesse auf die MeshFile zugreifen muessen, ist es sinnvoll diese vorher zu splitten.
-		//	Sofern die MeshFile gesplittet werden soll, ist dies das einzige, das gemacht wird und das Programm endet im Anschluß
-		//	Ansonsten werden nur die Pfade so gesetzt, dass die gesplitteten Files verwendet werden
-		switch(configuration.flag_SplitMeshFile)
-		{
-			case 1:
-				if(configuration.MPI_rank==0)
-				{
-					SplitMeshFile(
-							&configuration);
-				}
-				goto exit;
-				printf("SHOCK: Mesh-File-Splitting fertig!\n");
-				break;
-			case 2:
-				if(configuration.int_initializeType!=1)
-				{
-					sprintf(configuration.chr_MeshPath,"%sMesh/tmp_MeshFile_Zone%d_%s",configuration.chr_folder,(configuration.MPI_rank+1),configuration.chr_MeshFile);
-				}
-				break;
-			default:
-				break;
-		}
-
-		MeshConfig_CGNS(
-				&configuration);
-
-		//	BoundaryConditions werden importiert
-		BCImport_CGNS(
-				&configuration);
-
-		//Speicherallokierung: abhängig von der Neztgröße werden die Variablen erzeugt (mit malloc)
-		AllocMemory(
-				&configuration,
-				&mesh,
-				&U_lastStep,
-				&U_RK,
-				&Flux,
-				&Flux_PlusHalf,
-				&Q,
-				&Q_sum,
-				&Film,
-				&U_backup1,
-				&U_backup2);
-		if(configuration.MPI_rank==0){printf("SHOCK: Speicherallokierung fertig!\n");}
-
-
-
-
-		//Import des Gitters
-		MeshImport_CGNS(
-				&configuration,
-				&mesh);
-	}
+	freeVTA(&x,&y,&z,&u,&v,&w,&rho,&p);
 
 	MPI_Barrier( MPI_COMM_WORLD );
+
 	if(configuration.MPI_rank==0){printf("SHOCK: Loading %s fertig (%f min.)!\n",configuration.chr_MeshFile,(MPI_Wtime( )-ts)/60. );}
 
 //	printf("rank: %d left %d right %d top %d bottom %d behind %d inFront %d \n",
@@ -290,79 +231,6 @@ int main(int argc, char *argv[])
 				&configuration,
 				&mesh);
 		if(configuration.MPI_rank==0){printf(">>>>> Options: Immerged BC fertig\n");}
-	}
-
-	if((configuration.int_IOType==0)||(configuration.int_initializeType>1))
-	{
-		//Initialisiere Rechengebiet in U_lastStep & U_RK
-		switch(configuration.int_initializeType)
-		{
-			case 0:
-				Initialize(
-						&configuration,
-						&mesh,
-						&U_lastStep);
-				if(configuration.MPI_rank==0){printf("SHOCK: Neu-Initialisierung des Rechengebietes fertig!\n");}
-				break;
-
-			case 1:
-				Initialize(
-						&configuration,
-						&mesh,
-						&U_lastStep);
-
-				ResultImport_CGNS(
-						&configuration,
-						&mesh,
-						&U_lastStep);
-
-				if(configuration.MPI_rank==0){printf("SHOCK: Import der Ergebnisse fertig! (Iteration: %d, Time: %g)\n",
-						configuration.int_StartIteration,
-						configuration.start_Time);}
-
-		//			IBC
-				if((configuration.flag_IBC==1)&&(configuration.flag_IBC_Moving==1))
-				{
-					configuration.IBC_MovingLastPosition=IBC_getActualPosition(&configuration);
-					configuration.IBC_MovingActualPosition=IBC_getActualPosition(&configuration);
-
-					IBC_Actual2Last(
-							&configuration,
-							&mesh);
-
-					IBC_prepare(
-							&configuration,
-							&mesh);
-				}
-
-				break;
-
-			case -1:
-				ResultImport_CGNS(
-						&configuration,
-						&mesh,
-						&U_lastStep);
-
-				if(configuration.MPI_rank==0){printf("SHOCK: Import der Ergebnisse fertig!\n");}
-
-				InitializeOtherConditions(
-						&configuration,
-						&mesh,
-						&U_lastStep);
-				if(configuration.MPI_rank==0){printf("SHOCK: Modifikation der Ergebnisse fertig.\n");}
-				break;
-
-			default:
-				InitializeOtherConditions(
-						&configuration,
-						&mesh,
-						&U_lastStep);
-				if(configuration.MPI_rank==0){printf("SHOCK: Alternative Initialisierung. Case %d\n",configuration.int_initializeType);}
-				break;
-
-		}
-		if(configuration.MPI_rank==0){printf("SHOCK: Initialisierung des Rechengebietes fertig!\n");}
-
 	}
 
 	SetAllBoundaryConditions(
@@ -486,31 +354,12 @@ int main(int argc, char *argv[])
 				&U_lastStep);
 		if(configuration.MPI_rank==0){printf("SHOCK: Metric-Export fertig! \n");}
 	}
-	//	Film wird herausgeschrieben
-	if(configuration.flag_exportFilm==1)
-	{
-		ts = MPI_Wtime( );
-		if(configuration.int_IOType==1)
-			saveFile( &configuration,&Film );
-		else
-			CGNS_FilmExportParallel(&configuration,&mesh,&Film);
+	//	Ergebnisse werden herausgeschrieben
+	ts = MPI_Wtime( );
+	saveFile( &configuration,&Film );
 
-		if(configuration.MPI_rank==0){printf("SHOCK: CGNS Film-Export (%d Samples) fertig (%f min.)!\n",configuration.int_Samples,(MPI_Wtime( )-ts)/60.);}
-	}
+	if(configuration.MPI_rank==0){printf("SHOCK: CGNS-Export (%d Samples) fertig (%f min.)!\n",configuration.int_Samples,(MPI_Wtime( )-ts)/60.);}
 
-	//	Snapshot wird herausgeschrieben
-	if(configuration.int_IOType==0)
-	{
-		if((configuration.flag_exportSnapshot==1)&&(configuration.int_IOType==0))
-		{
-			CGNS_SnapshotExportParallel(
-				&configuration,
-				&mesh,
-				&U_lastStep);
-
-			if(configuration.MPI_rank==0){printf("SHOCK: CGNS Snapshot-Export fertig!\n");}
-		}
-	}
 
 	if(configuration.flag_PressureHistory==1)
 	{
@@ -805,29 +654,28 @@ void startSimulation(
 
 
 
-		if(pnt_config->flag_exportFilm==1)
+
+		int_iterationCounterSamples++;
+		if((int_iterationCounterSamples%pnt_config->int_IterationsBetweenSamples==0)&&(pnt_config->int_actualSample<pnt_config->int_Samples)&&(pnt_config->int_actualIteration>=(pnt_config->int_StartSampling)))
 		{
-			int_iterationCounterSamples++;
-			if((int_iterationCounterSamples%pnt_config->int_IterationsBetweenSamples==0)&&(pnt_config->int_actualSample<pnt_config->int_Samples)&&(pnt_config->int_actualIteration>=(pnt_config->int_StartSampling)))
-			{
-				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
-				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK:           Start Sampling.\n");}
-				if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
+			if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
+			if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK:           Start Sampling.\n");}
+			if((pnt_config->MPI_rank==0)&&(pnt_config->int_actualSample==0)){printf("SHOCK: ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");}
 
-				CalcValuesForPost(
-						 pnt_config,
-						 pnt_mesh,
-						 pnt_U_lastStep);
-
-				WriteValuesFromUToFilm(
+			CalcValuesForPost(
 					 pnt_config,
-					 pnt_U_lastStep,
-					 pnt_Film,
-					 pnt_mesh);
+					 pnt_mesh,
+					 pnt_U_lastStep);
 
-				pnt_config->int_actualSample++;
-			}
+			WriteValuesFromUToFilm(
+				 pnt_config,
+				 pnt_U_lastStep,
+				 pnt_Film,
+				 pnt_mesh);
+
+			pnt_config->int_actualSample++;
 		}
+
 
 		if(pnt_config->flag_PressureHistory==1)
 		{
@@ -842,38 +690,6 @@ void startSimulation(
 				pnt_config,
 				pnt_U_lastStep);
 		}
-
-		if(pnt_config->int_IOType==0)
-		{
-			if(pnt_config->int_NumberBackups>0)
-			{
-				int_iterationCounterBackupOut++;
-				if((int_iterationCounterBackupOut==(int)(pnt_config->int_TotalIterations/(pnt_config->int_NumberBackups)))
-						&&
-						(pnt_config->int_actualIteration!=pnt_config->int_EndIteration))
-				{
-					CalcValuesForPost(
-							 pnt_config,
-							 pnt_mesh,
-							 pnt_U_lastStep);
-
-					CGNS_SnapshotExportParallel(
-						pnt_config,
-						pnt_mesh,
-						pnt_U_lastStep);
-
-			if(pnt_config->MPI_rank==0){
-	//		Der Sytem-Befehl scheint unter Juqueen nicht zu funktionieren
-	//				  sprintf(chr_SnapshotPath_normal,"%sSnapshot/",pnt_config->chr_folder);
-	//				  sprintf(chr_SnapshotPath_new,"%sSnapshot_%d/",pnt_config->chr_folder,pnt_config->int_actualIteration);
-	//				  sprintf(command,"cp -r %s %s",chr_SnapshotPath_normal,chr_SnapshotPath_new);
-	//				  system(command);
-					  printf("SHOCK: Backup wurde geschrieben.\n");}
-					int_iterationCounterBackupOut=0;
-				}
-			}
-		}
-
 
 		int_iterationCounterStdOut++;
 		if(int_iterationCounterStdOut==(pnt_config->int_TotalIterations/100)||(pnt_config->int_EndIteration<100))
@@ -909,21 +725,6 @@ void setOptions(
 		struct strct_Flux * pnt_Flux_PlusHalf,
 		struct strct_Film * pnt_Film)
 {
-//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BC_Changer<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	if(pnt_config->flag_BC_Changer){
-		if(pnt_config->MPI_rank==0){printf(">>>>> Options: BC-Changer aktiviert!\n");}
-		MPI_Barrier(pnt_config->MPI_comm);
-		if ((pnt_mesh->y[pnt_config->ijkMid]>0.2) || (pnt_mesh->y[pnt_config->ijkMid]<-0.2)){
-			if(strcmp(pnt_config->BC_Top,"BCWallViscous")==0)
-				{printf("BC-Top von Rank%d (y-Mid: %g) geaendert von %s",pnt_config->MPI_rank,pnt_mesh->y[pnt_config->ijkMid],pnt_config->BC_Top);
-				strcpy(pnt_config->BC_Top,"BCFarfield");
-				printf(" nach %s\n",pnt_config->BC_Top);}
-			if(strcmp(pnt_config->BC_Bottom,"BCWallViscous")==0)
-				{printf("BC-Bottom von Rank%d (y-Mid: %g) geaendert von %s",pnt_config->MPI_rank,pnt_mesh->y[pnt_config->ijkMid],pnt_config->BC_Top);
-				strcpy(pnt_config->BC_Bottom,"BCFarfield");
-				printf(" nach %s\n",pnt_config->BC_Top);}}}
-	MPI_Barrier(pnt_config->MPI_comm);
-
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PressureWaves<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	if(pnt_config->flag_PressureWaves==1){
 		preparePressureWaves(
@@ -951,13 +752,21 @@ void setOptions(
 				pnt_mesh);
 		MPI_Barrier(pnt_config->MPI_comm);	}
 
-	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LaminarBoundary<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>SpecialInitialisation<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	if(pnt_config->flag_LaminarBoundary==1){
 		InitializeLaminarBoundary(
 							pnt_config,
 							pnt_mesh,
 							pnt_U_lastStep);
 		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Laminare Grenzschicht wurd ab x=%f generiert.\n",pnt_config->LaminarBoundary_xStart);}}
+		
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LaminarBoundary<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_LaminarBoundary==1){
+		InitializeLaminarBoundary(
+							pnt_config,
+							pnt_mesh,
+							pnt_U_lastStep);
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Laminare Grenzschicht wurd ab x=%f generiert.\n",pnt_config->LaminarBoundary_xStart);}}		
 
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Vortex<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	if(pnt_config->flag_Vortex==1){
