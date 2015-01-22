@@ -1435,7 +1435,6 @@ void InitializeSpecialConditions(
 	double rho,p,u,v,w;
 	double x_start;
 	double eta,delta_y,T_unendl,T_ad;
-	double u_tmp,v_tmp,u0,v0;
 	float distance;
 
 	gebiet=0;
@@ -1589,18 +1588,42 @@ void InitializeSpecialConditions(
 
 //				gitterangepasste Startloesung (Stromlinien entlang xi-Linien)
 				case 7:
-					distance=sqrt(pow((pnt_mesh->x[ijk]-0.),2.)+pow((pnt_mesh->y[ijk]-0.),2.));
+					distance=sqrt(
+					pow((pnt_mesh->x[ijk]-0.),2.)
+					+pow((pnt_mesh->y[ijk]-0.),2.)
+					);
 					p=pnt_config->InitializeValues_p0;
 					rho=pnt_config->InitializeValues_rho0;
-			
-					u0=tanh(distance)*pnt_config->InitializeValues_u0;
-					v0=tanh(distance)*pnt_config->InitializeValues_u0;
-			
-					u_tmp=(1.0*fabs(pnt_mesh->eta_y[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-					v_tmp=(-1.0*(pnt_mesh->eta_x[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
-
-					u=u0*u_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
-					v=v0*v_tmp/(sqrt(u_tmp*u_tmp+v_tmp*v_tmp));
+					
+					float theta1,theta2;
+					float u_tmp,v_tmp;
+					theta1=pnt_config->dbl_u_inflow;
+					theta2=pnt_config->dbl_v_inflow;
+					if(distance<1.)
+					{
+					u_tmp=fabs(-(theta1*pnt_mesh->eta_y[ijk]-theta2*pnt_mesh->xi_y[ijk]))/
+					fabs((-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
+					if((pnt_mesh->y[ijk])>=0.0)
+					{
+					v_tmp=-(-theta1*(pnt_mesh->eta_x[ijk])+theta2*(pnt_mesh->xi_x[ijk]))/
+					(-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]);				
+					}
+					else
+					{
+					v_tmp=-((-theta1*pnt_mesh->eta_x[ijk])+(theta2*pnt_mesh->xi_x[ijk]))/
+					fabs(-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]);	
+					}
+					
+					u=u_tmp/sqrt(u_tmp*u_tmp+v_tmp*v_tmp)*tanh(4*distance);
+					v=v_tmp/sqrt(u_tmp*u_tmp+v_tmp*v_tmp)*tanh(4*distance);
+					
+					}
+					else
+					{
+					u=pnt_config->dbl_u_inflow;
+					v=pnt_config->dbl_v_inflow;
+					}
+					
 					break;
 
 				}
