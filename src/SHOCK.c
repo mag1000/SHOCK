@@ -314,15 +314,15 @@ int main(int argc, char *argv[])
 		if(pnt_config->MPI_rank==0){printf("SHOCK: Initialisierungswerte für Export speichern.\n");}
 
 		CalcValuesForPost(
-				 pnt_config,
-				 pnt_mesh,
-				 pnt_U_lastStep);
+			&configuration,
+			&mesh,
+			&U_lastStep);
 
 		WriteValuesFromUToFilm(
-			 pnt_config,
-			 pnt_U_lastStep,
-			 pnt_Film,
-			 pnt_mesh);
+			&configuration,
+			&U_lastStep,
+			&Film,
+			&mesh);
 	}
 
 
