@@ -1432,7 +1432,7 @@ void InitializeSpecialConditions(
 {
 	int i,j,k,ijk,ij0k;
 	int gebiet;
-	double rho,p,u,v,w;
+	double rho,p,u,v,w,e;
 	double eta,delta_y,T_unendl,T_ad;
 	float distance;
 	float theta1,theta2;
@@ -1542,6 +1542,8 @@ void InitializeSpecialConditions(
 					u=pnt_config->dbl_u_inflow;
 					v=pnt_config->dbl_v_inflow;
 					
+					e=(0.5*((u*u)+(v*v))+p/rho/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+					
 					distance=sqrt(
 					pow((pnt_mesh->x[ijk]-0.),2.)
 					+pow((pnt_mesh->y[ijk]-0.),2.)
@@ -1592,6 +1594,8 @@ void InitializeSpecialConditions(
 					
 						
 					}
+					
+					p=(e-0.5*((u*u)+(v*v)))*rho*(pnt_config->dbl_gammaNumber-1.0)/pnt_config->dbl_Upsilon;					
 					
 					
 					break;
