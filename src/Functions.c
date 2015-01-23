@@ -1430,12 +1430,13 @@ void InitializeSpecialConditions(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep)
 {
-	int i,j,k,ijk,ijPlus1k;
+	int i,j,k,ijk,ij0k;
 	int gebiet;
 	double rho,p,u,v,w;
-	double x_start;
 	double eta,delta_y,T_unendl,T_ad;
 	float distance;
+	float theta1,theta2;
+	float u_tmp,v_tmp;	
 
 	gebiet=0;
 	rho=1.0;
@@ -1533,33 +1534,66 @@ void InitializeSpecialConditions(
 
 					break;
 
-//				Laminar Boundary Layer
+//				Laminar Boundary Layer for airfoil
 				case 5:
-					x_start=pnt_config->LaminarBoundary_xStart;
-					p=1.0;
-					rho=1.0;
-					u=1.0;
-					v=0.0;
-					if(pnt_mesh->x[ijk]>x_start)
+
+					p=pnt_config->InitializeValues_p0;
+					rho=pnt_config->InitializeValues_rho0;
+					u=pnt_config->dbl_u_inflow;
+					v=pnt_config->dbl_v_inflow;
+					
+					distance=sqrt(
+					pow((pnt_mesh->x[ijk]-0.),2.)
+					+pow((pnt_mesh->y[ijk]-0.),2.)
+					);					
+					u=u*tanh(4*distance);
+					v=v*tanh(4*distance);					
+					
+					theta1=u;
+					theta2=v;
+					
+					if(strcmp(pnt_config->BC_Bottom,pnt_config->BCWallViscous)==0)
 					{
-						ijPlus1k=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+(j+1)*pnt_config->int_kMeshPointsGhostCells+k;
-						delta_y=pnt_mesh->y[ijPlus1k]-pnt_mesh->y[ijk];
+						ij0k=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+0*pnt_config->int_kMeshPointsGhostCells+k;
+						delta_y=sqrt(
+						(pnt_mesh->y[ijk]-pnt_mesh->y[ij0k])*(pnt_mesh->y[ijk]-pnt_mesh->y[ij0k])+
+						(pnt_mesh->x[ijk]-pnt_mesh->x[ij0k])*(pnt_mesh->x[ijk]-pnt_mesh->x[ij0k])
+						);
 						T_unendl=p/rho;
 						T_ad=T_unendl*(1+(pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0));
 
-						eta=(pnt_mesh->y[ijk]+delta_y*0.5)/
-								(4.9*(pnt_mesh->x[ijk]-x_start)/sqrt(pnt_config->dbl_reynoldsNumber*(pnt_mesh->x[ijk]-x_start)));
+						eta=delta_y/(4.9*pnt_mesh->x[ijk]/sqrt(pnt_config->dbl_reynoldsNumber*pnt_mesh->x[ijk]));
 						if (eta<7.0)
 						{
 //							approximation der blasius-lösung
-							u=1.0-1.4567*exp(-1.0*eta)-1.2956*exp(-1.0*eta)*(eta-1.0)-0.8392*exp(-2.0*eta);
+							theta1=1.0-1.4567*exp(-1.0*eta)-1.2956*exp(-1.0*eta)*(eta-1.0)-0.8392*exp(-2.0*eta);
 //							Temperaturverlauf nach Busemann/Crocco
 //							printf(">%f %f %f< ",pnt_config->dbl_gammaNumber,pnt_config->dbl_machNumber,T_ad);
-							rho=p/(T_unendl*
-									((pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
+							rho=p/(T_unendl*((pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
 
+						
+							u_tmp=fabs(-(theta1*pnt_mesh->eta_y[ijk]-theta2*pnt_mesh->xi_y[ijk]))/
+							fabs((-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]));
+							if((pnt_mesh->y[ijk])>=0.0)
+							{
+							v_tmp=-(-theta1*(pnt_mesh->eta_x[ijk])+theta2*(pnt_mesh->xi_x[ijk]))/
+							(-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]);				
+							}
+							else
+							{
+							v_tmp=-((-theta1*pnt_mesh->eta_x[ijk])+(theta2*pnt_mesh->xi_x[ijk]))/
+							fabs(-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]);	
+							}
+					
+							u=u_tmp/sqrt(u_tmp*u_tmp+v_tmp*v_tmp)*theta1;
+							v=v_tmp/sqrt(u_tmp*u_tmp+v_tmp*v_tmp)*theta1;
+						
 						}
+					
+						
 					}
+					
+					
 					break;
 
 //				Stoss-STK
@@ -1594,9 +1628,7 @@ void InitializeSpecialConditions(
 					);
 					p=pnt_config->InitializeValues_p0;
 					rho=pnt_config->InitializeValues_rho0;
-					
-					float theta1,theta2;
-					float u_tmp,v_tmp;
+
 					theta1=pnt_config->dbl_u_inflow;
 					theta2=pnt_config->dbl_v_inflow;
 					if(distance<1.)
