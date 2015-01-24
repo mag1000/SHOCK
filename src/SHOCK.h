@@ -447,6 +447,7 @@ struct strct_configuration
 	double InitializeValues_u1;
 	double InitializeValues_p1;
 	double InitializeValues_rho1;
+	double InitializeValues_xBorder;
 
 
 	//	2D-Rotation-Symmetric

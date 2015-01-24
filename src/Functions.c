@@ -1457,20 +1457,8 @@ void InitializeSpecialConditions(
 
 				switch (pnt_config->int_specialInitializeType)
 				{
-//				Validatio: 1D-Riemann Test
-				case 22:
-					if(pnt_mesh->x[ijk]<=5.5){gebiet=0;} //L
-					if(pnt_mesh->x[ijk]>5.5){gebiet=1;} //R
-
-					switch (gebiet)
-					{
-						case 0:p=1.0;rho=1.0;u=0.0;v=0.0;break;
-						case 1:p=0.1;rho=0.1;u=0.0;v=0.0;break;
-					}
-					break;
-
 //				Validatio: 2D-Riemann Test
-				case 2:
+				case 22:
 					if((pnt_mesh->x[ijk]<0.5)&&(pnt_mesh->y[ijk]<0.5)){gebiet=1;} //LU
 					if((pnt_mesh->x[ijk]<0.5)&&(pnt_mesh->y[ijk]>=0.5)){gebiet=0;} //LO
 					if((pnt_mesh->x[ijk]>=0.5)&&(pnt_mesh->y[ijk]<0.5)){gebiet=3;} //RU
@@ -1482,6 +1470,28 @@ void InitializeSpecialConditions(
 						case 1:p=0.4;rho=1.0625;u=0.0;v=0.2145;break;
 						case 2:p=1.0;rho=1.0;u=0.0;v=-0.4;break;
 						case 3:p=0.4;rho=0.5197;u=0.0;v=-1.1259;break;
+					}
+					break;
+
+//				Validatio: 1D-Riemann Test
+				case 2:
+					if(pnt_mesh->x[ijk]<=pnt_config->InitializeValues_xBorder){gebiet=0;} //L
+					if(pnt_mesh->x[ijk]>pnt_config->InitializeValues_xBorder){gebiet=1;} //R
+
+					switch (gebiet)
+					{
+						case 0:
+						p=pnt_config->InitializeValues_p0;
+						rho=pnt_config->InitializeValues_rho0;
+						u=pnt_config->InitializeValues_rho0;
+						v=0.0;
+						break;
+						case 1:
+						p=pnt_config->InitializeValues_p1;
+						rho=pnt_config->InitializeValues_rho1;
+						u=pnt_config->InitializeValues_u1;
+						v=0.0;
+						break;
 					}
 					break;
 
