@@ -1481,17 +1481,17 @@ void InitializeSpecialConditions(
 					switch (gebiet)
 					{
 						case 0:
-						p=pnt_config->InitializeValues_p0;
-						rho=pnt_config->InitializeValues_rho0;
-						u=pnt_config->InitializeValues_rho0;
-						v=0.0;
-						break;
+							p=pnt_config->InitializeValues_p0;
+							rho=pnt_config->InitializeValues_rho0;
+							u=pnt_config->InitializeValues_u0;
+							v=0.0;
+							break;
 						case 1:
-						p=pnt_config->InitializeValues_p1;
-						rho=pnt_config->InitializeValues_rho1;
-						u=pnt_config->InitializeValues_u1;
-						v=0.0;
-						break;
+							p=pnt_config->InitializeValues_p1;
+							rho=pnt_config->InitializeValues_rho1;
+							u=pnt_config->InitializeValues_u1;
+							v=0.0;
+							break;
 					}
 					break;
 
