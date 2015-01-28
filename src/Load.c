@@ -271,7 +271,16 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 
 	TM_START ( )
 
-	TM_START ( )
+	if(pnt_config->flag_swapDivisionFile==1)
+	{
+		printf("SHOCK: Forced: No Swapping!");
+	}
+	else if(pnt_config->flag_swapDivisionFile==2)
+	{
+		printf("SHOCK: Forced: Swapping!");
+	}
+	else
+	{
 	const int one = 1;
 	if(( *( (char*)(&one) )==1 )&&(pnt_config->MPI_rank==0))
 	{
@@ -281,6 +290,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 	{
 		printf("SHOCK: BigEndian-System: DivisionFile is swapped.\n");
 	}
+	}	
 	loadDivision( pnt_config,pnt_config->chr_DivisionPath,pnt_config->MPI_rank+1,zonename,corners,neighbours,&ni,pnt_config->MPI_size );
 	TM_END ( "Loading divisionfile" )
 	CG( cg_base_read( file,base,basename,&celldim,&physdim ) );
