@@ -110,30 +110,56 @@ typedef struct {
 	float rc[ PHYSDIM ],ra[ PHYSDIM ],tr[ PHYSDIM ]; ///< Auxiliary data
 } interface;
 
-void* normalizeBytes( void* mem,size_t size,int count ) {
+void* normalizeBytes( struct strct_configuration* pnt_config, void* mem,size_t size,int count ) {
+
+	if (pnt_config->flag_swapDivisionFile==1) //force to stop swapping
+	{
+		return mem;
+	}
+	if (pnt_config->flag_swapDivisionFile==2) //force to swap
+	{
+		char swap;
+
+
+
+		size_t i;
+		int k;
+		for( k = 0; k<count; k++ ) {
+			char* buf = ( (char*)mem )+k*size;
+			for( i = 0; i<(int)( size/2 ); i++ ) {
+				swap = buf[ i ];
+				buf[ i ]= buf[ size-1-i ];
+				buf[ size-1-i ]= swap;
+			}
+		}
+
+		return mem;	
+	}
+		
+	//automatic ("scans" architecture)
+	
 	const int one = 1;
 	if( *( (char*)(&one) )==1 )
+	{
 		return mem;
-
-	char swap;
-
-/*
-//	EIN MANUELER EINGRIFF DA DIE DIVISIONFILE AUF DER JUQUEEN GEMACHT WURDE UND BEREITS BIG ENDIAN IST
-	return mem;
-*/
-
-	size_t i;
-	int k;
-	for( k = 0; k<count; k++ ) {
-		char* buf = ( (char*)mem )+k*size;
-		for( i = 0; i<(int)( size/2 ); i++ ) {
-			swap = buf[ i ];
-			buf[ i ]= buf[ size-1-i ];
-			buf[ size-1-i ]= swap;
-		}
 	}
+	else
+	{
 
-	return mem;
+		char swap;
+		size_t i;
+		int k;
+		for( k = 0; k<count; k++ ) {
+			char* buf = ( (char*)mem )+k*size;
+			for( i = 0; i<(int)( size/2 ); i++ ) {
+				swap = buf[ i ];
+				buf[ i ]= buf[ size-1-i ];
+				buf[ size-1-i ]= swap;
+			}
+		}
+
+		return mem;
+	}
 }
 
 /** Determine domain and offset in the grid
@@ -162,7 +188,7 @@ void* normalizeBytes( void* mem,size_t size,int count ) {
  * @return The CG Error code corresponding to the last error or 0 if no
  * error occured.
  */
-static void loadDivision( char* const filename,unsigned divzone,char zonename[ 33 ],cgsize_t corners[ 2 ][ DIM ],interface neighbours[ DIM ][ 2 ],int* ni,const int proccount ) {
+static void loadDivision( struct strct_configuration* pnt_config,char* const filename,unsigned divzone,char zonename[ 33 ],cgsize_t corners[ 2 ][ DIM ],interface neighbours[ DIM ][ 2 ],int* ni,const int proccount ) {
 
 	MPI_File divfile;
 	MPI_Status status;
@@ -190,7 +216,7 @@ static void loadDivision( char* const filename,unsigned divzone,char zonename[ 3
 	zonename[ 32 ]= '\0';
 
 	cgsize_t(* incorners)[ DIM ]= (cgsize_t(*)[ DIM ])( dataset+32 );
-	normalizeBytes( memcpy( corners[ 0 ],incorners,2*DIM*sizeof( cgsize_t ) ),sizeof( cgsize_t ),2*DIM );
+	normalizeBytes( pnt_config,memcpy( corners[ 0 ],incorners,2*DIM*sizeof( cgsize_t ) ),sizeof( cgsize_t ),2*DIM );
 
 	int dir;
 	*ni = 0;
@@ -209,13 +235,13 @@ static void loadDivision( char* const filename,unsigned divzone,char zonename[ 3
 
 			if( *neighbour ) {
 				( *ni )++;
-				neighbours[ dir ][ higher ].neighbour = *(int*)normalizeBytes( neighbour,sizeof( int ),1 );
-				normalizeBytes( memcpy( &neighbours[ dir ][ higher ].range,range,2*DIM*sizeof( cgsize_t ) ),sizeof( cgsize_t ),2*DIM );
-				normalizeBytes( memcpy( &neighbours[ dir ][ higher ].drange,drange,2*DIM*sizeof( cgsize_t ) ),sizeof( cgsize_t ),2*DIM );
-				normalizeBytes( memcpy( &neighbours[ dir ][ higher ].transform,transform,DIM*sizeof( int ) ),sizeof( int ),DIM );
-				normalizeBytes( memcpy( &neighbours[ dir ][ higher ].rc,rc,PHYSDIM*sizeof( float ) ),sizeof( float ),PHYSDIM );
-				normalizeBytes( memcpy( &neighbours[ dir ][ higher ].ra,ra,PHYSDIM*sizeof( float ) ),sizeof( float ),PHYSDIM );
-				normalizeBytes( memcpy( &neighbours[ dir ][ higher ].tr,tr,PHYSDIM*sizeof( float ) ),sizeof( float ),PHYSDIM );
+				neighbours[ dir ][ higher ].neighbour = *(int*)normalizeBytes( pnt_config,neighbour,sizeof( int ),1 );
+				normalizeBytes( pnt_config,memcpy( &neighbours[ dir ][ higher ].range,range,2*DIM*sizeof( cgsize_t ) ),sizeof( cgsize_t ),2*DIM );
+				normalizeBytes( pnt_config,memcpy( &neighbours[ dir ][ higher ].drange,drange,2*DIM*sizeof( cgsize_t ) ),sizeof( cgsize_t ),2*DIM );
+				normalizeBytes( pnt_config,memcpy( &neighbours[ dir ][ higher ].transform,transform,DIM*sizeof( int ) ),sizeof( int ),DIM );
+				normalizeBytes( pnt_config,memcpy( &neighbours[ dir ][ higher ].rc,rc,PHYSDIM*sizeof( float ) ),sizeof( float ),PHYSDIM );
+				normalizeBytes( pnt_config,memcpy( &neighbours[ dir ][ higher ].ra,ra,PHYSDIM*sizeof( float ) ),sizeof( float ),PHYSDIM );
+				normalizeBytes( pnt_config,memcpy( &neighbours[ dir ][ higher ].tr,tr,PHYSDIM*sizeof( float ) ),sizeof( float ),PHYSDIM );
 			}
 		}
 	}
@@ -255,7 +281,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 	{
 		printf("BigEndian-System: DivisionFile is swapped.\n");
 	}
-	loadDivision( pnt_config->chr_DivisionPath,pnt_config->MPI_rank+1,zonename,corners,neighbours,&ni,pnt_config->MPI_size );
+	loadDivision( pnt_config,pnt_config->chr_DivisionPath,pnt_config->MPI_rank+1,zonename,corners,neighbours,&ni,pnt_config->MPI_size );
 	TM_END ( "Loading divisionfile" )
 	CG( cg_base_read( file,base,basename,&celldim,&physdim ) );
 

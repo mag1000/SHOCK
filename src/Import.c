@@ -41,6 +41,7 @@ void ConfigImport(
 	pnt_config->int_StartSampling = iniparser_getint(ini, "general:StartSampling", 0);
 	pnt_config->int_NumberBackups = iniparser_getint(ini, "general:Backup-Exports", 0);
 	pnt_config->flag_TauAccelerator = iniparser_getboolean(ini, "general:TauAccelerator", 0);
+	pnt_config->flag_swapDivisionFile = iniparser_getint(ini, "general:SwapDivFile", 0);	
 
 //	Numerics
 	pnt_config->int_SpaceOrder=SPACEORDER;

@@ -1,7 +1,7 @@
-# The serial compilers
-set(CMAKE_C_COMPILER /usr/bin/bgxlc_r)
-set(CMAKE_CXX_COMPILER /usr/bin/bgxlc++_r)
-set(CMAKE_Fortran_COMPILER /usr/bin/bgxlf_r)
+# The compilers
+set(CMAKE_C_COMPILER /bgsys/drivers/ppcfloor/comm/xl/bin/mpicc)
+set(CMAKE_CXX_COMPILER /bgsys/drivers/ppcfloor/comm/xl/bin/mpicxx)
+set(CMAKE_Fortran_COMPILER /bgsys/drivers/ppcfloor/comm/xl/bin/mpif90)
 
 # The MPI wrappers for the serial compilers
 set(MPI_ROOT "/bgsys/drivers/ppcfloor/comm/gcc")

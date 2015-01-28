@@ -94,6 +94,8 @@ struct strct_configuration
 	char chr_VelocityHistoryPath[500];
 	char chr_folder[500];
 
+	int flag_swapDivisionFile;
+
 	int int_NoCPUsI;
 	int int_NoCPUsJ;
 	int int_NoCPUsK;
