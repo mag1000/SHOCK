@@ -267,17 +267,17 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 #else
 	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
 #endif
-	TM_END( "Opening meshfile" )
+	TM_END( "SHOCK: Opening meshfile" )
 
 	TM_START ( )
 
 	if(pnt_config->flag_swapDivisionFile==1)
 	{
-		printf("SHOCK: Forced: No Swapping!");
+		printf("SHOCK: Forced: No Swapping!\n");
 	}
 	else if(pnt_config->flag_swapDivisionFile==2)
 	{
-		printf("SHOCK: Forced: Swapping!");
+		printf("SHOCK: Forced: Swapping!\n");
 	}
 	else
 	{
@@ -292,7 +292,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 	}
 	}	
 	loadDivision( pnt_config,pnt_config->chr_DivisionPath,pnt_config->MPI_rank+1,zonename,corners,neighbours,&ni,pnt_config->MPI_size );
-	TM_END ( "Loading divisionfile" )
+	TM_END ( "SHOCK: Loading divisionfile" )
 	CG( cg_base_read( file,base,basename,&celldim,&physdim ) );
 
 	if( celldim!=DIM ) {
@@ -549,7 +549,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 #endif
 			}
 		}
-	TM_END ( "Loading meshConfigs" )
+	TM_END ( "SHOCK: Loading meshConfigs" )
 	TM_START ( )
 	const long long pointcount = pnt_config->zonesize[ 0 ]*pnt_config->zonesize[ 1 ] DIM3( *pnt_config->zonesize[ 2 ] );
 
@@ -665,7 +665,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 		}
 	} else
 		pnt_config->dbl_time_dim = 0;
-	TM_END ( "Loading mesh" )
+	TM_END ( "SHOCK: Loading mesh" )
 	TM_START ( )
 	if(( sol<=nsols )&&(abs(pnt_config->int_initializeType)==1)) {
 /** Load solution data into vta for later processing. */
@@ -709,10 +709,10 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 		#endif
 
 	}
-	TM_END ( "Loading results" )
+	TM_END ( "SHOCK: Loading results" )
 	TM_START ( )
 	cgp_close( file );
-	TM_END ( "Closing meshfile" )
+	TM_END ( "SHOCK: Closing meshfile" )
 	TM_START ( )
 	return 0;
 }

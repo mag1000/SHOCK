@@ -49,7 +49,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 	if( worldleader ) {
 		TM_START( )
 		CG( cg_open( pnt_config->chr_MeshPath,CG_MODE_MODIFY,&file ) );
-		TM_END( "Opening savefile - rank0 - preparing Savefile" )
+		TM_END( "SHOCK: Opening savefile - rank0 - preparing Savefile" )
 		if( abs(pnt_config->int_initializeType)!=1 ) {
 			CG( cg_nzones( file,base,&nzones ) );
 
@@ -259,7 +259,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
 #endif
 //	CG( cgp_queue_set( 1 ) );
-	TM_END( "Opening savefile" )
+	TM_END( "SHOCK: Opening savefile" )
 
 	CG( cg_nzones( file,base,&nzones ) );
 	for( zone = 1; zone<=nzones; zone++ ) {
