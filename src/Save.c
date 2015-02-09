@@ -20,13 +20,13 @@
 float ts;
 
 #if TM==1
-#	define TM_START() ts=MPI_Wtime( );
+#	define TM_START() ts=(float)MPI_Wtime( );
 #else
 #	define TM_START()
 #endif
 
 #if TM==1
-#	define TM_END(msg) if(pnt_config->MPI_rank==0){printf(msg " took %g seconds\n",MPI_Wtime( )-ts );}
+#	define TM_END(msg) if(pnt_config->MPI_rank==0){printf(msg " took %g seconds\n",(float)MPI_Wtime( )-ts );}
 #else
 #	define TM_END(msg)
 #endif

@@ -165,7 +165,7 @@ struct strct_configuration
 	int int_kStartGhosts_original;
 	int int_kEndGhosts_original;
 
-	float comm_time;
+	double comm_time;
 	float flt_p_out;
 	float flt_T_wall;
 

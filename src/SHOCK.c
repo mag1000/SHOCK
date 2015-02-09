@@ -21,7 +21,7 @@
 int int_interationsStart;
 int int_interationsEnd;
 
-float t0,t1,t2;
+double t0,t1,t2;
 
 int int_myCPUID;
 int actualID,actualP;
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 	DefineParameters(
 			&configuration);
 	if(configuration.MPI_rank==0){printf("SHOCK: Definition der Variablen fertig!\n");}
-	float ts;
+	double ts;
 
 	ts = MPI_Wtime( );
 
@@ -272,12 +272,9 @@ int main(int argc, char *argv[])
 	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
 	if(configuration.MPI_rank==0){printf("\n");}
 
-
-	MPI_Barrier(configuration.MPI_comm);
 	t1 = MPI_Wtime();
-	
 	if(configuration.MPI_rank==0){print_memusage_c();}
-	if(configuration.MPI_rank==0){printf("SHOCK: Die Initialisierung fertig (%f min.)\n",(t1-t0)/60);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Die Initialisierung fertig (%f min.)\n",(t1-t0)/60.);}
 
 	//########################################
 	//########################################
@@ -306,7 +303,7 @@ int main(int argc, char *argv[])
 			&U_backup1,
 			&U_backup2);
 	MPI_Barrier(configuration.MPI_comm);
-	if(configuration.MPI_rank==0){printf("SHOCK: %dD Simulation fertig (%f min.)!\n",configuration.int_meshDimensions,(MPI_Wtime()-t1)/60.);}
+	if(configuration.MPI_rank==0){printf("SHOCK: %dD Simulation fertig (%g min.)!\n",configuration.int_meshDimensions,((MPI_Wtime())-t1)/60.);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Gesamtkommunikationsdauer: %g min.\n",configuration.comm_time/60.);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Letztes Tau: %g!\n",configuration.flt_numericalTau);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Letztes DistanceForwad: %d!\n",configuration.int_distanceForward);}
@@ -375,7 +372,7 @@ int main(int argc, char *argv[])
 	ts = MPI_Wtime( );
 	saveFile( &configuration,&Film );
 
-	if(configuration.MPI_rank==0){printf("SHOCK: CGNS-Export (%d Samples) fertig (%f min.)!\n",configuration.int_Samples,(MPI_Wtime( )-ts)/60.);}
+	if(configuration.MPI_rank==0){printf("SHOCK: CGNS-Export (%d Samples) fertig (%f min.)!\n",configuration.int_Samples,((MPI_Wtime( ))-ts)/60.);}
 
 
 	if(configuration.flag_PressureHistory==1)
@@ -401,7 +398,7 @@ int main(int argc, char *argv[])
 			}
 			MPI_Barrier(configuration.MPI_comm);
 		}
-		if(configuration.MPI_rank==0){printf("SHOCK: PressureHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+		if(configuration.MPI_rank==0){printf("SHOCK: PressureHistory-Export fertig (%f min.)!\n",((MPI_Wtime( ))-ts)/60.);}
 	}
 
 	if(configuration.flag_VelocityHistory==1)
@@ -427,7 +424,7 @@ int main(int argc, char *argv[])
 			}
 			MPI_Barrier(configuration.MPI_comm);
 		}
-		if(configuration.MPI_rank==0){printf("SHOCK: VelocityHistory-Export fertig (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+		if(configuration.MPI_rank==0){printf("SHOCK: VelocityHistory-Export fertig (%f min.)!\n",((MPI_Wtime( ))-ts)/60.);}
 	}
 
 
@@ -445,7 +442,7 @@ int main(int argc, char *argv[])
 			&Q_sum,
 			&Film);
 
-if(configuration.MPI_rank==0){printf("SHOCK: Speicher freigegeben (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
+if(configuration.MPI_rank==0){printf("SHOCK: Speicher freigegeben (%f min.)!\n",((MPI_Wtime( ))-ts)/60.);}
 
 //	if(configuration.MPI_rank==0){printf("Glaettungsindikatoren: Durchschnitt: %le   Minimum: %le  Maximum: %le,\n",
 //			(configuration.flt_is_avrg/configuration.flt_is_avrg_counter),configuration.flt_is_minimum,configuration.flt_is_maximum);}
