@@ -599,7 +599,7 @@ void WriteFarfieldBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -626,7 +626,7 @@ void WriteFarfieldBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -653,7 +653,7 @@ void WriteFarfieldBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -682,7 +682,7 @@ void WriteFarfieldBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -708,7 +708,7 @@ void WriteFarfieldBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -736,7 +736,7 @@ void WriteFarfieldBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -765,7 +765,7 @@ void WriteWallNoSlipBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -796,7 +796,7 @@ void WriteWallNoSlipBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -829,7 +829,7 @@ void WriteWallNoSlipBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -860,7 +860,7 @@ void WriteWallNoSlipBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -892,7 +892,7 @@ void WriteWallNoSlipBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -920,7 +920,7 @@ void WriteWallNoSlipBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -949,7 +949,7 @@ void WriteWallSlipBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -981,7 +981,7 @@ void WriteWallSlipBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -1013,7 +1013,7 @@ void WriteWallSlipBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
@@ -1043,7 +1043,7 @@ void WriteWallSlipBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -1073,7 +1073,7 @@ void WriteWallSlipBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -1105,7 +1105,7 @@ void WriteWallSlipBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
@@ -1135,7 +1135,7 @@ void WriteInflowSubsonicRiemannBoundaryUpperJ(
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
 
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1163,7 +1163,7 @@ void WriteInflowSubsonicRiemannBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1191,7 +1191,7 @@ void WriteInflowSubsonicRiemannBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1220,7 +1220,7 @@ void WriteInflowSubsonicRiemannBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1248,7 +1248,7 @@ void WriteInflowSubsonicRiemannBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1277,7 +1277,7 @@ void WriteInflowSubsonicRiemannBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1305,7 +1305,7 @@ void WriteInflowSupersonicNormalBoundaryLowerI(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1333,7 +1333,7 @@ void WriteInflowSupersonicNormalBoundaryLowerJ(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1363,7 +1363,7 @@ void WriteInflowSupersonicNormalBoundaryLowerK(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1393,7 +1393,7 @@ void WriteInflowSupersonicNormalBoundaryUpperI(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1421,7 +1421,7 @@ void WriteInflowSupersonicNormalBoundaryUpperJ(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1447,7 +1447,7 @@ void WriteInflowSupersonicNormalBoundaryUpperK(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1475,7 +1475,7 @@ void WriteInflowSubsonicIsentropBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1502,7 +1502,7 @@ void WriteInflowSubsonicIsentropBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1531,7 +1531,7 @@ void WriteInflowSubsonicIsentropBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1559,7 +1559,7 @@ void WriteInflowSubsonicIsentropBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1588,7 +1588,7 @@ void WriteInflowSubsonicIsentropBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1616,7 +1616,7 @@ void WriteInflowSubsonicIsentropBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1644,7 +1644,7 @@ void WriteInflowSubsonicNormalBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1672,7 +1672,7 @@ void WriteInflowSubsonicNormalBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1701,7 +1701,7 @@ void WriteInflowSubsonicNormalBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1729,7 +1729,7 @@ void WriteInflowSubsonicNormalBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1758,7 +1758,7 @@ void WriteInflowSubsonicNormalBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1786,7 +1786,7 @@ void WriteInflowSubsonicNormalBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1815,7 +1815,7 @@ void WriteOutflowSubsonicRudyBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1843,7 +1843,7 @@ void WriteOutflowSubsonicRudyBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1871,7 +1871,7 @@ void WriteOutflowSubsonicRudyBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1901,7 +1901,7 @@ void WriteOutflowSubsonicRudyBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1930,7 +1930,7 @@ void WriteOutflowSubsonicRudyBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1959,7 +1959,7 @@ void WriteOutflowSubsonicRudyBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1987,7 +1987,7 @@ void WriteOutflowSubsonicRiemannBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2015,7 +2015,7 @@ void WriteOutflowSubsonicRiemannBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2043,7 +2043,7 @@ void WriteOutflowSubsonicRiemannBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -2072,7 +2072,7 @@ void WriteOutflowSubsonicRiemannBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -2100,7 +2100,7 @@ void WriteOutflowSubsonicRiemannBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2129,7 +2129,7 @@ void WriteOutflowSubsonicRiemannBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2157,7 +2157,7 @@ void WriteOutflowSubsonicNormalBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2185,7 +2185,7 @@ void WriteOutflowSubsonicNormalBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2213,7 +2213,7 @@ void WriteOutflowSubsonicNormalBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -2242,7 +2242,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -2270,7 +2270,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2297,7 +2297,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
 		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
@@ -2318,7 +2318,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerK(
 }
 
 void WriteInflowSubsonicIsentropBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2336,19 +2336,19 @@ void WriteInflowSubsonicIsentropBoundary(
 
 	pnt_U->rho[ijk]=
 			pow(
-			pow(pnt_config->dbl_rho_inflow,(pnt_config->dbl_gammaNumber-1.0))-
-			pow(pnt_config->dbl_rho_inflow,pnt_config->dbl_gammaNumber)/pnt_config->dbl_p_inflow*
-			(pnt_config->dbl_gammaNumber-1.0)/pnt_config->dbl_gammaNumber*
-			pnt_config->dbl_gammaNumber*pnt_config->dbl_machNumber*pnt_config->dbl_machNumber*
+			pow(pnt_config->flt_rho_inflow,(pnt_config->flt_gammaNumber-1.0))-
+			pow(pnt_config->flt_rho_inflow,pnt_config->flt_gammaNumber)/pnt_config->flt_p_inflow*
+			(pnt_config->flt_gammaNumber-1.0)/pnt_config->flt_gammaNumber*
+			pnt_config->flt_gammaNumber*pnt_config->flt_machNumber*pnt_config->flt_machNumber*
 			(pnt_U->u[ijk]*pnt_U->u[ijk]/2.0)
-			,1.0/(pnt_config->dbl_gammaNumber-1.0));
+			,1.0/(pnt_config->flt_gammaNumber-1.0));
 	pnt_U->p[ijk]=
-			pnt_config->dbl_p_inflow*pow(pnt_U->rho[ijk]/pnt_config->dbl_rho_inflow,pnt_config->dbl_gammaNumber);
+			pnt_config->flt_p_inflow*pow(pnt_U->rho[ijk]/pnt_config->flt_rho_inflow,pnt_config->flt_gammaNumber);
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->flt_Upsilon*
+			pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 
@@ -2359,30 +2359,30 @@ void WriteInflowSubsonicIsentropBoundary(
 }
 
 void WriteInflowSubsonicRiemannBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	double cinf,d__1,d__2,rrr,cii;
-	cinf=1.0/pnt_config->dbl_machNumber;
+	float cinf,d__1,d__2,rrr,cii;
+	cinf=1.0/pnt_config->flt_machNumber;
 	cii=pnt_U->c[ijkSymmetry];
 
 
-	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->dbl_u_inflow)+(cinf-cii)/(pnt_config->dbl_gammaNumber-1.);
-	pnt_U->v[ijk] = pnt_config->dbl_v_inflow;
-	pnt_U->w[ijk] = pnt_config->dbl_w_inflow;
+	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->flt_u_inflow)+(cinf-cii)/(pnt_config->flt_gammaNumber-1.);
+	pnt_U->v[ijk] = pnt_config->flt_v_inflow;
+	pnt_U->w[ijk] = pnt_config->flt_w_inflow;
 
-	d__1 = (0.5*(cii+cinf)+0.25*(pnt_config->dbl_gammaNumber-1.)*(pnt_config->dbl_u_inflow-pnt_U->u[ijkSymmetry]))/cinf;
-	d__2 = 2./(pnt_config->dbl_gammaNumber-1.);
+	d__1 = (0.5*(cii+cinf)+0.25*(pnt_config->flt_gammaNumber-1.)*(pnt_config->flt_u_inflow-pnt_U->u[ijkSymmetry]))/cinf;
+	d__2 = 2./(pnt_config->flt_gammaNumber-1.);
 	rrr = pow(d__1, d__2);
-	pnt_U->rho[ijk]= pnt_config->dbl_rho_inflow*rrr;
+	pnt_U->rho[ijk]= pnt_config->flt_rho_inflow*rrr;
 
-	d__2 = 2.*pnt_config->dbl_gammaNumber/(pnt_config->dbl_gammaNumber-1.);
+	d__2 = 2.*pnt_config->flt_gammaNumber/(pnt_config->flt_gammaNumber-1.);
 	rrr = pow(d__1, d__2);
-	pnt_U->p[ijk]= pnt_config->dbl_p_inflow*rrr;
+	pnt_U->p[ijk]= pnt_config->flt_p_inflow*rrr;
 
 	pnt_U->theta1[ijk]=
 			pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2398,12 +2398,12 @@ void WriteInflowSubsonicRiemannBoundary(
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+	pnt_U->c[ijk]=sqrt(pnt_config->flt_Upsilon*
+			pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
 
 
 //				Viskose Randbedingungen
@@ -2412,16 +2412,16 @@ void WriteInflowSubsonicRiemannBoundary(
 }
 
 void WriteInflowSubsonicNormalBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	pnt_U->u[ijk]=pnt_config->dbl_u_inflow;
-	pnt_U->v[ijk]=pnt_config->dbl_v_inflow;
-	pnt_U->w[ijk]=pnt_config->dbl_w_inflow;
+	pnt_U->u[ijk]=pnt_config->flt_u_inflow;
+	pnt_U->v[ijk]=pnt_config->flt_v_inflow;
+	pnt_U->w[ijk]=pnt_config->flt_w_inflow;
 
 	pnt_U->theta1[ijk]=
 			pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2442,13 +2442,13 @@ void WriteInflowSubsonicNormalBoundary(
 //				T_unendlich=1.0 ---> p_unendlich=rho_unendlich
 	pnt_U->rho[ijk]=pnt_U->p[ijk];
 	//Veraendert am 24.10.2014:
-	pnt_U->p[ijk]=pnt_config->dbl_p_inflow;
-	pnt_U->rho[ijk]=pnt_config->dbl_rho_inflow;
+	pnt_U->p[ijk]=pnt_config->flt_p_inflow;
+	pnt_U->rho[ijk]=pnt_config->flt_rho_inflow;
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->flt_Upsilon*
+			pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 
@@ -2460,18 +2460,18 @@ void WriteInflowSubsonicNormalBoundary(
 }
 
 void WriteInflowSupersonicNormalBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	pnt_U->p[ijk]=pnt_config->dbl_p_inflow;
-	pnt_U->rho[ijk]=pnt_config->dbl_rho_inflow;
+	pnt_U->p[ijk]=pnt_config->flt_p_inflow;
+	pnt_U->rho[ijk]=pnt_config->flt_rho_inflow;
 
-	pnt_U->u[ijk]=pnt_config->dbl_u_inflow;
-	pnt_U->v[ijk]=pnt_config->dbl_v_inflow;
-	pnt_U->w[ijk]=pnt_config->dbl_w_inflow;
+	pnt_U->u[ijk]=pnt_config->flt_u_inflow;
+	pnt_U->v[ijk]=pnt_config->flt_v_inflow;
+	pnt_U->w[ijk]=pnt_config->flt_w_inflow;
 
 	pnt_U->theta1[ijk]=
 			pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2487,19 +2487,19 @@ void WriteInflowSupersonicNormalBoundary(
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->flt_Upsilon*
+			pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 //				Viskose Randbedingungen
-	pnt_U->T[ijk]=pnt_config->dbl_p_inflow/pnt_config->dbl_rho_inflow;
-	pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-			(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+	pnt_U->T[ijk]=pnt_config->flt_p_inflow/pnt_config->flt_rho_inflow;
+	pnt_U->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+			(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->flt_SutherlandConstant));
 }
 
 void WriteOutflowSubsonicNormalBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2515,7 +2515,7 @@ void WriteOutflowSubsonicNormalBoundary(
 	pnt_U->w[ijk]=-(-pnt_U->theta1[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_y[ijk]+pnt_U->theta1[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_x[ijk]+pnt_U->theta2[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->zeta_y[ijk]-pnt_U->theta2[ijk]*pnt_mesh->xi_y[ijk]*pnt_mesh->zeta_x[ijk]-pnt_U->theta3[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_U->theta3[ijk]*pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_z[ijk]-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_z[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_x[ijk]+pnt_mesh->xi_z[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_y[ijk]-pnt_mesh->xi_z[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_x[ijk]);
 
 
-	pnt_U->p[ijk]=pnt_config->dbl_p_out;
+	pnt_U->p[ijk]=pnt_config->flt_p_out;
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];
 	pnt_U->e[ijk]=pnt_U->e[ijkSymmetry];
 	pnt_U->c[ijk]=pnt_U->c[ijkSymmetry];
@@ -2527,27 +2527,27 @@ void WriteOutflowSubsonicNormalBoundary(
 }
 
 void WriteOutflowSubsonicRiemannBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	double cinf,d__1,d__2,rrr,cii;
-	cinf=1.0/pnt_config->dbl_machNumber;
+	float cinf,d__1,d__2,rrr,cii;
+	cinf=1.0/pnt_config->flt_machNumber;
 	cii=pnt_U->c[ijkSymmetry];
 
-	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->dbl_u_inflow)-(cinf-cii)/(pnt_config->dbl_gammaNumber-1.);
+	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->flt_u_inflow)-(cinf-cii)/(pnt_config->flt_gammaNumber-1.);
 	pnt_U->v[ijk] = pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk] = pnt_U->w[ijkSymmetry];
 
-	d__1 = (0.5*(cii+cinf)-0.25*(pnt_config->dbl_gammaNumber-1.)*(pnt_config->dbl_u_inflow-pnt_U->u[ijkSymmetry]))/cii;
-	d__2 = 2./(pnt_config->dbl_gammaNumber-1.);
+	d__1 = (0.5*(cii+cinf)-0.25*(pnt_config->flt_gammaNumber-1.)*(pnt_config->flt_u_inflow-pnt_U->u[ijkSymmetry]))/cii;
+	d__2 = 2./(pnt_config->flt_gammaNumber-1.);
 	rrr = pow(d__1, d__2);
 	pnt_U->rho[ijk]= pnt_U->rho[ijkSymmetry]*rrr;
 
-	d__2 = 2.*pnt_config->dbl_gammaNumber/(pnt_config->dbl_gammaNumber-1.);
+	d__2 = 2.*pnt_config->flt_gammaNumber/(pnt_config->flt_gammaNumber-1.);
 	rrr = pow(d__1, d__2);
 	pnt_U->p[ijk]= pnt_U->p[ijkSymmetry]*rrr;
 
@@ -2565,12 +2565,12 @@ void WriteOutflowSubsonicRiemannBoundary(
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+	pnt_U->c[ijk]=sqrt(pnt_config->flt_Upsilon*
+			pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
 
 
 //				Viskose Randbedingungen
@@ -2579,7 +2579,7 @@ void WriteOutflowSubsonicRiemannBoundary(
 }
 
 void WriteOutflowSubsonicRudyBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2598,9 +2598,9 @@ void WriteOutflowSubsonicRudyBoundary(
 
 
 	pnt_U->p[ijk]=
-			(pnt_U_lastStep->p[ijk]+pnt_config->AlphaNonRef*pnt_config->dbl_numericalTau*pnt_config->dbl_p_out+
-			pnt_U_lastStep->rho[ijk]*pnt_U_lastStep->c[ijkSymmetry]*(pnt_U->u[ijk]-pnt_U_lastStep->u[ijk])/pnt_config->dbl_Upsilon)
-			/(1.0+pnt_config->AlphaNonRef*pnt_config->dbl_numericalTau);
+			(pnt_U_lastStep->p[ijk]+pnt_config->AlphaNonRef*pnt_config->flt_numericalTau*pnt_config->flt_p_out+
+			pnt_U_lastStep->rho[ijk]*pnt_U_lastStep->c[ijkSymmetry]*(pnt_U->u[ijk]-pnt_U_lastStep->u[ijk])/pnt_config->flt_Upsilon)
+			/(1.0+pnt_config->AlphaNonRef*pnt_config->flt_numericalTau);
 
 	pnt_U->rho[ijk]=pnt_U->p[ijk]/pnt_U->p[ijkSymmetry]*pnt_U->rho[ijkSymmetry];
 	pnt_U->e[ijk]=pnt_U->e[ijkSymmetry];
@@ -2612,7 +2612,7 @@ void WriteOutflowSubsonicRudyBoundary(
 }
 
 void WriteWallNoSlipBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2641,7 +2641,7 @@ void WriteWallNoSlipBoundary(
 }
 
 void WriteWallSlipBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2672,15 +2672,15 @@ void WriteWallSlipBoundary(
 }
 
 void WriteMovingWallSlipBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {   
-	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
-	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
+	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;
+	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;
 	pnt_U->v[ijk]=pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk]=pnt_U->w[ijkSymmetry];
 
@@ -2705,23 +2705,23 @@ void WriteMovingWallSlipBoundary(
 	
 	pnt_U->c[ijk]=pnt_U->c[ijkSymmetry];
     pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
 				
 //				Viskose Randbedingungen
 	pnt_U->mue[ijk]=pnt_U->mue[ijkSymmetry];
 		
 }
 void WriteMovingWallNoSlipIsothermalBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	double prandtl_local;
-	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
-	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
+	float prandtl_local;
+	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;
+	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;
 	pnt_U->v[ijk]=-pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk]=-pnt_U->w[ijkSymmetry];
 
@@ -2743,13 +2743,13 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 	pnt_U->p[ijk]=pnt_U->p[ijkSymmetry];
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->flt_Upsilon*pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 					
 //				Viskose Randbedingungen
-	pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-	                (pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+	pnt_U->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+	                (pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->flt_SutherlandConstant));
 
 //  adiabat moving wand
 //	pnt_U->T[ijk]=pnt_U->T[ijkSymmetry];
@@ -2759,12 +2759,12 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 	
 // um die Wärmeflüsse am Wand zu kontrollieren.			
     prandtl_local=0.72;
-    pnt_config->dbl_Gamma[ijk]=1.0/((pnt_config->dbl_gammaNumber-1.0)*pow(pnt_config->dbl_machNumber,2.0)*pnt_config->dbl_reynoldsNumber*prandtl_local);			
+    pnt_config->flt_Gamma[ijk]=1.0/((pnt_config->flt_gammaNumber-1.0)*pow(pnt_config->flt_machNumber,2.0)*pnt_config->flt_reynoldsNumber*prandtl_local);			
 		
 }
 
 void WriteFarfieldBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2814,7 +2814,7 @@ void WriteMovingBCUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double x_shock,u_shock;
+	float x_shock,u_shock;
 	u_shock=10.0;
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -2827,7 +2827,7 @@ void WriteMovingBCUpperJ(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 				ijkSymmetry=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+int_symmetryIndex*pnt_config->int_kMeshPointsGhostCells+k;
 
-				x_shock = 1./6. + pnt_mesh->y[ijk]/tan(60.*M_PI/180.) + pnt_config->dbl_time_dim * u_shock / sin(60.*M_PI/180.);
+				x_shock = 1./6. + pnt_mesh->y[ijk]/tan(60.*M_PI/180.) + pnt_config->flt_time_dim * u_shock / sin(60.*M_PI/180.);
 				if (pnt_mesh->x[ijk] > x_shock)
 				{
 
@@ -2850,11 +2850,11 @@ void WriteMovingBCUpperJ(
 				}
 				else
 				{
-				pnt_U->p[ijk]=pnt_config->dbl_p_inflow;
-				pnt_U->rho[ijk]=pnt_config->dbl_rho_inflow;
-				pnt_U->u[ijk]=pnt_config->dbl_u_inflow;
-				pnt_U->v[ijk]=pnt_config->dbl_v_inflow;
-				pnt_U->w[ijk]=pnt_config->dbl_w_inflow;
+				pnt_U->p[ijk]=pnt_config->flt_p_inflow;
+				pnt_U->rho[ijk]=pnt_config->flt_rho_inflow;
+				pnt_U->u[ijk]=pnt_config->flt_u_inflow;
+				pnt_U->v[ijk]=pnt_config->flt_v_inflow;
+				pnt_U->w[ijk]=pnt_config->flt_w_inflow;
 
 				pnt_U->theta1[ijk]=
 						pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2870,9 +2870,9 @@ void WriteMovingBCUpperJ(
 						pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 				pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-						pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-				pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-						pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+						pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+				pnt_U->c[ijk]=sqrt(pnt_config->flt_Upsilon*
+						pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 
@@ -2880,8 +2880,8 @@ void WriteMovingBCUpperJ(
 //				Viskose Randbedingungen
 
 				pnt_U->T[ijk]=1.0;
-				pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-						(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+				pnt_U->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+						(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->flt_SutherlandConstant));
 				}
 			}
 			int_symmetryIndex=int_symmetryIndex-1;
@@ -2890,14 +2890,14 @@ void WriteMovingBCUpperJ(
 }
 
 void WriteWallNoSlipIsothermalBoundary(
-		double corrector[3],
+		float corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {   
-    double prandtl_local;
+    float prandtl_local;
 	pnt_U->theta1[ijk]=-pnt_U->theta1[ijkSymmetry];
 	pnt_U->theta2[ijk]=-pnt_U->theta2[ijkSymmetry];
 	pnt_U->theta3[ijk]=-pnt_U->theta3[ijkSymmetry];
@@ -2920,7 +2920,7 @@ void WriteWallNoSlipIsothermalBoundary(
 	
 	// um die Wärmeflüsse an Wand zu kontrollieren.			
     prandtl_local=0.72;
-    pnt_config->dbl_Gamma[ijk]=1.0/((pnt_config->dbl_gammaNumber-1.0)*pow(pnt_config->dbl_machNumber,2.0)*pnt_config->dbl_reynoldsNumber*prandtl_local);			
+    pnt_config->flt_Gamma[ijk]=1.0/((pnt_config->flt_gammaNumber-1.0)*pow(pnt_config->flt_machNumber,2.0)*pnt_config->flt_reynoldsNumber*prandtl_local);			
 }
 
 
@@ -2931,7 +2931,7 @@ void WriteWallNoSlipIsothermalBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -2960,7 +2960,7 @@ void WriteWallNoSlipIsothermalBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -2990,7 +2990,7 @@ void WriteWallNoSlipIsothermalBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	float corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -3019,7 +3019,7 @@ void WriteWallNoSlipIsothermalBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	float corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -3048,7 +3048,7 @@ void WriteWallNoSlipIsothermalBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -3075,7 +3075,7 @@ void WriteWallNoSlipIsothermalBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	float corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)

@@ -17,7 +17,7 @@
 #	define DIM3(...) __VA_ARGS__
 #endif
 
-double ts;
+float ts;
 
 #if TM==1
 #	define TM_START() ts=MPI_Wtime( );
@@ -118,7 +118,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 
 				if( !strcmp( arrayname,"TimeValues" ) ) {
 					if( dt==RealDouble ) {
-						double* buffer = malloc( nsteps*sizeof( double ) );
+						float* buffer = malloc( nsteps*sizeof( float ) );
 
 						CG( cg_array_read( array,buffer ) );
 
@@ -143,7 +143,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 		int i;
 
 		for( i = 0; i<pnt_config->int_Samples; i++ )
-			timearray[ i+nsteps ]= pnt_Film->dbl_time_dim[ i ];
+			timearray[ i+nsteps ]= pnt_Film->flt_time_dim[ i ];
 
 		CG( cg_array_write( "TimeValues",RealSingle,1,( cgsize_t[ ] ){ nsteps+pnt_config->int_Samples },timearray ) );
 
@@ -253,11 +253,11 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 	MPI_Barrier( MPI_COMM_WORLD );
 	TM_START( )
 	CG( cgp_open( pnt_config->chr_MeshPath,CG_MODE_MODIFY,&file ) );
-#if (CGNS_VERSION<=3210)
-	CG( cgp_pio_mode(CGP_COLLECTIVE));
-#else
-	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
-#endif
+//#if (CGNS_VERSION<=3210)
+//	CG( cgp_pio_mode(CGP_COLLECTIVE));
+//#else
+//	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
+//#endif
 //	CG( cgp_queue_set( 1 ) );
 	TM_END( "SHOCK: Opening savefile" )
 

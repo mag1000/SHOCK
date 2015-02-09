@@ -19,7 +19,7 @@
 #	define DIM3(...) __VA_ARGS__
 #endif
 
-double ts;
+float ts;
 
 #if TM==1
 #	define TM_START() ts=MPI_Wtime( );
@@ -262,11 +262,11 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
  * refered to by name by the division file). */
 	TM_START( )
 	CG( cgp_open( pnt_config->chr_MeshPath,CG_MODE_READ,&file ) );
-#if (CGNS_VERSION<=3210)
-	CG( cgp_pio_mode(CGP_COLLECTIVE));
-#else
-	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
-#endif
+//#if (CGNS_VERSION<=3210)
+//	CG( cgp_pio_mode(CGP_COLLECTIVE));
+//#else
+//	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
+//#endif
 	TM_END( "SHOCK: Opening meshfile" )
 
 	TM_START ( )
@@ -579,7 +579,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 #endif
 
 		if( target ) {
-			target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( double ):sizeof( float ) ) );
+			target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( float ):sizeof( float ) ) );
 			target->dt = dt;
 			#if DIM==2
 				CG( cgp_coord_read_data( file,base,zone,coord,corners[ 0 ],corners[ 1 ],target->ptr ) );
@@ -623,14 +623,14 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 			void* timearray;
 
 			if( !strcmp( arrayname,"TimeValues" ) ) {
-				timearray = malloc( dimv[ 0 ]*( dt==RealDouble?sizeof( double ):sizeof( float ) ) );
+				timearray = malloc( dimv[ 0 ]*( dt==RealDouble?sizeof( float ):sizeof( float ) ) );
 
 				CG( cg_array_read( array,timearray ) );
 
 				if( dt==RealDouble )
-					pnt_config->dbl_time_dim =( (double*)timearray )[ dimv[ 0 ]-1 ];
+					pnt_config->flt_time_dim =( (float*)timearray )[ dimv[ 0 ]-1 ];
 				else
-					pnt_config->dbl_time_dim =( (float*)timearray )[ dimv[ 0 ]-1 ];
+					pnt_config->flt_time_dim =( (float*)timearray )[ dimv[ 0 ]-1 ];
 
 				free( timearray );
 				break;
@@ -667,7 +667,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 			}
 		}
 	} else
-		pnt_config->dbl_time_dim = 0;
+		pnt_config->flt_time_dim = 0;
 	TM_END ( "SHOCK: Loading mesh" )
 	TM_START ( )
 	if(( sol<=nsols )&&(abs(pnt_config->int_initializeType)==1)) {
@@ -693,7 +693,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 				{target = p;fieldVec[4]=field;}
 
 			if( target ) {
-				target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( double ):sizeof( float ) ) );
+				target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( float ):sizeof( float ) ) );
 				target->dt = dt;
 				#if DIM==2
 						if(pnt_config->MPI_rank==0){printf("SHOCK:  Using command 'cgp_field_read_data'\n");}

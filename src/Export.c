@@ -68,7 +68,7 @@ void MeshMetricExport(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-//	double *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(double));
+//	float *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(float));
 
 
 	char actual_file[200];
@@ -198,7 +198,7 @@ void CGNS_PressureHistoryValuesExportParallel(
 	for(t=0;t<pnt_config->int_TotalIterations;t++)
 	{
 		time[t]=pnt_config->start_Time+(float)(t+1)*pnt_config->int_IterationsBetweenSamples*
-				(pnt_config->dbl_L0_dim*pnt_config->dbl_numericalTau/pnt_config->dbl_u0_dim);
+				(pnt_config->flt_L0_dim*pnt_config->flt_numericalTau/pnt_config->flt_u0_dim);
 
 		sprintf(sn[t],"FlowSolution%d",t);
 		sprintf(solname,"%s%-32s",solname,sn[t]);
@@ -396,7 +396,7 @@ void NANExport(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-//	double *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(double));
+//	float *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(float));
 
 
 	char actual_file[200];

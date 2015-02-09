@@ -21,7 +21,7 @@
 int int_interationsStart;
 int int_interationsEnd;
 
-double t0,t1,t2;
+float t0,t1,t2;
 
 int int_myCPUID;
 int actualID,actualP;
@@ -29,12 +29,12 @@ int int_MaxNumberCPUs;
 
 int i,j,k,ijk;
 
-double dbl_leftEigenvector[5][5];
-double dbl_rightEigenvector[5][5];
+float flt_leftEigenvector[5][5];
+float flt_rightEigenvector[5][5];
 
 
 int int_helpValue1;
-double dbl_helpValue2;
+float flt_helpValue2;
 
 int int_iterationCounterStdOut;
 int int_iterationCounterBackupOut;
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 	DefineParameters(
 			&configuration);
 	if(configuration.MPI_rank==0){printf("SHOCK: Definition der Variablen fertig!\n");}
-	double ts;
+	float ts;
 
 	ts = MPI_Wtime( );
 
@@ -266,15 +266,17 @@ int main(int argc, char *argv[])
 	if(configuration.MPI_rank==0){printf("SHOCK: Mesh: '%s'\n",configuration.chr_MeshPath);}
 	if(configuration.MPI_rank==0){printf("SHOCK: %d Prozesse werden %d Iterationen rechnen!\n",configuration.MPI_size,configuration.int_TotalIterations);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Angle of Attack: %g [Degree] | Ma: %g | Re: %g | Pr: %g \n",
-			configuration.dbl_AoA,configuration.dbl_machNumber,configuration.dbl_reynoldsNumber*abs(configuration.flag_Inviscid-1),configuration.dbl_prandtlNumber);}
+			configuration.flt_AoA,configuration.flt_machNumber,configuration.flt_reynoldsNumber*abs(configuration.flag_Inviscid-1),configuration.flt_prandtlNumber);}
 	if(configuration.MPI_rank==0){printf("SHOCK: SpaceOrder: %d | TimeOrder: %d | numerisches delta t (Tau): %g | Epsilon: %g\n",
-				configuration.int_SpaceOrder,configuration.int_TimeOrder,configuration.dbl_numericalTau,configuration.dbl_wenoEpsilon);}
+				configuration.int_SpaceOrder,configuration.int_TimeOrder,configuration.flt_numericalTau,configuration.flt_wenoEpsilon);}
 	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
 	if(configuration.MPI_rank==0){printf("\n");}
 
 
 	MPI_Barrier(configuration.MPI_comm);
 	t1 = MPI_Wtime();
+	
+	if(configuration.MPI_rank==0){print_memusage_c();}
 	if(configuration.MPI_rank==0){printf("SHOCK: Die Initialisierung fertig (%f min.)\n",(t1-t0)/60);}
 
 	//########################################
@@ -306,7 +308,7 @@ int main(int argc, char *argv[])
 	MPI_Barrier(configuration.MPI_comm);
 	if(configuration.MPI_rank==0){printf("SHOCK: %dD Simulation fertig (%f min.)!\n",configuration.int_meshDimensions,(MPI_Wtime()-t1)/60.);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Gesamtkommunikationsdauer: %g min.\n",configuration.comm_time/60.);}
-	if(configuration.MPI_rank==0){printf("SHOCK: Letztes Tau: %g!\n",configuration.dbl_numericalTau);}
+	if(configuration.MPI_rank==0){printf("SHOCK: Letztes Tau: %g!\n",configuration.flt_numericalTau);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Letztes DistanceForwad: %d!\n",configuration.int_distanceForward);}
 
 	if(configuration.int_TotalIterations==0)
@@ -446,7 +448,7 @@ int main(int argc, char *argv[])
 if(configuration.MPI_rank==0){printf("SHOCK: Speicher freigegeben (%f min.)!\n",(MPI_Wtime( )-ts)/60.);}
 
 //	if(configuration.MPI_rank==0){printf("Glaettungsindikatoren: Durchschnitt: %le   Minimum: %le  Maximum: %le,\n",
-//			(configuration.dbl_is_avrg/configuration.dbl_is_avrg_counter),configuration.dbl_is_minimum,configuration.dbl_is_maximum);}
+//			(configuration.flt_is_avrg/configuration.flt_is_avrg_counter),configuration.flt_is_minimum,configuration.flt_is_maximum);}
 
 	exit:
 	if(configuration.MPI_rank==0){printf("SHOCK: Exit!\n");}
@@ -530,7 +532,7 @@ void startSimulation(
 		pnt_config,
 		pnt_U_lastStep,
 		pnt_U_backup1);
-	pnt_config->dbl_time_dim_backup1=pnt_config->dbl_time_dim;
+	pnt_config->flt_time_dim_backup1=pnt_config->flt_time_dim;
 	pnt_config->int_actualIteration_backup1=1;
 	pnt_config->int_actualIteration_backup2=999999;
 	pnt_config->int_actualSample_backup1=pnt_config->int_actualSample;
@@ -542,10 +544,10 @@ void startSimulation(
 			pnt_config->int_actualIteration<=pnt_config->int_EndIteration;
 			pnt_config->int_actualIteration++)
 	{
-		pnt_config->dbl_time_dim+=
-				pnt_config->dbl_numericalTau
-				*pnt_config->dbl_L0_dim
-				/pnt_config->dbl_u0_dim;
+		pnt_config->flt_time_dim+=
+				pnt_config->flt_numericalTau
+				*pnt_config->flt_L0_dim
+				/pnt_config->flt_u0_dim;
 		CalcRungeKutta(
 				pnt_config,
 				pnt_mesh,
@@ -570,18 +572,18 @@ void startSimulation(
 			}
 			int_ResetCounter++;
 
-			pnt_config->dbl_numericalTau*=pnt_config->dbl_TauDecelerator_factor;
+			pnt_config->flt_numericalTau*=pnt_config->flt_TauDecelerator_factor;
 			pnt_config->int_distanceForward=pnt_config->int_distanceForwardStart;
 
 			if(pnt_config->int_actualIteration_backup1<pnt_config->int_actualIteration_backup2)
 			{
-				if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup1,pnt_config->dbl_numericalTau);}
+				if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup1,pnt_config->flt_numericalTau);}
 				WriteValuesFromU1ToU2(
 						pnt_config,
 						pnt_U_backup1,
 						pnt_U_RK);
-				pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
-				pnt_config->dbl_time_dim=pnt_config->dbl_time_dim_backup1;
+				pnt_config->flt_time_dim_lastAction=pnt_config->flt_time_dim;
+				pnt_config->flt_time_dim=pnt_config->flt_time_dim_backup1;
 				pnt_config->int_actualIteration=pnt_config->int_actualIteration_backup1;
 				pnt_config->int_actualSample=pnt_config->int_actualSample_backup1;
 				int_iterationCounterSamples=pnt_config->int_iterationCounterSamples_backup1;
@@ -590,13 +592,13 @@ void startSimulation(
 			}
 			else
 			{
-				if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup2,pnt_config->dbl_numericalTau);}
+				if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Backup von Iterationsschritt %d wird geladen (Neues Tau = %g).\n",pnt_config->int_actualIteration_backup2,pnt_config->flt_numericalTau);}
 				WriteValuesFromU1ToU2(
 						pnt_config,
 						pnt_U_backup2,
 						pnt_U_RK);
-				pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
-				pnt_config->dbl_time_dim=pnt_config->dbl_time_dim_backup2;
+				pnt_config->flt_time_dim_lastAction=pnt_config->flt_time_dim;
+				pnt_config->flt_time_dim=pnt_config->flt_time_dim_backup2;
 				pnt_config->int_actualIteration=pnt_config->int_actualIteration_backup2;
 				pnt_config->int_actualSample=pnt_config->int_actualSample_backup2;
 				int_iterationCounterSamples=pnt_config->int_iterationCounterSamples_backup2;
@@ -606,31 +608,31 @@ void startSimulation(
 		}
 //		Tau-Resetter
 		else if(
-			((pnt_config->dbl_time_dim-pnt_config->dbl_time_dim_lastAction)>
-		pnt_config->int_distanceNAN*pnt_config->dbl_numericalTau*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim)
+			((pnt_config->flt_time_dim-pnt_config->flt_time_dim_lastAction)>
+		pnt_config->int_distanceNAN*pnt_config->flt_numericalTau*pnt_config->flt_L0_dim/pnt_config->flt_u0_dim)
 			&&(pnt_config->flag_TauAccelerator!=0)
 			&&(pnt_config->int_actualIteration+pnt_config->int_distanceBackward<pnt_config->int_EndIteration)
-			&&(pnt_config->dbl_numericalTau<pnt_config->dbl_numericalTauStart)
+			&&(pnt_config->flt_numericalTau<pnt_config->flt_numericalTauStart)
 			)
 		{
 			pnt_config->int_distanceForward=pnt_config->int_distanceForwardStart;
-			pnt_config->dbl_numericalTau=pnt_config->dbl_numericalTauStart;
-			pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
-			if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Tau-Resetting bei Iterationsschritt %d (Neues Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
+			pnt_config->flt_numericalTau=pnt_config->flt_numericalTauStart;
+			pnt_config->flt_time_dim_lastAction=pnt_config->flt_time_dim;
+			if(pnt_config->MPI_rank==0){printf("SHOCK: ----> Tau-Resetting bei Iterationsschritt %d (Neues Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->flt_numericalTau);}
 		}
 //		Tau-Beschleuniger
 		else if(
-			((pnt_config->dbl_time_dim-pnt_config->dbl_time_dim_lastAction)>
-		pnt_config->int_distanceForward*pnt_config->dbl_numericalTau*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim)
+			((pnt_config->flt_time_dim-pnt_config->flt_time_dim_lastAction)>
+		pnt_config->int_distanceForward*pnt_config->flt_numericalTau*pnt_config->flt_L0_dim/pnt_config->flt_u0_dim)
 			&&(pnt_config->flag_TauAccelerator!=0)
 			&&(pnt_config->int_actualIteration+pnt_config->int_distanceBackward<pnt_config->int_EndIteration)
-			&&(pnt_config->dbl_numericalTau>=pnt_config->dbl_numericalTauStart)
+			&&(pnt_config->flt_numericalTau>=pnt_config->flt_numericalTauStart)
 			)
 		{
 			pnt_config->int_distanceForward*=4.;
-			pnt_config->dbl_numericalTau*=pnt_config->dbl_TauAccelerator_factor;
-			pnt_config->dbl_time_dim_lastAction=pnt_config->dbl_time_dim;
-			if(pnt_config->MPI_rank==0){printf("SHOCK: Tau-Erhoehung bei Iterationsschritt %d (Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->dbl_numericalTau);}
+			pnt_config->flt_numericalTau*=pnt_config->flt_TauAccelerator_factor;
+			pnt_config->flt_time_dim_lastAction=pnt_config->flt_time_dim;
+			if(pnt_config->MPI_rank==0){printf("SHOCK: Tau-Erhoehung bei Iterationsschritt %d (Tau = %g)\n",pnt_config->int_actualIteration,pnt_config->flt_numericalTau);}
 		}
 
 		//	In U_RK sind nach dem vierten RK-Schritt die aktuellen Ergebnisse des Zeitschrittes n+1
@@ -647,7 +649,7 @@ void startSimulation(
 				pnt_config,
 				pnt_U_lastStep,
 				pnt_U_backup1);
-			pnt_config->dbl_time_dim_backup1=pnt_config->dbl_time_dim;
+			pnt_config->flt_time_dim_backup1=pnt_config->flt_time_dim;
 			pnt_config->int_actualIteration_backup1=pnt_config->int_actualIteration;
 			pnt_config->int_actualSample_backup1=pnt_config->int_actualSample;
 			pnt_config->int_iterationCounterSamples_backup1=int_iterationCounterSamples;
@@ -659,7 +661,7 @@ void startSimulation(
 				pnt_config,
 				pnt_U_lastStep,
 				pnt_U_backup2);
-			pnt_config->dbl_time_dim_backup2=pnt_config->dbl_time_dim;
+			pnt_config->flt_time_dim_backup2=pnt_config->flt_time_dim;
 			pnt_config->int_actualIteration_backup2=pnt_config->int_actualIteration;
 			pnt_config->int_actualSample_backup2=pnt_config->int_actualSample;
 			pnt_config->int_iterationCounterSamples_backup2=int_iterationCounterSamples;
@@ -710,7 +712,7 @@ void startSimulation(
 		if(int_iterationCounterStdOut==(pnt_config->int_TotalIterations/100)||(pnt_config->int_EndIteration<100))
 		{
 			int_iterationCounterStdOut=0;
-			if(pnt_config->MPI_rank==0){printf("SHOCK: Iteration: %d von %d (Zeit: %g [sec])\n",pnt_config->int_actualIteration,pnt_config->int_EndIteration,pnt_config->dbl_time_dim);}
+			if(pnt_config->MPI_rank==0){printf("SHOCK: Iteration: %d von %d (Zeit: %g [sec])\n",pnt_config->int_actualIteration,pnt_config->int_EndIteration,pnt_config->flt_time_dim);}
 			if(pnt_config->MPI_rank==0){printf("\t rho[x=%g, y=%g, z=%g] = %g \n",
 				pnt_mesh->x[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid],
 				pnt_mesh->y[pnt_config->int_iMid*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jMid*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kMid],

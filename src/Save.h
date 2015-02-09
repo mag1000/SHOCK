@@ -19,7 +19,7 @@
  * will be replaced by a copy of chr_MeshFile. The number of time steps
  * to be found in the solution structure is to be given in int_Samples
  *
- * @param The solution structure. The member dbl_time_dim designates the
+ * @param The solution structure. The member flt_time_dim designates the
  * according times. All other data will be taken from all its members
  * and written into the solution file.
  *
