@@ -7339,7 +7339,7 @@ void copyMetric(
 
 extern void print_memusage_c()
 {
-   printf("ibm\n");
+   printf("SHOCK: IBM memory usage per rank\n");
   uint64_t shared, persist, heapavail, stackavail, stack, heap, guard, mmap;
 
   Kernel_GetMemorySize(KERNEL_MEMSIZE_GUARD, &guard);
@@ -7351,10 +7351,10 @@ extern void print_memusage_c()
   Kernel_GetMemorySize(KERNEL_MEMSIZE_HEAP, &heap);
   Kernel_GetMemorySize(KERNEL_MEMSIZE_MMAP, &mmap);
 
-  printf("   current MEMSIZE heap  : %.2f/%.2f stack: %.2f/%.2f mmap: %.2f mbyte\n", (float)heap/(1024*1024), (float)heapavail/(1024*1024),
+  printf("SHOCK: current MEMSIZE heap  : %.2f/%.2f stack: %.2f/%.2f mmap: %.2f mbyte\n", (float)heap/(1024*1024), (float)heapavail/(1024*1024),
                                                                               (float)stack/(1024*1024), (float)stackavail/(1024*1024),
                                                                               (float)mmap/(1024*1024));
-  printf("   current MEMSIZE shared: %.2f persist: %.2f guard: %.2f mbyte\n", (float)shared/(1024*1024),
+  printf("SHOCK: current MEMSIZE shared: %.2f persist: %.2f guard: %.2f mbyte\n", (float)shared/(1024*1024),
                                                                        (float)persist/(1024*1024),
                                                                         (float)guard/(1024*1024));
 
@@ -7372,7 +7372,7 @@ void readchar(FILE *f, char *x)                     { fscanf(f, "%c ", x);}
 extern void print_memusage_c()
 {
 
-  printf("intel\n");
+  printf("SHOCK: Intel memory usage per rank\n");
   long page_size = sysconf(_SC_PAGESIZE);
   long s = -1;
   FILE *f = fopen("/proc/self/stat", "r");
@@ -7438,14 +7438,14 @@ extern void print_memusage_c()
 
   fclose (f);
 
-  printf("   current MEMSIZE RSS  : %.2f mbyte\n", (float)rss/(1024*1024));
-  printf("   current MEMSIZE VSIZE: %.2f mbyte\n", (float)vsize/(1024*1024));
+  printf("SHOCK: current MEMSIZE RSS  : %.2f mbyte\n", (float)rss/(1024*1024));
+  printf("SHOCK: current MEMSIZE VSIZE: %.2f mbyte\n", (float)vsize/(1024*1024));
 }
 #else
 
 extern void print_memusage_c()
 {
-printf("   current MEMSIZE RSS  : n/a\n");
-printf("   current MEMSIZE VSIZE: n/a\n");
+printf("SHOCK: current MEMSIZE RSS  : n/a\n");
+printf("SHOCK: current MEMSIZE VSIZE: n/a\n");
 }
 #endif
