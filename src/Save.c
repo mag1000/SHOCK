@@ -17,7 +17,7 @@
 #	define DIM3(...) __VA_ARGS__
 #endif
 
-float ts;
+double ts;
 
 #if TM==1
 #	define TM_START() ts=(float)MPI_Wtime( );
@@ -26,7 +26,7 @@ float ts;
 #endif
 
 #if TM==1
-#	define TM_END(msg) if(pnt_config->MPI_rank==0){printf(msg " took %g seconds\n",(float)MPI_Wtime( )-ts );}
+#	define TM_END(msg) if(pnt_config->MPI_rank==0){printf(msg " took %g seconds\n",MPI_Wtime( )-ts );}
 #else
 #	define TM_END(msg)
 #endif
