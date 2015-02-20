@@ -29,6 +29,7 @@ ENDIF (CMAKE_BUILD_TYPE MATCHES Local)
 #Build type cluster
 SET(CMAKE_C_FLAGS_CLUSTER "$ENV{FLAGS_FAST}" CACHE STRING "Flags used by C compiler for builds on RWTH Cluster." FORCE)
 IF (CMAKE_BUILD_TYPE MATCHES Cluster)
+	add_definitions("-DINTEL")
     SET (HDF5_INCLUDE_PATH "/home/swlcfd/HDF5/include" CACHE FILEPATH "HDF5 include path")
     SET (HDF5_LIBRARY "/home/swlcfd/HDF5/lib/libhdf5.so" CACHE FILEPATH "HDF5 library path")
     SET (CGNS_INCLUDE_PATH "/home/swlcfd/CGNS/include" CACHE FILEPATH "CGNS include path")
