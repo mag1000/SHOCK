@@ -82,9 +82,9 @@ The approximation of the derivation is computed corresponding to the Taylor seri
 \end{equation}
 with:
 \begin{eqnarray}
-\left(A \frac{\partial u}{\partial \xi}\right)_{i+\frac{1}{2},j}&=C_{D,0}\left(u_{i+1}-u_{i} \right)-C_{D,1}\left(u_{i+2}-u_{i-1} \right)+C_{D,2}\left(u_{i+3}-u_{i-2} \right)
+\left(A \frac{\partial u}{\partial \xi}\right)_{i+\frac{1}{2},j}&=C_{D,0}\left(u_{i+1}-u_{i} \right)+C_{D,1}\left(u_{i+2}-u_{i-1} \right)+C_{D,2}\left(u_{i+3}-u_{i-2} \right)
 \\
-\left(A \frac{\partial u}{\partial \xi}\right)_{i-\frac{1}{2},j}&=C_{D,0}\left(u_{i}-u_{i-1} \right)-C_{D,1}\left(u_{i+1}-u_{i-2} \right)+C_{D,2}\left(u_{i+2}-u_{i-3} \right)
+\left(A \frac{\partial u}{\partial \xi}\right)_{i-\frac{1}{2},j}&=C_{D,0}\left(u_{i}-u_{i-1} \right)+C_{D,1}\left(u_{i+1}-u_{i-2} \right)+C_{D,2}\left(u_{i+2}-u_{i-3} \right)
 \end{eqnarray}
 \begin{equation}
 C_{D,0}=-\frac{1}{90}\ \ 
@@ -101,9 +101,9 @@ C_{D,2}=-\frac{245}{180}
 
 with interpolation coefficients:
 \begin{eqnarray}
-\left. A\frac{\partial u}{\partial \eta}\right|_{i+\frac{1}{2},j}&=
+\left( A\frac{\partial u}{\partial \eta}\right)_{i+\frac{1}{2},j}&=
 C_{P,0}\left(\left( A\frac{\partial u}{\partial \eta}\right)_{i+1,j}+\left( A\frac{\partial u}{\partial \eta}\right)_{i,j} \right)\\ \nonumber
-&-C_{P,1}\left(\left( A\frac{\partial u}{\partial \eta}\right)_{i+2,j}+\left( A\frac{\partial u}{\partial \eta}\right)_{i-1,j} \right)\\ \nonumber
+&+C_{P,1}\left(\left( A\frac{\partial u}{\partial \eta}\right)_{i+2,j}+\left( A\frac{\partial u}{\partial \eta}\right)_{i-1,j} \right)\\ \nonumber
 &+C_{P,2}\left(\left( A\frac{\partial u}{\partial \eta}\right)_{i+3,j}+\left( A\frac{\partial u}{\partial \eta}\right)_{i-2,j} \right)
 \end{eqnarray}
 
@@ -118,7 +118,7 @@ with:
 \begin{eqnarray}
 u_{i,j+\frac{1}{2}}&=
 C_{P,0}\left(u_{i,j+1}+u_{i,j} \right)\\ \nonumber
-&-C_{P,1}\left(u_{i,j+2}+u_{i,j-1} \right)\\ \nonumber
+&+C_{P,1}\left(u_{i,j+2}+u_{i,j-1} \right)\\ \nonumber
 &+C_{P,2}\left(u_{i,j+3}+u_{i,j-2} \right)
 \end{eqnarray}
 
