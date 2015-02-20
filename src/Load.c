@@ -261,12 +261,12 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
  * out related data such as the id of the original zone (which is
  * refered to by name by the division file). */
 	TM_START( )
+#if (CGNS_VERSION<=3210)
+	CG( cgp_pio_mode(CGP_COLLECTIVE));
+#else
+	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
+#endif
 	CG( cgp_open( pnt_config->chr_MeshPath,CG_MODE_READ,&file ) );
-//#if (CGNS_VERSION<=3210)
-//	CG( cgp_pio_mode(CGP_COLLECTIVE));
-//#else
-//	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
-//#endif
 	TM_END( "SHOCK: Opening meshfile" )
 
 	TM_START ( )

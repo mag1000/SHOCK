@@ -252,13 +252,13 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 
 	MPI_Barrier( MPI_COMM_WORLD );
 	TM_START( )
+#if (CGNS_VERSION<=3210)
+	CG( cgp_pio_mode(CGP_COLLECTIVE));
+#else
+	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
+#endif
 	CG( cgp_open( pnt_config->chr_MeshPath,CG_MODE_MODIFY,&file ) );
-//#if (CGNS_VERSION<=3210)
-//	CG( cgp_pio_mode(CGP_COLLECTIVE));
-//#else
-//	CG( cgp_pio_mode(CGP_COLLECTIVE, MPI_INFO_NULL));
-//#endif
-//	CG( cgp_queue_set( 1 ) );
+	CG( cgp_queue_set( 1 ) );
 	TM_END( "SHOCK: Opening savefile" )
 
 	CG( cg_nzones( file,base,&nzones ) );
