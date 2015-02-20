@@ -20,7 +20,7 @@
 double ts;
 
 #if TM==1
-#	define TM_START() ts=(float)MPI_Wtime( );
+#	define TM_START() ts=MPI_Wtime( );
 #else
 #	define TM_START()
 #endif
