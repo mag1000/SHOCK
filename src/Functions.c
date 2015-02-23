@@ -3529,7 +3529,7 @@ void TransferFlowParameterWithGhosts(
 		struct strct_U * pnt_U)
 {
 	double comm_t0,comm_t1;
-	comm_t0 = (float)MPI_Wtime();
+	comm_t0 = MPI_Wtime();
 
 	int interface, flag;
 	int no_comm=0;
@@ -3625,7 +3625,7 @@ void TransferFlowParameterWithGhosts(
 
 	MPI_Waitall( pnt_config->NumberInterfaces, send_request, MPI_STATUSES_IGNORE);
 
-	comm_t1 = (float)MPI_Wtime();
+	comm_t1 = MPI_Wtime();
 	pnt_config->comm_time=pnt_config->comm_time+(comm_t1-comm_t0);
 }
 
