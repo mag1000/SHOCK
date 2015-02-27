@@ -122,7 +122,7 @@
 \Ovalbox
 {
   \parbox{\textwidth}{
-\includegraphics[width=0.98\textwidth]{SHOCK_3b.png}    
+\includegraphics[width=0.98\textwidth]{SHOCK_4b.png}    
   }
 }
 
@@ -145,24 +145,23 @@
     
 \textbf{Direct Numerical Simulation}
 \newline
-\begin{itemize}
-\item flow configurations:
+\textbf{Flow Model:}
 \begin{itemize}
 \item compressible, unsteady
 \item viscous (Navier-Stokes) or inviscid (Euler)
-\item three-dimensional, two-dimensional rotational symmentric or two-dimensional
+\item three-dimensional, two-dimensional with rotational symmentry \\ or two-dimensional
 \item curvilinear coordinates (including subzones with rotated coordinate systems)
 \end{itemize}
-\item high-order shock capturing schemes:
+\newline
+\textbf{High-Order Discretisation Methods:}
 \begin{itemize}
 \item $5^{th}$ and $9^{th}$ order WENO scheme (inviscid)
 \item Lax-Friedrichs flux-vector splitting
 \item $6^{th}$ and $10^{th}$ order central scheme (viscous)
 \item $3^{rd}$ and $4^{th}$ order Runge-Kutta (time)
-\newline
-\newline
 \end{itemize}
-\end{itemize}      
+
+
 
 \includegraphics[height=260mm]{Scaling.png}
 
@@ -185,7 +184,7 @@
 \item BlueGene/Q (FZ J\"{u}lich)
 \end{itemize}
 
-\textbf{Application developers}
+\textbf{Code development}
 \begin{itemize}
 \item Gageik, Manuel, Dipl.-Ing. \newline gageik@swl.rwth-aachen.de 
 \item Klioutchnikov, Igor, Prof. Dr.rer.nat. habil. (RUS) \newline klioutchnikov@swl.rwth-aachen.de 

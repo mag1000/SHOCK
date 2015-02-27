@@ -45,6 +45,7 @@ struct strct_configuration
 	float flt_is_avrg_counter;
 
 
+	int flag_ManufacturedSolution;
 	int flag_ReducedExport;
 	int flag_Inviscid;
 	int flag_NAN;

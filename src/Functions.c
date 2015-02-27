@@ -2337,6 +2337,13 @@ void CalcRungeKutta(
 				pnt_mesh,
 				pnt_U_lastStep);
 	}
+	if(pnt_config->flag_ManufacturedSolution==1)
+	{
+		addManufacturedSolutionSource(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_lastStep);
+	}
 }
 
 void CalcValues(
@@ -2487,14 +2494,14 @@ void WriteValuesFromUToFilm(
 				{
 					if(pnt_config->flag_IBC_Moving==1){pnt_Film->u[ijkFilm]=//pnt_config->IBC_MovingSpeed/pnt_config->flt_u0_dim;
 						(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau ;}
-					else{pnt_Film->u[ijkFilm]=0.;}
-					pnt_Film->v[ijkFilm]=0.;
-					pnt_Film->w[ijkFilm]=0.;
-					pnt_Film->p[ijkFilm]=1.0;
-					pnt_Film->rho[ijkFilm]=1.0;
-					pnt_Film->gradRho[ijkFilm]=0.;
-					pnt_Film->MachNumber[ijkFilm]=0.;
-					pnt_Film->Lambda2[ijkFilm]=100000.;
+					else{pnt_Film->u[ijkFilm]=-10.0;}
+					pnt_Film->v[ijkFilm]=-10.0;
+					pnt_Film->w[ijkFilm]=-10.0;
+					pnt_Film->p[ijkFilm]=-10.0;
+					pnt_Film->rho[ijkFilm]=-10.0;
+					pnt_Film->gradRho[ijkFilm]=-10.0;
+					pnt_Film->MachNumber[ijkFilm]=-10.0;
+					pnt_Film->Lambda2[ijkFilm]=-10.0;
 				}
 			}
 		}
@@ -7449,3 +7456,31 @@ printf("SHOCK: current MEMSIZE RSS  : n/a\n");
 printf("SHOCK: current MEMSIZE VSIZE: n/a\n");
 }
 #endif
+
+void addManufacturedSolutionSource(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep)
+{
+	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
+	{
+		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
+		{
+			for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
+			{
+				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+
+
+			}
+		}
+	}
+}
+
+float generateSourceManufacturedSolution(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep)
+{
+	float result;
+	result=1.0;
+}
