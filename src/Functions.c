@@ -4644,7 +4644,7 @@ void IBC_prepare(
 		VG_length= 1.0/80.; //laenge: 1.0mm -> entdimensionieren mit c=80mm
 		//Dies sind die genauen Koordinaten des ersten Gitterpunktes des VG (Ecke links unten)
 		VG_start_x=0.650723;
-		VG_start_y=0.554763;
+		VG_start_y=0.0554763;
 
 		for (i=pnt_config->int_iStartGhosts+1; i <= pnt_config->int_iEndGhosts; i++)
 		{

@@ -65,13 +65,13 @@ void AddManufacturedSolutionSource(
 
 
 
-				pnt_Q->Mass[ijk]+=pnt_mesh->jacobian[ijk]*mass/rho_ref;
+				pnt_Q->Mass[ijk]+=pnt_mesh->jacobian[ijk]*mass/(rho_ref*u_ref/L);
 
-				pnt_Q->xiMomentum[ijk]+=pnt_mesh->jacobian[ijk]*x_momentum/(rho_ref*u_ref);
+				pnt_Q->xiMomentum[ijk]+=pnt_mesh->jacobian[ijk]*x_momentum/(rho_ref*u_ref*u_ref/L);
 
-				pnt_Q->etaMomentum[ijk]+=pnt_mesh->jacobian[ijk]*y_momentum/(rho_ref*u_ref);
+				pnt_Q->etaMomentum[ijk]+=pnt_mesh->jacobian[ijk]*y_momentum/(rho_ref*u_ref*u_ref/L);
 
-				pnt_Q->Energy[ijk]+=pnt_mesh->jacobian[ijk]*energy/(rho_ref*u_ref*u_ref);
+				pnt_Q->Energy[ijk]+=pnt_mesh->jacobian[ijk]*energy/(u_ref*p_ref/L);
 			}
 		}
 	}
