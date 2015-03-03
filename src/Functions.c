@@ -2050,10 +2050,10 @@ void CalcRungeKutta(
 				pnt_U_lastStep,
 				pnt_U_RK);
 
-        IBC_set(
+        /*IBC_set(
                 pnt_config,
                 pnt_mesh,
-                pnt_U_lastStep);
+                pnt_U_lastStep);*/
 
 	}
 
@@ -2110,13 +2110,13 @@ void CalcRungeKutta(
 				pnt_U_RK,
 				pnt_U_lastStep);
 
-		if(pnt_config->flag_IBC==1)
+		/*if(pnt_config->flag_IBC==1)
 		{
 			IBC_set(
 					pnt_config,
 					pnt_mesh,
 					pnt_U_RK);
-		}
+		}*/
 
 //		if(pnt_config->flag_PressureWaves==1)
 //		{
@@ -2326,13 +2326,13 @@ void CalcRungeKutta(
 		}
 
 	}
-	if(pnt_config->flag_IBC==1)
+	/*if(pnt_config->flag_IBC==1)
 	{
 		IBC_set(
 				pnt_config,
 				pnt_mesh,
 				pnt_U_RK);
-	}	
+	}*/
 	if(pnt_config->flag_constantZValues==1)
 	{
 		changeMeshInto3D(
@@ -5914,6 +5914,8 @@ void IBC_BornCells(
 					pnt_U_lastStep->T[ijk]=pnt_U_RK->T[ijk];
 					pnt_U_lastStep->c[ijk]=pnt_U_RK->c[ijk];
 					pnt_U_lastStep->mue[ijk]=pnt_U_RK->mue[ijk];
+
+					pnt_mesh->BC_Corrector[ijk]=1.0;
 				}
 			}
 
