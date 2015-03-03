@@ -107,6 +107,6 @@ include_directories(${CGNS_INCLUDE_PATH})
 include_directories(${INIPARSER_INCLUDE_PATH})
 include(FindMPI)
 
-SET (SHOCK_SRCS dictionary.c iniparser.c BC.c Export.c Functions.c Import.c SHOCK.c WENO.c ZD.c Load.c Save.c)
+SET (SHOCK_SRCS dictionary.c iniparser.c BC.c Export.c Functions.c Import.c SHOCK.c WENO.c ZD.c Load.c Save.c ManufacturedSolution.c)
 add_executable (SHOCK_W${SPACEORDER}_${MESHDIMENSIONS}D ${SHOCK_SRCS})
 target_link_libraries (SHOCK_W${SPACEORDER}_${MESHDIMENSIONS}D ${SHOCK_LIBS})

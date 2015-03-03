@@ -119,6 +119,7 @@ void ConfigImport(
 	pnt_config->flag_Inviscid = iniparser_getboolean(ini, "options:Inviscid", 0);
 	pnt_config->flag_Vortex = iniparser_getboolean(ini, "options:Vortex", 0);
 	pnt_config->flag_rotation_symmetric = iniparser_getboolean(ini, "options:2D-Rotation-Symmetric", 0);
+	pnt_config->flag_ManufacturedSolution = iniparser_getboolean(ini, "options:ManufacturedSolution", 0);
 
 
 //	LaminarBoundary

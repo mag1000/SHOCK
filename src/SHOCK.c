@@ -17,6 +17,7 @@
 #include "BC.h"
 #include "iniparser.h"
 #include <hdf5.h>
+#include "ManufacturedSolution.h"
 
 int int_interationsStart;
 int int_interationsEnd;

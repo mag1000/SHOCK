@@ -19,6 +19,7 @@
 #include "WENO.h"
 #include "ZD.h"
 #include "BC.h"
+#include "ManufacturedSolution.h"
 
 int i,j,k,ijk;
 
@@ -742,17 +743,6 @@ void postprocessLoad(
 
 	if(pnt_config->MPI_rank==0){printf("SHOCK: Speicherallokierung fertig!\n");}
 
-	Initialize(
-			pnt_config,
-			pnt_mesh,
-			pnt_U_lastStep);
-
-	if (pnt_config->int_initializeType==0)
-	{
-		if(pnt_config->MPI_rank==0){printf("SHOCK: Neu-Initialisierung des Rechengebietes fertig!\n");}
-	}
-
-
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
 		for (j=pnt_config->int_jStartReal; j <= pnt_config->int_jEndReal; j++)
@@ -792,6 +782,16 @@ void postprocessLoad(
 				}
 			}
 		}
+	}
+
+	Initialize(
+			pnt_config,
+			pnt_mesh,
+			pnt_U_lastStep);
+
+	if (pnt_config->int_initializeType==0)
+	{
+		if(pnt_config->MPI_rank==0){printf("SHOCK: Neu-Initialisierung des Rechengebietes fertig!\n");}
 	}
 
 	if(
@@ -1354,6 +1354,14 @@ void Initialize(
 
 			}
 		}
+	}
+
+	if(pnt_config->flag_ManufacturedSolution==1)
+	{
+		writeInitializeManufacturedSolution(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_lastStep);
 	}
 }
 
@@ -2248,6 +2256,13 @@ void CalcRungeKutta(
 					pnt_Q);
 		}
 
+		if(pnt_config->flag_ManufacturedSolution==1)
+		{
+			AddManufacturedSolutionSource(
+					pnt_config,
+					pnt_mesh,
+					pnt_Q);
+		}
 
 
 		for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -2317,6 +2332,7 @@ void CalcRungeKutta(
 				}
 			}
 		}
+
 	}
 	if(pnt_config->flag_IBC==1)
 	{
@@ -2337,13 +2353,7 @@ void CalcRungeKutta(
 				pnt_mesh,
 				pnt_U_lastStep);
 	}
-	if(pnt_config->flag_ManufacturedSolution==1)
-	{
-		addManufacturedSolutionSource(
-				pnt_config,
-				pnt_mesh,
-				pnt_U_lastStep);
-	}
+
 }
 
 void CalcValues(
@@ -4640,9 +4650,9 @@ void IBC_prepare(
 		if(pnt_config->MPI_rank==0){printf("SHOCK: IBC for VG is set.\n");}
 		VG_height= 0.4/80.;
 		VG_length= 1.0/80.;
-		VG_start_x=0.65;
+		VG_start_x=0.6505;
 		VG_start_y=0.055;
-		for (i=pnt_config->int_iStartReal+1; i < pnt_config->int_iEndReal; i++)
+		for (i=pnt_config->int_iStartGhosts+1; i <= pnt_config->int_iEndGhosts; i++)
 		{
 			j=pnt_config->int_jStartReal;
 			k=pnt_config->int_kStartReal;
@@ -4650,55 +4660,67 @@ void IBC_prepare(
 			iMinus1jk=(i-1)*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
 			if(
-					(pnt_mesh->x[iMinus1jk]<0.65)&&
-					(pnt_mesh->x[ijk]>=0.65)
+					(pnt_mesh->x[iMinus1jk]<VG_start_x)&&
+					(pnt_mesh->x[ijk]>=VG_start_x)
 					)
 
 			{
-				i_min=i;
+				i_min=i; //Bestimmung der linken unteren Ecke des VG (j=1,i=i_min)
+				j=pnt_config->int_jStartReal-1;
 				do{
 					j++;
 					ijk_tmp=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 					distance=sqrt(
 							pow((pnt_mesh->x[ijk_tmp]-VG_start_x),2)+
 							pow((pnt_mesh->y[ijk_tmp]-VG_start_y),2));
-				}while((distance<VG_height)&&(j<=pnt_config->int_jEndReal));
-				j_max=j-1;
-				if(j_max==pnt_config->int_jStartReal){break;}
+				}while((distance<VG_height)&&(j<=pnt_config->int_jEndGhosts));
+				j_max=j; //Bestimmung der linken oberen Ecke des VG innerhalb des Rechengebietes des CPU (j=j_max,i=i_min)
+				//if(j_max==pnt_config->int_jStartGhosts){break;}
 
 				j=pnt_config->int_jStartReal;
+				i=i_min;
 				do{
 					i++;
 					ijk_tmp=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 					distance=sqrt(
 							pow((pnt_mesh->x[ijk_tmp]-VG_start_x),2)+
 							pow((pnt_mesh->y[ijk_tmp]-VG_start_y),2));
-				}while((distance<VG_length)&&(i<=pnt_config->int_iEndReal));
+				}while((distance<VG_length)&&(i<=pnt_config->int_iEndGhosts));
 				i_max=i-1;
 
 				ijk=i_min*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_jStartReal*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kStartReal;
 				ijk_tmp=i_max*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j_max*pnt_config->int_kMeshPointsGhostCells+pnt_config->int_kStartReal;
-				printf("SHOCK: VG defined between x=%.3f, y=%.3f and y=%.3f, y=%.3f\n",
-						pnt_mesh->x[ijk],pnt_mesh->y[ijk],pnt_mesh->x[ijk_tmp],pnt_mesh->y[ijk_tmp]);
+				printf("SHOCK: VG defined between i=%d->%d, j=0->%d\n",
+						i_min,i_max,j_max);
+
+				float delta_z;
+				delta_z=0.1/127.;
 
 				for (i=i_min; i <= i_max; i++)
 				{
-					for (j=pnt_config->int_jStartReal; j <= j_max; j++)
+					for (j=pnt_config->int_jStartGhosts; j <= j_max; j++)
 					{
-						for (k=14; k <= 27; k++)
+						for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 						{
 							ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-							pnt_mesh->flag_IBC[ijk]=1;
-						}
-						for (k=57; k <= 70; k++)
-						{
-							ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-							pnt_mesh->flag_IBC[ijk]=1;
-						}
-						for (k=100; k <= 113; k++)
-						{
-							ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-							pnt_mesh->flag_IBC[ijk]=1;
+
+							if((pnt_mesh->z[ijk]>=14.*delta_z)&&(pnt_mesh->z[ijk]<=27.*delta_z))
+							{
+								ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+								pnt_mesh->flag_IBC[ijk]=1;
+							}
+
+							if((pnt_mesh->z[ijk]>=57.*delta_z)&&(pnt_mesh->z[ijk]<=70.*delta_z))
+							{
+								ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+								pnt_mesh->flag_IBC[ijk]=1;
+							}
+
+							if((pnt_mesh->z[ijk]>=100.*delta_z)&&(pnt_mesh->z[ijk]<=113.*delta_z))
+							{
+								ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+								pnt_mesh->flag_IBC[ijk]=1;
+							}
 						}
 					}
 				}
@@ -5957,6 +5979,9 @@ void IBC_ApplyBC4FluxInXi(
 						}*/
 						else
 						{
+							//Bei festen IBC kann die Metrik kopiert werden.
+							//Bei bewegten IBC erscheint das Problem der "born" Cells, die ihre urspruengliche Metric brauchen.
+							copyMetric(pnt_config,pnt_mesh,ijk,ijkSymmetry);
 							WriteWallNoSlipBoundary(corrector,ijk,ijkSymmetry,pnt_config,pnt_mesh,pnt_U);
 						}
 					}
@@ -7456,31 +7481,3 @@ printf("SHOCK: current MEMSIZE RSS  : n/a\n");
 printf("SHOCK: current MEMSIZE VSIZE: n/a\n");
 }
 #endif
-
-void addManufacturedSolutionSource(
-		struct strct_configuration * pnt_config,
-		struct strct_mesh * pnt_mesh,
-		struct strct_U * pnt_U_lastStep)
-{
-	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
-	{
-		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
-		{
-			for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
-			{
-				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-
-
-			}
-		}
-	}
-}
-
-float generateSourceManufacturedSolution(
-		struct strct_configuration * pnt_config,
-		struct strct_mesh * pnt_mesh,
-		struct strct_U * pnt_U_lastStep)
-{
-	float result;
-	result=1.0;
-}

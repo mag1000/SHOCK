@@ -389,11 +389,5 @@ void freeVTA
 (
 		vta* x,vta* y,vta* z,vta* u,vta* v,vta* w,vta* rho,vta* p);
 
-void addManufacturedSolutionSource(
-		struct strct_configuration * pnt_config,
-		struct strct_mesh * pnt_mesh,
-		struct strct_U * pnt_U_lastStep);
-
-
 
 #endif

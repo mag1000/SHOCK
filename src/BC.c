@@ -15,6 +15,15 @@ void SetAllBoundaryConditions(
 		struct strct_U * pnt_U,
 		struct strct_U * pnt_U_lastStep)
 {
+	if(pnt_config->flag_ManufacturedSolution==1)
+	{
+		writeBCManufacturedSolution(
+				pnt_config,
+				pnt_mesh,
+				pnt_U);
+	}
+	else
+	{
 	if (pnt_config->InterfaceNeighbourLeft==NO_NEIGHBOUR)
 	{
 		ControlBoundaryLowerI(
@@ -69,6 +78,7 @@ void SetAllBoundaryConditions(
 					pnt_U,
 					pnt_U_lastStep);
 		}
+	}
 	}
 }
 
