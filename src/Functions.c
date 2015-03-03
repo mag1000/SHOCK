@@ -1355,14 +1355,6 @@ void Initialize(
 			}
 		}
 	}
-
-	if(pnt_config->flag_ManufacturedSolution==1)
-	{
-		writeInitializeManufacturedSolution(
-				pnt_config,
-				pnt_mesh,
-				pnt_U_lastStep);
-	}
 }
 
 void InitializeLaminarBoundary(
@@ -4584,8 +4576,8 @@ void IBC_prepare(
 	int iMinus1jk,ijk_tmp;
 	float distance;
 	int i_max,j_max,i_min;
-	float VG_start_x;
-	float VG_start_y;
+	float VG_start_x,VG_start_x_rank;
+	float VG_start_y,VG_start_y_rank;
 	//####################
 	//	piston
 	//####################
@@ -4648,10 +4640,12 @@ void IBC_prepare(
 		//	VG
 		//####################
 		if(pnt_config->MPI_rank==0){printf("SHOCK: IBC for VG is set.\n");}
-		VG_height= 0.4/80.;
-		VG_length= 1.0/80.;
-		VG_start_x=0.6505;
-		VG_start_y=0.055;
+		VG_height= 0.4/80.; //hoehe: 0.4mm -> entdimensionieren mit c=80mm
+		VG_length= 1.0/80.; //laenge: 1.0mm -> entdimensionieren mit c=80mm
+		//Dies sind die genauen Koordinaten des ersten Gitterpunktes des VG (Ecke links unten)
+		VG_start_x=0.650723;
+		VG_start_y=0.554763;
+
 		for (i=pnt_config->int_iStartGhosts+1; i <= pnt_config->int_iEndGhosts; i++)
 		{
 			j=pnt_config->int_jStartReal;
@@ -4660,13 +4654,19 @@ void IBC_prepare(
 			iMinus1jk=(i-1)*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
 			if(
-					(pnt_mesh->x[iMinus1jk]<VG_start_x)&&
-					(pnt_mesh->x[ijk]>=VG_start_x)
+					(pnt_mesh->x[iMinus1jk]<0.6505)&&
+					(pnt_mesh->x[ijk]>=0.6505)
 					)
 
 			{
-				i_min=i; //Bestimmung der linken unteren Ecke des VG (j=1,i=i_min)
-				j=pnt_config->int_jStartReal-1;
+				//Bestimmung der linken unteren Ecke des VG (j=1,i=i_min)
+				i_min=i;
+				//Speichern der rank abhaengigen Position der linken unteren Ecke fuer Berechnung der
+				//korrektren Laenge
+				VG_start_x_rank=pnt_mesh->x[ijk];
+				VG_start_y_rank=pnt_mesh->y[ijk];
+
+				//Bestimmung der linken oberen Ecke des VG innerhalb des Rechengebietes des CPU (j=j_max,i=i_min)
 				do{
 					j++;
 					ijk_tmp=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
@@ -4674,8 +4674,10 @@ void IBC_prepare(
 							pow((pnt_mesh->x[ijk_tmp]-VG_start_x),2)+
 							pow((pnt_mesh->y[ijk_tmp]-VG_start_y),2));
 				}while((distance<VG_height)&&(j<=pnt_config->int_jEndGhosts));
-				j_max=j; //Bestimmung der linken oberen Ecke des VG innerhalb des Rechengebietes des CPU (j=j_max,i=i_min)
-				//if(j_max==pnt_config->int_jStartGhosts){break;}
+				j_max=j;
+				//Wenn diese Bedingung erfuellt ist, ist auch der unterste Gitterpunkt zu weit entfernt
+				//so dass keine IBC gesetzt werden duerfen
+				if(j_max==pnt_config->int_jStartGhosts){break;}
 
 				j=pnt_config->int_jStartReal;
 				i=i_min;
@@ -4683,8 +4685,8 @@ void IBC_prepare(
 					i++;
 					ijk_tmp=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 					distance=sqrt(
-							pow((pnt_mesh->x[ijk_tmp]-VG_start_x),2)+
-							pow((pnt_mesh->y[ijk_tmp]-VG_start_y),2));
+							pow((pnt_mesh->x[ijk_tmp]-VG_start_y_rank),2)+
+							pow((pnt_mesh->y[ijk_tmp]-VG_start_y_rank),2));
 				}while((distance<VG_length)&&(i<=pnt_config->int_iEndGhosts));
 				i_max=i-1;
 
@@ -4698,7 +4700,7 @@ void IBC_prepare(
 
 				for (i=i_min; i <= i_max; i++)
 				{
-					for (j=pnt_config->int_jStartGhosts; j <= j_max; j++)
+					for (j=pnt_config->int_jStartGhosts; j < j_max; j++)
 					{
 						for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 						{

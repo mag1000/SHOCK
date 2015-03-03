@@ -235,6 +235,10 @@ void ConfigImport(
 	pnt_config->flt_v_inflow = sin(pnt_config->flt_AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
 	pnt_config->flt_w_inflow = 0.0;
 
+	//ManufacturedSolution
+
+	pnt_config->ManufacturedSolution_case = iniparser_getint(ini, "ManufacturedSolution:case", 1);
+
 
     iniparser_freedict(ini);
 

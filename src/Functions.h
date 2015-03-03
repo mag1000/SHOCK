@@ -385,9 +385,9 @@ void AddRotationSymmetricFluxes(
 		struct strct_U * pnt_U_RK,
 		struct strct_Flux * pnt_Q);
 
-void freeVTA
-(
+void freeVTA(
 		vta* x,vta* y,vta* z,vta* u,vta* v,vta* w,vta* rho,vta* p);
 
+void print_memusage_c();
 
 #endif

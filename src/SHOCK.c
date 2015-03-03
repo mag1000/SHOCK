@@ -804,6 +804,26 @@ void setOptions(
 	if(pnt_config->flag_rotation_symmetric==1){
 		if(pnt_config->MPI_rank==0){printf(">>>>> Options: 2D-Rotationssymmetrisch\n");}}
 
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ManufacturedSolution<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_ManufacturedSolution==1){
+		ConfigureManufacturedSolution(
+				pnt_config);
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: ManufacturedSolution konfiguriert.\n");}
+
+		InitializeManufacturedSolution(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_lastStep);
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: ManufacturedSolution initialisiert.\n");}
+
+		SetAllBoundaryConditions(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_lastStep,
+				pnt_U_lastStep);
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: ManufacturedSolution BoundaryConditions aktualisiert.\n");}
+	}
+
 }
 
 

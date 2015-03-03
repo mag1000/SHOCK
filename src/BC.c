@@ -3,6 +3,7 @@
 #include "WENO.h"
 #include "ZD.h"
 #include "Functions.h"
+#include "ManufacturedSolution.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -15,15 +16,6 @@ void SetAllBoundaryConditions(
 		struct strct_U * pnt_U,
 		struct strct_U * pnt_U_lastStep)
 {
-	if(pnt_config->flag_ManufacturedSolution==1)
-	{
-		writeBCManufacturedSolution(
-				pnt_config,
-				pnt_mesh,
-				pnt_U);
-	}
-	else
-	{
 	if (pnt_config->InterfaceNeighbourLeft==NO_NEIGHBOUR)
 	{
 		ControlBoundaryLowerI(
@@ -78,7 +70,6 @@ void SetAllBoundaryConditions(
 					pnt_U,
 					pnt_U_lastStep);
 		}
-	}
 	}
 }
 
@@ -159,6 +150,13 @@ void ControlBoundaryLowerI(
 	else if(strcmp(pnt_config->BC_Left,pnt_config->BCWallViscousIsothermal)==0)
 	{
 		WriteWallNoSlipIsothermalBoundaryLowerI(
+				pnt_config,
+				pnt_mesh,
+				pnt_U);
+	}
+	else if(strcmp(pnt_config->BC_Left,pnt_config->BCManufacturedSolution)==0)
+	{
+		WriteBCManufacturedSolutionLowerI(
 				pnt_config,
 				pnt_mesh,
 				pnt_U);
@@ -244,6 +242,13 @@ void ControlBoundaryLowerJ(
 	else if(strcmp(pnt_config->BC_Bottom,pnt_config->BCWallViscousIsothermal)==0)
 	{
 		WriteWallNoSlipIsothermalBoundaryLowerJ(
+				pnt_config,
+				pnt_mesh,
+				pnt_U);
+	}
+	else if(strcmp(pnt_config->BC_Bottom,pnt_config->BCManufacturedSolution)==0)
+	{
+		WriteBCManufacturedSolutionLowerJ(
 				pnt_config,
 				pnt_mesh,
 				pnt_U);
@@ -341,6 +346,13 @@ void ControlBoundaryLowerK(
 				pnt_mesh,
 				pnt_U);
 	}
+	else if(strcmp(pnt_config->BC_Behind,pnt_config->BCManufacturedSolution)==0)
+	{
+		WriteBCManufacturedSolutionLowerK(
+				pnt_config,
+				pnt_mesh,
+				pnt_U);
+	}
 	else
 	{
 		printf("SHOCK: Error: Rank %d hat hinten weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
@@ -422,6 +434,13 @@ void ControlBoundaryUpperI(
 	else if(strcmp(pnt_config->BC_Right,pnt_config->BCWallViscousIsothermal)==0)
 	{
 		WriteWallNoSlipIsothermalBoundaryUpperI(
+				pnt_config,
+				pnt_mesh,
+				pnt_U);
+	}
+	else if(strcmp(pnt_config->BC_Right,pnt_config->BCManufacturedSolution)==0)
+	{
+		WriteBCManufacturedSolutionUpperI(
 				pnt_config,
 				pnt_mesh,
 				pnt_U);
@@ -511,6 +530,13 @@ void ControlBoundaryUpperJ(
 				pnt_mesh,
 				pnt_U);
 	}
+	else if(strcmp(pnt_config->BC_Top,pnt_config->BCManufacturedSolution)==0)
+	{
+		WriteBCManufacturedSolutionUpperJ(
+				pnt_config,
+				pnt_mesh,
+				pnt_U);
+	}
 	else
 	{
 		printf("SHOCK: Error: Rank %d hat oben weder Randbedingung noch Nachbar!\n",pnt_config->MPI_rank);
@@ -592,6 +618,13 @@ void ControlBoundaryUpperK(
 	else if(strcmp(pnt_config->BC_InFront,pnt_config->BCWallViscousIsothermal)==0)
 	{
 		WriteWallNoSlipIsothermalBoundaryUpperK(
+				pnt_config,
+				pnt_mesh,
+				pnt_U);
+	}
+	else if(strcmp(pnt_config->BC_InFront,pnt_config->BCManufacturedSolution)==0)
+	{
+		WriteBCManufacturedSolutionUpperK(
 				pnt_config,
 				pnt_mesh,
 				pnt_U);

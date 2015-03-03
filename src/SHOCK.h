@@ -370,6 +370,11 @@ struct strct_configuration
 	float flt_time_dim_backup1;
 	float flt_time_dim_backup2;
 
+	//ManufacturedSolution
+	int ManufacturedSolution_case;
+	char BCManufacturedSolution[30];
+
+
 //    float flt_c0;
 
 
