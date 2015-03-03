@@ -236,7 +236,6 @@ void ConfigImport(
 	pnt_config->flt_w_inflow = 0.0;
 
 	//ManufacturedSolution
-
 	pnt_config->ManufacturedSolution_case = iniparser_getint(ini, "ManufacturedSolution:case", 1);
 
 

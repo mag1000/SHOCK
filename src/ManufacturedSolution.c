@@ -89,7 +89,7 @@ void InitializeManufacturedSolution(
 				for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 				{
 					ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-
+					pnt_mesh->BC_Corrector[ijk]=1.0;
 					WriteManufacturedSolution(
 							pnt_config,
 							pnt_mesh,

@@ -740,6 +740,11 @@ void setOptions(
 		struct strct_Flux * pnt_Flux_PlusHalf,
 		struct strct_Film * pnt_Film)
 {
+	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Inviscid<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if(pnt_config->flag_Inviscid==1){
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: Inviscid (Euler)\n");}}
+
+
 	//	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>PressureWaves<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	if(pnt_config->flag_PressureWaves==1){
 		preparePressureWaves(
@@ -809,6 +814,9 @@ void setOptions(
 		ConfigureManufacturedSolution(
 				pnt_config);
 		if(pnt_config->MPI_rank==0){printf(">>>>> Options: ManufacturedSolution konfiguriert.\n");}
+
+		if(pnt_config->MPI_rank==0){printf(">>>>> Options: ManufacturedSolution-Case: %d (0: sub-, 1: supersonic).\n",
+				pnt_config->ManufacturedSolution_case);}
 
 		InitializeManufacturedSolution(
 				pnt_config,
