@@ -65,13 +65,13 @@ void AddManufacturedSolutionSource(
 
 
 
-				pnt_Q->Mass[ijk]=pnt_Q->Mass[ijk]+mass/rho_ref;
+				pnt_Q->Mass[ijk]+=pnt_mesh->jacobian[ijk]*mass/rho_ref;
 
-				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+x_momentum/(rho_ref*u_ref);
+				pnt_Q->xiMomentum[ijk]+=pnt_mesh->jacobian[ijk]*x_momentum/(rho_ref*u_ref);
 
-				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+y_momentum/(rho_ref*u_ref);
+				pnt_Q->etaMomentum[ijk]+=pnt_mesh->jacobian[ijk]*y_momentum/(rho_ref*u_ref);
 
-				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+energy/(rho_ref*u_ref*u_ref);
+				pnt_Q->Energy[ijk]+=pnt_mesh->jacobian[ijk]*energy/(rho_ref*u_ref*u_ref);
 			}
 		}
 	}
@@ -296,10 +296,10 @@ void WriteManufacturedSolution(
 	v_0=800.0;	v_x=-75.0;	v_y=40.0;	a_v_x=0.5;		a_v_y=2./3.;
 	p_0=100000.0;	p_x=0.2*100000.0;	p_y=0.5*100000.0;	a_p_x=2.0;		a_p_y=1.0;
 
-	pnt_U_lastStep->rho[ijk]=(rho_0+rho_x*sin(a_rho_x*M_PI*pnt_mesh->x[ijk]/L)+rho_y*cos(a_rho_y*M_PI*pnt_mesh->y[ijk]/L))/rho_ref;
-	pnt_U_lastStep->u[ijk]=(u_0+u_x*sin(a_u_x*M_PI*pnt_mesh->x[ijk]/L)+u_y*cos(a_u_y*M_PI*pnt_mesh->y[ijk]/L))/u_ref;
-	pnt_U_lastStep->v[ijk]=(v_0+v_x*cos(a_v_x*M_PI*pnt_mesh->x[ijk]/L)+v_y*sin(a_v_y*M_PI*pnt_mesh->y[ijk]/L))/u_ref;
-	pnt_U_lastStep->p[ijk]=(p_0+p_x*cos(a_p_x*M_PI*pnt_mesh->x[ijk]/L)+p_y*sin(a_p_y*M_PI*pnt_mesh->y[ijk]/L))/p_ref;
+	pnt_U_lastStep->rho[ijk]=1./rho_ref*(rho_0+rho_x*sin(a_rho_x*M_PI*pnt_mesh->x[ijk]/L)+rho_y*cos(a_rho_y*M_PI*pnt_mesh->y[ijk]/L));
+	pnt_U_lastStep->u[ijk]=1./u_ref*(u_0+u_x*sin(a_u_x*M_PI*pnt_mesh->x[ijk]/L)+u_y*cos(a_u_y*M_PI*pnt_mesh->y[ijk]/L));
+	pnt_U_lastStep->v[ijk]=1./u_ref*(v_0+v_x*cos(a_v_x*M_PI*pnt_mesh->x[ijk]/L)+v_y*sin(a_v_y*M_PI*pnt_mesh->y[ijk]/L));
+	pnt_U_lastStep->p[ijk]=1./p_ref*(p_0+p_x*cos(a_p_x*M_PI*pnt_mesh->x[ijk]/L)+p_y*sin(a_p_y*M_PI*pnt_mesh->y[ijk]/L));
 	pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
 							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
 }

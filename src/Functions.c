@@ -4667,6 +4667,8 @@ void IBC_prepare(
 				VG_start_y_rank=pnt_mesh->y[ijk];
 
 				//Bestimmung der linken oberen Ecke des VG innerhalb des Rechengebietes des CPU (j=j_max,i=i_min)
+				i=i_min;
+				j=pnt_config->int_jStartGhosts-1;
 				do{
 					j++;
 					ijk_tmp=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
@@ -4685,7 +4687,7 @@ void IBC_prepare(
 					i++;
 					ijk_tmp=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 					distance=sqrt(
-							pow((pnt_mesh->x[ijk_tmp]-VG_start_y_rank),2)+
+							pow((pnt_mesh->x[ijk_tmp]-VG_start_x_rank),2)+
 							pow((pnt_mesh->y[ijk_tmp]-VG_start_y_rank),2));
 				}while((distance<VG_length)&&(i<=pnt_config->int_iEndGhosts));
 				i_max=i-1;
