@@ -312,18 +312,12 @@ double GetRhoManufacturedSolution(
 {
 	float L=pnt_config->flt_L0_dim;
 	float p_ref=100000.0;
-	float u_ref=pnt_config->flt_u0_dim;
 	float rho_ref=p_ref/287./pnt_config->flt_T0_dim;
 
 	float rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
-	float u_0,u_x,u_y,a_u_x,a_u_y;
-	float v_0,v_x,v_y,a_v_x,a_v_y;
-	float p_0,p_x,p_y,a_p_x,a_p_y;
+
 
 	rho_0=1.0;	rho_x=0.15;	rho_y=-0.1;	a_rho_x=1.0;	a_rho_y=0.5;
-	u_0=800.0;	u_x=50.0;	u_y=-30.0;	a_u_x=1.5;		a_u_y=0.6;
-	v_0=800.0;	v_x=-75.0;	v_y=40.0;	a_v_x=0.5;		a_v_y=2./3.;
-	p_0=100000.0;	p_x=0.2*100000.0;	p_y=0.5*100000.0;	a_p_x=2.0;		a_p_y=1.0;
 
 	float rho=1./rho_ref*(rho_0+rho_x*sin(a_rho_x*M_PI*pnt_mesh->x[ijk]/L)+rho_y*cos(a_rho_y*M_PI*pnt_mesh->y[ijk]/L));
 	return rho;

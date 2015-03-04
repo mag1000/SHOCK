@@ -672,7 +672,10 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 	TM_START ( )
 	if(( sol<=nsols )&&(abs(pnt_config->int_initializeType)==1)) {
 /** Load solution data into vta for later processing. */
-		int nfields,field,fieldVec[5];
+		int nfields,field;
+		#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
+		int fieldVec[5];
+		#endif
 		CG( cg_nfields( file,base,zone,sol,&nfields ) );
 		for( field = 1; field<=nfields; field++ ) {
 			DataType_t dt;
@@ -682,15 +685,35 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 
 			// TODO: CGNS Conventions or not? u,v,w, etc are not.
 			if( !strcmp( fieldname,"VelocityX" ) )
-				{target = u;fieldVec[0]=field;}
+				{target = u;
+				#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
+				fieldVec[0]=field;
+				#endif
+				}
 			else if( !strcmp( fieldname,"VelocityY" ) )
-				{target = v;fieldVec[1]=field;}
+				{target = v;
+				#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
+				fieldVec[1]=field;
+				#endif
+				}
 			else if( !strcmp( fieldname,"VelocityZ" ) )
-				{target = w;fieldVec[2]=field;}
+				{target = w;
+				#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
+				fieldVec[2]=field;
+				#endif
+				}
 			else if( !strcmp( fieldname,"Density" ) )
-				{target = rho;fieldVec[3]=field;}
+				{target = rho;
+				#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
+				fieldVec[3]=field;
+				#endif
+				}
 			else if( !strcmp( fieldname,"Pressure" ) )
-				{target = p;fieldVec[4]=field;}
+				{target = p;
+				#if ( HDF5_HAVE_MULTI_DATASETS_ == 1 && DIM == 3 )
+				fieldVec[4]=field;
+				#endif
+				}
 
 			if( target ) {
 				target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( float ):sizeof( float ) ) );

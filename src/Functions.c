@@ -7397,10 +7397,10 @@ extern void print_memusage_c()
 #include <unistd.h> // for sysconf(_SC_PAGESIZE)
 #include <linux/limits.h> // for PATH_MAX
 
-void readone(FILE *f, long long int *x)            { fscanf(f, "%lld ", x); }
-void readunsigned(FILE *f, unsigned long long *x) { fscanf(f, "%llu ", x); }
-void readstr(FILE *f, char *x)                      { fscanf(f, "%s ", x);}
-void readchar(FILE *f, char *x)                     { fscanf(f, "%c ", x);}
+void readone(FILE *f, long long int *x)            { if(fscanf(f, "%lld ", x)==EOF){printf("Error in fscanf\n");} }
+void readunsigned(FILE *f, unsigned long long *x) { if(fscanf(f, "%llu ", x)==EOF){printf("Error in fscanf\n");} }
+void readstr(FILE *f, char *x)                      { if(fscanf(f, "%s ", x)==EOF){printf("Error in fscanf\n");} }
+void readchar(FILE *f, char *x)                     { if(fscanf(f, "%c ", x)==EOF){printf("Error in fscanf\n");} }
 
 extern void print_memusage_c()
 {
