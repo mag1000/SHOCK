@@ -2163,7 +2163,7 @@ void CalcRungeKutta(
 				pnt_Q);
 
 #if MESHDIMENSIONS==3
-			if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
+			if(pnt_config->flag_IBC==1)
 			{
 				IBC_ApplyBC4FluxInZeta(
 						pnt_config,
