@@ -52,5 +52,16 @@ void WriteManufacturedSolution(
 		struct strct_U * pnt_U_lastStep,
 		int ijk);
 
+void ErrorManufacturedSolution(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep);
+
+double GetRhoManufacturedSolution(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep,
+		int ijk);
+
 #endif
 

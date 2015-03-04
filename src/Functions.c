@@ -2130,7 +2130,7 @@ void CalcRungeKutta(
 //###########################################
 //		REIBUNGSFREIE FLUSSBERECHNUNG
 //##########################################
-		if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
+		if(pnt_config->flag_IBC==1)
 		{
 			IBC_ApplyBC4FluxInXi(
 					pnt_config,
@@ -2146,7 +2146,7 @@ void CalcRungeKutta(
 				pnt_Flux_PlusHalf,
 				pnt_Q);
 
-		if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
+		if(pnt_config->flag_IBC==1)
 		{
 			IBC_ApplyBC4FluxInEta(
 					pnt_config,
@@ -2193,7 +2193,7 @@ void CalcRungeKutta(
 						pnt_mesh,
 						pnt_U_RK);
 
-			if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
+			if(pnt_config->flag_IBC==1)
 			{
 				IBC_ApplyBC4FluxInXi(
 						pnt_config,
@@ -2207,7 +2207,7 @@ void CalcRungeKutta(
 					pnt_U_RK,
 					pnt_Q);
 
-			if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
+			if(pnt_config->flag_IBC==1)
 			{
 				IBC_ApplyBC4FluxInEta(
 						pnt_config,
@@ -2223,7 +2223,7 @@ void CalcRungeKutta(
 
 			if(MESHDIMENSIONS==3)
 			{
-				if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
+				if(pnt_config->flag_IBC==1)
 				{
 					IBC_ApplyBC4FluxInZeta(
 							pnt_config,
@@ -2325,14 +2325,17 @@ void CalcRungeKutta(
 			}
 		}
 
+		//Um sicherstellen, dass die Berechnungen innerhalb der IBC keine NAN/INF erzeugen,
+		//werden die Berechnungen dort direkt ueberschrieben
+		if(pnt_config->flag_IBC==1)
+		{
+			IBC_set(
+					pnt_config,
+					pnt_mesh,
+					pnt_U_RK);
+		}
 	}
-	/*if(pnt_config->flag_IBC==1)
-	{
-		IBC_set(
-				pnt_config,
-				pnt_mesh,
-				pnt_U_RK);
-	}*/
+
 	if(pnt_config->flag_constantZValues==1)
 	{
 		changeMeshInto3D(
@@ -4820,10 +4823,14 @@ void IBC_set(
 				if(pnt_mesh->flag_IBC[ijk]==1)
 				{
 					if(pnt_config->flag_IBC_Moving==1)
-					{pnt_U->u[ijk]=//pnt_config->IBC_MovingSpeed/pnt_config->flt_u0_dim;}
-							(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;}
+					{
+						pnt_U->u[ijk]=//pnt_config->IBC_MovingSpeed/pnt_config->flt_u0_dim;}
+							(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;
+					}
 					else
-					{pnt_U->u[ijk]=0.0;}
+					{
+						pnt_U->u[ijk]=0.0;
+					}
 					pnt_U->v[ijk]=0.0;
 					pnt_U->w[ijk]=0.0;
 					pnt_U->theta1[ijk]=
@@ -4841,16 +4848,8 @@ void IBC_set(
 					pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
 												1.0/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
                     
-                    if(pnt_config->flag_IBC_ApplyBC==1)
-                    {
-                        pnt_U->p[ijk]=1.0;
-                        pnt_U->rho[ijk]=1.0;
-                    }
-                    else
-                    {
-    					pnt_U->p[ijk]=pnt_U->rho[ijk];
-                    }
-
+					pnt_U->p[ijk]=1.0;
+					pnt_U->rho[ijk]=1.0;
 
 				    pnt_U->T[ijk]=1.0;
 
@@ -4861,10 +4860,6 @@ void IBC_set(
 					pnt_U->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
 							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->flt_SutherlandConstant));
 
-					pnt_mesh->BC_Corrector[ijk]=1.0;
-				}
-				else
-				{
 					pnt_mesh->BC_Corrector[ijk]=1.0;
 				}
 			}
@@ -7412,7 +7407,7 @@ extern void print_memusage_c()
 
   printf("SHOCK: Intel memory usage per rank\n");
   long page_size = sysconf(_SC_PAGESIZE);
-  long s = -1;
+  //long s = -1;
   FILE *f = fopen("/proc/self/stat", "r");
   if (!f) return ;
 

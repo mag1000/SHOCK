@@ -221,7 +221,6 @@ void ConfigImport(
 	pnt_config->IBC_MovingType = iniparser_getint(ini, "IBC:Movement", 0);
 	pnt_config->IBC_SpeedFactor = iniparser_getfloat(ini, "IBC:SpeedFactor", 1.0);
 	pnt_config->IBC_MovingStepsize = iniparser_getint(ini, "IBC:Stepsize", 100);
-	pnt_config->flag_IBC_ApplyBC = iniparser_getboolean(ini, "IBC:ApplyBC", 0);
 
 	//InitializeValues
 	pnt_config->InitializeValues_u0 = iniparser_getfloat(ini, "InitializeValues:u0", 1);

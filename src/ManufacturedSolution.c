@@ -303,3 +303,59 @@ void WriteManufacturedSolution(
 	pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
 							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
 }
+
+double GetRhoManufacturedSolution(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep,
+		int ijk)
+{
+	float L=pnt_config->flt_L0_dim;
+	float p_ref=100000.0;
+	float u_ref=pnt_config->flt_u0_dim;
+	float rho_ref=p_ref/287./pnt_config->flt_T0_dim;
+
+	float rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
+	float u_0,u_x,u_y,a_u_x,a_u_y;
+	float v_0,v_x,v_y,a_v_x,a_v_y;
+	float p_0,p_x,p_y,a_p_x,a_p_y;
+
+	rho_0=1.0;	rho_x=0.15;	rho_y=-0.1;	a_rho_x=1.0;	a_rho_y=0.5;
+	u_0=800.0;	u_x=50.0;	u_y=-30.0;	a_u_x=1.5;		a_u_y=0.6;
+	v_0=800.0;	v_x=-75.0;	v_y=40.0;	a_v_x=0.5;		a_v_y=2./3.;
+	p_0=100000.0;	p_x=0.2*100000.0;	p_y=0.5*100000.0;	a_p_x=2.0;		a_p_y=1.0;
+
+	float rho=1./rho_ref*(rho_0+rho_x*sin(a_rho_x*M_PI*pnt_mesh->x[ijk]/L)+rho_y*cos(a_rho_y*M_PI*pnt_mesh->y[ijk]/L));
+	return rho;
+}
+
+void ErrorManufacturedSolution(
+		struct strct_configuration * pnt_config,
+		struct strct_mesh * pnt_mesh,
+		struct strct_U * pnt_U_lastStep)
+{
+	float L2_norm_rho=0.0;
+	float rho_exact;
+	float N=pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints;
+	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
+	{
+		for (j=pnt_config->int_jStartReal; j <= pnt_config->int_jEndReal; j++)
+		{
+			for (k=pnt_config->int_kEndReal; k <= pnt_config->int_kEndReal; k++)
+			{
+				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+				rho_exact=GetRhoManufacturedSolution(
+						pnt_config,
+						pnt_mesh,
+						pnt_U_lastStep,
+						ijk);
+				L2_norm_rho+=pow((rho_exact-pnt_U_lastStep->rho[ijk]),2.0)/(N);
+
+			}
+		}
+	}
+	float* all_L2_norm_rho; 
+	all_L2_norm_rho = (float *)malloc(1*sizeof(float)); 
+	MPI_Reduce( &L2_norm_rho, all_L2_norm_rho,1,MPI_FLOAT,MPI_SUM,0,pnt_config->MPI_comm);
+	if(pnt_config->MPI_rank==0){printf("SHOCK: ManufacturedSolution: L2_norm(rho):%f\n",all_L2_norm_rho[0]);}
+}

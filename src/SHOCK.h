@@ -399,8 +399,6 @@ struct strct_configuration
 	float IBC_MovingActualPosition;
 	float IBC_MovingLastPosition;
 
-//	IBC:Apply Boundary Conditions at Walls of IBC
-	int flag_IBC_ApplyBC;
 
 
     //    VortexGenerator

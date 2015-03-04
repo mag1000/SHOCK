@@ -1,0 +1,1 @@
+the decomposition files (*.sddc) are made for 4 ranks (2d) and for 8 ranks (3d)

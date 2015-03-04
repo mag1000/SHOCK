@@ -734,13 +734,13 @@ void CalcDeviationsForDirectViscidFluxes(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_RK)
 {
-if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
-{
-	IBC_ApplyBC4FluxInXi(
-			pnt_config,
-			pnt_mesh,
-			pnt_U_RK);
-}
+	if(pnt_config->flag_IBC==1)
+	{
+		IBC_ApplyBC4FluxInXi(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_RK);
+	}
 //	Ableitungen in Xi-Richtung
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -790,13 +790,13 @@ if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
 		}
 	}
 	
-if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
-{
-	IBC_ApplyBC4FluxInEta(
-			pnt_config,
-			pnt_mesh,
-			pnt_U_RK);
-}
+	if(pnt_config->flag_IBC==1)
+	{
+		IBC_ApplyBC4FluxInEta(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_RK);
+	}
 //	Ableitungen in Eta-Richtung
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -845,13 +845,13 @@ if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
 		}
 	}
 
-if((pnt_config->flag_IBC_ApplyBC==1)&&(pnt_config->flag_IBC==1))
-{
-	IBC_ApplyBC4FluxInZeta(
-			pnt_config,
-			pnt_mesh,
-			pnt_U_RK);
-}
+	if(pnt_config->flag_IBC==1)
+	{
+		IBC_ApplyBC4FluxInZeta(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_RK);
+	}
 //	Ableitungen in Zeta-Richtung
 #if MESHDIMENSIONS==3
 		for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)

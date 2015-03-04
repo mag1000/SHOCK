@@ -309,6 +309,14 @@ int main(int argc, char *argv[])
 	if(configuration.MPI_rank==0){printf("SHOCK: Letztes Tau: %g!\n",configuration.flt_numericalTau);}
 	if(configuration.MPI_rank==0){printf("SHOCK: Letztes DistanceForwad: %d!\n",configuration.int_distanceForward);}
 
+	if(configuration.flag_ManufacturedSolution==1)
+	{
+		ErrorManufacturedSolution(
+				&configuration,
+				&mesh,
+				&U_lastStep);
+	}
+
 	if(configuration.int_TotalIterations==0)
 	{
 		if(configuration.MPI_rank==0){printf("SHOCK: Initialisierungswerte für Export speichern.\n");}
