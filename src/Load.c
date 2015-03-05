@@ -19,7 +19,7 @@
 #	define DIM3(...) __VA_ARGS__
 #endif
 
-float ts;
+double ts;
 
 #if TM==1
 #	define TM_START() ts=MPI_Wtime( );
@@ -579,7 +579,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 #endif
 
 		if( target ) {
-			target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( float ):sizeof( float ) ) );
+			target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( double ):sizeof( float ) ) );
 			target->dt = dt;
 			#if DIM==2
 				CG( cgp_coord_read_data( file,base,zone,coord,corners[ 0 ],corners[ 1 ],target->ptr ) );
@@ -623,12 +623,12 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 			void* timearray;
 
 			if( !strcmp( arrayname,"TimeValues" ) ) {
-				timearray = malloc( dimv[ 0 ]*( dt==RealDouble?sizeof( float ):sizeof( float ) ) );
+				timearray = malloc( dimv[ 0 ]*( dt==RealDouble?sizeof( double ):sizeof( float ) ) );
 
 				CG( cg_array_read( array,timearray ) );
 
 				if( dt==RealDouble )
-					pnt_config->dbl_time_dim =( (float*)timearray )[ dimv[ 0 ]-1 ];
+					pnt_config->dbl_time_dim =( (double*)timearray )[ dimv[ 0 ]-1 ];
 				else
 					pnt_config->dbl_time_dim =( (float*)timearray )[ dimv[ 0 ]-1 ];
 
@@ -716,7 +716,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 				}
 
 			if( target ) {
-				target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( float ):sizeof( float ) ) );
+				target->ptr = malloc( pointcount*( dt==RealDouble?sizeof( double ):sizeof( float ) ) );
 				target->dt = dt;
 				#if DIM==2
 						if(pnt_config->MPI_rank==0){printf("SHOCK:  Using command 'cgp_field_read_data'\n");}

@@ -17,7 +17,7 @@
 #	define DIM3(...) __VA_ARGS__
 #endif
 
-float ts;
+double ts;
 
 #if TM==1
 #	define TM_START() ts=MPI_Wtime( );
