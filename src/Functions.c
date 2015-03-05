@@ -43,7 +43,7 @@ void postprocessLoad(
 
 	if(abs(pnt_config->int_initializeType)!=1)
 	{
-		pnt_config->flt_time_dim=0;
+		pnt_config->dbl_time_dim=0;
 		pnt_config->int_StartIteration=0;
 	}
 
@@ -138,7 +138,7 @@ void postprocessLoad(
 
 
 //  Speicherallokierung für lokales Gamma (Prandtl)
-    pnt_config->flt_Gamma=(float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+    pnt_config->dbl_Gamma=(double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
 		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
@@ -146,7 +146,7 @@ void postprocessLoad(
 			for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 			{
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-                pnt_config->flt_Gamma[ijk]=1.0/((pnt_config->flt_gammaNumber-1.0)*pow(pnt_config->flt_machNumber,2.0)*pnt_config->flt_reynoldsNumber*pnt_config->flt_prandtlNumber);
+                pnt_config->dbl_Gamma[ijk]=1.0/((pnt_config->dbl_gammaNumber-1.0)*pow(pnt_config->dbl_machNumber,2.0)*pnt_config->dbl_reynoldsNumber*pnt_config->dbl_prandtlNumber);
             }
         }
     }
@@ -156,57 +156,57 @@ void postprocessLoad(
 //		getInterfaceInformations(
 //				pnt_config);
 
-	//	pnt_config->bufferSendFlowLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-	//	pnt_config->bufferSendFlowRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-	//	pnt_config->bufferSendFlowBottom = (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
-	//	pnt_config->bufferSendFlowTop= (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
-	//	pnt_config->bufferRecieveFlowLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-	//	pnt_config->bufferRecieveFlowRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-	//	pnt_config->bufferRecieveFlowBottom = (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
-	//	pnt_config->bufferRecieveFlowTop= (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
+	//	pnt_config->bufferSendFlowLeft = (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(double));
+	//	pnt_config->bufferSendFlowRight= (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(double));
+	//	pnt_config->bufferSendFlowBottom = (double *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(double));
+	//	pnt_config->bufferSendFlowTop= (double *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(double));
+	//	pnt_config->bufferRecieveFlowLeft = (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(double));
+	//	pnt_config->bufferRecieveFlowRight= (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(double));
+	//	pnt_config->bufferRecieveFlowBottom = (double *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(double));
+	//	pnt_config->bufferRecieveFlowTop= (double *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(double));
 
-		pnt_config->bufferSendMeshLeft = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendMeshRight = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendMeshBottom = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendMeshTop = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveMeshLeft = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveMeshRight = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveMeshBottom = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveMeshTop = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
+		pnt_config->bufferSendMeshLeft = (double *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+		pnt_config->bufferSendMeshRight = (double *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+		pnt_config->bufferSendMeshBottom = (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+		pnt_config->bufferSendMeshTop = (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+		pnt_config->bufferRecieveMeshLeft = (double *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+		pnt_config->bufferRecieveMeshRight = (double *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+		pnt_config->bufferRecieveMeshBottom = (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+		pnt_config->bufferRecieveMeshTop = (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
 
 		if(MESHDIMENSIONS==2)
 		{
-			pnt_config->bufferSendFlowWithGhostsLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferSendFlowWithGhostsRight= (float *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferSendFlowWithGhostsBottom = (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferSendFlowWithGhostsTop= (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
+			pnt_config->bufferSendFlowWithGhostsLeft = (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferSendFlowWithGhostsRight= (double *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferSendFlowWithGhostsBottom = (double *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferSendFlowWithGhostsTop= (double *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
 
-			pnt_config->bufferRecieveFlowWithGhostsLeft = (float *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsRight= (float *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsBottom = (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsTop= (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
+			pnt_config->bufferRecieveFlowWithGhostsLeft = (double *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsRight= (double *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsBottom = (double *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsTop= (double *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
 		}
 		if(MESHDIMENSIONS==3)
 		{
-			pnt_config->bufferSendFlowWithGhostsLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferSendFlowWithGhostsRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferSendFlowWithGhostsBottom = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferSendFlowWithGhostsTop= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
+			pnt_config->bufferSendFlowWithGhostsLeft = (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferSendFlowWithGhostsRight= (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferSendFlowWithGhostsBottom = (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferSendFlowWithGhostsTop= (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
 
-			pnt_config->bufferRecieveFlowWithGhostsLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsBottom = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsTop= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
+			pnt_config->bufferRecieveFlowWithGhostsLeft = (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsRight= (double *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsBottom = (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsTop= (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(double));
 
-			pnt_config->bufferSendFlowWithGhostsBehind = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-			pnt_config->bufferSendFlowWithGhostsInFront= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsBehind = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-			pnt_config->bufferRecieveFlowWithGhostsInFront= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
+			pnt_config->bufferSendFlowWithGhostsBehind = (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
+			pnt_config->bufferSendFlowWithGhostsInFront= (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsBehind = (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
+			pnt_config->bufferRecieveFlowWithGhostsInFront= (double *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
 
-			pnt_config->bufferSendMeshBehind = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-			pnt_config->bufferSendMeshInFront = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-			pnt_config->bufferRecieveMeshBehind = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-			pnt_config->bufferRecieveMeshInFront= (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
+			pnt_config->bufferSendMeshBehind = (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
+			pnt_config->bufferSendMeshInFront = (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
+			pnt_config->bufferRecieveMeshBehind = (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
+			pnt_config->bufferRecieveMeshInFront= (double *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(double));
 		}
 
 		/* get neighbour */
@@ -289,15 +289,15 @@ void postprocessLoad(
 		pnt_config->MPI_intTransformation_Offset_J_Ghosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
 		pnt_config->MPI_intTransformation_Offset_K_Ghosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
 
-		pnt_config->MPI_fltTransformation_xi_x= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_xi_y= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_xi_z= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_eta_x= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_eta_y= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_eta_z= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_zeta_x= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_zeta_y= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-		pnt_config->MPI_fltTransformation_zeta_z= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
+		pnt_config->MPI_dblTransformation_xi_x= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_xi_y= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_xi_z= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_eta_x= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_eta_y= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_eta_z= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_zeta_x= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_zeta_y= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
+		pnt_config->MPI_dblTransformation_zeta_z= (double *)calloc(pnt_config->NumberInterfaces, sizeof(double));
 
 		//		pnt_config->MPI_charNeighbours= (char **)calloc(pnt_config->NumberInterfaces, sizeof(char*));
 		for(i=0;i<pnt_config->NumberInterfaces;i++)
@@ -305,24 +305,24 @@ void postprocessLoad(
 		//			pnt_config->RankNeighbours[i]= (int *)calloc(pnt_config->int_meshDimensions+1, sizeof(int));
 		//			pnt_config->MPI_charNeighbours[i]= (char *)calloc(30, sizeof(char));
 
-			pnt_config->MPI_fltTransformation_xi_x[i]=1.0;
-			pnt_config->MPI_fltTransformation_xi_y[i]=1.0;
-			pnt_config->MPI_fltTransformation_xi_z[i]=1.0;
-			pnt_config->MPI_fltTransformation_eta_x[i]=1.0;
-			pnt_config->MPI_fltTransformation_eta_y[i]=1.0;
-			pnt_config->MPI_fltTransformation_eta_z[i]=1.0;
-			pnt_config->MPI_fltTransformation_zeta_x[i]=1.0;
-			pnt_config->MPI_fltTransformation_zeta_y[i]=1.0;
-			pnt_config->MPI_fltTransformation_zeta_z[i]=1.0;
+			pnt_config->MPI_dblTransformation_xi_x[i]=1.0;
+			pnt_config->MPI_dblTransformation_xi_y[i]=1.0;
+			pnt_config->MPI_dblTransformation_xi_z[i]=1.0;
+			pnt_config->MPI_dblTransformation_eta_x[i]=1.0;
+			pnt_config->MPI_dblTransformation_eta_y[i]=1.0;
+			pnt_config->MPI_dblTransformation_eta_z[i]=1.0;
+			pnt_config->MPI_dblTransformation_zeta_x[i]=1.0;
+			pnt_config->MPI_dblTransformation_zeta_y[i]=1.0;
+			pnt_config->MPI_dblTransformation_zeta_z[i]=1.0;
 		}
 
 		pnt_config->MPI_intTransferSizeMesh=(int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
 		pnt_config->MPI_intTransferSizeFlow_WithGhosts=(int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
 
-		pnt_config->MPI_SendBufferMesh= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-		pnt_config->MPI_RecieveBufferMesh= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-		pnt_config->MPI_SendBufferFlowWithGhosts= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-		pnt_config->MPI_RecieveBufferFlowWithGhosts= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
+		pnt_config->MPI_SendBufferMesh= (double **)calloc(pnt_config->NumberInterfaces, sizeof(double *));
+		pnt_config->MPI_RecieveBufferMesh= (double **)calloc(pnt_config->NumberInterfaces, sizeof(double *));
+		pnt_config->MPI_SendBufferFlowWithGhosts= (double **)calloc(pnt_config->NumberInterfaces, sizeof(double *));
+		pnt_config->MPI_RecieveBufferFlowWithGhosts= (double **)calloc(pnt_config->NumberInterfaces, sizeof(double *));
 
 		pnt_config->MPI_intIStartSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
 		pnt_config->MPI_intIEndSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
@@ -760,21 +760,21 @@ void postprocessLoad(
 				ijk2=k2*pnt_config->int_jMeshPoints*pnt_config->int_iMeshPoints+j2*pnt_config->int_iMeshPoints+i2;
 
 				if( x->dt==RealSingle )
-					pnt_mesh->x[ijk]=( (float*)x->ptr )[ijk2];
+					pnt_mesh->x[ijk]=( (double*)x->ptr )[ijk2];
 				else
-					pnt_mesh->x[ijk]=( (float*)x->ptr )[ijk2];
+					pnt_mesh->x[ijk]=( (double*)x->ptr )[ijk2];
 
 				if( y->dt==RealSingle )
-					pnt_mesh->y[ijk]=( (float*)y->ptr )[ijk2];
+					pnt_mesh->y[ijk]=( (double*)y->ptr )[ijk2];
 				else
-					pnt_mesh->y[ijk]=( (float*)y->ptr )[ijk2];
+					pnt_mesh->y[ijk]=( (double*)y->ptr )[ijk2];
 
 				if(MESHDIMENSIONS==3)
 				{
 					if( z->dt==RealSingle )
-						pnt_mesh->z[ijk]=( (float*)z->ptr )[ijk2];
+						pnt_mesh->z[ijk]=( (double*)z->ptr )[ijk2];
 					else
-						pnt_mesh->z[ijk]=( (float*)z->ptr )[ijk2];
+						pnt_mesh->z[ijk]=( (double*)z->ptr )[ijk2];
 				}
 				else
 				{
@@ -815,17 +815,17 @@ void postprocessLoad(
 					ijk2=k2*pnt_config->int_jMeshPoints*pnt_config->int_iMeshPoints+j2*pnt_config->int_iMeshPoints+i2;
 
 					if( u->dt==RealSingle )
-						pnt_U_lastStep->u[ijk]=( (float*)u->ptr )[ijk2];
+						pnt_U_lastStep->u[ijk]=( (double*)u->ptr )[ijk2];
 					else
-						pnt_U_lastStep->u[ijk]=( (float*)u->ptr )[ijk2];
+						pnt_U_lastStep->u[ijk]=( (double*)u->ptr )[ijk2];
 
 					if( v->dt==RealSingle )
-						pnt_U_lastStep->v[ijk]=( (float*)v->ptr )[ijk2];
+						pnt_U_lastStep->v[ijk]=( (double*)v->ptr )[ijk2];
 					else
-						pnt_U_lastStep->v[ijk]=( (float*)v->ptr )[ijk2];
+						pnt_U_lastStep->v[ijk]=( (double*)v->ptr )[ijk2];
 
 
-					float total_z_size=0.1;
+					double total_z_size=0.1;
 					if( w->dt==RealSingle )
 					{
 						//				Creating 3D-Waves in order to obtain 3D-flow
@@ -836,7 +836,7 @@ void postprocessLoad(
 						}
 						else
 						{
-							pnt_U_lastStep->w[ijk]=( (float*)w->ptr )[ijk2];
+							pnt_U_lastStep->w[ijk]=( (double*)w->ptr )[ijk2];
 						}
 
 					}
@@ -850,23 +850,23 @@ void postprocessLoad(
 						}
 						else
 						{
-							pnt_U_lastStep->w[ijk]=( (float*)w->ptr )[ijk2];
+							pnt_U_lastStep->w[ijk]=( (double*)w->ptr )[ijk2];
 						}
 					}
 
 					if( p->dt==RealSingle )
-						pnt_U_lastStep->p[ijk]=( (float*)p->ptr )[ijk2];
+						pnt_U_lastStep->p[ijk]=( (double*)p->ptr )[ijk2];
 					else
-						pnt_U_lastStep->p[ijk]=( (float*)p->ptr )[ijk2];
+						pnt_U_lastStep->p[ijk]=( (double*)p->ptr )[ijk2];
 
 					if( rho->dt==RealSingle )
-						pnt_U_lastStep->rho[ijk]=( (float*)rho->ptr )[ijk2];
+						pnt_U_lastStep->rho[ijk]=( (double*)rho->ptr )[ijk2];
 					else
-						pnt_U_lastStep->rho[ijk]=( (float*)rho->ptr )[ijk2];
+						pnt_U_lastStep->rho[ijk]=( (double*)rho->ptr )[ijk2];
 
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-											pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+											pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 
 				}
 			}
@@ -947,20 +947,20 @@ void AllocMemoryBackup(
 		struct strct_U * pnt_U_backup2)
 {
 	//	Backup1
-	pnt_U_backup1->rho = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup1->u = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup1->v = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup1->w = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup1->p = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup1->e = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_U_backup1->rho = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup1->u = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup1->v = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup1->w = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup1->p = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup1->e = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
 	//	Backup2
-	pnt_U_backup2->rho = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup2->u = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup2->v = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup2->w = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup2->p = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_U_backup2->e = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_U_backup2->rho = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup2->u = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup2->v = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup2->w = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup2->p = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_U_backup2->e = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 }
 
 void FreeMemory(
@@ -1082,15 +1082,15 @@ void FreeMemory(
 
 	free(pnt_config->MPI_rankNeighbours);
 
-	free(pnt_config->MPI_fltTransformation_xi_x);
-	free(pnt_config->MPI_fltTransformation_xi_y);
-	free(pnt_config->MPI_fltTransformation_xi_z);
-	free(pnt_config->MPI_fltTransformation_eta_x);
-	free(pnt_config->MPI_fltTransformation_eta_y);
-	free(pnt_config->MPI_fltTransformation_eta_z);
-	free(pnt_config->MPI_fltTransformation_zeta_x);
-	free(pnt_config->MPI_fltTransformation_zeta_y);
-	free(pnt_config->MPI_fltTransformation_zeta_z);
+	free(pnt_config->MPI_dblTransformation_xi_x);
+	free(pnt_config->MPI_dblTransformation_xi_y);
+	free(pnt_config->MPI_dblTransformation_xi_z);
+	free(pnt_config->MPI_dblTransformation_eta_x);
+	free(pnt_config->MPI_dblTransformation_eta_y);
+	free(pnt_config->MPI_dblTransformation_eta_z);
+	free(pnt_config->MPI_dblTransformation_zeta_x);
+	free(pnt_config->MPI_dblTransformation_zeta_y);
+	free(pnt_config->MPI_dblTransformation_zeta_z);
 
 	free(pnt_config->MPI_intTransformation_IMax);
 	free(pnt_config->MPI_intTransformation_JMax);
@@ -1125,30 +1125,30 @@ void AllocMemoryMesh(
 	// 1)Gitter
 	// 2)Erhaltungsgrößen lastStep
 	// 3)Erhaltungsgrößen nextStep
-	pnt_mesh->BC_Corrector = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_mesh->BC_Corrector = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
 	//Gitter
-	pnt_mesh->x = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->y = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->z = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_mesh->x = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->y = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->z = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
-	pnt_mesh->x_extrapolate = (float *)calloc((pnt_config->int_iMeshPointsGhostCells+2)*(pnt_config->int_jMeshPointsGhostCells+2)*(pnt_config->int_kMeshPointsGhostCells+2), sizeof(float ));
-	pnt_mesh->y_extrapolate = (float *)calloc((pnt_config->int_iMeshPointsGhostCells+2)*(pnt_config->int_jMeshPointsGhostCells+2)*(pnt_config->int_kMeshPointsGhostCells+2), sizeof(float ));
-	pnt_mesh->z_extrapolate = (float *)calloc((pnt_config->int_iMeshPointsGhostCells+2)*(pnt_config->int_jMeshPointsGhostCells+2)*(pnt_config->int_kMeshPointsGhostCells+2), sizeof(float ));
+	pnt_mesh->x_extrapolate = (double *)calloc((pnt_config->int_iMeshPointsGhostCells+2)*(pnt_config->int_jMeshPointsGhostCells+2)*(pnt_config->int_kMeshPointsGhostCells+2), sizeof(double ));
+	pnt_mesh->y_extrapolate = (double *)calloc((pnt_config->int_iMeshPointsGhostCells+2)*(pnt_config->int_jMeshPointsGhostCells+2)*(pnt_config->int_kMeshPointsGhostCells+2), sizeof(double ));
+	pnt_mesh->z_extrapolate = (double *)calloc((pnt_config->int_iMeshPointsGhostCells+2)*(pnt_config->int_jMeshPointsGhostCells+2)*(pnt_config->int_kMeshPointsGhostCells+2), sizeof(double ));
 
-	pnt_mesh->xi_x = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->xi_y = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->xi_z = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_mesh->xi_x = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->xi_y = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->xi_z = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
-	pnt_mesh->eta_x = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->eta_y = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->eta_z = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_mesh->eta_x = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->eta_y = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->eta_z = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
-	pnt_mesh->zeta_x = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->zeta_y = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->zeta_z = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_mesh->zeta_x = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->zeta_y = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->zeta_z = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
-	pnt_mesh->jacobian = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_mesh->jacobian = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
 	//	Immerged BC
 	pnt_mesh->flag_IBC = (int *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(int ));
@@ -1158,49 +1158,49 @@ void AllocMemoryMesh(
 	if(pnt_config->flag_PressureWaves==1)
 	{
 		pnt_mesh->flag_PressureWaves = (int *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(int ));
-		pnt_mesh->startPressure_PressureWaves = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-		pnt_mesh->startDensity_PressureWaves = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+		pnt_mesh->startPressure_PressureWaves = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+		pnt_mesh->startDensity_PressureWaves = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 	}
 
-	pnt_mesh->xiFluss_Faktor = (float *)calloc(30*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->etaFluss_Faktor = (float *)calloc(30*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_mesh->zetaFluss_Faktor = (float *)calloc(30*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_mesh->xiFluss_Faktor = (double *)calloc(30*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->etaFluss_Faktor = (double *)calloc(30*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_mesh->zetaFluss_Faktor = (double *)calloc(30*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 }
 
 void AllocMemoryStrctU(
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_strctU)
 {
-	pnt_strctU->rho = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->u = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->v = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->w = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->p = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->e = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->theta1 = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->theta2 = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->theta3 = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->c = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->gradRho = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->T = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->mue = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->Lambda2 = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->MachNumber = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_strctU->rho = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->u = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->v = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->w = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->p = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->e = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->theta1 = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->theta2 = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->theta3 = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->c = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->gradRho = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->T = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->mue = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->Lambda2 = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->MachNumber = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 
-	pnt_strctU->u_xi = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->u_eta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->v_xi = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->v_eta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->T_xi = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctU->T_eta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_strctU->u_xi = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->u_eta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->v_xi = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->v_eta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->T_xi = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctU->T_eta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 	if(MESHDIMENSIONS==3)
 	{
-		pnt_strctU->u_zeta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-		pnt_strctU->v_zeta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-		pnt_strctU->T_zeta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-		pnt_strctU->w_xi = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-		pnt_strctU->w_eta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-		pnt_strctU->w_zeta = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+		pnt_strctU->u_zeta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+		pnt_strctU->v_zeta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+		pnt_strctU->T_zeta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+		pnt_strctU->w_xi = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+		pnt_strctU->w_eta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+		pnt_strctU->w_zeta = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 	}
 }
 
@@ -1244,15 +1244,15 @@ void AllocMemoryStrctFilm(
 		struct strct_configuration * pnt_config,
 		struct strct_Film * pnt_strctFilm)
 {
-	pnt_strctFilm->rho = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->u = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->v = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->w = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->p = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->gradRho = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->Lambda2 = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->MachNumber = (float *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(float ));
-	pnt_strctFilm->flt_time_dim = (float *)calloc(pnt_config->int_Samples, sizeof(float ));
+	pnt_strctFilm->rho = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->u = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->v = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->w = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->p = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->gradRho = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->Lambda2 = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->MachNumber = (double *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(double ));
+	pnt_strctFilm->dbl_time_dim = (double *)calloc(pnt_config->int_Samples, sizeof(double ));
 }
 
 void FreeMemoryStrctFilm(
@@ -1274,11 +1274,11 @@ void AllocMemoryStrctFlux(
 		struct strct_configuration * pnt_config,
 		struct strct_Flux * pnt_strctFlux)
 {
-	pnt_strctFlux->Mass = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctFlux->xiMomentum = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctFlux->etaMomentum = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctFlux->zetaMomentum = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
-	pnt_strctFlux->Energy = (float *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(float ));
+	pnt_strctFlux->Mass = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctFlux->xiMomentum = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctFlux->etaMomentum = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctFlux->zetaMomentum = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
+	pnt_strctFlux->Energy = (double *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(double ));
 }
 
 void FreeMemoryStrctFlux(
@@ -1345,12 +1345,12 @@ void Initialize(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
 				pnt_U_lastStep->rho[ijk]=pnt_config->InitializeValues_rho0;
-				pnt_U_lastStep->u[ijk]=pnt_config->flt_u_inflow;
-				pnt_U_lastStep->v[ijk]=pnt_config->flt_v_inflow;
-				pnt_U_lastStep->w[ijk]=pnt_config->flt_w_inflow;
+				pnt_U_lastStep->u[ijk]=pnt_config->dbl_u_inflow;
+				pnt_U_lastStep->v[ijk]=pnt_config->dbl_v_inflow;
+				pnt_U_lastStep->w[ijk]=pnt_config->dbl_w_inflow;
 				pnt_U_lastStep->p[ijk]=pnt_config->InitializeValues_p0;
 				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 
 			}
 		}
@@ -1363,10 +1363,10 @@ void InitializeLaminarBoundary(
 		struct strct_U * pnt_U_lastStep)
 {
 	int i,j,k,ijk,ijPlus1k;
-	float rho,p,u,v;
-	float x_start;
-	float eta,delta_y,T_unendl,T_ad;
-	float grenzschicht_dicke_x;
+	double rho,p,u,v;
+	double x_start;
+	double eta,delta_y,T_unendl,T_ad;
+	double grenzschicht_dicke_x;
 
 	rho=1.0;
 	p=1.0;
@@ -1392,9 +1392,9 @@ void InitializeLaminarBoundary(
 					ijPlus1k=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+(j+1)*pnt_config->int_kMeshPointsGhostCells+k;
 					delta_y=pnt_mesh->y[ijPlus1k]-pnt_mesh->y[ijk];
 					T_unendl=p/rho;
-					T_ad=T_unendl*(1+(pnt_config->flt_gammaNumber-1.0)/2.0*pow(pnt_config->flt_machNumber,2.0));
+					T_ad=T_unendl*(1+(pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0));
 
-					grenzschicht_dicke_x=4.9*sqrt((pnt_mesh->x[ijk]-x_start)/pnt_config->flt_reynoldsNumber);
+					grenzschicht_dicke_x=4.9*sqrt((pnt_mesh->x[ijk]-x_start)/pnt_config->dbl_reynoldsNumber);
 					eta=(pnt_mesh->y[ijk]+delta_y*0.5)/
 							grenzschicht_dicke_x;
 					if (eta<1.0)
@@ -1404,9 +1404,9 @@ void InitializeLaminarBoundary(
 //						Loesung nach Schroeder
 						u=1.5*eta-0.5*eta*eta*eta;
 //							Temperaturverlauf nach Busemann/Crocco
-//							printf(">%f %f %f< ",pnt_config->flt_gammaNumber,pnt_config->flt_machNumber,T_ad);
+//							printf(">%f %f %f< ",pnt_config->dbl_gammaNumber,pnt_config->dbl_machNumber,T_ad);
 						rho=p/(T_unendl*
-								((pnt_config->flt_gammaNumber-1.0)/2.0*pow(pnt_config->flt_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
+								((pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
 
 					}
 				}
@@ -1418,7 +1418,7 @@ void InitializeLaminarBoundary(
 				pnt_U_lastStep->w[ijk]=0.0;
 				pnt_U_lastStep->p[ijk]=p;
 				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 			}
 		}
 	}
@@ -1432,11 +1432,11 @@ void InitializeSpecialConditions(
 {
 	int i,j,k,ijk,ij0k;
 	int gebiet;
-	float rho,p,u,v,w,e;
-	float eta,delta_y,T_unendl,T_ad;
-	float distance;
-	float theta1,theta2;
-	float u_tmp,v_tmp;	
+	double rho,p,u,v,w,e;
+	double eta,delta_y,T_unendl,T_ad;
+	double distance;
+	double theta1,theta2;
+	double u_tmp,v_tmp;	
 
 	gebiet=0;
 	rho=1.0;
@@ -1549,10 +1549,10 @@ void InitializeSpecialConditions(
 
 					p=pnt_config->InitializeValues_p0;
 					rho=pnt_config->InitializeValues_rho0;
-					u=pnt_config->flt_u_inflow;
-					v=pnt_config->flt_v_inflow;
+					u=pnt_config->dbl_u_inflow;
+					v=pnt_config->dbl_v_inflow;
 					
-					e=(0.5*((u*u)+(v*v))+p/rho/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+					e=(0.5*((u*u)+(v*v))+p/rho/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 					
 					distance=sqrt(
 					pow((pnt_mesh->x[ijk]-0.),2.)
@@ -1572,16 +1572,16 @@ void InitializeSpecialConditions(
 						(pnt_mesh->x[ijk]-pnt_mesh->x[ij0k])*(pnt_mesh->x[ijk]-pnt_mesh->x[ij0k])
 						);
 						T_unendl=p/rho;
-						T_ad=T_unendl*(1+(pnt_config->flt_gammaNumber-1.0)/2.0*pow(pnt_config->flt_machNumber,2.0));
+						T_ad=T_unendl*(1+(pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0));
 
-						eta=delta_y/(4.9*pnt_mesh->x[ijk]/sqrt(pnt_config->flt_reynoldsNumber*pnt_mesh->x[ijk]));
+						eta=delta_y/(4.9*pnt_mesh->x[ijk]/sqrt(pnt_config->dbl_reynoldsNumber*pnt_mesh->x[ijk]));
 						if (eta<7.0)
 						{
 //							approximation der blasius-lösung
 							theta1=1.0-1.4567*exp(-1.0*eta)-1.2956*exp(-1.0*eta)*(eta-1.0)-0.8392*exp(-2.0*eta);
 //							Temperaturverlauf nach Busemann/Crocco
-//							printf(">%f %f %f< ",pnt_config->flt_gammaNumber,pnt_config->flt_machNumber,T_ad);
-							rho=p/(T_unendl*((pnt_config->flt_gammaNumber-1.0)/2.0*pow(pnt_config->flt_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
+//							printf(">%f %f %f< ",pnt_config->dbl_gammaNumber,pnt_config->dbl_machNumber,T_ad);
+							rho=p/(T_unendl*((pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
 
 						
 							u_tmp=fabs(-(theta1*pnt_mesh->eta_y[ijk]-theta2*pnt_mesh->xi_y[ijk]))/
@@ -1605,7 +1605,7 @@ void InitializeSpecialConditions(
 						
 					}
 					
-					p=(e-0.5*((u*u)+(v*v)))*rho*(pnt_config->flt_gammaNumber-1.0)/pnt_config->flt_Upsilon;					
+					p=(e-0.5*((u*u)+(v*v)))*rho*(pnt_config->dbl_gammaNumber-1.0)/pnt_config->dbl_Upsilon;					
 					
 					
 					break;
@@ -1643,8 +1643,8 @@ void InitializeSpecialConditions(
 					p=pnt_config->InitializeValues_p0;
 					rho=pnt_config->InitializeValues_rho0;
 
-					theta1=pnt_config->flt_u_inflow;
-					theta2=pnt_config->flt_v_inflow;
+					theta1=pnt_config->dbl_u_inflow;
+					theta2=pnt_config->dbl_v_inflow;
 					if(distance<1.)
 					{
 					u_tmp=fabs(-(theta1*pnt_mesh->eta_y[ijk]-theta2*pnt_mesh->xi_y[ijk]))/
@@ -1666,8 +1666,8 @@ void InitializeSpecialConditions(
 					}
 					else
 					{
-					u=pnt_config->flt_u_inflow;
-					v=pnt_config->flt_v_inflow;
+					u=pnt_config->dbl_u_inflow;
+					v=pnt_config->dbl_v_inflow;
 					}
 					
 					break;
@@ -1679,7 +1679,7 @@ void InitializeSpecialConditions(
 				pnt_U_lastStep->v[ijk]=v;
 				pnt_U_lastStep->w[ijk]=w;
 				pnt_U_lastStep->p[ijk]=p;
-				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 			}
 		}
 	}
@@ -1722,7 +1722,7 @@ void InitializeMPI(
 //
 ////Bei einem oder 2 freien Rändern in i-Richtung müssen die GC berücksichtigt werden
 //
-//    pnt_config->MPI_datatype = MPI_FLOAT;
+//    pnt_config->MPI_datatype = MPI_DOUBLE;
 //    MPI_Type_size(pnt_config->MPI_datatype, &pnt_config->MPI_intMyDatatypeSize);
 //
 //    if (pnt_config->int_meshDimensions>=1)
@@ -1762,10 +1762,10 @@ void InitializeMPI(
 
 void DefineParameters(struct strct_configuration * pnt_config)
 {
-	pnt_config->flt_c0_dim=sqrt(pnt_config->flt_gammaNumber*pnt_config->flt_gasConstantNumber*pnt_config->flt_T0_dim);
-	pnt_config->flt_u0_dim=pnt_config->flt_c0_dim*pnt_config->flt_machNumber;
+	pnt_config->dbl_c0_dim=sqrt(pnt_config->dbl_gammaNumber*pnt_config->dbl_gasConstantNumber*pnt_config->dbl_T0_dim);
+	pnt_config->dbl_u0_dim=pnt_config->dbl_c0_dim*pnt_config->dbl_machNumber;
 
-	pnt_config->AlphaNonRef=0.25*pnt_config->flt_L0_dim/pnt_config->flt_u0_dim;
+	pnt_config->AlphaNonRef=0.25*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim;
 
 	pnt_config->IBC_yKolben=40.0;
 	pnt_config->IBC_alphaKolben=27.5;
@@ -1774,10 +1774,10 @@ void DefineParameters(struct strct_configuration * pnt_config)
 	pnt_config->IBC_MovingLastPosition=IBC_getActualPosition(pnt_config);
 	pnt_config->IBC_MovingActualPosition=IBC_getActualPosition(pnt_config);
 
-	pnt_config->flt_is_avrg=0.0;
-	pnt_config->flt_is_avrg_counter=0.0;
-	pnt_config->flt_is_maximum=0.0;
-	pnt_config->flt_is_minimum=999.0;
+	pnt_config->dbl_is_avrg=0.0;
+	pnt_config->dbl_is_avrg_counter=0.0;
+	pnt_config->dbl_is_maximum=0.0;
+	pnt_config->dbl_is_minimum=999.0;
 
 	sprintf(pnt_config->BCFarfield,"BCFarfield");
 	sprintf(pnt_config->BCInflow,"BCInflow");
@@ -1800,8 +1800,8 @@ void DefineParameters(struct strct_configuration * pnt_config)
 
 	pnt_config->start_Time=0.0;
 
-	pnt_config->flt_time_dim=0.0;
-	pnt_config->flt_time_dim_lastAction=0.0;
+	pnt_config->dbl_time_dim=0.0;
+	pnt_config->dbl_time_dim_lastAction=0.0;
 
 	pnt_config->int_IterationsBetweenSamples=(int)((pnt_config->int_TotalIterations-pnt_config->int_StartSampling)/pnt_config->int_Samples);
 	if (pnt_config->int_IterationsBetweenSamples<1)
@@ -1820,176 +1820,176 @@ void DefineParameters(struct strct_configuration * pnt_config)
     {
 //    	In Anlehnung an:
 //    	Efficient Implementation of Weichted ENO Schemes, Jiang, G-S,1996
-    	pnt_config->flt_wenoEpsilon=1.e-6;
+    	pnt_config->dbl_wenoEpsilon=1.e-6;
     }
     if(SPACEORDER==9)
     {
 //    	In Anlehnung an:
 //    	Monoticity Preserving Weighted Essentially Non-oscillatory Schemes with Increasingly High Order of Accuracy, Balsara D.,2000
-//    	pnt_config->flt_wenoEpsilon=1.e-10;
-    	pnt_config->flt_wenoEpsilon=1.e-6;
+//    	pnt_config->dbl_wenoEpsilon=1.e-10;
+    	pnt_config->dbl_wenoEpsilon=1.e-6;
     }
 //    In Anlehnung an:
 //    Mapped weighted essentially non-oscillatory schemes: Achieving optimal order near critical points, Henrick, A.K.,2005
-	pnt_config->flt_wenoEpsilon=10.*pow(FLT_MIN,0.5);
+	pnt_config->dbl_wenoEpsilon=40.*pow(DBL_MIN,0.5);
 
 
-	pnt_config->flt_wenoP=2.;
-	pnt_config->flt_wenoOptimalerKoeffizient_W9[0]=1./126.;
-	pnt_config->flt_wenoOptimalerKoeffizient_W9[1]=10./63.;
-	pnt_config->flt_wenoOptimalerKoeffizient_W9[2]=10./21.;
-	pnt_config->flt_wenoOptimalerKoeffizient_W9[3]=20./63.;
-	pnt_config->flt_wenoOptimalerKoeffizient_W9[4]=5./126.;
+	pnt_config->dbl_wenoP=2.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W9[0]=1./126.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W9[1]=10./63.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W9[2]=10./21.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W9[3]=20./63.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W9[4]=5./126.;
 
-	pnt_config->flt_wenoOptimalerKoeffizient_W5[0]=1./10.;
-	pnt_config->flt_wenoOptimalerKoeffizient_W5[1]=3./5.;
-	pnt_config->flt_wenoOptimalerKoeffizient_W5[2]=3./10.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W5[0]=1./10.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W5[1]=3./5.;
+	pnt_config->dbl_wenoOptimalerKoeffizient_W5[2]=3./10.;
 
 
-	pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient = (float *)calloc((SPACEORDER+1), sizeof(float ));
-	pnt_config->flt_ZD_Interpolation_Koeffizient = (float *)calloc((SPACEORDER+1), sizeof(float ));
-	pnt_config->flt_ZD_Ableitung_Koeffizient = (float *)calloc((SPACEORDER+2), sizeof(float ));
-	pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient = (float *)calloc((SPACEORDER+2), sizeof(float ));
+	pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient = (double *)calloc((SPACEORDER+1), sizeof(double ));
+	pnt_config->dbl_ZD_Interpolation_Koeffizient = (double *)calloc((SPACEORDER+1), sizeof(double ));
+	pnt_config->dbl_ZD_Ableitung_Koeffizient = (double *)calloc((SPACEORDER+2), sizeof(double ));
+	pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient = (double *)calloc((SPACEORDER+2), sizeof(double ));
 	if(SPACEORDER==9)
 	{
-		pnt_config->flt_ZD_Interpolation_Koeffizient[0] =       1. / 1260.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[1] =     -23. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[2] =     127. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[3] =    -473. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[4] =    1627. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[5] =    1627. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[6] =    -473. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[7] =     127. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[8] =     -23. / 2520.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[9] =       1. / 1260.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[0] =       1. / 1260.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[1] =     -23. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[2] =     127. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[3] =    -473. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[4] =    1627. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[5] =    1627. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[6] =    -473. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[7] =     127. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[8] =     -23. / 2520.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[9] =       1. / 1260.;
 
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =     -3. /  9450.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    351. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -2649. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =  15351. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =-110649. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] = 110649. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[6] = -15351. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[7] =   2649. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[8] =   -351. / 75600.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[9] =      3. /  9450.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =     -3. /  9450.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    351. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -2649. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =  15351. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =-110649. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] = 110649. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[6] = -15351. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[7] =   2649. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[8] =   -351. / 75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[9] =      3. /  9450.;
 
-		pnt_config->flt_ZD_Ableitung_Koeffizient[0]=   -1./1260.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[1]=   25./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[2]= -150./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[3]=  600./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[4]=-2100./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[5]=    0.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[6]= 2100./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[7]= -600./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[8]=  150./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[9]=  -25./2520.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[10]=   1./1260.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[0]=   -1./1260.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[1]=   25./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[2]= -150./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[3]=  600./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[4]=-2100./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[5]=    0.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[6]= 2100./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[7]= -600./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[8]=  150./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[9]=  -25./2520.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[10]=   1./1260.;
 
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[0]=      24./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[1]=    -375./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[2]=    3000./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[3]=  -18000./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[4]=  126000./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[5]= -221298./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[6]=  126000./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[7]=  -18000./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[8]=    3000./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[9]=    -375./75600.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[10]=     24./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[0]=      24./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[1]=    -375./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[2]=    3000./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[3]=  -18000./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[4]=  126000./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[5]= -221298./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[6]=  126000./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[7]=  -18000./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[8]=    3000./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[9]=    -375./75600.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[10]=     24./75600.;
 	}
 	else
 	{
-		pnt_config->flt_ZD_Interpolation_Koeffizient[0] =   1. / 60.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[1] =  -8. / 60.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[2] =  37. / 60.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[3] =  37. / 60.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[4] =  -8. / 60.;
-		pnt_config->flt_ZD_Interpolation_Koeffizient[5] =   1. / 60.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[0] =   1. / 60.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[1] =  -8. / 60.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[2] =  37. / 60.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[3] =  37. / 60.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[4] =  -8. / 60.;
+		pnt_config->dbl_ZD_Interpolation_Koeffizient[5] =   1. / 60.;
 
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =    -1. / 90.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    25. / 180.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -245. / 180.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =   245. / 180.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =   -25. / 180.;
-		pnt_config->flt_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] =     1. / 90.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =    -1. / 90.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    25. / 180.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -245. / 180.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =   245. / 180.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =   -25. / 180.;
+		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] =     1. / 90.;
 
-		pnt_config->flt_ZD_Ableitung_Koeffizient[0]=    -1./60.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[1]=     3./20.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[2]=    -3./4.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[3]=     0.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[4]=     3./4.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[5]=    -3./20.;
-		pnt_config->flt_ZD_Ableitung_Koeffizient[6]=     1./60.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[0]=    -1./60.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[1]=     3./20.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[2]=    -3./4.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[3]=     0.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[4]=     3./4.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[5]=    -3./20.;
+		pnt_config->dbl_ZD_Ableitung_Koeffizient[6]=     1./60.;
 
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[0]=      2./180.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[1]=    -27./180.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[2]=    270./180.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[3]=   -490./180.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[4]=    270./180;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[5]=    -27./180.;
-		pnt_config->flt_ZD_ZweiteAbleitung_Koeffizient[6]=      2./180.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[0]=      2./180.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[1]=    -27./180.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[2]=    270./180.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[3]=   -490./180.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[4]=    270./180;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[5]=    -27./180.;
+		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[6]=      2./180.;
 	}
 
 
-	pnt_config->flt_deltaXi=1.0;
-	pnt_config->flt_deltaEta=1.0;
-	pnt_config->flt_deltaZeta=1.0;
+	pnt_config->dbl_deltaXi=1.0;
+	pnt_config->dbl_deltaEta=1.0;
+	pnt_config->dbl_deltaZeta=1.0;
 
 	if(pnt_config->int_TimeOrder==4)
 	{
-		pnt_config->flt_RK_U_n_Faktor[0]=1.;
-		pnt_config->flt_RK_U_n_Faktor[1]=1.;
-		pnt_config->flt_RK_U_n_Faktor[2]=1.;
-		pnt_config->flt_RK_U_n_Faktor[3]=1.;
+		pnt_config->dbl_RK_U_n_Faktor[0]=1.;
+		pnt_config->dbl_RK_U_n_Faktor[1]=1.;
+		pnt_config->dbl_RK_U_n_Faktor[2]=1.;
+		pnt_config->dbl_RK_U_n_Faktor[3]=1.;
 
-		pnt_config->flt_RK_U_ABC_Faktor[0]=0.;
-		pnt_config->flt_RK_U_ABC_Faktor[1]=0.;
-		pnt_config->flt_RK_U_ABC_Faktor[2]=0.;
-		pnt_config->flt_RK_U_ABC_Faktor[3]=0.;
+		pnt_config->dbl_RK_U_ABC_Faktor[0]=0.;
+		pnt_config->dbl_RK_U_ABC_Faktor[1]=0.;
+		pnt_config->dbl_RK_U_ABC_Faktor[2]=0.;
+		pnt_config->dbl_RK_U_ABC_Faktor[3]=0.;
 
-		pnt_config->flt_RK_Q_Faktor[0]=0.5;
-		pnt_config->flt_RK_Q_Faktor[1]=0.5;
-		pnt_config->flt_RK_Q_Faktor[2]=1.;
-		pnt_config->flt_RK_Q_Faktor[3]=1./6.;
+		pnt_config->dbl_RK_Q_Faktor[0]=0.5;
+		pnt_config->dbl_RK_Q_Faktor[1]=0.5;
+		pnt_config->dbl_RK_Q_Faktor[2]=1.;
+		pnt_config->dbl_RK_Q_Faktor[3]=1./6.;
 
-		pnt_config->flt_RK_Q_Summe_Flag[0]=0.;
-		pnt_config->flt_RK_Q_Summe_Flag[1]=0.;
-		pnt_config->flt_RK_Q_Summe_Flag[2]=0.;
-		pnt_config->flt_RK_Q_Summe_Flag[3]=1./6.;
+		pnt_config->dbl_RK_Q_Summe_Flag[0]=0.;
+		pnt_config->dbl_RK_Q_Summe_Flag[1]=0.;
+		pnt_config->dbl_RK_Q_Summe_Flag[2]=0.;
+		pnt_config->dbl_RK_Q_Summe_Flag[3]=1./6.;
 
-		pnt_config->flt_RK_Q_Summe_Faktor[0]=1.;
-		pnt_config->flt_RK_Q_Summe_Faktor[1]=2.;
-		pnt_config->flt_RK_Q_Summe_Faktor[2]=2.;
-		pnt_config->flt_RK_Q_Summe_Faktor[3]=0.;
+		pnt_config->dbl_RK_Q_Summe_Faktor[0]=1.;
+		pnt_config->dbl_RK_Q_Summe_Faktor[1]=2.;
+		pnt_config->dbl_RK_Q_Summe_Faktor[2]=2.;
+		pnt_config->dbl_RK_Q_Summe_Faktor[3]=0.;
 	}
 	if(pnt_config->int_TimeOrder==3)
 	{
-		pnt_config->flt_RK_U_n_Faktor[0]=1.;
-		pnt_config->flt_RK_U_n_Faktor[1]=3./4.;
-		pnt_config->flt_RK_U_n_Faktor[2]=1./3.;
+		pnt_config->dbl_RK_U_n_Faktor[0]=1.;
+		pnt_config->dbl_RK_U_n_Faktor[1]=3./4.;
+		pnt_config->dbl_RK_U_n_Faktor[2]=1./3.;
 
-		pnt_config->flt_RK_U_ABC_Faktor[0]=0.;
-		pnt_config->flt_RK_U_ABC_Faktor[1]=1./4.;
-		pnt_config->flt_RK_U_ABC_Faktor[2]=2./3.;
+		pnt_config->dbl_RK_U_ABC_Faktor[0]=0.;
+		pnt_config->dbl_RK_U_ABC_Faktor[1]=1./4.;
+		pnt_config->dbl_RK_U_ABC_Faktor[2]=2./3.;
 
-		pnt_config->flt_RK_Q_Faktor[0]=1.;
-		pnt_config->flt_RK_Q_Faktor[1]=1./4.;
-		pnt_config->flt_RK_Q_Faktor[2]=2./3.;
+		pnt_config->dbl_RK_Q_Faktor[0]=1.;
+		pnt_config->dbl_RK_Q_Faktor[1]=1./4.;
+		pnt_config->dbl_RK_Q_Faktor[2]=2./3.;
 
-		pnt_config->flt_RK_Q_Summe_Flag[0]=0.;
-		pnt_config->flt_RK_Q_Summe_Flag[1]=0.;
-		pnt_config->flt_RK_Q_Summe_Flag[2]=0.;
+		pnt_config->dbl_RK_Q_Summe_Flag[0]=0.;
+		pnt_config->dbl_RK_Q_Summe_Flag[1]=0.;
+		pnt_config->dbl_RK_Q_Summe_Flag[2]=0.;
 
-		pnt_config->flt_RK_Q_Summe_Faktor[0]=0.;
-		pnt_config->flt_RK_Q_Summe_Faktor[1]=0.;
-		pnt_config->flt_RK_Q_Summe_Faktor[2]=0.;
+		pnt_config->dbl_RK_Q_Summe_Faktor[0]=0.;
+		pnt_config->dbl_RK_Q_Summe_Faktor[1]=0.;
+		pnt_config->dbl_RK_Q_Summe_Faktor[2]=0.;
 	}
 
 
-	pnt_config->flt_Upsilon=1.0/(pnt_config->flt_gammaNumber*pow(pnt_config->flt_machNumber,2.0));
-	pnt_config->flt_Psi=1.0/pnt_config->flt_reynoldsNumber;
-	pnt_config->flt_SutherlandConstant=100.4/pnt_config->flt_T0_dim;
+	pnt_config->dbl_Upsilon=1.0/(pnt_config->dbl_gammaNumber*pow(pnt_config->dbl_machNumber,2.0));
+	pnt_config->dbl_Psi=1.0/pnt_config->dbl_reynoldsNumber;
+	pnt_config->dbl_SutherlandConstant=100.4/pnt_config->dbl_T0_dim;
 
     //Gamma wird nach dem Import des Gitters bei postprocessload definiert
 
@@ -2007,13 +2007,13 @@ void CalcRungeKutta(
 		struct strct_Flux * pnt_Flux_PlusHalf)
 {
 	int int_RKSchritt;
-	float rho_letzterRK_Schritt;
+	double rho_letzterRK_Schritt;
 //	-----------------------------------------------------
 //	Erster bis Vierter RK-Schritt
 //	Folgende Variablen enthalten die Faktoren für die 4 Schritte:
-//	flt_RKSchrittFaktor[4];
-//	flt_RKQsummeFlag[4];
-//	flt_RKQsummeFaktor[4];
+//	dbl_RKSchrittFaktor[4];
+//	dbl_RKQsummeFlag[4];
+//	dbl_RKQsummeFaktor[4];
 //	-----------------------------------------------------
 
 	DeleteQ(
@@ -2265,47 +2265,47 @@ void CalcRungeKutta(
 				{
 					ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
-					pnt_Q_sum->Mass[ijk]=pnt_Q_sum->Mass[ijk]+pnt_config->flt_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk];
-					pnt_Q_sum->xiMomentum[ijk]=pnt_Q_sum->xiMomentum[ijk]+pnt_config->flt_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk];
-					pnt_Q_sum->etaMomentum[ijk]=pnt_Q_sum->etaMomentum[ijk]+pnt_config->flt_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk];
-					pnt_Q_sum->zetaMomentum[ijk]=pnt_Q_sum->zetaMomentum[ijk]+pnt_config->flt_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk];
-					pnt_Q_sum->Energy[ijk]=pnt_Q_sum->Energy[ijk]+pnt_config->flt_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk];
+					pnt_Q_sum->Mass[ijk]=pnt_Q_sum->Mass[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk];
+					pnt_Q_sum->xiMomentum[ijk]=pnt_Q_sum->xiMomentum[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk];
+					pnt_Q_sum->etaMomentum[ijk]=pnt_Q_sum->etaMomentum[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk];
+					pnt_Q_sum->zetaMomentum[ijk]=pnt_Q_sum->zetaMomentum[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk];
+					pnt_Q_sum->Energy[ijk]=pnt_Q_sum->Energy[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk];
 
 					rho_letzterRK_Schritt=pnt_U_RK->rho[ijk];
 
 					pnt_U_RK->rho[ijk]=
-											pnt_config->flt_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->flt_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->rho[ijk]+
-											pnt_config->flt_numericalTau/pnt_mesh->jacobian[ijk]*
+											pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->rho[ijk]+
+											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->flt_RK_Q_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk]+
-											pnt_config->flt_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Mass[ijk]
+											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk]+
+											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Mass[ijk]
 											);
 					pnt_U_RK->u[ijk]=
-											(pnt_config->flt_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->u[ijk]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->flt_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->u[ijk]*rho_letzterRK_Schritt+
-											pnt_config->flt_numericalTau/pnt_mesh->jacobian[ijk]*
+											(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->u[ijk]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->u[ijk]*rho_letzterRK_Schritt+
+											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->flt_RK_Q_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk]+
-											pnt_config->flt_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->xiMomentum[ijk]
+											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk]+
+											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->xiMomentum[ijk]
 											))/pnt_U_RK->rho[ijk];
 					pnt_U_RK->v[ijk]=
-											(pnt_config->flt_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->v[ijk]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->flt_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->v[ijk]*rho_letzterRK_Schritt+
-											pnt_config->flt_numericalTau/pnt_mesh->jacobian[ijk]*
+											(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->v[ijk]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->v[ijk]*rho_letzterRK_Schritt+
+											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->flt_RK_Q_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk]+
-											pnt_config->flt_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->etaMomentum[ijk]
+											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk]+
+											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->etaMomentum[ijk]
 											))/pnt_U_RK->rho[ijk];
 
 #if MESHDIMENSIONS==3
 						pnt_U_RK->w[ijk]=
-												(pnt_config->flt_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->w[ijk]*pnt_U_lastStep->rho[ijk]+
-												pnt_config->flt_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->w[ijk]*rho_letzterRK_Schritt+
-												pnt_config->flt_numericalTau/pnt_mesh->jacobian[ijk]*
+												(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->w[ijk]*pnt_U_lastStep->rho[ijk]+
+												pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->w[ijk]*rho_letzterRK_Schritt+
+												pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
 												(
-												pnt_config->flt_RK_Q_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk]+
-												pnt_config->flt_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->zetaMomentum[ijk]
+												pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk]+
+												pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->zetaMomentum[ijk]
 												))/pnt_U_RK->rho[ijk];
 #endif
 #if MESHDIMENSION==2
@@ -2313,12 +2313,12 @@ void CalcRungeKutta(
 #endif
 
 					pnt_U_RK->e[ijk]=
-											(pnt_config->flt_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->e[ijk]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->flt_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->e[ijk]*rho_letzterRK_Schritt+
-											pnt_config->flt_numericalTau/pnt_mesh->jacobian[ijk]*
+											(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->e[ijk]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->e[ijk]*rho_letzterRK_Schritt+
+											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->flt_RK_Q_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk]+
-											pnt_config->flt_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Energy[ijk]
+											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk]+
+											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Energy[ijk]
 											))/pnt_U_RK->rho[ijk];
 
 				}
@@ -2381,8 +2381,8 @@ void CalcValues(
 								fabs
 								(
 								pnt_U->rho[ijk]*
-								(pnt_config->flt_gammaNumber-1)/
-								pnt_config->flt_Upsilon*
+								(pnt_config->dbl_gammaNumber-1)/
+								pnt_config->dbl_Upsilon*
 								(
 								pnt_U->e[ijk]
 								-0.5*
@@ -2411,8 +2411,8 @@ void CalcValues(
 								fabs
 								(
 								pnt_U->rho[ijk]*
-								(pnt_config->flt_gammaNumber-1)/
-								pnt_config->flt_Upsilon*
+								(pnt_config->dbl_gammaNumber-1)/
+								pnt_config->dbl_Upsilon*
 								(
 								pnt_U->e[ijk]
 								-0.5*
@@ -2428,11 +2428,11 @@ void CalcValues(
 							fabs(pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 					pnt_U->c[ijk]=
-							sqrt(pnt_config->flt_Upsilon*
-							pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+							sqrt(pnt_config->dbl_Upsilon*
+							pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
-					pnt_U->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->flt_SutherlandConstant));
+					pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
 				}
 			}
 		}
@@ -2473,7 +2473,7 @@ void WriteValuesFromUToFilm(
 {
 	int i,j,k,ijk,ijkFilm;
 
-	pnt_Film->flt_time_dim[pnt_config->int_actualSample]=pnt_config->flt_time_dim;
+	pnt_Film->dbl_time_dim[pnt_config->int_actualSample]=pnt_config->dbl_time_dim;
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -2497,8 +2497,8 @@ void WriteValuesFromUToFilm(
 //				Werte innerhalb des Solids (IBC)
 				if(pnt_mesh->flag_IBC[ijk]==1)
 				{
-					if(pnt_config->flag_IBC_Moving==1){pnt_Film->u[ijkFilm]=//pnt_config->IBC_MovingSpeed/pnt_config->flt_u0_dim;
-						(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau ;}
+					if(pnt_config->flag_IBC_Moving==1){pnt_Film->u[ijkFilm]=//pnt_config->IBC_MovingSpeed/pnt_config->dbl_u0_dim;
+						(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau ;}
 					else{pnt_Film->u[ijkFilm]=-10.0;}
 					pnt_Film->v[ijkFilm]=-10.0;
 					pnt_Film->w[ijkFilm]=-10.0;
@@ -2519,7 +2519,7 @@ void WriteValuesFromUToFilm(
 //i spricht Elemente an, über j werden Scheiben angesprochen und über k ganze Flächen.
 //Mit den Werten 0-12 werden die Würfel (3D-Matrix) der einzelnen Parameter (x,y,z) angesprochen
 void WriteValuesFromMeshToBuffer(
-		float * buffer,
+		double * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		int iStart,
@@ -2584,7 +2584,7 @@ void WriteValuesFromMeshToBuffer(
 }
 
 void WriteValuesFromBufferToMesh(
-		float * buffer,
+		double * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		int iStart,
@@ -2620,25 +2620,25 @@ void WriteValuesFromBufferToMesh(
 
 
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,3);
-				pnt_mesh->xi_x[ijk]=pnt_config->MPI_fltTransformation_xi_x[interface]*buffer[ijk13];
+				pnt_mesh->xi_x[ijk]=pnt_config->MPI_dblTransformation_xi_x[interface]*buffer[ijk13];
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,4);
-				pnt_mesh->xi_y[ijk]=pnt_config->MPI_fltTransformation_xi_y[interface]*buffer[ijk13];
+				pnt_mesh->xi_y[ijk]=pnt_config->MPI_dblTransformation_xi_y[interface]*buffer[ijk13];
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,5);
-				pnt_mesh->xi_z[ijk]=pnt_config->MPI_fltTransformation_xi_z[interface]*buffer[ijk13];
+				pnt_mesh->xi_z[ijk]=pnt_config->MPI_dblTransformation_xi_z[interface]*buffer[ijk13];
 
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,6);
-				pnt_mesh->eta_x[ijk]=pnt_config->MPI_fltTransformation_eta_x[interface]*buffer[ijk13];
+				pnt_mesh->eta_x[ijk]=pnt_config->MPI_dblTransformation_eta_x[interface]*buffer[ijk13];
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,7);
-				pnt_mesh->eta_y[ijk]=pnt_config->MPI_fltTransformation_eta_y[interface]*buffer[ijk13];
+				pnt_mesh->eta_y[ijk]=pnt_config->MPI_dblTransformation_eta_y[interface]*buffer[ijk13];
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,8);
-				pnt_mesh->eta_z[ijk]=pnt_config->MPI_fltTransformation_eta_z[interface]*buffer[ijk13];
+				pnt_mesh->eta_z[ijk]=pnt_config->MPI_dblTransformation_eta_z[interface]*buffer[ijk13];
 
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,9);
-				pnt_mesh->zeta_x[ijk]=pnt_config->MPI_fltTransformation_zeta_x[interface]*buffer[ijk13];
+				pnt_mesh->zeta_x[ijk]=pnt_config->MPI_dblTransformation_zeta_x[interface]*buffer[ijk13];
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,10);
-				pnt_mesh->zeta_y[ijk]=pnt_config->MPI_fltTransformation_zeta_y[interface]*buffer[ijk13];
+				pnt_mesh->zeta_y[ijk]=pnt_config->MPI_dblTransformation_zeta_y[interface]*buffer[ijk13];
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,11);
-				pnt_mesh->zeta_z[ijk]=pnt_config->MPI_fltTransformation_zeta_z[interface]*buffer[ijk13];
+				pnt_mesh->zeta_z[ijk]=pnt_config->MPI_dblTransformation_zeta_z[interface]*buffer[ijk13];
 
 				ijk13=get_ijkTransformMesh(pnt_config,interface,i_buffer,j_buffer,k_buffer,12);
 				pnt_mesh->jacobian[ijk]=buffer[ijk13];
@@ -2653,7 +2653,7 @@ void WriteValuesFromBufferToMesh(
 //i spricht Elemente an, über j werden Scheiben angesprochen und über k ganze Flächen.
 //Mit den Werten 0-12 werden die Würfel (3D-Matrix) der einzelnen Parameter (p,rho,u,v,w) angesprochen
 void WriteValuesFromUToBuffer(
-		float * buffer,
+		double * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U,
 		int iStart,
@@ -2713,7 +2713,7 @@ void WriteValuesFromUToBuffer(
 
 
 void WriteValuesFromUAndMeshToBuffer(
-		float * buffer,
+		double * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U,
 		struct strct_mesh * pnt_mesh,
@@ -2765,7 +2765,7 @@ void WriteValuesFromUAndMeshToBuffer(
 }
 
 void WriteValuesFromBufferToU(
-		float * buffer,
+		double * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U,
 		int iStart,
@@ -2852,18 +2852,18 @@ void DeleteQ(
 //		struct strct_configuration * pnt_config,
 //		struct strct_mesh * pnt_mesh,
 //		struct strct_U * pnt_U,
-//		float * bufferSendLeft,
-//		float * bufferSendRight,
-//		float * bufferSendBottom,
-//		float * bufferSendTop,
-//		float * bufferSendBehind,
-//		float * bufferSendInFront,
-//		float * bufferRecieveLeft,
-//		float * bufferRecieveRight,
-//		float * bufferRecieveBottom,
-//		float * bufferRecieveTop,
-//		float * bufferRecieveBehind,
-//		float * bufferRecieveInFront)
+//		double * bufferSendLeft,
+//		double * bufferSendRight,
+//		double * bufferSendBottom,
+//		double * bufferSendTop,
+//		double * bufferSendBehind,
+//		double * bufferSendInFront,
+//		double * bufferRecieveLeft,
+//		double * bufferRecieveRight,
+//		double * bufferRecieveBottom,
+//		double * bufferRecieveTop,
+//		double * bufferRecieveBehind,
+//		double * bufferRecieveInFront)
 //{
 ////#############################################################
 ////Die Buffer für den Transport in i-Richtung werden geschrieben
@@ -2892,12 +2892,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendRight,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		10,
 //		bufferRecieveLeft,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		10,
 //		pnt_config->MPI_comm,
@@ -2905,12 +2905,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendLeft,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		11,
 //		bufferRecieveRight,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		11,
 //		pnt_config->MPI_comm,
@@ -2974,12 +2974,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendTop,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		12,
 //		bufferRecieveBottom,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		12,
 //		pnt_config->MPI_comm,
@@ -2987,12 +2987,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendBottom,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		13,
 //		bufferRecieveTop,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		13,
 //		pnt_config->MPI_comm,
@@ -3059,12 +3059,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendInFront,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			14,
 //			bufferRecieveBehind,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			14,
 //			pnt_config->MPI_comm,
@@ -3072,12 +3072,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendBehind,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			15,
 //			bufferRecieveInFront,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			15,
 //			pnt_config->MPI_comm,
@@ -3120,18 +3120,18 @@ void DeleteQ(
 //		struct strct_configuration * pnt_config,
 //		struct strct_mesh * pnt_mesh,
 //		struct strct_ZD * pnt_ZD,
-//		float * bufferSendLeftViscid,
-//		float * bufferSendRightViscid,
-//		float * bufferSendBottomViscid,
-//		float * bufferSendTopViscid,
-//		float * bufferSendBehindViscid,
-//		float * bufferSendInFrontViscid,
-//		float * bufferRecieveLeftViscid,
-//		float * bufferRecieveRightViscid,
-//		float * bufferRecieveBottomViscid,
-//		float * bufferRecieveTopViscid,
-//		float * bufferRecieveBehindViscid,
-//		float * bufferRecieveInFrontViscid)
+//		double * bufferSendLeftViscid,
+//		double * bufferSendRightViscid,
+//		double * bufferSendBottomViscid,
+//		double * bufferSendTopViscid,
+//		double * bufferSendBehindViscid,
+//		double * bufferSendInFrontViscid,
+//		double * bufferRecieveLeftViscid,
+//		double * bufferRecieveRightViscid,
+//		double * bufferRecieveBottomViscid,
+//		double * bufferRecieveTopViscid,
+//		double * bufferRecieveBehindViscid,
+//		double * bufferRecieveInFrontViscid)
 //{
 ////#############################################################
 ////Die Buffer für den Transport in i-Richtung werden geschrieben
@@ -3160,12 +3160,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendRightViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		16,
 //		bufferRecieveLeftViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		16,
 //		pnt_config->MPI_comm,
@@ -3173,12 +3173,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendLeftViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		17,
 //		bufferRecieveRightViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		17,
 //		pnt_config->MPI_comm,
@@ -3242,12 +3242,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendTopViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		18,
 //		bufferRecieveBottomViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		18,
 //		pnt_config->MPI_comm,
@@ -3255,12 +3255,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendBottomViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		19,
 //		bufferRecieveTopViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_FLOAT,
+//		MPI_DOUBLE,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		19,
 //		pnt_config->MPI_comm,
@@ -3327,12 +3327,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendInFrontViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			20,
 //			bufferRecieveBehindViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			20,
 //			pnt_config->MPI_comm,
@@ -3340,12 +3340,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendBehindViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			21,
 //			bufferRecieveInFrontViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_FLOAT,
+//			MPI_DOUBLE,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			21,
 //			pnt_config->MPI_comm,
@@ -3408,12 +3408,12 @@ void DeleteQ(
 //			MPI_Sendrecv(
 //				pnt_config->MPI_SendBufferMesh[interface],
 //				pnt_config->MPI_intTransferSizeMesh[interface],
-//				MPI_FLOAT,
+//				MPI_DOUBLE,
 //				pnt_config->MPI_rankNeighbours[interface],
 //				interface,
 //				pnt_config->MPI_RecieveBufferMesh[interface],
 //				pnt_config->MPI_intTransferSizeMesh[interface],
-//				MPI_FLOAT,
+//				MPI_DOUBLE,
 //				pnt_config->MPI_rankNeighbours[interface],
 //				interface,
 //				pnt_config->MPI_comm,
@@ -3463,7 +3463,7 @@ void TransferMeshParameter(
 		{
 			MPI_Irecv(pnt_config->MPI_RecieveBufferMesh[interface],
 					 pnt_config->MPI_intTransferSizeMesh[interface],
-				 MPI_FLOAT,
+				 MPI_DOUBLE,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3494,7 +3494,7 @@ void TransferMeshParameter(
 		{
 			MPI_Isend(pnt_config->MPI_SendBufferMesh[interface],
 				 pnt_config->MPI_intTransferSizeMesh[interface],
-				 MPI_FLOAT,
+				 MPI_DOUBLE,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3504,8 +3504,8 @@ void TransferMeshParameter(
 
 	if(i_p>0)
 	{
-		memcpy(pnt_config->MPI_RecieveBufferMesh[periodic[0]],pnt_config->MPI_SendBufferMesh[periodic[1]],pnt_config->MPI_intTransferSizeMesh[periodic[1]]*sizeof(float));
-		memcpy(pnt_config->MPI_RecieveBufferMesh[periodic[1]],pnt_config->MPI_SendBufferMesh[periodic[0]],pnt_config->MPI_intTransferSizeMesh[periodic[0]]*sizeof(float));
+		memcpy(pnt_config->MPI_RecieveBufferMesh[periodic[0]],pnt_config->MPI_SendBufferMesh[periodic[1]],pnt_config->MPI_intTransferSizeMesh[periodic[1]]*sizeof(double));
+		memcpy(pnt_config->MPI_RecieveBufferMesh[periodic[1]],pnt_config->MPI_SendBufferMesh[periodic[0]],pnt_config->MPI_intTransferSizeMesh[periodic[0]]*sizeof(double));
 	}
 
 	do
@@ -3566,7 +3566,7 @@ void TransferFlowParameterWithGhosts(
 		{
 			MPI_Irecv(pnt_config->MPI_RecieveBufferFlowWithGhosts[interface],
 					 pnt_config->MPI_intTransferSizeFlow_WithGhosts[interface],
-				 MPI_FLOAT,
+				 MPI_DOUBLE,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3597,7 +3597,7 @@ void TransferFlowParameterWithGhosts(
 		{
 			MPI_Isend(pnt_config->MPI_SendBufferFlowWithGhosts[interface],
 				 pnt_config->MPI_intTransferSizeFlow_WithGhosts[interface],
-				 MPI_FLOAT,
+				 MPI_DOUBLE,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3607,8 +3607,8 @@ void TransferFlowParameterWithGhosts(
 
 	if(i_p>0)
 	{
-		memcpy(pnt_config->MPI_RecieveBufferFlowWithGhosts[periodic[0]],pnt_config->MPI_SendBufferFlowWithGhosts[periodic[1]],pnt_config->MPI_intTransferSizeFlow_WithGhosts[periodic[1]]*sizeof(float));
-		memcpy(pnt_config->MPI_RecieveBufferFlowWithGhosts[periodic[1]],pnt_config->MPI_SendBufferFlowWithGhosts[periodic[0]],pnt_config->MPI_intTransferSizeFlow_WithGhosts[periodic[0]]*sizeof(float));
+		memcpy(pnt_config->MPI_RecieveBufferFlowWithGhosts[periodic[0]],pnt_config->MPI_SendBufferFlowWithGhosts[periodic[1]],pnt_config->MPI_intTransferSizeFlow_WithGhosts[periodic[1]]*sizeof(double));
+		memcpy(pnt_config->MPI_RecieveBufferFlowWithGhosts[periodic[1]],pnt_config->MPI_SendBufferFlowWithGhosts[periodic[0]],pnt_config->MPI_intTransferSizeFlow_WithGhosts[periodic[0]]*sizeof(double));
 	}
 
 	do
@@ -3672,31 +3672,31 @@ void CalcValuesForPost(
 									sqrt(pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk]+
 										pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk]+
 										pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))/
-									sqrt(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk])*pnt_config->flt_machNumber;
+									sqrt(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk])*pnt_config->dbl_machNumber;
 
 					if(MESHDIMENSIONS==2)
 					{
 						pnt_U_lastStep->gradRho[ijk]=
 						sqrt(
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->flt_deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->flt_deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->flt_deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->flt_deltaEta)*pnt_mesh->eta_y[ijk],2.0)
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_y[ijk],2.0)
 						);
 					}
 					else
 					{
 						pnt_U_lastStep->gradRho[ijk]=
 						sqrt(
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->flt_deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->flt_deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->flt_deltaZeta)*pnt_mesh->zeta_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->flt_deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->flt_deltaEta)*pnt_mesh->eta_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->flt_deltaZeta)*pnt_mesh->zeta_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->flt_deltaXi)*pnt_mesh->xi_z[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->flt_deltaEta)*pnt_mesh->eta_z[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->flt_deltaZeta)*pnt_mesh->zeta_z[ijk],2.0)
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->dbl_deltaZeta)*pnt_mesh->zeta_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->dbl_deltaZeta)*pnt_mesh->zeta_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_z[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_z[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->dbl_deltaZeta)*pnt_mesh->zeta_z[ijk],2.0)
 						);
 
 						pnt_U_lastStep->Lambda2[ijk]=CalcLambda2(i,j,k,pnt_config,pnt_mesh,pnt_U_lastStep);
@@ -3705,7 +3705,7 @@ void CalcValuesForPost(
 					if(pnt_mesh->flag_IBC[ijk]==1)
 					{
 						if(pnt_config->flag_IBC_Moving==1)
-						{pnt_U_lastStep->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;}
+						{pnt_U_lastStep->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;}
 						else{pnt_U_lastStep->u[ijk]=0.;}
 						pnt_U_lastStep->v[ijk]=0.;
 						pnt_U_lastStep->w[ijk]=0.;
@@ -3984,9 +3984,9 @@ void check_TransformationMatrix(
 					pnt_config->MPI_intIEndRecieve_WithGhosts[interface]-pnt_config->MPI_intIStartRecieve_WithGhosts[interface]+1;
 			pnt_config->MPI_intTransformation_flag_I0_I[interface]= 1;
 
-			pnt_config->MPI_fltTransformation_xi_x[interface]=1.0;
-			pnt_config->MPI_fltTransformation_xi_y[interface]=1.0;
-			pnt_config->MPI_fltTransformation_xi_z[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_x[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_y[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_z[interface]=1.0;
 			break;
 		case 2:
 			pnt_config->MPI_intTransformation_JMax[interface]=
@@ -3995,9 +3995,9 @@ void check_TransformationMatrix(
 					pnt_config->MPI_intIEndRecieve_WithGhosts[interface]-pnt_config->MPI_intIStartRecieve_WithGhosts[interface]+1;
 			pnt_config->MPI_intTransformation_flag_I0_J[interface]= 1;
 
-			pnt_config->MPI_fltTransformation_xi_x[interface]=1.0;
-			pnt_config->MPI_fltTransformation_xi_y[interface]=1.0;
-			pnt_config->MPI_fltTransformation_xi_z[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_x[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_y[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_z[interface]=1.0;
 			break;
 		case 3:
 			pnt_config->MPI_intTransformation_KMax[interface]=
@@ -4006,9 +4006,9 @@ void check_TransformationMatrix(
 					pnt_config->MPI_intIEndRecieve_WithGhosts[interface]-pnt_config->MPI_intIStartRecieve_WithGhosts[interface]+1;
 			pnt_config->MPI_intTransformation_flag_I0_K[interface]= 1;
 
-			pnt_config->MPI_fltTransformation_xi_x[interface]=1.0;
-			pnt_config->MPI_fltTransformation_xi_y[interface]=1.0;
-			pnt_config->MPI_fltTransformation_xi_z[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_x[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_y[interface]=1.0;
+			pnt_config->MPI_dblTransformation_xi_z[interface]=1.0;
 			break;
 		case -1:
 			pnt_config->MPI_intTransformation_IMax[interface]=
@@ -4022,9 +4022,9 @@ void check_TransformationMatrix(
 			pnt_config->MPI_intTransformation_Offset_I_Ghosts[interface]=
 					pnt_config->MPI_intTransformation_IMax_Mesh[interface]-1;
 
-			pnt_config->MPI_fltTransformation_xi_x[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_xi_y[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_xi_z[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_x[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_y[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_z[interface]=-1.0;
 			break;
 		case -2:
 			pnt_config->MPI_intTransformation_JMax[interface]=
@@ -4038,9 +4038,9 @@ void check_TransformationMatrix(
 			pnt_config->MPI_intTransformation_Offset_J_Ghosts[interface]=
 					pnt_config->MPI_intTransformation_JMax_Mesh[interface]-1;
 
-			pnt_config->MPI_fltTransformation_xi_x[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_xi_y[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_xi_z[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_x[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_y[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_z[interface]=-1.0;
 			break;
 		case -3:
 			pnt_config->MPI_intTransformation_KMax[interface]=
@@ -4054,9 +4054,9 @@ void check_TransformationMatrix(
 			pnt_config->MPI_intTransformation_Offset_K_Ghosts[interface]=
 					pnt_config->MPI_intTransformation_KMax_Mesh[interface]-1;
 
-			pnt_config->MPI_fltTransformation_xi_x[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_xi_y[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_xi_z[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_x[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_y[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_xi_z[interface]=-1.0;
 			break;
 	}
 
@@ -4069,9 +4069,9 @@ void check_TransformationMatrix(
 					pnt_config->MPI_intJEndRecieve_WithGhosts[interface]-pnt_config->MPI_intJStartRecieve_WithGhosts[interface]+1;
 			pnt_config->MPI_intTransformation_flag_J0_I[interface]= 1;
 
-			pnt_config->MPI_fltTransformation_eta_x[interface]=1.0;
-			pnt_config->MPI_fltTransformation_eta_y[interface]=1.0;
-			pnt_config->MPI_fltTransformation_eta_z[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_x[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_y[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_z[interface]=1.0;
 			break;
 		case 2:
 			pnt_config->MPI_intTransformation_JMax[interface]=
@@ -4080,9 +4080,9 @@ void check_TransformationMatrix(
 					pnt_config->MPI_intJEndRecieve_WithGhosts[interface]-pnt_config->MPI_intJStartRecieve_WithGhosts[interface]+1;
 			pnt_config->MPI_intTransformation_flag_J0_J[interface]= 1;
 
-			pnt_config->MPI_fltTransformation_eta_x[interface]=1.0;
-			pnt_config->MPI_fltTransformation_eta_y[interface]=1.0;
-			pnt_config->MPI_fltTransformation_eta_z[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_x[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_y[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_z[interface]=1.0;
 			break;
 		case 3:
 			pnt_config->MPI_intTransformation_KMax[interface]=
@@ -4091,9 +4091,9 @@ void check_TransformationMatrix(
 					pnt_config->MPI_intJEndRecieve_WithGhosts[interface]-pnt_config->MPI_intJStartRecieve_WithGhosts[interface]+1;
 			pnt_config->MPI_intTransformation_flag_J0_K[interface]= 1;
 
-			pnt_config->MPI_fltTransformation_eta_x[interface]=1.0;
-			pnt_config->MPI_fltTransformation_eta_y[interface]=1.0;
-			pnt_config->MPI_fltTransformation_eta_z[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_x[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_y[interface]=1.0;
+			pnt_config->MPI_dblTransformation_eta_z[interface]=1.0;
 			break;
 		case -1:
 			pnt_config->MPI_intTransformation_IMax[interface]=
@@ -4107,9 +4107,9 @@ void check_TransformationMatrix(
 			pnt_config->MPI_intTransformation_Offset_I_Ghosts[interface]=
 					pnt_config->MPI_intTransformation_IMax_Mesh[interface]-1;
 
-			pnt_config->MPI_fltTransformation_eta_x[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_eta_y[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_eta_z[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_x[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_y[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_z[interface]=-1.0;
 			break;
 		case -2:
 			pnt_config->MPI_intTransformation_JMax[interface]=
@@ -4123,9 +4123,9 @@ void check_TransformationMatrix(
 			pnt_config->MPI_intTransformation_Offset_J_Ghosts[interface]=
 					pnt_config->MPI_intTransformation_JMax_Mesh[interface]-1;
 
-			pnt_config->MPI_fltTransformation_eta_x[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_eta_y[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_eta_z[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_x[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_y[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_z[interface]=-1.0;
 			break;
 		case -3:
 			pnt_config->MPI_intTransformation_KMax[interface]=
@@ -4139,9 +4139,9 @@ void check_TransformationMatrix(
 			pnt_config->MPI_intTransformation_Offset_K_Ghosts[interface]=
 					pnt_config->MPI_intTransformation_KMax_Mesh[interface]-1;
 
-			pnt_config->MPI_fltTransformation_eta_x[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_eta_y[interface]=-1.0;
-			pnt_config->MPI_fltTransformation_eta_z[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_x[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_y[interface]=-1.0;
+			pnt_config->MPI_dblTransformation_eta_z[interface]=-1.0;
 			break;
 	}
 
@@ -4156,9 +4156,9 @@ void check_TransformationMatrix(
 						pnt_config->MPI_intKEndRecieve_WithGhosts[interface]-pnt_config->MPI_intKStartRecieve_WithGhosts[interface]+1;
 				pnt_config->MPI_intTransformation_flag_K0_I[interface]= 1;
 
-				pnt_config->MPI_fltTransformation_zeta_x[interface]=1.0;
-				pnt_config->MPI_fltTransformation_zeta_y[interface]=1.0;
-				pnt_config->MPI_fltTransformation_zeta_z[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_x[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_y[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_z[interface]=1.0;
 				break;
 			case 2:
 				pnt_config->MPI_intTransformation_JMax[interface]=
@@ -4167,9 +4167,9 @@ void check_TransformationMatrix(
 						pnt_config->MPI_intKEndRecieve_WithGhosts[interface]-pnt_config->MPI_intKStartRecieve_WithGhosts[interface]+1;
 				pnt_config->MPI_intTransformation_flag_K0_J[interface]= 1;
 
-				pnt_config->MPI_fltTransformation_zeta_x[interface]=1.0;
-				pnt_config->MPI_fltTransformation_zeta_y[interface]=1.0;
-				pnt_config->MPI_fltTransformation_zeta_z[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_x[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_y[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_z[interface]=1.0;
 				break;
 			case 3:
 				pnt_config->MPI_intTransformation_KMax[interface]=
@@ -4178,9 +4178,9 @@ void check_TransformationMatrix(
 						pnt_config->MPI_intKEndRecieve_WithGhosts[interface]-pnt_config->MPI_intKStartRecieve_WithGhosts[interface]+1;
 				pnt_config->MPI_intTransformation_flag_K0_K[interface]= 1;
 
-				pnt_config->MPI_fltTransformation_zeta_x[interface]=1.0;
-				pnt_config->MPI_fltTransformation_zeta_y[interface]=1.0;
-				pnt_config->MPI_fltTransformation_zeta_z[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_x[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_y[interface]=1.0;
+				pnt_config->MPI_dblTransformation_zeta_z[interface]=1.0;
 				break;
 			case -1:
 				pnt_config->MPI_intTransformation_IMax[interface]=
@@ -4194,9 +4194,9 @@ void check_TransformationMatrix(
 				pnt_config->MPI_intTransformation_Offset_I_Ghosts[interface]=
 						pnt_config->MPI_intTransformation_IMax_Mesh[interface]-1;
 
-				pnt_config->MPI_fltTransformation_zeta_x[interface]=-1.0;
-				pnt_config->MPI_fltTransformation_zeta_y[interface]=-1.0;
-				pnt_config->MPI_fltTransformation_zeta_z[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_x[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_y[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_z[interface]=-1.0;
 				break;
 			case -2:
 				pnt_config->MPI_intTransformation_JMax[interface]=
@@ -4210,9 +4210,9 @@ void check_TransformationMatrix(
 				pnt_config->MPI_intTransformation_Offset_J_Ghosts[interface]=
 						pnt_config->MPI_intTransformation_JMax_Mesh[interface]-1;
 
-				pnt_config->MPI_fltTransformation_zeta_x[interface]=-1.0;
-				pnt_config->MPI_fltTransformation_zeta_y[interface]=-1.0;
-				pnt_config->MPI_fltTransformation_zeta_z[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_x[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_y[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_z[interface]=-1.0;
 				break;
 			case -3:
 				pnt_config->MPI_intTransformation_KMax[interface]=
@@ -4226,9 +4226,9 @@ void check_TransformationMatrix(
 				pnt_config->MPI_intTransformation_Offset_K_Ghosts[interface]=
 						pnt_config->MPI_intTransformation_KMax_Mesh[interface]-1;
 
-				pnt_config->MPI_fltTransformation_zeta_x[interface]=-1.0;
-				pnt_config->MPI_fltTransformation_zeta_y[interface]=-1.0;
-				pnt_config->MPI_fltTransformation_zeta_z[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_x[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_y[interface]=-1.0;
+				pnt_config->MPI_dblTransformation_zeta_z[interface]=-1.0;
 				break;
 		}
 	}
@@ -4236,9 +4236,9 @@ void check_TransformationMatrix(
 	{
 		pnt_config->MPI_intTransformation_KMax[interface]=1;
 		pnt_config->MPI_intTransformation_KMax_Mesh[interface]=1;
-		pnt_config->MPI_fltTransformation_zeta_x[interface]=1.0;
-		pnt_config->MPI_fltTransformation_zeta_y[interface]=1.0;
-		pnt_config->MPI_fltTransformation_zeta_z[interface]=1.0;
+		pnt_config->MPI_dblTransformation_zeta_x[interface]=1.0;
+		pnt_config->MPI_dblTransformation_zeta_y[interface]=1.0;
+		pnt_config->MPI_dblTransformation_zeta_z[interface]=1.0;
 	}
 }
 
@@ -4376,7 +4376,7 @@ void check_Connectivity(
 	int ijk_real,ijk_ghost;
 	int ghost;
 	int i,j,k;
-	float difference;
+	double difference;
 	for(interface=0;interface<pnt_config->NumberInterfaces;interface++)
 	{
 		if(interface==pnt_config->InterfaceNeighbourLeft)
@@ -4568,30 +4568,30 @@ void IBC_prepare(
 	//####################
 	//	Custom
 	//####################
-	float x_min,x_max;
-	float y_min,y_max;
-	float z_min,z_max;
+	double x_min,x_max;
+	double y_min,y_max;
+	double z_min,z_max;
 
 	//####################
 	//	VG
 	//####################
-	float VG_height,VG_length;
+	double VG_height,VG_length;
 	int iMinus1jk,ijk_tmp;
-	float distance;
+	double distance;
 	int i_max,j_max,i_min;
-	float VG_start_x,VG_start_x_rank;
-	float VG_start_y,VG_start_y_rank;
+	double VG_start_x,VG_start_x_rank;
+	double VG_start_y,VG_start_y_rank;
 	//####################
 	//	piston
 	//####################
-	float actual_x;
-	float y_kolben;
-	float alpha_kolben;
+	double actual_x;
+	double y_kolben;
+	double alpha_kolben;
 
 	//####################
 	//	small piston
 	//####################
-	float y_kolben_max;
+	double y_kolben_max;
 	//####################
 	
 	switch (pnt_config->IBC_Type)
@@ -4700,7 +4700,7 @@ void IBC_prepare(
 				printf("SHOCK: VG defined between i=%d->%d, j=0->%d\n",
 						i_min,i_max,j_max);
 
-				float delta_z;
+				double delta_z;
 				delta_z=0.1/127.;
 
 				for (i=i_min; i <= i_max; i++)
@@ -4824,8 +4824,8 @@ void IBC_set(
 				{
 					if(pnt_config->flag_IBC_Moving==1)
 					{
-						pnt_U->u[ijk]=//pnt_config->IBC_MovingSpeed/pnt_config->flt_u0_dim;}
-							(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->flt_numericalTau;
+						pnt_U->u[ijk]=//pnt_config->IBC_MovingSpeed/pnt_config->dbl_u0_dim;}
+							(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
 					}
 					else
 					{
@@ -4846,7 +4846,7 @@ void IBC_set(
 							pnt_U->v[ijk]*pnt_mesh->zeta_y[ijk]+
 							pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 					pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-												1.0/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+												1.0/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
                     
 					pnt_U->p[ijk]=1.0;
 					pnt_U->rho[ijk]=1.0;
@@ -4854,11 +4854,11 @@ void IBC_set(
 				    pnt_U->T[ijk]=1.0;
 
 					pnt_U->c[ijk]=
-							sqrt(pnt_config->flt_Upsilon*
-							pnt_config->flt_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+							sqrt(pnt_config->dbl_Upsilon*
+							pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
-					pnt_U->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->flt_SutherlandConstant));
+					pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
 
 					pnt_mesh->BC_Corrector[ijk]=1.0;
 				}
@@ -4872,7 +4872,7 @@ void inducePressureWavesPlateau(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep)
 {
-	float r, Ma_r, c, delta_t;
+	double r, Ma_r, c, delta_t;
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
 		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
@@ -4885,30 +4885,30 @@ void inducePressureWavesPlateau(
 					r=sqrt(pow((pnt_mesh->x[ijk]-pnt_config->pw_x1),2)+
 							pow((pnt_mesh->y[ijk]-pnt_config->pw_y1),2));
 
-					Ma_r=pnt_config->flt_machNumber*(pnt_mesh->x[ijk]-pnt_config->pw_x1)/r
-							+sqrt(1.-pnt_config->flt_machNumber*pow((pnt_mesh->y[ijk]-pnt_config->pw_y1),2)/r);
+					Ma_r=pnt_config->dbl_machNumber*(pnt_mesh->x[ijk]-pnt_config->pw_x1)/r
+							+sqrt(1.-pnt_config->dbl_machNumber*pow((pnt_mesh->y[ijk]-pnt_config->pw_y1),2)/r);
 
 					c=pnt_U_lastStep->c[ijk];
 
-					delta_t=(r-pnt_config->pw_r0*Ma_r)/(Ma_r*c)*pnt_config->flt_L0_dim/pnt_config->flt_u0_dim;
+					delta_t=(r-pnt_config->pw_r0*Ma_r)/(Ma_r*c)*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim;
 
 					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+
-							pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->flt_time_dim-delta_t))*sqrt(Ma_r*pnt_config->pw_r0/r);
+							pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->dbl_time_dim-delta_t))*sqrt(Ma_r*pnt_config->pw_r0/r);
 
-//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->flt_time_dim));
+//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->dbl_time_dim));
 
 				    pnt_U_lastStep->T[ijk]=pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk];					
-					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->flt_gammaNumber);
+					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->dbl_gammaNumber);
 
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 
-					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->flt_Upsilon*pnt_config->flt_gammaNumber
+					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->dbl_Upsilon*pnt_config->dbl_gammaNumber
 							*pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]);
 
-					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
-							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->flt_SutherlandConstant));
+					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
+							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->dbl_SutherlandConstant));
 
 				}
 
@@ -4922,11 +4922,11 @@ void inducePressureWaves(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep)
 {
-	float alpha,r,r_quelle,u_alpha,lambda_alpha,f,lambda,x_Q,y_Q;
-	f=pnt_config->pw_frequency/pnt_config->flt_u0_dim*pnt_config->flt_L0_dim;
-	lambda=(1.0/pnt_config->flt_machNumber)/f;
+	double alpha,r,r_quelle,u_alpha,lambda_alpha,f,lambda,x_Q,y_Q;
+	f=pnt_config->pw_frequency/pnt_config->dbl_u0_dim*pnt_config->dbl_L0_dim;
+	lambda=(1.0/pnt_config->dbl_machNumber)/f;
 	r_quelle=pnt_config->pw_r0;
-	x_Q=pnt_config->pw_x0-r_quelle*pnt_config->flt_machNumber;
+	x_Q=pnt_config->pw_x0-r_quelle*pnt_config->dbl_machNumber;
 	y_Q=pnt_config->pw_y0;
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
@@ -4941,7 +4941,7 @@ void inducePressureWaves(
 					alpha=atan((y_Q-pnt_mesh->y[ijk])/(x_Q-pnt_mesh->x[ijk]));
 					if(pnt_mesh->x[ijk]<x_Q){alpha=M_PI-alpha;}
 
-					u_alpha=1.0*cos(alpha)+sqrt(pow(1.0/pnt_config->flt_machNumber,2.)-pow(1.0*sin(alpha),2.));
+					u_alpha=1.0*cos(alpha)+sqrt(pow(1.0/pnt_config->dbl_machNumber,2.)-pow(1.0*sin(alpha),2.));
 
 					r=sqrt(pow((pnt_mesh->x[ijk]-x_Q),2)+
 							pow((pnt_mesh->y[ijk]-y_Q),2));
@@ -4949,23 +4949,23 @@ void inducePressureWaves(
 
 					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+
 							pnt_config->pw_amplitude
-							*sin(2.0*M_PI*(pnt_config->pw_frequency*(pnt_config->flt_time_dim-pnt_config->start_Time)-r/lambda_alpha+r_quelle/lambda))
+							*sin(2.0*M_PI*(pnt_config->pw_frequency*(pnt_config->dbl_time_dim-pnt_config->start_Time)-r/lambda_alpha+r_quelle/lambda))
 					//*sqrt(lambda_alpha/r*r_quelle/lambda);
 					*sqrt(1.0/r);
 
-//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->flt_time_dim));
+//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->dbl_time_dim));
 
 				    pnt_U_lastStep->T[ijk]=pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk];					
-					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->flt_gammaNumber);
+					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->dbl_gammaNumber);
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 
-					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->flt_Upsilon*pnt_config->flt_gammaNumber
+					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->dbl_Upsilon*pnt_config->dbl_gammaNumber
 							*pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]);
 
-					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
-							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->flt_SutherlandConstant));
+					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
+							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->dbl_SutherlandConstant));
 
 				}
 
@@ -4980,12 +4980,12 @@ void preparePressureWaves(
 		struct strct_U * pnt_U_lastStep)
 {
 	//Bestimmung des Radius, der genau eine Wellenlaenge enthaelt
-	float c_tmp,f_tmp;
-	f_tmp=pnt_config->pw_frequency/pnt_config->flt_u0_dim*pnt_config->flt_L0_dim;
-	c_tmp=(1.0/pnt_config->flt_machNumber);
+	double c_tmp,f_tmp;
+	f_tmp=pnt_config->pw_frequency/pnt_config->dbl_u0_dim*pnt_config->dbl_L0_dim;
+	c_tmp=(1.0/pnt_config->dbl_machNumber);
 	pnt_config->pw_r0=c_tmp/f_tmp;
 
-	float distance;
+	double distance;
 	int BC_check;
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -5071,9 +5071,9 @@ void preparePressureHistoryValues(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh)
 {
-	float *distance,*distance_tmp;
-	distance = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
-	distance_tmp = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
+	double *distance,*distance_tmp;
+	distance = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
+	distance_tmp = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
 
 	int p;
 
@@ -5140,9 +5140,9 @@ void prepareVelocityHistoryValues(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh)
 {
-	float *distance,*distance_tmp;
-	distance = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
-	distance_tmp = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
+	double *distance,*distance_tmp;
+	distance = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
+	distance_tmp = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
 
 	int p;
 
@@ -5210,12 +5210,12 @@ void InitializeVortex(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep)
 {
-	float x_quer,y_quer;
-	float x_wirb_zentr,y_wirb_zentr;
-	float radius;
-	float beta;
-	float faktor_quer;
-	float r_wirb_max;
+	double x_quer,y_quer;
+	double x_wirb_zentr,y_wirb_zentr;
+	double radius;
+	double beta;
+	double faktor_quer;
+	double r_wirb_max;
 
 	x_wirb_zentr=pnt_config->Vortex_x_wirb_zentr;
 	y_wirb_zentr=pnt_config->Vortex_y_wirb_zentr;
@@ -5250,14 +5250,14 @@ void InitializeVortex(
 					beta = 1.;
 
 					pnt_U_lastStep->rho[ijk] = pow((pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]
-					- (pnt_config->flt_gammaNumber - 1.)*beta*beta/
-					(8.*pnt_config->flt_gammaNumber*M_PI*M_PI)/pnt_config->flt_Upsilon*exp(1. - radius)), (1./(pnt_config->flt_gammaNumber - 1.)));
+					- (pnt_config->dbl_gammaNumber - 1.)*beta*beta/
+					(8.*pnt_config->dbl_gammaNumber*M_PI*M_PI)/pnt_config->dbl_Upsilon*exp(1. - radius)), (1./(pnt_config->dbl_gammaNumber - 1.)));
 
-					pnt_U_lastStep->p[ijk] = pow(pnt_U_lastStep->rho[ijk], pnt_config->flt_gammaNumber);
+					pnt_U_lastStep->p[ijk] = pow(pnt_U_lastStep->rho[ijk], pnt_config->dbl_gammaNumber);
 
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 				}
 
 			}
@@ -5320,419 +5320,13 @@ void DefineFilesPath(
 	strcpy(pnt_config->chr_MeshPathOriginal,pnt_config->chr_MeshPath);
 }
 
-void SplitMeshFile(
-		struct strct_configuration * pnt_config)
-{
-	char actual_file[500];
-	int buffer;
-
-	float* x;
-	float* y;
-	float* z;
-//	float* u;
-//	float* v;
-//	float* w;
-//	float* p;
-//	float* rho;
-
-
-	int index_zone;
-	int number_zones;
-
-	int int_meshDimensions;
-	int index_zone_out;
-	int index_base_in;
-	int index_base_out;
-	int index_file_in;
-	int index_file_out;
-	int index_coord_out;
-	index_base_in=1;
-	index_zone_out=1;
-	int interface_in;
-	int interface_out;
-
-
-//	char solname[33];
-	char donorname[33];
-	char connectname[33];
-
-	strcpy(actual_file,"");
-	if (cg_open(pnt_config->chr_MeshPathOriginal,CG_MODE_READ,&index_file_in)) cg_error_exit();
-    cg_nzones(index_file_in,index_base_in,&number_zones);
-
-	if (cg_cell_dim(index_file_in, 1, &int_meshDimensions)) cg_error_exit();
-	cgsize_t zonesize[3][int_meshDimensions];
-	cgsize_t irmin[int_meshDimensions];
-	cgsize_t irmax[int_meshDimensions];
-
-
-	float RotationCenter[int_meshDimensions];
-	float RotationAngle[int_meshDimensions];
-	float Translation[int_meshDimensions];
-
-	int NumberInterfaces;
-	int *TransformMatrixOfInterface;
-	cgsize_t *RangeOfInterface;
-	cgsize_t *DonorRangeOfInterface;
-
-	TransformMatrixOfInterface= (int *)calloc(int_meshDimensions, sizeof(int));
-	RangeOfInterface= (cgsize_t *)calloc(2*int_meshDimensions, sizeof(cgsize_t));
-	DonorRangeOfInterface= (cgsize_t *)calloc(2*int_meshDimensions, sizeof(cgsize_t));
-
-	printf("SHOCK: Die Mesh-Datei %s wird in %d Dateien zerteilt.\n",pnt_config->chr_MeshFile,number_zones);
-	char foldername[200];
-	sprintf(foldername,"%sMesh/",pnt_config->chr_folder);
-	if (pnt_config->MPI_rank==0)
-	{
-//		rmdir(foldername);
-		mkdir(foldername,0755);
-	}
-
-	for(index_zone=1;index_zone<=number_zones;index_zone++)
-	{
-		//##################################################
-		//		READ FROM INPUTFILE
-		//##################################################
-		if (cg_zone_read(index_file_in,index_base_in,index_zone,pnt_config->Zonename,zonesize[0])) cg_error_exit();
-
-		/* lower range index */
-		irmin[0]=1;
-		irmin[1]=1;
-		/* upper range index of vertices */
-		irmax[0]=zonesize[0][0];
-		irmax[1]=zonesize[0][1];
-
-		if (int_meshDimensions==3)
-		{
-			irmin[2]=1;
-			irmax[2]=zonesize[0][2];
-		}
-		else
-		{
-			irmax[2]=1;
-		}
-
-		//Speicherallokierung für die dynamischen-1D Arrays, worin die 3D-Lösungen gespeichert werden
-		buffer=irmax[0]*irmax[1]*irmax[2];
-		x = (float*) calloc(buffer,sizeof(float));
-		y = (float*) calloc(buffer,sizeof(float));
-		z = (float*) calloc(buffer,sizeof(float));
-//		u = (float*) calloc(buffer,sizeof(float));
-//		v = (float*) calloc(buffer,sizeof(float));
-//		w = (float*) calloc(buffer,sizeof(float));
-//		p = (float*) calloc(buffer,sizeof(float));
-//		rho = (float*) calloc(buffer,sizeof(float));
-
-		//		READ MESH
-		if (cg_coord_read(index_file_in,index_base_in,index_zone,"CoordinateX",
-				RealSingle,irmin,irmax,x)) cg_error_exit();
-		if (cg_coord_read(index_file_in,index_base_in,index_zone,"CoordinateY",
-				RealSingle,irmin,irmax,y)) cg_error_exit();
-		if (cg_coord_read(index_file_in,index_base_in,index_zone,"CoordinateZ",
-				RealSingle,irmin,irmax,z)) cg_error_exit();
-
-//		//		READ SOLUTION
-//		if (cg_field_read(index_file_in,index_base_in,index_zone,index_sol_in,"VelocityX",
-//				RealSingle,irmin,irmax,u)) cg_error_exit();
-//		if (cg_field_read(index_file_in,index_base_in,index_zone,index_sol_in,"VelocityY",
-//				RealSingle,irmin,irmax,v)) cg_error_exit();
-//		if (cg_field_read(index_file_in,index_base_in,index_zone,index_sol_in,"VelocityZ",
-//				RealSingle,irmin,irmax,w)) cg_error_exit();
-//		if (cg_field_read(index_file_in,index_base_in,index_zone,index_sol_in,"Pressure",
-//				RealSingle,irmin,irmax,p)) cg_error_exit();
-//		if (cg_field_read(index_file_in,index_base_in,index_zone,index_sol_in,"Density",
-//				RealSingle,irmin,irmax,rho)) cg_error_exit();
-
-		//##################################################
-		//		WRITE INTO OUTPUTFILE
-		//##################################################
-		sprintf(actual_file,"%sMesh/tmp_MeshFile_Zone%d_%s",pnt_config->chr_folder,index_zone,pnt_config->chr_MeshFile);
-
-		printf("SHOCK: %s wird geschrieben.\r",actual_file);
-		fflush(stdout);
-
-		if (cg_open(actual_file,CG_MODE_WRITE,&index_file_out)) cg_error_exit();
-
-		//		WRITE BASE
-		if (cg_base_write(index_file_out,"Base",int_meshDimensions,3,&index_base_out)) cg_error_exit();
-
-		//		WRITE ZONE
-		if (cg_zone_write(index_file_out,index_base_out,pnt_config->Zonename,*zonesize,Structured,&index_zone_out)) cg_error_exit();
-
-		//		WRITE MESH
-		if (cg_coord_write(index_file_out,index_base_out,index_zone_out,RealSingle,"CoordinateX",
-				x,&index_coord_out)) cg_error_exit();
-		if (cg_coord_write(index_file_out,index_base_out,index_zone_out,RealSingle,"CoordinateY",
-				y,&index_coord_out)) cg_error_exit();
-		if (cg_coord_write(index_file_out,index_base_out,index_zone_out,RealSingle,"CoordinateZ",
-				z,&index_coord_out)) cg_error_exit();
-
-		free(x);
-		free(y);
-		free(z);
-
-//		//		WRITE SOLUTION
-//		sprintf(solname,"FlowSolution");
-//		if (cg_sol_write(index_file_out,index_base_out,index_zone_out,solname,Vertex,&index_sol_out)) cg_error_exit();
-//		if (cg_goto(index_file_out,index_base_out,"Zone_t",index_zone_out,"FlowSolution_t",index_sol_out,"end")) cg_error_exit();
-//
-//		if (cg_field_write(index_file_out,index_base_out,index_zone_out,index_sol_out,
-//		RealSingle,"VelocityX",u,&index_field_out)) cg_error_exit();
-//		if (cg_field_write(index_file_out,index_base_out,index_zone_out,index_sol_out,
-//		RealSingle,"VelocityY",v,&index_field_out)) cg_error_exit();
-//		if (cg_field_write(index_file_out,index_base_out,index_zone_out,index_sol_out,
-//		RealSingle,"VelocityZ",w,&index_field_out)) cg_error_exit();
-//		if (cg_field_write(index_file_out,index_base_out,index_zone_out,index_sol_out,
-//		RealSingle,"Density",rho,&index_field_out)) cg_error_exit();
-//		if (cg_field_write(index_file_out,index_base_out,index_zone_out,index_sol_out,
-//		RealSingle,"Pressure",p,&index_field_out)) cg_error_exit();
-
-
-		//		READ & WRITE INTERFACES
-		if (cg_n1to1(index_file_in, index_base_in,index_zone, &NumberInterfaces)) cg_error_exit();
-		for(interface_in=1;interface_in<=NumberInterfaces;interface_in++)
-		{
-			if (cg_1to1_read(index_file_in, index_base_in,index_zone,interface_in, connectname, donorname,
-					RangeOfInterface, DonorRangeOfInterface, TransformMatrixOfInterface)) cg_error_exit();
-			if (cg_1to1_write(index_file_out,index_base_out,index_zone_out,connectname,donorname,
-					RangeOfInterface,DonorRangeOfInterface,TransformMatrixOfInterface,&interface_out)) cg_error_exit();
-
-			if(cg_1to1_periodic_read(index_file_in, index_base_in,index_zone,interface_in,
-					RotationCenter, RotationAngle, Translation)!=CG_NODE_NOT_FOUND)
-			{
-				if(cg_1to1_periodic_write(index_file_out, index_base_out,index_zone_out,interface_out,
-						RotationCenter, RotationAngle, Translation)) cg_error_exit();
-			}
-		}
-
-//	   SDRC-TAG-COPY
-	   int ndescriptors;
-	   int D;
-	   char *text,name[33];
-
-		if (cg_goto(index_file_in,index_base_in,"Zone_t",index_zone,"end")) cg_error_exit();
-		if (cg_ndescriptors(&ndescriptors)) cg_error_exit();
-		for(D=1;D<=ndescriptors;D++)
-		{
-			if (cg_goto(index_file_in,index_base_in,"Zone_t",index_zone,"end")) cg_error_exit();
-			if (cg_descriptor_read(D, name, &text)) cg_error_exit();
-			if (cg_goto(index_file_out,index_base_out,"Zone_t",index_zone_out,"end")) cg_error_exit();
-			if (cg_descriptor_write(name, text)) cg_error_exit();
-		}
-		if (cg_goto(index_file_in,index_base_in,"end")) cg_error_exit();
-		if (cg_ndescriptors(&ndescriptors)) cg_error_exit();
-		for(D=1;D<=ndescriptors;D++)
-		{
-			if (cg_goto(index_file_in,index_base_in,"end")) cg_error_exit();
-			if (cg_descriptor_read(D, name, &text)) cg_error_exit();
-			if (cg_goto(index_file_out,index_base_out,"end")) cg_error_exit();
-			if (cg_descriptor_write(name, text)) cg_error_exit();
-		}
-
-		//		READ & WRITE BC
-		int nbocos,ib;
-		int normalindex[3];
-		int ndataset;
-		int normallist;
-		char boconame[33];
-		char famname[33];
-
-		BCType_t ibocotype;
-		PointSetType_t iptset;
-		DataType_t normaldatatype;
-		cgsize_t ipnts[2*int_meshDimensions];
-		cgsize_t npts,normallistflag;
-
-
-		int nfamilies,i;
-		char dummy[30];
-		int nFamBC;
-		int nGeo;
-		int BC;
-		int Fam;
-		char unspecified[30];
-
-
-		sprintf(unspecified,"Unspecified");
-
-
-		cg_nfamilies(index_file_in,index_base_in,&nfamilies);
-
-		BCType_t BCType;
-		for(i=1;i<=nfamilies;i++)
-		{
-			cg_family_read(index_file_in,index_base_in, i, dummy,&nFamBC, &nGeo);
-
-			if (strcmp(dummy,unspecified)!=0)
-			{
-				cg_family_write(index_file_out,index_base_out, dummy,&Fam);
-				cg_fambc_read(index_file_in,index_base_in, i, 1,dummy, &BCType);
-				cg_fambc_write(index_file_out,index_base_out, Fam, dummy, BCType,&BC);
-			}
-		}
-
-	/* find out number of BCs that exist under this zone */
-		cg_nbocos(index_file_in,index_base_in,index_zone,&nbocos);
-	/* do loop over the total number of BCs */
-		for (ib=1; ib <= nbocos; ib++)
-		{
-		/* get BC info */
-			  cg_boco_info(index_file_in,index_base_in,index_zone,ib,boconame,&ibocotype,
-						   &iptset,&npts,normalindex,&normallistflag,&normaldatatype,&ndataset);
-			  cg_goto(index_file_in,index_base_in,"Zone_t",index_zone,"ZoneBC_t",1,"BC_t",ib,"end");
-			  cg_famname_read(famname);
-			  cg_boco_read(index_file_in,index_base_in,index_zone,ib,ipnts,&normallist);
-
-//			  cg_fambc_write(index_file_out,index_base_out, 1, "FamilyName", BCType,&BC);
-			  cg_boco_write(index_file_out,index_base_out, 1, boconame, ibocotype,
-					  iptset,npts, ipnts, &BC);
-			  cg_goto(index_file_out,index_base_out,"Zone_t",1,"ZoneBC_t",1,"BC_t",ib,"end");
-			  cg_famname_write(famname);
-//			  cg_fambc_write(index_file_in, index_base_in, Fam, FamBCName,
-//			        BCType, BC);
-		}
-
-		if (cg_close(index_file_out)) cg_error_exit();
-	}
-
-	if (cg_close(index_file_in)) cg_error_exit();
-
-	printf("\n");
-	free(TransformMatrixOfInterface);
-	free(RangeOfInterface);
-	free(DonorRangeOfInterface);
-}
-
-
-void getInterfaceInformations(
-		struct strct_configuration * pnt_config)
-{
-	int index_file,index_base,index_zone;
-
-	cg_open(pnt_config->chr_MeshPath,CG_MODE_READ,&index_file);
-	index_base=1;
-
-	//Sofern es nur eine Mesh-File gibt, bestimmt der rank die zone-ID.
-	//Bei einer gesplitteten Mesh-File ist diese stets 1
-	if(pnt_config->int_initializeType==1)
-	{
-		index_zone=1;
-	}
-	else
-	{
-		index_zone=pnt_config->MPI_rank+1;
-	}
-
-
-	pnt_config->ZonenameAll=(char **)calloc(pnt_config->MPI_size, sizeof(char *));
-	for(i=0;i<pnt_config->MPI_size;i++)
-	{
-		pnt_config->ZonenameAll[i]= (char *)calloc(33, sizeof(char));
-	}
-	cgsize_t isize[3][pnt_config->int_meshDimensions];
-	char zonename[33];
-	char zonename_all[pnt_config->MPI_size][33];
-	cg_zone_read(index_file,index_base,index_zone,zonename,isize[0]);
-
-
-	//	Transfer aller Zonename untereinander, damit der rank und die zonename assoziiert werden koennen
-	MPI_Allgather(&zonename, 33, MPI_CHAR,
-			&zonename_all, 33, MPI_CHAR,
-            pnt_config->MPI_comm);
-
-	strcpy(pnt_config->Zonename,zonename);
-//	printf("rank %d(%s)",pnt_config->MPI_rank,pnt_config->Zonename);
-	for(i=0;i<pnt_config->MPI_size;i++)
-	{
-		strcpy(pnt_config->ZonenameAll[i],zonename_all[i]);
-//		printf(" %s(%d)",pnt_config->ZonenameAll[i],pnt_config->MPI_rank);
-	}
-//	printf("\n");
-
-	cg_n1to1(index_file,index_base,index_zone, &pnt_config->NumberInterfaces);
-
-	pnt_config->Donorname= (char **)calloc(pnt_config->NumberInterfaces, sizeof(char *));
-	pnt_config->TransformMatrixOfInterface= (int **)calloc(pnt_config->NumberInterfaces, sizeof(int *));
-	pnt_config->Interfacename= (char **)calloc(pnt_config->NumberInterfaces, sizeof(char *));
-	pnt_config->RangeOfInterface= (cgsize_t **)calloc(pnt_config->NumberInterfaces, sizeof(cgsize_t *));
-	pnt_config->DonorRangeOfInterface= (cgsize_t **)calloc(pnt_config->NumberInterfaces, sizeof(cgsize_t *));
-	pnt_config->RotationCenter= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-	pnt_config->RotationAngle= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-	pnt_config->Translation= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-	for(i=0;i<pnt_config->NumberInterfaces;i++)
-	{
-		pnt_config->Donorname[i]= (char *)calloc(33, sizeof(char));
-		pnt_config->TransformMatrixOfInterface[i]= (int *)calloc(pnt_config->int_meshDimensions, sizeof(int));
-		pnt_config->Interfacename[i]= (char *)calloc(33, sizeof(char));
-		pnt_config->RangeOfInterface[i]= (cgsize_t *)calloc(2*pnt_config->int_meshDimensions, sizeof(cgsize_t));
-		pnt_config->DonorRangeOfInterface[i]= (cgsize_t *)calloc(2*pnt_config->int_meshDimensions, sizeof(cgsize_t));
-		pnt_config->RotationCenter[i]= (float *)calloc(pnt_config->int_meshDimensions, sizeof(float));
-		pnt_config->RotationAngle[i]= (float *)calloc(pnt_config->int_meshDimensions, sizeof(float));
-		pnt_config->Translation[i]= (float *)calloc(pnt_config->int_meshDimensions, sizeof(float));
-	}
-
-	char tmp_Donorname[33];
-	int tmp_TransformMatrixOfInterface[pnt_config->int_meshDimensions];
-	char tmp_Interfacename[33];
-	cgsize_t tmp_RangeOfInterface[2*pnt_config->int_meshDimensions];
-	cgsize_t tmp_DonorRangeOfInterface[2*pnt_config->int_meshDimensions];
-	float tmp_RotationCenter[pnt_config->int_meshDimensions];
-	float tmp_RotationAngle[pnt_config->int_meshDimensions];
-	float tmp_Translation[pnt_config->int_meshDimensions];
-
-
-	for(i=0;i<pnt_config->NumberInterfaces;i++)
-    {
-        cg_1to1_read(
-        		index_file,
-        		index_base,
-        		index_zone,
-        		i+1,
-        		tmp_Interfacename,
-        		tmp_Donorname,
-        		tmp_RangeOfInterface,
-        		tmp_DonorRangeOfInterface,
-        		tmp_TransformMatrixOfInterface);
-        memcpy(pnt_config->Interfacename[i],&tmp_Interfacename,33*sizeof(char));
-        memcpy(pnt_config->Donorname[i],&tmp_Donorname,33*sizeof(char));
-        for(j=0;j<2*pnt_config->int_meshDimensions;j++)
-        {
-            pnt_config->RangeOfInterface[i][j]=tmp_RangeOfInterface[j];
-            pnt_config->DonorRangeOfInterface[i][j]=tmp_DonorRangeOfInterface[j];
-
-        }
-        for(j=0;j<pnt_config->int_meshDimensions;j++)
-        {
-            pnt_config->TransformMatrixOfInterface[i][j]=tmp_TransformMatrixOfInterface[j];
-        }
-
-        if(CG_NODE_NOT_FOUND!=cg_1to1_periodic_read(
-        		index_file,
-        		index_base,
-        		index_zone,
-        		i+1,
-        		tmp_RotationCenter,
-        		tmp_RotationAngle,
-        		tmp_Translation))
-        {
-            for(j=0;j<pnt_config->int_meshDimensions;j++)
-            {
-                pnt_config->RotationCenter[i][j]=tmp_RotationCenter[j];
-                pnt_config->RotationAngle[i][j]=tmp_RotationAngle[j];
-                pnt_config->Translation[i][j]=tmp_Translation[j];
-            }
-        }
-    }
-    cg_close(index_file);
-}
-
 void WriteValuesForPressureHistory(
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U_lastStep)
 {
 	int p;
 
-	pnt_config->PressureHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->flt_time_dim;
+	pnt_config->PressureHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->dbl_time_dim;
 	for (p=0;p<pnt_config->PressureHistory_No;p++)
 	{
 		if(pnt_config->flag_PressureHistory_P[p]==1)
@@ -5750,7 +5344,7 @@ void WriteValuesForVelocityHistory(
 {
 	int p;
 
-	pnt_config->VelocityHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->flt_time_dim;
+	pnt_config->VelocityHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->dbl_time_dim;
 	for (p=0;p<pnt_config->VelocityHistory_No;p++)
 	{
 		if(pnt_config->flag_VelocityHistory_P[p]==1)
@@ -5879,7 +5473,7 @@ void IBC_BornCells(
 //					pnt_U_RK->v[ijk]=0.0;
 //					pnt_U_RK->w[ijk]=0.0;
 					pnt_U_RK->e[ijk]=(0.5*((pnt_U_RK->u[ijk]*pnt_U_RK->u[ijk])+(pnt_U_RK->v[ijk]*pnt_U_RK->v[ijk])+(pnt_U_RK->w[ijk]*pnt_U_RK->w[ijk]))+
-							pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]/(pnt_config->flt_gammaNumber-1.0)*pnt_config->flt_Upsilon);
+							pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
 
 //					pnt_U_RK->theta1[ijk]=0.0;
 //					pnt_U_RK->theta2[ijk]=0.0;
@@ -5889,11 +5483,11 @@ void IBC_BornCells(
 						fabs(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]);
 
 					pnt_U_RK->c[ijk]=
-						sqrt(pnt_config->flt_Upsilon*
-						pnt_config->flt_gammaNumber*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]);
+						sqrt(pnt_config->dbl_Upsilon*
+						pnt_config->dbl_gammaNumber*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]);
 
-					pnt_U_RK->mue[ijk]=((1.0+pnt_config->flt_SutherlandConstant)*pow(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk],1.5)/
-						(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]+pnt_config->flt_SutherlandConstant));
+					pnt_U_RK->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk],1.5)/
+						(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]+pnt_config->dbl_SutherlandConstant));
 
 					//###################################
 
@@ -5925,7 +5519,7 @@ void IBC_ApplyBC4FluxInXi(
 {
 	int ijk2,ijk3,int_direction_corrector,int_symmetryIndex,ijkSymmetry;
 
-	float corrector[3]={-1.,1.,1.};
+	double corrector[3]={-1.,1.,1.};
 
 	for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 	{
@@ -6000,7 +5594,7 @@ void IBC_ApplyBC4FluxInEta(
 {
 	int ijk2,ijk3,int_direction_corrector,int_symmetryIndex,ijkSymmetry;
 
-	float corrector[3]={1.,-1.,1.};
+	double corrector[3]={1.,-1.,1.};
 
 	for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 	{
@@ -6073,7 +5667,7 @@ void IBC_ApplyBC4FluxInZeta(
 {
 	int ijk2,ijk3,int_direction_corrector,int_symmetryIndex,ijkSymmetry;
 
-	float corrector[3]={1.,1.,-1.};
+	double corrector[3]={1.,1.,-1.};
 
 	for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 	{
@@ -6184,7 +5778,7 @@ void WriteConstantZValues(
 	}
 }
 
-float CalcLambda2(
+double CalcLambda2(
 		int i,
 		int j,
 		int k,
@@ -6195,27 +5789,27 @@ float CalcLambda2(
 	int index0_xi,index1_xi;
 	int index0_eta,index1_eta;
 	int index0_zeta,index1_zeta;
-	float u_iMinusHalf, u_iPlusHalf, u_jMinusHalf, u_jPlusHalf, u_kMinusHalf, u_kPlusHalf;
-	float v_iMinusHalf, v_iPlusHalf, v_jMinusHalf, v_jPlusHalf, v_kMinusHalf, v_kPlusHalf;
-	float w_iMinusHalf, w_iPlusHalf, w_jMinusHalf, w_jPlusHalf, w_kMinusHalf, w_kPlusHalf;
+	double u_iMinusHalf, u_iPlusHalf, u_jMinusHalf, u_jPlusHalf, u_kMinusHalf, u_kPlusHalf;
+	double v_iMinusHalf, v_iPlusHalf, v_jMinusHalf, v_jPlusHalf, v_kMinusHalf, v_kPlusHalf;
+	double w_iMinusHalf, w_iPlusHalf, w_jMinusHalf, w_jPlusHalf, w_kMinusHalf, w_kPlusHalf;
 
 	int ijk,m;
-	float p,q,rrr,al,yy1,yy2,yy3,lam1,lam2,lam3,lam,lamax,lamin;
-	float xi_x,eta_x,zeta_x;
-	float xi_y,eta_y,zeta_y;
-	float xi_z,eta_z,zeta_z;
+	double p,q,rrr,al,yy1,yy2,yy3,lam1,lam2,lam3,lam,lamax,lamin;
+	double xi_x,eta_x,zeta_x;
+	double xi_y,eta_y,zeta_y;
+	double xi_z,eta_z,zeta_z;
 
-	float udx,udy,udz;
-	float vdx,vdy,vdz;
-	float wdx,wdy,wdz;
+	double udx,udy,udz;
+	double vdx,vdy,vdz;
+	double wdx,wdy,wdz;
 
-	float u_xi,u_eta,u_zeta;
-	float v_xi,v_eta,v_zeta;
-	float w_xi,w_eta,w_zeta;
+	double u_xi,u_eta,u_zeta;
+	double v_xi,v_eta,v_zeta;
+	double w_xi,w_eta,w_zeta;
 
-	float om12,om13,om23,oo11,oo12,oo13,oo22,oo23,oo33;
-	float s11,s12,s13,s22,s23,s33,ss11,ss12,ss13,ss22,ss23,ss33;
-	float a11,a12,a13,a22,a23,a33,f1,f2,f3;
+	double om12,om13,om23,oo11,oo12,oo13,oo22,oo23,oo33;
+	double s11,s12,s13,s22,s23,s33,ss11,ss12,ss13,ss22,ss23,ss33;
+	double a11,a12,a13,a22,a23,a33,f1,f2,f3;
 
 	lam =0.;
 
@@ -6249,15 +5843,15 @@ float CalcLambda2(
 		index0_zeta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+(k+(m-(SPACEORDER+1)/2));
 		index1_zeta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+(k+(m-(SPACEORDER+1)/2+1));
 
-		u_iMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_xi];		u_iPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_xi];
-		v_iMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_xi];		v_iPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_xi];
-		w_iMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_xi];		w_iPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_xi];
-		u_jMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_eta];		u_jPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_eta];
-		v_jMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_eta];		v_jPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_eta];
-		w_jMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_eta];		w_jPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_eta];
-		u_kMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_zeta];	u_kPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_zeta];
-		v_kMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_zeta];	v_kPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_zeta];
-		w_kMinusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_zeta];	w_kPlusHalf+=pnt_config->flt_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_zeta];
+		u_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_xi];		u_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_xi];
+		v_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_xi];		v_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_xi];
+		w_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_xi];		w_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_xi];
+		u_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_eta];		u_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_eta];
+		v_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_eta];		v_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_eta];
+		w_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_eta];		w_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_eta];
+		u_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_zeta];	u_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_zeta];
+		v_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_zeta];	v_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_zeta];
+		w_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_zeta];	w_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_zeta];
 	}
 
 	u_xi=(u_iPlusHalf-u_iMinusHalf);
@@ -6431,18 +6025,18 @@ void AddRotationSymmetricFluxes(
 				pnt_Q->xiMomentum[ijk]-=pnt_mesh->jacobian[ijk]*pnt_U_RK->rho[ijk]*pnt_U_RK->u[ijk]*pnt_U_RK->v[ijk]/pnt_mesh->y[ijk];
 				pnt_Q->etaMomentum[ijk]-=pnt_mesh->jacobian[ijk]*pnt_U_RK->rho[ijk]*pnt_U_RK->v[ijk]*pnt_U_RK->v[ijk]/pnt_mesh->y[ijk];
 				pnt_Q->Energy[ijk]-=pnt_mesh->jacobian[ijk]*pnt_U_RK->rho[ijk]*pnt_U_RK->v[ijk]*
-						(pnt_U_RK->e[ijk]+pnt_config->flt_Upsilon*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk])
+						(pnt_U_RK->e[ijk]+pnt_config->dbl_Upsilon*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk])
 						/pnt_mesh->y[ijk];
 			}
 		}
 	}
 }
 
-float IBC_getActualPosition(
+double IBC_getActualPosition(
 		struct strct_configuration * pnt_config)
 {
-	float A,B,C,D,E,F,G,H,I,J,K,Y,X;
-	X=pnt_config->flt_time_dim;
+	double A,B,C,D,E,F,G,H,I,J,K,Y,X;
+	X=pnt_config->dbl_time_dim;
 	if((pnt_config->int_actualIteration%pnt_config->IBC_MovingStepsize==0)||
 			(pnt_config->int_actualIteration==pnt_config->int_StartIteration))
 	{
@@ -6491,7 +6085,7 @@ float IBC_getActualPosition(
 		}
 		else
 		{
-			Y=pnt_config->flt_time_dim*pnt_config->IBC_MovingSpeed/pnt_config->flt_L0_dim;
+			Y=pnt_config->dbl_time_dim*pnt_config->IBC_MovingSpeed/pnt_config->dbl_L0_dim;
 
 //			Y = 0.5*sin(X*1000);
 //			if(X>((M_PI/2)/1000.))
@@ -6705,9 +6299,9 @@ void CreateMetric(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh)
 {
-	float x_xi,x_eta,x_zeta;
-	float y_xi,y_eta,y_zeta;
-	float z_xi,z_eta,z_zeta;
+	double x_xi,x_eta,x_zeta;
+	double y_xi,y_eta,y_zeta;
+	double z_xi,z_eta,z_zeta;
 	int i,j,k,ijk;
 	int iPlus1jk,iMinus1jk;
 	int ijPlus1k,ijMinus1k;
@@ -6769,11 +6363,11 @@ void CreateMetric(
 
 				if(MESHDIMENSIONS==2)
 				{
-					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->flt_deltaXi;
-					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->flt_deltaXi;
+					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
+					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
 					z_xi=0.0;
-					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->flt_deltaEta;
-					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->flt_deltaEta;
+					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
+					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
 					z_eta=0.0;
 					x_zeta=0.0;
 					y_zeta=0.0;
@@ -6782,15 +6376,15 @@ void CreateMetric(
 				}
 				else
 				{
-					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->flt_deltaXi;
-					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->flt_deltaXi;
-					z_xi=(-0.5*pnt_mesh->z_extrapolate[iMinus1jk]+0.5*pnt_mesh->z_extrapolate[iPlus1jk])/pnt_config->flt_deltaXi;
-					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->flt_deltaEta;
-					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->flt_deltaEta;
-					z_eta=(-0.5*pnt_mesh->z_extrapolate[ijMinus1k]+0.5*pnt_mesh->z_extrapolate[ijPlus1k])/pnt_config->flt_deltaEta;
-					x_zeta=(-0.5*pnt_mesh->x_extrapolate[ijkMinus1]+0.5*pnt_mesh->x_extrapolate[ijkPlus1])/pnt_config->flt_deltaZeta;
-					y_zeta=(-0.5*pnt_mesh->y_extrapolate[ijkMinus1]+0.5*pnt_mesh->y_extrapolate[ijkPlus1])/pnt_config->flt_deltaZeta;
-					z_zeta=(-0.5*pnt_mesh->z_extrapolate[ijkMinus1]+0.5*pnt_mesh->z_extrapolate[ijkPlus1])/pnt_config->flt_deltaZeta;
+					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
+					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
+					z_xi=(-0.5*pnt_mesh->z_extrapolate[iMinus1jk]+0.5*pnt_mesh->z_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
+					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
+					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
+					z_eta=(-0.5*pnt_mesh->z_extrapolate[ijMinus1k]+0.5*pnt_mesh->z_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
+					x_zeta=(-0.5*pnt_mesh->x_extrapolate[ijkMinus1]+0.5*pnt_mesh->x_extrapolate[ijkPlus1])/pnt_config->dbl_deltaZeta;
+					y_zeta=(-0.5*pnt_mesh->y_extrapolate[ijkMinus1]+0.5*pnt_mesh->y_extrapolate[ijkPlus1])/pnt_config->dbl_deltaZeta;
+					z_zeta=(-0.5*pnt_mesh->z_extrapolate[ijkMinus1]+0.5*pnt_mesh->z_extrapolate[ijkPlus1])/pnt_config->dbl_deltaZeta;
 				}
 
 
@@ -7384,12 +6978,12 @@ extern void print_memusage_c()
   Kernel_GetMemorySize(KERNEL_MEMSIZE_HEAP, &heap);
   Kernel_GetMemorySize(KERNEL_MEMSIZE_MMAP, &mmap);
 
-  printf("SHOCK: current MEMSIZE heap  : %.2f/%.2f stack: %.2f/%.2f mmap: %.2f mbyte\n", (float)heap/(1024*1024), (float)heapavail/(1024*1024),
-                                                                              (float)stack/(1024*1024), (float)stackavail/(1024*1024),
-                                                                              (float)mmap/(1024*1024));
-  printf("SHOCK: current MEMSIZE shared: %.2f persist: %.2f guard: %.2f mbyte\n", (float)shared/(1024*1024),
-                                                                       (float)persist/(1024*1024),
-                                                                        (float)guard/(1024*1024));
+  printf("SHOCK: current MEMSIZE heap  : %.2f/%.2f stack: %.2f/%.2f mmap: %.2f mbyte\n", (float.heap/(1024*1024), (float.heapavail/(1024*1024),
+                                                                              (double)stack/(1024*1024), (double)stackavail/(1024*1024),
+                                                                              (double)mmap/(1024*1024));
+  printf("SHOCK: current MEMSIZE shared: %.2f persist: %.2f guard: %.2f mbyte\n", (double)shared/(1024*1024),
+                                                                       (double)persist/(1024*1024),
+                                                                        (double)guard/(1024*1024));
 
 }
 #elif INTEL
@@ -7425,10 +7019,10 @@ extern void print_memusage_c()
 
   // example: 4202496 220 0 0 0 0 0
   long long int flags;    readone(f,&flags);
-  long long int min_flt;  readone(f,&min_flt);
-  long long int cmin_flt; readone(f,&cmin_flt);
-  long long int maj_flt;  readone(f,&maj_flt);
-  long long int cmaj_flt; readone(f,&cmaj_flt);
+  long long int min_dbl;  readone(f,&min_dbl);
+  long long int cmin_dbl; readone(f,&cmin_dbl);
+  long long int maj_dbl;  readone(f,&maj_dbl);
+  long long int cmaj_dbl; readone(f,&cmaj_dbl);
   long long int utime;    readone(f,&utime);
   long long int stimev;   readone(f,&stimev);
 
@@ -7471,8 +7065,8 @@ extern void print_memusage_c()
 
   fclose (f);
 
-  printf("SHOCK: current MEMSIZE RSS  : %.2f mbyte\n", (float)rss/(1024*1024));
-  printf("SHOCK: current MEMSIZE VSIZE: %.2f mbyte\n", (float)vsize/(1024*1024));
+  printf("SHOCK: current MEMSIZE RSS  : %.2f mbyte\n", (double)rss/(1024*1024));
+  printf("SHOCK: current MEMSIZE VSIZE: %.2f mbyte\n", (double)vsize/(1024*1024));
 }
 #else
 

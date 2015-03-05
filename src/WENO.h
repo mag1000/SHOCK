@@ -3,15 +3,15 @@
 #ifndef WENO_H
 #define WENO_H
 
-extern float Phi_Function_W9(
+extern double Phi_Function_W9(
 		struct strct_configuration * pnt_config,
-		float * pnt_flux,
-		float * pnt_deltaFlux);
+		double * pnt_flux,
+		double * pnt_deltaFlux);
 
-extern float Phi_Function_W5(
+extern double Phi_Function_W5(
 		struct strct_configuration * pnt_config,
-		float * pnt_flux,
-		float * pnt_deltaFlux);
+		double * pnt_flux,
+		double * pnt_deltaFlux);
 
 extern void CalcFluxesInXiDirection(
 		struct strct_configuration * pnt_config,
@@ -61,7 +61,7 @@ extern void CalcEigenVectorsInZetaDirection(
 		int ijkPlus1,
 		int ijkMinus1);
 
-extern float GetLambdaMaxInXiDirection(
+extern double GetLambdaMaxInXiDirection(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_RK,
@@ -69,7 +69,7 @@ extern float GetLambdaMaxInXiDirection(
 		int int_acutalJ,
 		int int_acutalK);
 
-extern float GetLambdaMaxInEtaDirection(
+extern double GetLambdaMaxInEtaDirection(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_RK,
@@ -77,7 +77,7 @@ extern float GetLambdaMaxInEtaDirection(
 		int int_acutalJ,
 		int int_acutalK);
 
-extern float GetLambdaMaxInZetaDirection(
+extern double GetLambdaMaxInZetaDirection(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_RK,
@@ -87,7 +87,7 @@ extern float GetLambdaMaxInZetaDirection(
 
 extern void Theta_Function_W9(
 	struct strct_Flux * pnt_Flux,
-	float * pnt_theta,
+	double * pnt_theta,
 	int ijk,
 	int Plus1ijk,
 	int Plus2ijk,
@@ -99,7 +99,7 @@ extern void Theta_Function_W9(
 
 void Theta_Function_W5(
     struct strct_Flux * pnt_Flux,
-    float * pnt_theta,
+    double * pnt_theta,
     int ijk,
     int Plus1ijk,
     int Plus2ijk,

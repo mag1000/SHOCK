@@ -46,16 +46,16 @@ void ConfigImport(
 //	Numerics
 	pnt_config->int_SpaceOrder=SPACEORDER;
 	pnt_config->int_TimeOrder = iniparser_getint(ini, "numerics:TimeOrder", 4);
-	pnt_config->flt_numericalTau = iniparser_getfloat(ini, "numerics:tau", -1);
-	pnt_config->flt_numericalTauStart=pnt_config->flt_numericalTau;
+	pnt_config->dbl_numericalTau = iniparser_getdouble(ini, "numerics:tau", -1);
+	pnt_config->dbl_numericalTauStart=pnt_config->dbl_numericalTau;
 
 //	Tau
-	pnt_config->flt_TauAccelerator_factor = iniparser_getfloat(ini, "tau:tauaccelerator_factor", 1.1);
-	pnt_config->flt_TauDecelerator_factor = iniparser_getfloat(ini, "tau:taudecelerator_factor", 0.7);
+	pnt_config->dbl_TauAccelerator_factor = iniparser_getdouble(ini, "tau:tauaccelerator_factor", 1.1);
+	pnt_config->dbl_TauDecelerator_factor = iniparser_getdouble(ini, "tau:taudecelerator_factor", 0.7);
 	pnt_config->int_NumberResets = iniparser_getint(ini, "tau:NumberResets", 10);
-	pnt_config->int_distanceNAN = iniparser_getfloat(ini, "tau:DistanceNAN", 5000);
-	pnt_config->int_distanceForward = iniparser_getfloat(ini, "tau:DistanceForward", 1000);
-	pnt_config->int_distanceBackward = iniparser_getfloat(ini, "tau:DistanceBackward", 200);
+	pnt_config->int_distanceNAN = iniparser_getdouble(ini, "tau:DistanceNAN", 5000);
+	pnt_config->int_distanceForward = iniparser_getdouble(ini, "tau:DistanceForward", 1000);
+	pnt_config->int_distanceBackward = iniparser_getdouble(ini, "tau:DistanceBackward", 200);
 	pnt_config->int_distanceForwardStart=pnt_config->int_distanceForward;
 
 //	BoundaryConditions
@@ -87,22 +87,22 @@ void ConfigImport(
 		MPI_Abort(pnt_config->MPI_comm,13372);
 	}
 
-	pnt_config->flt_rho_inflow = iniparser_getfloat(ini, "boundaryconditions:rho_inflow", 1);
-	pnt_config->flt_p_inflow = iniparser_getfloat(ini, "boundaryconditions:p_inflow", 1);
-	pnt_config->flt_AoA = iniparser_getfloat(ini, "boundaryconditions:AoA", 0);
+	pnt_config->dbl_rho_inflow = iniparser_getdouble(ini, "boundaryconditions:rho_inflow", 1);
+	pnt_config->dbl_p_inflow = iniparser_getdouble(ini, "boundaryconditions:p_inflow", 1);
+	pnt_config->dbl_AoA = iniparser_getdouble(ini, "boundaryconditions:AoA", 0);
 
-	pnt_config->flt_p_out = iniparser_getfloat(ini, "boundaryconditions:p_outflow", 1);
+	pnt_config->dbl_p_out = iniparser_getdouble(ini, "boundaryconditions:p_outflow", 1);
 
-	pnt_config->flt_T_wall = iniparser_getfloat(ini, "boundaryconditions:T_wall", 1);
+	pnt_config->dbl_T_wall = iniparser_getdouble(ini, "boundaryconditions:T_wall", 1);
 
 //	Fluid Properties
-	pnt_config->flt_machNumber = iniparser_getfloat(ini, "fluidproperties:mach", -1);
-	pnt_config->flt_reynoldsNumber = iniparser_getfloat(ini, "fluidproperties:reynolds", -1);
-	pnt_config->flt_prandtlNumber = iniparser_getfloat(ini, "fluidproperties:Prandtl", -1);
-	pnt_config->flt_gammaNumber = iniparser_getfloat(ini, "fluidproperties:Gamma", -1);
-	pnt_config->flt_gasConstantNumber = iniparser_getfloat(ini, "fluidproperties:R", -1);
-	pnt_config->flt_T0_dim = iniparser_getfloat(ini, "fluidproperties:T", -1);
-	pnt_config->flt_L0_dim = iniparser_getfloat(ini, "fluidproperties:L", -1);
+	pnt_config->dbl_machNumber = iniparser_getdouble(ini, "fluidproperties:mach", -1);
+	pnt_config->dbl_reynoldsNumber = iniparser_getdouble(ini, "fluidproperties:reynolds", -1);
+	pnt_config->dbl_prandtlNumber = iniparser_getdouble(ini, "fluidproperties:Prandtl", -1);
+	pnt_config->dbl_gammaNumber = iniparser_getdouble(ini, "fluidproperties:Gamma", -1);
+	pnt_config->dbl_gasConstantNumber = iniparser_getdouble(ini, "fluidproperties:R", -1);
+	pnt_config->dbl_T0_dim = iniparser_getdouble(ini, "fluidproperties:T", -1);
+	pnt_config->dbl_L0_dim = iniparser_getdouble(ini, "fluidproperties:L", -1);
 
 //	Export
 	pnt_config->flag_exportMetric = iniparser_getboolean(ini, "export:metric", -1);
@@ -123,55 +123,55 @@ void ConfigImport(
 
 
 //	LaminarBoundary
-	pnt_config->LaminarBoundary_xStart = iniparser_getfloat(ini, "LaminarBoundary:x-Startposition", -1);
+	pnt_config->LaminarBoundary_xStart = iniparser_getdouble(ini, "LaminarBoundary:x-Startposition", -1);
 
 //	PressureWaves
 	pnt_config->pw_UseBC = iniparser_getboolean(ini, "PressureWaves:UseBC", 0);
 	pnt_config->pw_UseFlowAverage = iniparser_getboolean(ini, "PressureWaves:UseFlowAverage", 0);
 	pnt_config->pw_numberSources = iniparser_getint(ini, "PressureWaves:NumberSources", 1);
-	pnt_config->pw_x0 = iniparser_getfloat(ini, "PressureWaves:x0-Location", 0);
-	pnt_config->pw_y0 = iniparser_getfloat(ini, "PressureWaves:y0-Location", 0);
-	pnt_config->pw_z0 = iniparser_getfloat(ini, "PressureWaves:z0-Location", 0);
-	pnt_config->pw_x1 = iniparser_getfloat(ini, "PressureWaves:x1-Location", 0);
-	pnt_config->pw_y1 = iniparser_getfloat(ini, "PressureWaves:y1-Location", 0);
-	pnt_config->pw_z1 = iniparser_getfloat(ini, "PressureWaves:z1-Location", 0);
-	pnt_config->pw_r0 = iniparser_getfloat(ini, "PressureWaves:Radius", 1);
-	pnt_config->pw_amplitude = iniparser_getfloat(ini, "PressureWaves:Amplitude", 1);
-	pnt_config->pw_frequency = iniparser_getfloat(ini, "PressureWaves:Frequency", 1);
+	pnt_config->pw_x0 = iniparser_getdouble(ini, "PressureWaves:x0-Location", 0);
+	pnt_config->pw_y0 = iniparser_getdouble(ini, "PressureWaves:y0-Location", 0);
+	pnt_config->pw_z0 = iniparser_getdouble(ini, "PressureWaves:z0-Location", 0);
+	pnt_config->pw_x1 = iniparser_getdouble(ini, "PressureWaves:x1-Location", 0);
+	pnt_config->pw_y1 = iniparser_getdouble(ini, "PressureWaves:y1-Location", 0);
+	pnt_config->pw_z1 = iniparser_getdouble(ini, "PressureWaves:z1-Location", 0);
+	pnt_config->pw_r0 = iniparser_getdouble(ini, "PressureWaves:Radius", 1);
+	pnt_config->pw_amplitude = iniparser_getdouble(ini, "PressureWaves:Amplitude", 1);
+	pnt_config->pw_frequency = iniparser_getdouble(ini, "PressureWaves:Frequency", 1);
 
 //	Vortex
-	pnt_config->Vortex_x_wirb_zentr = iniparser_getfloat(ini, "Vortex:x-Location", -1);
-	pnt_config->Vortex_y_wirb_zentr = iniparser_getfloat(ini, "Vortex:y-Location", -1);
-	pnt_config->Vortex_r_wirb_max = iniparser_getfloat(ini, "Vortex:Radius", -1);
-	pnt_config->Vortex_faktor_quer = iniparser_getfloat(ini, "Vortex:f", -1);
-	pnt_config->Vortex_beta = iniparser_getfloat(ini, "Vortex:beta", -1);
+	pnt_config->Vortex_x_wirb_zentr = iniparser_getdouble(ini, "Vortex:x-Location", -1);
+	pnt_config->Vortex_y_wirb_zentr = iniparser_getdouble(ini, "Vortex:y-Location", -1);
+	pnt_config->Vortex_r_wirb_max = iniparser_getdouble(ini, "Vortex:Radius", -1);
+	pnt_config->Vortex_faktor_quer = iniparser_getdouble(ini, "Vortex:f", -1);
+	pnt_config->Vortex_beta = iniparser_getdouble(ini, "Vortex:beta", -1);
 
 //	PressureHistory
 	if(pnt_config->flag_PressureHistory==1)
 	{
 		pnt_config->PressureHistory_No = iniparser_getint(ini, "PressureHistory:NumberLocations", 4);
-		pnt_config->PressureHistory_x_P = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
-		pnt_config->PressureHistory_y_P = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
-		pnt_config->PressureHistory_z_P = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
-		pnt_config->PressureHistory_x_P_real = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
-		pnt_config->PressureHistory_y_P_real = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
-		pnt_config->PressureHistory_z_P_real = (float *)calloc(pnt_config->PressureHistory_No, sizeof(float ));
-		pnt_config->PressureHistory_time=(float *)calloc(pnt_config->int_TotalIterations, sizeof(float ));
-		pnt_config->PressureHistory_pressure=(float **)calloc(pnt_config->PressureHistory_No, sizeof(float *));
+		pnt_config->PressureHistory_x_P = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
+		pnt_config->PressureHistory_y_P = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
+		pnt_config->PressureHistory_z_P = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
+		pnt_config->PressureHistory_x_P_real = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
+		pnt_config->PressureHistory_y_P_real = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
+		pnt_config->PressureHistory_z_P_real = (double *)calloc(pnt_config->PressureHistory_No, sizeof(double ));
+		pnt_config->PressureHistory_time=(double *)calloc(pnt_config->int_TotalIterations, sizeof(double ));
+		pnt_config->PressureHistory_pressure=(double **)calloc(pnt_config->PressureHistory_No, sizeof(double *));
 		for(p=0;p<pnt_config->PressureHistory_No;p++)
 		{
-			pnt_config->PressureHistory_pressure[p]=(float *)calloc(pnt_config->int_TotalIterations, sizeof(float));
+			pnt_config->PressureHistory_pressure[p]=(double *)calloc(pnt_config->int_TotalIterations, sizeof(double));
 		}
 		pnt_config->ijk_PressureHistory_P = (int *)calloc(pnt_config->PressureHistory_No, sizeof(int ));
 		pnt_config->flag_PressureHistory_P = (int *)calloc(pnt_config->PressureHistory_No, sizeof(int ));
 		for(i=0;i<pnt_config->PressureHistory_No;i++)
 		{
 			sprintf(pressureHistory_actualName,"PressureHistory:P%d_x-Location",i);
-			pnt_config->PressureHistory_x_P[i] = iniparser_getfloat(ini, pressureHistory_actualName, 0);
+			pnt_config->PressureHistory_x_P[i] = iniparser_getdouble(ini, pressureHistory_actualName, 0);
 			sprintf(pressureHistory_actualName,"PressureHistory:P%d_y-Location",i);
-			pnt_config->PressureHistory_y_P[i] = iniparser_getfloat(ini, pressureHistory_actualName, 0);
+			pnt_config->PressureHistory_y_P[i] = iniparser_getdouble(ini, pressureHistory_actualName, 0);
 			sprintf(pressureHistory_actualName,"PressureHistory:P%d_z-Location",i);
-			pnt_config->PressureHistory_z_P[i] = iniparser_getfloat(ini, pressureHistory_actualName, 0);
+			pnt_config->PressureHistory_z_P[i] = iniparser_getdouble(ini, pressureHistory_actualName, 0);
 		}
 	}
 
@@ -179,60 +179,60 @@ void ConfigImport(
 	if(pnt_config->flag_VelocityHistory==1)
 	{
 		pnt_config->VelocityHistory_No = iniparser_getint(ini, "VelocityHistory:NumberLocations", 4);
-		pnt_config->VelocityHistory_x_P = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
-		pnt_config->VelocityHistory_y_P = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
-		pnt_config->VelocityHistory_z_P = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
-		pnt_config->VelocityHistory_x_P_real = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
-		pnt_config->VelocityHistory_y_P_real = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
-		pnt_config->VelocityHistory_z_P_real = (float *)calloc(pnt_config->VelocityHistory_No, sizeof(float ));
-		pnt_config->VelocityHistory_time=(float *)calloc(pnt_config->int_TotalIterations, sizeof(float ));
-		pnt_config->VelocityHistory_VelocityX=(float **)calloc(pnt_config->VelocityHistory_No, sizeof(float *));
-		pnt_config->VelocityHistory_VelocityY=(float **)calloc(pnt_config->VelocityHistory_No, sizeof(float *));
-		pnt_config->VelocityHistory_VelocityZ=(float **)calloc(pnt_config->VelocityHistory_No, sizeof(float *));
+		pnt_config->VelocityHistory_x_P = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
+		pnt_config->VelocityHistory_y_P = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
+		pnt_config->VelocityHistory_z_P = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
+		pnt_config->VelocityHistory_x_P_real = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
+		pnt_config->VelocityHistory_y_P_real = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
+		pnt_config->VelocityHistory_z_P_real = (double *)calloc(pnt_config->VelocityHistory_No, sizeof(double ));
+		pnt_config->VelocityHistory_time=(double *)calloc(pnt_config->int_TotalIterations, sizeof(double ));
+		pnt_config->VelocityHistory_VelocityX=(double **)calloc(pnt_config->VelocityHistory_No, sizeof(double *));
+		pnt_config->VelocityHistory_VelocityY=(double **)calloc(pnt_config->VelocityHistory_No, sizeof(double *));
+		pnt_config->VelocityHistory_VelocityZ=(double **)calloc(pnt_config->VelocityHistory_No, sizeof(double *));
 		for(p=0;p<pnt_config->VelocityHistory_No;p++)
 		{
-			pnt_config->VelocityHistory_VelocityX[p]=(float *)calloc(pnt_config->int_TotalIterations, sizeof(float));
-			pnt_config->VelocityHistory_VelocityY[p]=(float *)calloc(pnt_config->int_TotalIterations, sizeof(float));
-			pnt_config->VelocityHistory_VelocityZ[p]=(float *)calloc(pnt_config->int_TotalIterations, sizeof(float));
+			pnt_config->VelocityHistory_VelocityX[p]=(double *)calloc(pnt_config->int_TotalIterations, sizeof(double));
+			pnt_config->VelocityHistory_VelocityY[p]=(double *)calloc(pnt_config->int_TotalIterations, sizeof(double));
+			pnt_config->VelocityHistory_VelocityZ[p]=(double *)calloc(pnt_config->int_TotalIterations, sizeof(double));
 		}
 		pnt_config->ijk_VelocityHistory_P = (int *)calloc(pnt_config->VelocityHistory_No, sizeof(int ));
 		pnt_config->flag_VelocityHistory_P = (int *)calloc(pnt_config->VelocityHistory_No, sizeof(int ));
 		for(i=0;i<pnt_config->VelocityHistory_No;i++)
 		{
 			sprintf(velocityHistory_actualName,"VelocityHistory:V%d_x-Location",i);
-			pnt_config->VelocityHistory_x_P[i] = iniparser_getfloat(ini, velocityHistory_actualName, 0);
+			pnt_config->VelocityHistory_x_P[i] = iniparser_getdouble(ini, velocityHistory_actualName, 0);
 			sprintf(velocityHistory_actualName,"VelocityHistory:V%d_y-Location",i);
-			pnt_config->VelocityHistory_y_P[i] = iniparser_getfloat(ini, velocityHistory_actualName, 0);
+			pnt_config->VelocityHistory_y_P[i] = iniparser_getdouble(ini, velocityHistory_actualName, 0);
 			sprintf(velocityHistory_actualName,"VelocityHistory:V%d_z-Location",i);
-			pnt_config->VelocityHistory_z_P[i] = iniparser_getfloat(ini, velocityHistory_actualName, 0);
+			pnt_config->VelocityHistory_z_P[i] = iniparser_getdouble(ini, velocityHistory_actualName, 0);
 		}
 	}
 
 //	IBC
 	pnt_config->flag_IBC_Moving = iniparser_getboolean(ini, "IBC:MovingBC", 0);
 	pnt_config->IBC_Type = iniparser_getint(ini, "IBC:Type", 0);
-	pnt_config->IBC_StartpositionX = iniparser_getfloat(ini, "IBC:StartpositionX", 0);
-	pnt_config->IBC_StartpositionY = iniparser_getfloat(ini, "IBC:StartpositionY", 0);
-	pnt_config->IBC_StartpositionZ = iniparser_getfloat(ini, "IBC:StartpositionZ", 0);
-	pnt_config->IBC_SizeX = iniparser_getfloat(ini, "IBC:SizeX", 0);
-	pnt_config->IBC_SizeY = iniparser_getfloat(ini, "IBC:SizeY", 0);
-	pnt_config->IBC_SizeZ = iniparser_getfloat(ini, "IBC:SizeZ", 0);
-	pnt_config->IBC_MovingSpeed = iniparser_getfloat(ini, "IBC:Speed", 0);
+	pnt_config->IBC_StartpositionX = iniparser_getdouble(ini, "IBC:StartpositionX", 0);
+	pnt_config->IBC_StartpositionY = iniparser_getdouble(ini, "IBC:StartpositionY", 0);
+	pnt_config->IBC_StartpositionZ = iniparser_getdouble(ini, "IBC:StartpositionZ", 0);
+	pnt_config->IBC_SizeX = iniparser_getdouble(ini, "IBC:SizeX", 0);
+	pnt_config->IBC_SizeY = iniparser_getdouble(ini, "IBC:SizeY", 0);
+	pnt_config->IBC_SizeZ = iniparser_getdouble(ini, "IBC:SizeZ", 0);
+	pnt_config->IBC_MovingSpeed = iniparser_getdouble(ini, "IBC:Speed", 0);
 	pnt_config->IBC_MovingType = iniparser_getint(ini, "IBC:Movement", 0);
-	pnt_config->IBC_SpeedFactor = iniparser_getfloat(ini, "IBC:SpeedFactor", 1.0);
+	pnt_config->IBC_SpeedFactor = iniparser_getdouble(ini, "IBC:SpeedFactor", 1.0);
 	pnt_config->IBC_MovingStepsize = iniparser_getint(ini, "IBC:Stepsize", 100);
 
 	//InitializeValues
-	pnt_config->InitializeValues_u0 = iniparser_getfloat(ini, "InitializeValues:u0", 1);
-	pnt_config->InitializeValues_p0 = iniparser_getfloat(ini, "InitializeValues:p0", 1);
-	pnt_config->InitializeValues_rho0 = iniparser_getfloat(ini, "InitializeValues:rho0", 1);
-	pnt_config->InitializeValues_p1 = iniparser_getfloat(ini, "InitializeValues:p1", 1);
-	pnt_config->InitializeValues_rho1 = iniparser_getfloat(ini, "InitializeValues:rho1", 1);
-	pnt_config->InitializeValues_u1 = iniparser_getfloat(ini, "InitializeValues:u1", 1);
-	pnt_config->InitializeValues_xBorder = iniparser_getfloat(ini, "InitializeValues:xBorder", 0.);	
-	pnt_config->flt_u_inflow = cos(pnt_config->flt_AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
-	pnt_config->flt_v_inflow = sin(pnt_config->flt_AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
-	pnt_config->flt_w_inflow = 0.0;
+	pnt_config->InitializeValues_u0 = iniparser_getdouble(ini, "InitializeValues:u0", 1);
+	pnt_config->InitializeValues_p0 = iniparser_getdouble(ini, "InitializeValues:p0", 1);
+	pnt_config->InitializeValues_rho0 = iniparser_getdouble(ini, "InitializeValues:rho0", 1);
+	pnt_config->InitializeValues_p1 = iniparser_getdouble(ini, "InitializeValues:p1", 1);
+	pnt_config->InitializeValues_rho1 = iniparser_getdouble(ini, "InitializeValues:rho1", 1);
+	pnt_config->InitializeValues_u1 = iniparser_getdouble(ini, "InitializeValues:u1", 1);
+	pnt_config->InitializeValues_xBorder = iniparser_getdouble(ini, "InitializeValues:xBorder", 0.);	
+	pnt_config->dbl_u_inflow = cos(pnt_config->dbl_AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
+	pnt_config->dbl_v_inflow = sin(pnt_config->dbl_AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
+	pnt_config->dbl_w_inflow = 0.0;
 
 	//ManufacturedSolution
 	pnt_config->ManufacturedSolution_case = iniparser_getint(ini, "ManufacturedSolution:case", 1);
@@ -296,12 +296,12 @@ void MeshImport_CGNS(
 		int i,j,k,ijk,ijk2,nzone;
 		int i2,j2,k2;
 
-		float* x;
-		float* y;
-		float* z;
-		x = (float*) calloc(buffer,sizeof(float));
-		y = (float*) calloc(buffer,sizeof(float));
-		z = (float*) calloc(buffer,sizeof(float));
+		double* x;
+		double* y;
+		double* z;
+		x = (double*) calloc(buffer,sizeof(double));
+		y = (double*) calloc(buffer,sizeof(double));
+		z = (double*) calloc(buffer,sizeof(double));
 
 	/* READ X, Y, Z GRID POINTS FROM CGNS FILE */
 	/* open CGNS file for read-only */
@@ -388,670 +388,6 @@ void MeshImport_CGNS(
 
 	/* close CGNS file */
 	    cg_close(index_file);
-}
-
-
-void MeshConfig_CGNS(
-		struct strct_configuration * pnt_config)
-{
-	/*
-	  dimension statements (note that tri-dimensional arrays
-	  x,y,z must be dimensioned exactly as [N][17][21] (N>=9)
-	  for this particular case or else they will be read from
-	  the CGNS file incorrectly!  Other options are to use 1-D
-	  arrays, use dynamic memory, or pass index values to a
-	  subroutine and dimension exactly there):
-	*/
-	int i;
-	int index_file,index_base,index_zone;
-	int cellDim;
-
-
-//	if (pnt_config->int_initializeType==1)
-//	{
-//		cg_open(pnt_config->chr_SnapshotPath,CG_MODE_READ,&index_file);
-//	}
-//	else
-//	{
-//		cg_open(pnt_config->chr_MeshPath,CG_MODE_READ,&index_file);
-//	}
-
-	cg_open(pnt_config->chr_MeshPath,CG_MODE_READ,&index_file);
-
-    index_base=1;
-
-    if(pnt_config->int_initializeType==1)
-    {
-    	index_zone=1;
-    }
-	else
-	{
-		index_zone=pnt_config->MPI_rank+1;
-	}
-
-	cg_cell_dim(index_file, index_base, &cellDim);
-	pnt_config->int_meshDimensions=cellDim;
-	if((MESHDIMENSIONS!=pnt_config->int_meshDimensions)&&(pnt_config->MPI_rank==0))
-	{
-		printf("ERROR: Es wird versucht ein %dD-Loeser auf einem %dD-Gitter anzuwenden!\n",MESHDIMENSIONS,pnt_config->int_meshDimensions);
-		MPI_Abort(pnt_config->MPI_comm,13373);
-	}
-
-
-	cgsize_t isize[3][cellDim];
-	cg_zone_read(index_file,index_base,index_zone,pnt_config->Zonename,isize[0]);
-	cg_close(index_file);
-
-	pnt_config->int_meshDimensions=MESHDIMENSIONS;
-
-	pnt_config->int_iMeshPoints=isize[0][0];
-	pnt_config->int_jMeshPoints=isize[0][1];
-	pnt_config->int_iMeshPointsGhostCells=pnt_config->int_iMeshPoints+(pnt_config->int_SpaceOrder+1);
-	pnt_config->int_jMeshPointsGhostCells=pnt_config->int_jMeshPoints+(pnt_config->int_SpaceOrder+1);
-
-	if(cellDim==2)
-	{
-		pnt_config->int_kMeshPoints=1;
-		pnt_config->int_kMeshPointsGhostCells=1;
-	}
-	else
-	{
-		pnt_config->int_kMeshPoints=isize[0][2];
-		pnt_config->int_kMeshPointsGhostCells=isize[0][2]+(pnt_config->int_SpaceOrder+1);
-	}
-
-	pnt_config->int_iStartGhosts=0;
-	pnt_config->int_jStartGhosts=0;
-	pnt_config->int_kStartGhosts=0;
-	pnt_config->int_iEndGhosts=pnt_config->int_iStartGhosts+pnt_config->int_iMeshPoints+pnt_config->int_SpaceOrder;
-	pnt_config->int_jEndGhosts=pnt_config->int_jStartGhosts+pnt_config->int_jMeshPoints+pnt_config->int_SpaceOrder;
-	pnt_config->int_kEndGhosts=pnt_config->int_kStartGhosts+pnt_config->int_kMeshPoints+pnt_config->int_SpaceOrder;
-
-	pnt_config->int_iStartReal=(pnt_config->int_SpaceOrder-1)/2+1;
-	pnt_config->int_jStartReal=(pnt_config->int_SpaceOrder-1)/2+1;
-	pnt_config->int_kStartReal=(pnt_config->int_SpaceOrder-1)/2+1;
-	pnt_config->int_iEndReal=pnt_config->int_iStartReal+pnt_config->int_iMeshPoints-1;
-	pnt_config->int_jEndReal=pnt_config->int_jStartReal+pnt_config->int_jMeshPoints-1;
-	pnt_config->int_kEndReal=pnt_config->int_kStartReal+pnt_config->int_kMeshPoints-1;
-
-	pnt_config->int_iMid=(int)(0.5*(pnt_config->int_iEndGhosts+pnt_config->int_iStartGhosts));
-	pnt_config->int_jMid=(int)(0.5*(pnt_config->int_jEndGhosts+pnt_config->int_jStartGhosts));
-	pnt_config->int_kMid=(int)(0.5*(pnt_config->int_kEndGhosts+pnt_config->int_kStartGhosts));
-
-	if(MESHDIMENSIONS==2)
-	{
-		pnt_config->int_kStartReal=0;
-		pnt_config->int_kEndReal=0;
-
-		pnt_config->int_kStartGhosts=0;
-		pnt_config->int_kEndGhosts=0;
-
-		pnt_config->int_kMid=0;
-	}
-	pnt_config->int_kStartReal_original=pnt_config->int_kStartReal;
-	pnt_config->int_kEndReal_original=pnt_config->int_kEndReal;
-
-//	Extrapolate
-	pnt_config->int_iStartReal_extrapolate=pnt_config->int_iStartReal+1;
-	pnt_config->int_jStartReal_extrapolate=pnt_config->int_jStartReal+1;
-	pnt_config->int_kStartReal_extrapolate=pnt_config->int_kStartReal+1;
-	pnt_config->int_iEndReal_extrapolate=pnt_config->int_iEndReal+1;
-	pnt_config->int_jEndReal_extrapolate=pnt_config->int_jEndReal+1;
-	pnt_config->int_kEndReal_extrapolate=pnt_config->int_kEndReal+1;
-
-	pnt_config->int_iStartGhosts_extrapolate=pnt_config->int_iStartGhosts;
-	pnt_config->int_jStartGhosts_extrapolate=pnt_config->int_jStartGhosts;
-	pnt_config->int_kStartGhosts_extrapolate=pnt_config->int_kStartGhosts;
-	pnt_config->int_iEndGhosts_extrapolate=pnt_config->int_iEndGhosts+2;
-	pnt_config->int_jEndGhosts_extrapolate=pnt_config->int_jEndGhosts+2;
-	pnt_config->int_kEndGhosts_extrapolate=pnt_config->int_kEndGhosts+2;
-
-	pnt_config->int_iMeshPointsGhostCells_extrapolate=pnt_config->int_iMeshPointsGhostCells+2;
-	pnt_config->int_jMeshPointsGhostCells_extrapolate=pnt_config->int_jMeshPointsGhostCells+2;
-	pnt_config->int_kMeshPointsGhostCells_extrapolate=pnt_config->int_kMeshPointsGhostCells+2;
-
-	if(MESHDIMENSIONS==2)
-	{
-		pnt_config->int_kStartReal_extrapolate=0;
-		pnt_config->int_kEndReal_extrapolate=0;
-
-		pnt_config->int_kStartGhosts_extrapolate=0;
-		pnt_config->int_kEndGhosts_extrapolate=0;
-
-		pnt_config->int_kMeshPointsGhostCells_extrapolate=1;
-
-	}
-
-
-	//		Transfer Interface-Informations
-	getInterfaceInformations(
-			pnt_config);
-
-//	pnt_config->bufferSendFlowLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-//	pnt_config->bufferSendFlowRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-//	pnt_config->bufferSendFlowBottom = (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
-//	pnt_config->bufferSendFlowTop= (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
-//	pnt_config->bufferRecieveFlowLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-//	pnt_config->bufferRecieveFlowRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints,sizeof(float));
-//	pnt_config->bufferRecieveFlowBottom = (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
-//	pnt_config->bufferRecieveFlowTop= (float *)calloc(5*pnt_config->int_iMeshPoints * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPoints,sizeof(float));
-
-	pnt_config->bufferSendMeshLeft = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	pnt_config->bufferSendMeshRight = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	pnt_config->bufferSendMeshBottom = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	pnt_config->bufferSendMeshTop = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	pnt_config->bufferRecieveMeshLeft = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	pnt_config->bufferRecieveMeshRight = (float *)calloc(13*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	pnt_config->bufferRecieveMeshBottom = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	pnt_config->bufferRecieveMeshTop = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-
-	if(MESHDIMENSIONS==2)
-	{
-		pnt_config->bufferSendFlowWithGhostsLeft = (float *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendFlowWithGhostsRight= (float *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendFlowWithGhostsBottom = (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendFlowWithGhostsTop= (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-
-		pnt_config->bufferRecieveFlowWithGhostsLeft = (float *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsRight= (float *)calloc(4*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsBottom = (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsTop= (float *)calloc(4*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-	}
-	if(MESHDIMENSIONS==3)
-	{
-		pnt_config->bufferSendFlowWithGhostsLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendFlowWithGhostsRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendFlowWithGhostsBottom = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferSendFlowWithGhostsTop= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-
-		pnt_config->bufferRecieveFlowWithGhostsLeft = (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsRight= (float *)calloc(5*((pnt_config->int_SpaceOrder+1)/2) * pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsBottom = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsTop= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2)*pnt_config->int_kMeshPointsGhostCells,sizeof(float));
-
-		pnt_config->bufferSendFlowWithGhostsBehind = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-		pnt_config->bufferSendFlowWithGhostsInFront= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsBehind = (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-		pnt_config->bufferRecieveFlowWithGhostsInFront= (float *)calloc(5*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-
-		pnt_config->bufferSendMeshBehind = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-		pnt_config->bufferSendMeshInFront = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-		pnt_config->bufferRecieveMeshBehind = (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-		pnt_config->bufferRecieveMeshInFront= (float *)calloc(13*pnt_config->int_iMeshPointsGhostCells * pnt_config->int_jMeshPointsGhostCells * ((pnt_config->int_SpaceOrder+1)/2),sizeof(float));
-	}
-
-
-	/* get neighbour */
-	pnt_config->MPI_rankNeighbours= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_tag= (long *)calloc(pnt_config->NumberInterfaces, sizeof(long));
-	getNeighbour(
-			pnt_config);
-
-
-	pnt_config->MPI_intTransformation_IMax= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_JMax= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_KMax= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_IMax_Mesh= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_JMax_Mesh= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_KMax_Mesh= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_I0_I= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_I0_J= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_I0_K= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_J0_I= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_J0_J= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_J0_K= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_K0_I= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_K0_J= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_flag_K0_K= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_Offset_I= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_Offset_J= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_Offset_K= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_Offset_I_Ghosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_Offset_J_Ghosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransformation_Offset_K_Ghosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-
-	pnt_config->MPI_fltTransformation_xi_x= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_xi_y= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_xi_z= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_eta_x= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_eta_y= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_eta_z= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_zeta_x= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_zeta_y= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-	pnt_config->MPI_fltTransformation_zeta_z= (float *)calloc(pnt_config->NumberInterfaces, sizeof(float));
-
-	//		pnt_config->MPI_charNeighbours= (char **)calloc(pnt_config->NumberInterfaces, sizeof(char*));
-	for(i=0;i<pnt_config->NumberInterfaces;i++)
-	{
-	//			pnt_config->RankNeighbours[i]= (int *)calloc(pnt_config->int_meshDimensions+1, sizeof(int));
-	//			pnt_config->MPI_charNeighbours[i]= (char *)calloc(30, sizeof(char));
-
-		pnt_config->MPI_fltTransformation_xi_x[i]=1.0;
-		pnt_config->MPI_fltTransformation_xi_y[i]=1.0;
-		pnt_config->MPI_fltTransformation_xi_z[i]=1.0;
-		pnt_config->MPI_fltTransformation_eta_x[i]=1.0;
-		pnt_config->MPI_fltTransformation_eta_y[i]=1.0;
-		pnt_config->MPI_fltTransformation_eta_z[i]=1.0;
-		pnt_config->MPI_fltTransformation_zeta_x[i]=1.0;
-		pnt_config->MPI_fltTransformation_zeta_y[i]=1.0;
-		pnt_config->MPI_fltTransformation_zeta_z[i]=1.0;
-	}
-
-	pnt_config->MPI_intTransferSizeMesh=(int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intTransferSizeFlow_WithGhosts=(int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-
-	pnt_config->MPI_SendBufferMesh= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-	pnt_config->MPI_RecieveBufferMesh= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-	pnt_config->MPI_SendBufferFlowWithGhosts= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-	pnt_config->MPI_RecieveBufferFlowWithGhosts= (float **)calloc(pnt_config->NumberInterfaces, sizeof(float *));
-
-	pnt_config->MPI_intIStartSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intIEndSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJStartSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJEndSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKStartSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKEndSend= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-
-	pnt_config->MPI_intIStartRecieve= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intIEndRecieve= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJStartRecieve= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJEndRecieve= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKStartRecieve= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKEndRecieve= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-
-	pnt_config->MPI_intIStartSend_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intIEndSend_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJStartSend_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJEndSend_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKStartSend_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKEndSend_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-
-	pnt_config->MPI_intIStartRecieve_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intIEndRecieve_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJStartRecieve_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intJEndRecieve_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKStartRecieve_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-	pnt_config->MPI_intKEndRecieve_WithGhosts= (int *)calloc(pnt_config->NumberInterfaces, sizeof(int));
-
-
-
-
-	//		Teile den Interfaces, an denen der einzelne Rank beteiligt ist, die Informationen zu,
-	//		ob dieses Interface aus seiner Sicht links, rechts... ist.
-	for(i=0;i<pnt_config->NumberInterfaces;i++)
-	{
-			if(i==pnt_config->InterfaceNeighbourLeft)
-			{
-//				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshI;
-//				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshI;
-//				pnt_config->MPI_SendBufferFlow[i]=pnt_config->bufferSendFlowI;
-//				pnt_config->MPI_RecieveBufferFlow[i]=pnt_config->bufferRecieveFlowI;
-//				pnt_config->MPI_SendBufferViscid[i]=pnt_config->bufferSendViscidI;
-//				pnt_config->MPI_RecieveBufferViscid[i]=pnt_config->bufferRecieveViscidI;
-
-				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshLeft;
-				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshLeft;
-				pnt_config->MPI_SendBufferFlowWithGhosts[i]=pnt_config->bufferSendFlowWithGhostsLeft;
-				pnt_config->MPI_RecieveBufferFlowWithGhosts[i]=pnt_config->bufferRecieveFlowWithGhostsLeft;
-
-			   pnt_config->MPI_intIStartSend[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndSend[i]=pnt_config->int_iStartReal+((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intJStartSend[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndSend[i]=pnt_config->int_jEndReal;
-			   pnt_config->MPI_intKStartSend[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndSend[i]=pnt_config->int_kEndReal;
-
-			   pnt_config->MPI_intIStartRecieve[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndRecieve[i]=pnt_config->int_iStartReal-1;
-			   pnt_config->MPI_intJStartRecieve[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndRecieve[i]=pnt_config->int_jEndReal;
-			   pnt_config->MPI_intKStartRecieve[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndRecieve[i]=pnt_config->int_kEndReal;
-
-
-			   pnt_config->MPI_intIStartSend_WithGhosts[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndSend_WithGhosts[i]=pnt_config->int_iStartReal+((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intJStartSend_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndSend_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartSend_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndSend_WithGhosts[i]=pnt_config->int_kEndGhosts;
-
-			   pnt_config->MPI_intIStartRecieve_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndRecieve_WithGhosts[i]=pnt_config->int_iStartReal-1;
-			   pnt_config->MPI_intJStartRecieve_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndRecieve_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=pnt_config->int_kEndGhosts;
-			   if(MESHDIMENSIONS==2)
-			   {
-				   pnt_config->MPI_intKStartSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=0;
-
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-						   (pnt_config->int_SpaceOrder+1)/2*4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-			   else
-			   {
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*5*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-			   pnt_config->MPI_intTransferSizeMesh[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*13*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-
-
-
-			}
-				if(i==pnt_config->InterfaceNeighbourRight)
-			{
-//				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshI;
-//				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshI;
-//				pnt_config->MPI_SendBufferFlow[i]=pnt_config->bufferSendFlowI;
-//				pnt_config->MPI_RecieveBufferFlow[i]=pnt_config->bufferRecieveFlowI;
-//				pnt_config->MPI_SendBufferViscid[i]=pnt_config->bufferSendViscidI;
-//				pnt_config->MPI_RecieveBufferViscid[i]=pnt_config->bufferRecieveViscidI;
-
-				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshRight;
-				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshRight;
-				pnt_config->MPI_SendBufferFlowWithGhosts[i]=pnt_config->bufferSendFlowWithGhostsRight;
-				pnt_config->MPI_RecieveBufferFlowWithGhosts[i]=pnt_config->bufferRecieveFlowWithGhostsRight;
-
-			   pnt_config->MPI_intIStartSend[i]=pnt_config->int_iEndReal-((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intIEndSend[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intJStartSend[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndSend[i]=pnt_config->int_jEndReal;
-			   pnt_config->MPI_intKStartSend[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndSend[i]=pnt_config->int_kEndReal;
-
-			   pnt_config->MPI_intIStartRecieve[i]=pnt_config->int_iEndReal+1;
-			   pnt_config->MPI_intIEndRecieve[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartRecieve[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndRecieve[i]=pnt_config->int_jEndReal;
-			   pnt_config->MPI_intKStartRecieve[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndRecieve[i]=pnt_config->int_kEndReal;
-
-
-			   pnt_config->MPI_intIStartSend_WithGhosts[i]=pnt_config->int_iEndReal-((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intIEndSend_WithGhosts[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intJStartSend_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndSend_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartSend_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndSend_WithGhosts[i]=pnt_config->int_kEndGhosts;
-
-			   pnt_config->MPI_intIStartRecieve_WithGhosts[i]=pnt_config->int_iEndReal+1;
-			   pnt_config->MPI_intIEndRecieve_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartRecieve_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndRecieve_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=pnt_config->int_kEndGhosts;
-			   if(MESHDIMENSIONS==2)
-			   {
-				   pnt_config->MPI_intKStartSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=0;
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-				   					   (pnt_config->int_SpaceOrder+1)/2*4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-			   else
-			   {
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-				   					   (pnt_config->int_SpaceOrder+1)/2*5*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-
-			   pnt_config->MPI_intTransferSizeMesh[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*13*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-
-			}
-				if(i==pnt_config->InterfaceNeighbourBottom)
-			{
-//				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshJ;
-//				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshJ;
-//				pnt_config->MPI_SendBufferFlow[i]=pnt_config->bufferSendFlowJ;
-//				pnt_config->MPI_RecieveBufferFlow[i]=pnt_config->bufferRecieveFlowJ;
-//				pnt_config->MPI_SendBufferViscid[i]=pnt_config->bufferSendViscidJ;
-//				pnt_config->MPI_RecieveBufferViscid[i]=pnt_config->bufferRecieveViscidJ;
-
-				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshBottom;
-				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshBottom;
-				pnt_config->MPI_SendBufferFlowWithGhosts[i]=pnt_config->bufferSendFlowWithGhostsBottom;
-				pnt_config->MPI_RecieveBufferFlowWithGhosts[i]=pnt_config->bufferRecieveFlowWithGhostsBottom;
-
-			   pnt_config->MPI_intJStartSend[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndSend[i]=pnt_config->int_jStartReal+((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intIStartSend[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndSend[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intKStartSend[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndSend[i]=pnt_config->int_kEndReal;
-
-			   pnt_config->MPI_intJStartRecieve[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndRecieve[i]=pnt_config->int_jStartReal-1;
-			   pnt_config->MPI_intIStartRecieve[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndRecieve[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intKStartRecieve[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndRecieve[i]=pnt_config->int_kEndReal;
-
-
-			   pnt_config->MPI_intIStartSend_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndSend_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartSend_WithGhosts[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndSend_WithGhosts[i]=pnt_config->int_jStartReal+((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intKStartSend_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndSend_WithGhosts[i]=pnt_config->int_kEndGhosts;
-
-			   pnt_config->MPI_intIStartRecieve_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndRecieve_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartRecieve_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndRecieve_WithGhosts[i]=pnt_config->int_jStartReal-1;
-			   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=pnt_config->int_kEndGhosts;
-			   if(MESHDIMENSIONS==2)
-			   {
-				   pnt_config->MPI_intKStartSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=0;
-
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-						   (pnt_config->int_SpaceOrder+1)/2*4*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-			   else
-			   {
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-						   (pnt_config->int_SpaceOrder+1)/2*5*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-
-			   pnt_config->MPI_intTransferSizeMesh[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*13*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			}
-				if(i==pnt_config->InterfaceNeighbourTop)
-			{
-//				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshJ;
-//				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshJ;
-//				pnt_config->MPI_SendBufferFlow[i]=pnt_config->bufferSendFlowJ;
-//				pnt_config->MPI_RecieveBufferFlow[i]=pnt_config->bufferRecieveFlowJ;
-//				pnt_config->MPI_SendBufferViscid[i]=pnt_config->bufferSendViscidJ;
-//				pnt_config->MPI_RecieveBufferViscid[i]=pnt_config->bufferRecieveViscidJ;
-
-				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshTop;
-				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshTop;
-				pnt_config->MPI_SendBufferFlowWithGhosts[i]=pnt_config->bufferSendFlowWithGhostsTop;
-				pnt_config->MPI_RecieveBufferFlowWithGhosts[i]=pnt_config->bufferRecieveFlowWithGhostsTop;
-
-			   pnt_config->MPI_intJStartSend[i]=pnt_config->int_jEndReal-((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intJEndSend[i]=pnt_config->int_jEndReal;
-			   pnt_config->MPI_intIStartSend[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndSend[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intKStartSend[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndSend[i]=pnt_config->int_kEndReal;
-
-			   pnt_config->MPI_intJStartRecieve[i]=pnt_config->int_jEndReal+1;
-			   pnt_config->MPI_intJEndRecieve[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intIStartRecieve[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndRecieve[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intKStartRecieve[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndRecieve[i]=pnt_config->int_kEndReal;
-
-
-			   pnt_config->MPI_intIStartSend_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndSend_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartSend_WithGhosts[i]=pnt_config->int_jEndReal-((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intJEndSend_WithGhosts[i]=pnt_config->int_jEndReal;
-			   pnt_config->MPI_intKStartSend_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndSend_WithGhosts[i]=pnt_config->int_kEndGhosts;
-
-			   pnt_config->MPI_intIStartRecieve_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndRecieve_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartRecieve_WithGhosts[i]=pnt_config->int_jEndReal+1;
-			   pnt_config->MPI_intJEndRecieve_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=pnt_config->int_kEndGhosts;
-			   if(MESHDIMENSIONS==2)
-			   {
-				   pnt_config->MPI_intKStartSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndSend_WithGhosts[i]=0;
-				   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=0;
-				   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=0;
-
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-						   (pnt_config->int_SpaceOrder+1)/2*4*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-			   else
-			   {
-				   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-						   (pnt_config->int_SpaceOrder+1)/2*5*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-			   }
-
-			   pnt_config->MPI_intTransferSizeMesh[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*13*pnt_config->int_iMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
-
-			}
-				if(i==pnt_config->InterfaceNeighbourBehind)
-			{
-//				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshK;
-//				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshK;
-//				pnt_config->MPI_SendBufferFlow[i]=pnt_config->bufferSendFlowK;
-//				pnt_config->MPI_RecieveBufferFlow[i]=pnt_config->bufferRecieveFlowK;
-//				pnt_config->MPI_SendBufferViscid[i]=pnt_config->bufferSendViscidK;
-//				pnt_config->MPI_RecieveBufferViscid[i]=pnt_config->bufferRecieveViscidK;
-
-				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshBehind;
-				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshBehind;
-				pnt_config->MPI_SendBufferFlowWithGhosts[i]=pnt_config->bufferSendFlowWithGhostsBehind;
-				pnt_config->MPI_RecieveBufferFlowWithGhosts[i]=pnt_config->bufferRecieveFlowWithGhostsBehind;
-
-			   pnt_config->MPI_intKStartSend[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndSend[i]=pnt_config->int_kStartReal+((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intIStartSend[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndSend[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intJStartSend[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndSend[i]=pnt_config->int_jEndReal;
-
-			   pnt_config->MPI_intKStartRecieve[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndRecieve[i]=pnt_config->int_kStartReal-1;
-			   pnt_config->MPI_intIStartRecieve[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndRecieve[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intJStartRecieve[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndRecieve[i]=pnt_config->int_jEndReal;
-
-
-			   pnt_config->MPI_intIStartSend_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndSend_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartSend_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndSend_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartSend_WithGhosts[i]=pnt_config->int_kStartReal;
-			   pnt_config->MPI_intKEndSend_WithGhosts[i]=pnt_config->int_kStartReal+((pnt_config->int_SpaceOrder+1)/2-1);
-
-			   pnt_config->MPI_intIStartRecieve_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndRecieve_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartRecieve_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndRecieve_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=pnt_config->int_kStartGhosts;
-			   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=pnt_config->int_kStartReal-1;
-
-			   pnt_config->MPI_intTransferSizeMesh[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*13*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_iMeshPointsGhostCells;
-			   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*5*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_iMeshPointsGhostCells;
-
-			}
-				if(i==pnt_config->InterfaceNeighbourInFront)
-			{
-//				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshK;
-//				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshK;
-//				pnt_config->MPI_SendBufferFlow[i]=pnt_config->bufferSendFlowK;
-//				pnt_config->MPI_RecieveBufferFlow[i]=pnt_config->bufferRecieveFlowK;
-//				pnt_config->MPI_SendBufferViscid[i]=pnt_config->bufferSendViscidK;
-//				pnt_config->MPI_RecieveBufferViscid[i]=pnt_config->bufferRecieveViscidK;
-
-				pnt_config->MPI_SendBufferMesh[i]=pnt_config->bufferSendMeshInFront;
-				pnt_config->MPI_RecieveBufferMesh[i]=pnt_config->bufferRecieveMeshInFront;
-				pnt_config->MPI_SendBufferFlowWithGhosts[i]=pnt_config->bufferSendFlowWithGhostsInFront;
-				pnt_config->MPI_RecieveBufferFlowWithGhosts[i]=pnt_config->bufferRecieveFlowWithGhostsInFront;
-
-			   pnt_config->MPI_intKStartSend[i]=pnt_config->int_kEndReal-((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intKEndSend[i]=pnt_config->int_kEndReal;
-			   pnt_config->MPI_intIStartSend[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndSend[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intJStartSend[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndSend[i]=pnt_config->int_jEndReal;
-
-			   pnt_config->MPI_intKStartRecieve[i]=pnt_config->int_kEndReal+1;
-			   pnt_config->MPI_intKEndRecieve[i]=pnt_config->int_kEndGhosts;
-			   pnt_config->MPI_intIStartRecieve[i]=pnt_config->int_iStartReal;
-			   pnt_config->MPI_intIEndRecieve[i]=pnt_config->int_iEndReal;
-			   pnt_config->MPI_intJStartRecieve[i]=pnt_config->int_jStartReal;
-			   pnt_config->MPI_intJEndRecieve[i]=pnt_config->int_jEndReal;
-
-
-			   pnt_config->MPI_intIStartSend_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndSend_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartSend_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndSend_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartSend_WithGhosts[i]=pnt_config->int_kEndReal-((pnt_config->int_SpaceOrder+1)/2-1);
-			   pnt_config->MPI_intKEndSend_WithGhosts[i]=pnt_config->int_kEndReal;
-
-			   pnt_config->MPI_intIStartRecieve_WithGhosts[i]=pnt_config->int_iStartGhosts;
-			   pnt_config->MPI_intIEndRecieve_WithGhosts[i]=pnt_config->int_iEndGhosts;
-			   pnt_config->MPI_intJStartRecieve_WithGhosts[i]=pnt_config->int_jStartGhosts;
-			   pnt_config->MPI_intJEndRecieve_WithGhosts[i]=pnt_config->int_jEndGhosts;
-			   pnt_config->MPI_intKStartRecieve_WithGhosts[i]=pnt_config->int_kEndReal+1;
-			   pnt_config->MPI_intKEndRecieve_WithGhosts[i]=pnt_config->int_kEndGhosts;
-
-			   pnt_config->MPI_intTransferSizeMesh[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*13*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_iMeshPointsGhostCells;
-			   pnt_config->MPI_intTransferSizeFlow_WithGhosts[i]=
-					   (pnt_config->int_SpaceOrder+1)/2*5*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_iMeshPointsGhostCells;
-
-			}
-				check_TransformationMatrix(
-					i,
-					pnt_config);
-	}
-
-
-//	printf("SHOCK: Rank: %d (%s)",pnt_config->MPI_rank,pnt_config->Zonename);
-//	printf(": Left: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourLeft]);
-//	printf(": Right: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourRight]);
-//	printf(": Bottom: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBottom]);
-//	printf(": Top: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourTop]);
-//	printf(": Behind: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBehind]);
-//	printf(": InFront: %d\n",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourInFront]);
-//
-//	for (i=0;i<pnt_config->NumberInterfaces;i++)
-//	{
-//		printf("myrank: %d | rank: %d | interface:%d | transform: %d %d %d | donorname: %s\n",
-//				pnt_config->MPI_rank,
-//				 pnt_config->MPI_rankNeighbours[i],i,
-//				pnt_config->TransformMatrixOfInterface[i][0],
-//				pnt_config->TransformMatrixOfInterface[i][1],
-//				pnt_config->TransformMatrixOfInterface[i][2],
-//				pnt_config->Donorname[i]);
-//
-//	}
-
-
 }
 
 

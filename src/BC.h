@@ -353,7 +353,7 @@ extern void WriteOutflowSubsonicNormalBoundaryUpperK(
 		struct strct_U * pnt_U);
 
 void WriteFarfieldBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -361,7 +361,7 @@ void WriteFarfieldBoundary(
 		struct strct_U * pnt_U);
 
 void WriteInflowSubsonicIsentropBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -369,7 +369,7 @@ void WriteInflowSubsonicIsentropBoundary(
 		struct strct_U * pnt_U);
 
 void WriteInflowSubsonicRiemannBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -377,7 +377,7 @@ void WriteInflowSubsonicRiemannBoundary(
 		struct strct_U * pnt_U);
 
 void WriteInflowSubsonicNormalBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -385,14 +385,14 @@ void WriteInflowSubsonicNormalBoundary(
 		struct strct_U * pnt_U);
 
 void WriteInflowSupersonicNormalBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U);
 
 void WriteOutflowSubsonicNormalBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -400,7 +400,7 @@ void WriteOutflowSubsonicNormalBoundary(
 		struct strct_U * pnt_U);
 
 void WriteOutflowSubsonicRiemannBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -408,7 +408,7 @@ void WriteOutflowSubsonicRiemannBoundary(
 		struct strct_U * pnt_U);
 
 void WriteOutflowSubsonicRudyBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -417,7 +417,7 @@ void WriteOutflowSubsonicRudyBoundary(
 		struct strct_U * pnt_U_lastStep);
 
 void WriteWallNoSlipBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -425,7 +425,7 @@ void WriteWallNoSlipBoundary(
 		struct strct_U * pnt_U);
 
 void WriteMovingWallNoSlipBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -433,7 +433,7 @@ void WriteMovingWallNoSlipBoundary(
 		struct strct_U * pnt_U);
 
 void WriteWallSlipBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -441,7 +441,7 @@ void WriteWallSlipBoundary(
 		struct strct_U * pnt_U);
 
 void WriteWallNoSlipIsothermalBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -449,7 +449,7 @@ void WriteWallNoSlipIsothermalBoundary(
 		struct strct_U * pnt_U);
 		
 void WriteMovingWallNoSlipIsothermalBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -457,7 +457,7 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 		struct strct_U * pnt_U);
 		
 void WriteMovingWallSlipBoundary(
-		float corrector[3],
+		double corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,

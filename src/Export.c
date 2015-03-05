@@ -68,7 +68,7 @@ void MeshMetricExport(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-//	float *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(float));
+//	double *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(double));
 
 
 	char actual_file[200];
@@ -178,27 +178,27 @@ void CGNS_PressureHistoryValuesExportParallel(
 
 
 	//    timedepended CGNS-DATA
-	float time[pnt_config->int_TotalIterations];
+	double time[pnt_config->int_TotalIterations];
 	char sn[pnt_config->int_TotalIterations][33];
 	char solname[pnt_config->int_TotalIterations*32+1];  /* need an extra byte for the terminating 0 */
 
 	strcpy(solname,"");
 
-	float* x;
-	float* y;
-	float* z;
-	float* p;
+	double* x;
+	double* y;
+	double* z;
+	double* p;
 
 //Speicherallokierung für die dynamischen-1D Arrays, worin die 3D-Lösungen gespeichert werden
-	x = (float*) calloc(buffer,sizeof(float));
-	y = (float*) calloc(buffer,sizeof(float));
-	z = (float*) calloc(buffer,sizeof(float));
-	p = (float*) calloc(buffer,sizeof(float));
+	x = (double*) calloc(buffer,sizeof(double));
+	y = (double*) calloc(buffer,sizeof(double));
+	z = (double*) calloc(buffer,sizeof(double));
+	p = (double*) calloc(buffer,sizeof(double));
 
 	for(t=0;t<pnt_config->int_TotalIterations;t++)
 	{
-		time[t]=pnt_config->start_Time+(float)(t+1)*pnt_config->int_IterationsBetweenSamples*
-				(pnt_config->flt_L0_dim*pnt_config->flt_numericalTau/pnt_config->flt_u0_dim);
+		time[t]=pnt_config->start_Time+(double)(t+1)*pnt_config->int_IterationsBetweenSamples*
+				(pnt_config->dbl_L0_dim*pnt_config->dbl_numericalTau/pnt_config->dbl_u0_dim);
 
 		sprintf(sn[t],"FlowSolution%d",t);
 		sprintf(solname,"%s%-32s",solname,sn[t]);
@@ -396,7 +396,7 @@ void NANExport(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-//	float *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(float));
+//	double *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(double));
 
 
 	char actual_file[200];

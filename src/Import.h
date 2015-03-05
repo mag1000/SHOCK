@@ -10,9 +10,6 @@ extern void MeshImport_CGNS(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh);
 
-extern void MeshConfig_CGNS(
-		struct strct_configuration * pnt_config);
-
 extern void BCImport_CGNS(
 		struct strct_configuration * pnt_config);
 

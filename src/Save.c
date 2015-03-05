@@ -17,7 +17,7 @@
 #	define DIM3(...) __VA_ARGS__
 #endif
 
-double ts;
+float ts;
 
 #if TM==1
 #	define TM_START() ts=MPI_Wtime( );
@@ -143,7 +143,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 		int i;
 
 		for( i = 0; i<pnt_config->int_Samples; i++ )
-			timearray[ i+nsteps ]= pnt_Film->flt_time_dim[ i ];
+			timearray[ i+nsteps ]= pnt_Film->dbl_time_dim[ i ];
 
 		CG( cg_array_write( "TimeValues",RealSingle,1,( cgsize_t[ ] ){ nsteps+pnt_config->int_Samples },timearray ) );
 

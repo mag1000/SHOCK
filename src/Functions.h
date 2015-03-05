@@ -46,7 +46,7 @@ extern void ExtrapolateGhostCells(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh);
 
-float IBC_getActualPosition(
+double IBC_getActualPosition(
 		struct strct_configuration * pnt_config);
 
 extern void AllocMemory(
@@ -97,7 +97,7 @@ void preparePressureWaves(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep);
 
-float CalcLambda2(
+double CalcLambda2(
 		int i,
 		int j,
 		int k,
@@ -239,7 +239,7 @@ extern void WriteValuesFromMeshToB(
 		int kEnd);
 
 void WriteValuesFromUAndMeshToBuffer(
-		float * buffer,
+		double * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U,
 		struct strct_mesh * pnt_mesh,
@@ -283,7 +283,7 @@ extern void TransferViscidParameter(
 		struct strct_mesh * pnt_mesh);
 
 extern void WriteValuesFromBufferToU(
-		float * buffer,
+		double * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U,
 		int iStart,
@@ -316,9 +316,6 @@ int get_ijkTransformMesh(
 		int j,
 		int k,
 		int c);
-
-void getInterfaceInformations(
-		struct strct_configuration * pnt_config);
 
 extern void WriteValuesFromUToFilm(
 		struct strct_configuration * pnt_config,
@@ -359,9 +356,6 @@ void InitializeVortex(
 		struct strct_U * pnt_U_lastStep);
 
 void DefineFilesPath(
-		struct strct_configuration * pnt_config);
-
-void SplitMeshFile(
 		struct strct_configuration * pnt_config);
 
 int checkNAN(
