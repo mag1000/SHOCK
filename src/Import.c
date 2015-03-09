@@ -46,16 +46,16 @@ void ConfigImport(
 //	Numerics
 	pnt_config->int_SpaceOrder=SPACEORDER;
 	pnt_config->int_TimeOrder = iniparser_getint(ini, "numerics:TimeOrder", 4);
-	pnt_config->dbl_numericalTau = iniparser_getfloat(ini, "numerics:tau", -1);
-	pnt_config->dbl_numericalTauStart=pnt_config->dbl_numericalTau;
+	pnt_config->numericalTau = iniparser_getdouble(ini, "numerics:tau", -1);
+	pnt_config->numericalTauStart=pnt_config->numericalTau;
 
 //	Tau
-	pnt_config->dbl_TauAccelerator_factor = iniparser_getfloat(ini, "tau:tauaccelerator_factor", 1.1);
-	pnt_config->dbl_TauDecelerator_factor = iniparser_getfloat(ini, "tau:taudecelerator_factor", 0.7);
+	pnt_config->TauAccelerator_factor = iniparser_getdouble(ini, "tau:tauaccelerator_factor", 1.1);
+	pnt_config->TauDecelerator_factor = iniparser_getdouble(ini, "tau:taudecelerator_factor", 0.7);
 	pnt_config->int_NumberResets = iniparser_getint(ini, "tau:NumberResets", 10);
-	pnt_config->int_distanceNAN = iniparser_getfloat(ini, "tau:DistanceNAN", 5000);
-	pnt_config->int_distanceForward = iniparser_getfloat(ini, "tau:DistanceForward", 1000);
-	pnt_config->int_distanceBackward = iniparser_getfloat(ini, "tau:DistanceBackward", 200);
+	pnt_config->int_distanceNAN = iniparser_getdouble(ini, "tau:DistanceNAN", 5000);
+	pnt_config->int_distanceForward = iniparser_getdouble(ini, "tau:DistanceForward", 1000);
+	pnt_config->int_distanceBackward = iniparser_getdouble(ini, "tau:DistanceBackward", 200);
 	pnt_config->int_distanceForwardStart=pnt_config->int_distanceForward;
 
 //	BoundaryConditions
@@ -87,22 +87,22 @@ void ConfigImport(
 		MPI_Abort(pnt_config->MPI_comm,13372);
 	}
 
-	pnt_config->dbl_rho_inflow = iniparser_getfloat(ini, "boundaryconditions:rho_inflow", 1);
-	pnt_config->dbl_p_inflow = iniparser_getfloat(ini, "boundaryconditions:p_inflow", 1);
-	pnt_config->dbl_AoA = iniparser_getfloat(ini, "boundaryconditions:AoA", 0);
+	pnt_config->rho_inflow = iniparser_getdouble(ini, "boundaryconditions:rho_inflow", 1);
+	pnt_config->p_inflow = iniparser_getdouble(ini, "boundaryconditions:p_inflow", 1);
+	pnt_config->AoA = iniparser_getdouble(ini, "boundaryconditions:AoA", 0);
 
-	pnt_config->dbl_p_out = iniparser_getfloat(ini, "boundaryconditions:p_outflow", 1);
+	pnt_config->p_out = iniparser_getdouble(ini, "boundaryconditions:p_outflow", 1);
 
-	pnt_config->dbl_T_wall = iniparser_getfloat(ini, "boundaryconditions:T_wall", 1);
+	pnt_config->T_wall = iniparser_getdouble(ini, "boundaryconditions:T_wall", 1);
 
 //	Fluid Properties
-	pnt_config->dbl_machNumber = iniparser_getfloat(ini, "fluidproperties:mach", -1);
-	pnt_config->dbl_reynoldsNumber = iniparser_getfloat(ini, "fluidproperties:reynolds", -1);
-	pnt_config->dbl_prandtlNumber = iniparser_getfloat(ini, "fluidproperties:Prandtl", -1);
-	pnt_config->dbl_gammaNumber = iniparser_getfloat(ini, "fluidproperties:Gamma", -1);
-	pnt_config->dbl_gasConstantNumber = iniparser_getfloat(ini, "fluidproperties:R", -1);
-	pnt_config->dbl_T0_dim = iniparser_getfloat(ini, "fluidproperties:T", -1);
-	pnt_config->dbl_L0_dim = iniparser_getfloat(ini, "fluidproperties:L", -1);
+	pnt_config->machNumber = iniparser_getdouble(ini, "fluidproperties:mach", -1);
+	pnt_config->reynoldsNumber = iniparser_getdouble(ini, "fluidproperties:reynolds", -1);
+	pnt_config->prandtlNumber = iniparser_getdouble(ini, "fluidproperties:Prandtl", -1);
+	pnt_config->gammaNumber = iniparser_getdouble(ini, "fluidproperties:Gamma", -1);
+	pnt_config->gasConstantNumber = iniparser_getdouble(ini, "fluidproperties:R", -1);
+	pnt_config->T0_dim = iniparser_getdouble(ini, "fluidproperties:T", -1);
+	pnt_config->L0_dim = iniparser_getdouble(ini, "fluidproperties:L", -1);
 
 //	Export
 	pnt_config->flag_exportMetric = iniparser_getboolean(ini, "export:metric", -1);
@@ -123,28 +123,28 @@ void ConfigImport(
 
 
 //	LaminarBoundary
-	pnt_config->LaminarBoundary_xStart = iniparser_getfloat(ini, "LaminarBoundary:x-Startposition", -1);
+	pnt_config->LaminarBoundary_xStart = iniparser_getdouble(ini, "LaminarBoundary:x-Startposition", -1);
 
 //	PressureWaves
 	pnt_config->pw_UseBC = iniparser_getboolean(ini, "PressureWaves:UseBC", 0);
 	pnt_config->pw_UseFlowAverage = iniparser_getboolean(ini, "PressureWaves:UseFlowAverage", 0);
 	pnt_config->pw_numberSources = iniparser_getint(ini, "PressureWaves:NumberSources", 1);
-	pnt_config->pw_x0 = iniparser_getfloat(ini, "PressureWaves:x0-Location", 0);
-	pnt_config->pw_y0 = iniparser_getfloat(ini, "PressureWaves:y0-Location", 0);
-	pnt_config->pw_z0 = iniparser_getfloat(ini, "PressureWaves:z0-Location", 0);
-	pnt_config->pw_x1 = iniparser_getfloat(ini, "PressureWaves:x1-Location", 0);
-	pnt_config->pw_y1 = iniparser_getfloat(ini, "PressureWaves:y1-Location", 0);
-	pnt_config->pw_z1 = iniparser_getfloat(ini, "PressureWaves:z1-Location", 0);
-	pnt_config->pw_r0 = iniparser_getfloat(ini, "PressureWaves:Radius", 1);
-	pnt_config->pw_amplitude = iniparser_getfloat(ini, "PressureWaves:Amplitude", 1);
-	pnt_config->pw_frequency = iniparser_getfloat(ini, "PressureWaves:Frequency", 1);
+	pnt_config->pw_x0 = iniparser_getdouble(ini, "PressureWaves:x0-Location", 0);
+	pnt_config->pw_y0 = iniparser_getdouble(ini, "PressureWaves:y0-Location", 0);
+	pnt_config->pw_z0 = iniparser_getdouble(ini, "PressureWaves:z0-Location", 0);
+	pnt_config->pw_x1 = iniparser_getdouble(ini, "PressureWaves:x1-Location", 0);
+	pnt_config->pw_y1 = iniparser_getdouble(ini, "PressureWaves:y1-Location", 0);
+	pnt_config->pw_z1 = iniparser_getdouble(ini, "PressureWaves:z1-Location", 0);
+	pnt_config->pw_r0 = iniparser_getdouble(ini, "PressureWaves:Radius", 1);
+	pnt_config->pw_amplitude = iniparser_getdouble(ini, "PressureWaves:Amplitude", 1);
+	pnt_config->pw_frequency = iniparser_getdouble(ini, "PressureWaves:Frequency", 1);
 
 //	Vortex
-	pnt_config->Vortex_x_wirb_zentr = iniparser_getfloat(ini, "Vortex:x-Location", -1);
-	pnt_config->Vortex_y_wirb_zentr = iniparser_getfloat(ini, "Vortex:y-Location", -1);
-	pnt_config->Vortex_r_wirb_max = iniparser_getfloat(ini, "Vortex:Radius", -1);
-	pnt_config->Vortex_faktor_quer = iniparser_getfloat(ini, "Vortex:f", -1);
-	pnt_config->Vortex_beta = iniparser_getfloat(ini, "Vortex:beta", -1);
+	pnt_config->Vortex_x_wirb_zentr = iniparser_getdouble(ini, "Vortex:x-Location", -1);
+	pnt_config->Vortex_y_wirb_zentr = iniparser_getdouble(ini, "Vortex:y-Location", -1);
+	pnt_config->Vortex_r_wirb_max = iniparser_getdouble(ini, "Vortex:Radius", -1);
+	pnt_config->Vortex_faktor_quer = iniparser_getdouble(ini, "Vortex:f", -1);
+	pnt_config->Vortex_beta = iniparser_getdouble(ini, "Vortex:beta", -1);
 
 //	PressureHistory
 	if(pnt_config->flag_PressureHistory==1)
@@ -167,11 +167,11 @@ void ConfigImport(
 		for(i=0;i<pnt_config->PressureHistory_No;i++)
 		{
 			sprintf(pressureHistory_actualName,"PressureHistory:P%d_x-Location",i);
-			pnt_config->PressureHistory_x_P[i] = iniparser_getfloat(ini, pressureHistory_actualName, 0);
+			pnt_config->PressureHistory_x_P[i] = iniparser_getdouble(ini, pressureHistory_actualName, 0);
 			sprintf(pressureHistory_actualName,"PressureHistory:P%d_y-Location",i);
-			pnt_config->PressureHistory_y_P[i] = iniparser_getfloat(ini, pressureHistory_actualName, 0);
+			pnt_config->PressureHistory_y_P[i] = iniparser_getdouble(ini, pressureHistory_actualName, 0);
 			sprintf(pressureHistory_actualName,"PressureHistory:P%d_z-Location",i);
-			pnt_config->PressureHistory_z_P[i] = iniparser_getfloat(ini, pressureHistory_actualName, 0);
+			pnt_config->PressureHistory_z_P[i] = iniparser_getdouble(ini, pressureHistory_actualName, 0);
 		}
 	}
 
@@ -200,39 +200,39 @@ void ConfigImport(
 		for(i=0;i<pnt_config->VelocityHistory_No;i++)
 		{
 			sprintf(velocityHistory_actualName,"VelocityHistory:V%d_x-Location",i);
-			pnt_config->VelocityHistory_x_P[i] = iniparser_getfloat(ini, velocityHistory_actualName, 0);
+			pnt_config->VelocityHistory_x_P[i] = iniparser_getdouble(ini, velocityHistory_actualName, 0);
 			sprintf(velocityHistory_actualName,"VelocityHistory:V%d_y-Location",i);
-			pnt_config->VelocityHistory_y_P[i] = iniparser_getfloat(ini, velocityHistory_actualName, 0);
+			pnt_config->VelocityHistory_y_P[i] = iniparser_getdouble(ini, velocityHistory_actualName, 0);
 			sprintf(velocityHistory_actualName,"VelocityHistory:V%d_z-Location",i);
-			pnt_config->VelocityHistory_z_P[i] = iniparser_getfloat(ini, velocityHistory_actualName, 0);
+			pnt_config->VelocityHistory_z_P[i] = iniparser_getdouble(ini, velocityHistory_actualName, 0);
 		}
 	}
 
 //	IBC
 	pnt_config->flag_IBC_Moving = iniparser_getboolean(ini, "IBC:MovingBC", 0);
 	pnt_config->IBC_Type = iniparser_getint(ini, "IBC:Type", 0);
-	pnt_config->IBC_StartpositionX = iniparser_getfloat(ini, "IBC:StartpositionX", 0);
-	pnt_config->IBC_StartpositionY = iniparser_getfloat(ini, "IBC:StartpositionY", 0);
-	pnt_config->IBC_StartpositionZ = iniparser_getfloat(ini, "IBC:StartpositionZ", 0);
-	pnt_config->IBC_SizeX = iniparser_getfloat(ini, "IBC:SizeX", 0);
-	pnt_config->IBC_SizeY = iniparser_getfloat(ini, "IBC:SizeY", 0);
-	pnt_config->IBC_SizeZ = iniparser_getfloat(ini, "IBC:SizeZ", 0);
-	pnt_config->IBC_MovingSpeed = iniparser_getfloat(ini, "IBC:Speed", 0);
+	pnt_config->IBC_StartpositionX = iniparser_getdouble(ini, "IBC:StartpositionX", 0);
+	pnt_config->IBC_StartpositionY = iniparser_getdouble(ini, "IBC:StartpositionY", 0);
+	pnt_config->IBC_StartpositionZ = iniparser_getdouble(ini, "IBC:StartpositionZ", 0);
+	pnt_config->IBC_SizeX = iniparser_getdouble(ini, "IBC:SizeX", 0);
+	pnt_config->IBC_SizeY = iniparser_getdouble(ini, "IBC:SizeY", 0);
+	pnt_config->IBC_SizeZ = iniparser_getdouble(ini, "IBC:SizeZ", 0);
+	pnt_config->IBC_MovingSpeed = iniparser_getdouble(ini, "IBC:Speed", 0);
 	pnt_config->IBC_MovingType = iniparser_getint(ini, "IBC:Movement", 0);
-	pnt_config->IBC_SpeedFactor = iniparser_getfloat(ini, "IBC:SpeedFactor", 1.0);
+	pnt_config->IBC_SpeedFactor = iniparser_getdouble(ini, "IBC:SpeedFactor", 1.0);
 	pnt_config->IBC_MovingStepsize = iniparser_getint(ini, "IBC:Stepsize", 100);
 
 	//InitializeValues
-	pnt_config->InitializeValues_u0 = iniparser_getfloat(ini, "InitializeValues:u0", 1);
-	pnt_config->InitializeValues_p0 = iniparser_getfloat(ini, "InitializeValues:p0", 1);
-	pnt_config->InitializeValues_rho0 = iniparser_getfloat(ini, "InitializeValues:rho0", 1);
-	pnt_config->InitializeValues_p1 = iniparser_getfloat(ini, "InitializeValues:p1", 1);
-	pnt_config->InitializeValues_rho1 = iniparser_getfloat(ini, "InitializeValues:rho1", 1);
-	pnt_config->InitializeValues_u1 = iniparser_getfloat(ini, "InitializeValues:u1", 1);
-	pnt_config->InitializeValues_xBorder = iniparser_getfloat(ini, "InitializeValues:xBorder", 0.);	
-	pnt_config->dbl_u_inflow = cos(pnt_config->dbl_AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
-	pnt_config->dbl_v_inflow = sin(pnt_config->dbl_AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
-	pnt_config->dbl_w_inflow = 0.0;
+	pnt_config->InitializeValues_u0 = iniparser_getdouble(ini, "InitializeValues:u0", 1);
+	pnt_config->InitializeValues_p0 = iniparser_getdouble(ini, "InitializeValues:p0", 1);
+	pnt_config->InitializeValues_rho0 = iniparser_getdouble(ini, "InitializeValues:rho0", 1);
+	pnt_config->InitializeValues_p1 = iniparser_getdouble(ini, "InitializeValues:p1", 1);
+	pnt_config->InitializeValues_rho1 = iniparser_getdouble(ini, "InitializeValues:rho1", 1);
+	pnt_config->InitializeValues_u1 = iniparser_getdouble(ini, "InitializeValues:u1", 1);
+	pnt_config->InitializeValues_xBorder = iniparser_getdouble(ini, "InitializeValues:xBorder", 0.);	
+	pnt_config->u_inflow = cos(pnt_config->AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
+	pnt_config->v_inflow = sin(pnt_config->AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
+	pnt_config->w_inflow = 0.0;
 
 	//ManufacturedSolution
 	pnt_config->ManufacturedSolution_case = iniparser_getint(ini, "ManufacturedSolution:case", 1);

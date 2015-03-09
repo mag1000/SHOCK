@@ -71,10 +71,10 @@ IF (CMAKE_BUILD_TYPE MATCHES Juqueen)
     SET (SHOCK_LIBS ${CGNS_LIBRARY} ${HDF5_LIBRARY} ${SZIP_LIBRARY} ${ZLIB_LIBRARY} )
 ENDIF (CMAKE_BUILD_TYPE MATCHES Juqueen)
 
-set(PRECISION 1 CACHE STRING "Precision: 1(FLT) or 2(FLT) or 3 (long FLT) or 4 (quad))
+set(PRECISION 1 CACHE STRING "Precision: 1(float) or 2(double) or 3 (long double) or 4 (quad)")
 if(NOT (PRECISION STREQUAL 1 OR PRECISION STREQUAL 2 OR PRECISION STREQUAL 3 OR PRECISION STREQUAL 4))
-	message(WARNING "PRECISION must be either 1(FLT) or 2(FLT) or 3 (long FLT) or 4 (quad)")
-	set (PRECISION 1 CACHE STRING "Precision: 1(FLT) or 2(FLT) or 3 (long FLT) or 4 (quad)" FORCE)
+	message(WARNING "PRECISION must be either 1(float) or 2(double) or 3 (long double) or 4 (quad)")
+	set (PRECISION 1 CACHE STRING "Precision: 1(float) or 2(double) or 3 (long double) or 4 (quad)" FORCE)
 endif()
 
 set(SPACEORDER 5 CACHE STRING "Space Order: 9 or 5")

@@ -2379,19 +2379,19 @@ void WriteInflowSubsonicIsentropBoundary(
 
 	pnt_U->rho[ijk]=
 			pow(
-			pow(pnt_config->dbl_rho_inflow,(pnt_config->dbl_gammaNumber-1.0))-
-			pow(pnt_config->dbl_rho_inflow,pnt_config->dbl_gammaNumber)/pnt_config->dbl_p_inflow*
-			(pnt_config->dbl_gammaNumber-1.0)/pnt_config->dbl_gammaNumber*
-			pnt_config->dbl_gammaNumber*pnt_config->dbl_machNumber*pnt_config->dbl_machNumber*
+			pow(pnt_config->rho_inflow,(pnt_config->gammaNumber-1.0))-
+			pow(pnt_config->rho_inflow,pnt_config->gammaNumber)/pnt_config->p_inflow*
+			(pnt_config->gammaNumber-1.0)/pnt_config->gammaNumber*
+			pnt_config->gammaNumber*pnt_config->machNumber*pnt_config->machNumber*
 			(pnt_U->u[ijk]*pnt_U->u[ijk]/2.0)
-			,1.0/(pnt_config->dbl_gammaNumber-1.0));
+			,1.0/(pnt_config->gammaNumber-1.0));
 	pnt_U->p[ijk]=
-			pnt_config->dbl_p_inflow*pow(pnt_U->rho[ijk]/pnt_config->dbl_rho_inflow,pnt_config->dbl_gammaNumber);
+			pnt_config->p_inflow*pow(pnt_U->rho[ijk]/pnt_config->rho_inflow,pnt_config->gammaNumber);
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->Upsilon*
+			pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 
@@ -2410,22 +2410,22 @@ void WriteInflowSubsonicRiemannBoundary(
 		struct strct_U * pnt_U)
 {
 	FLT cinf,d__1,d__2,rrr,cii;
-	cinf=1.0/pnt_config->dbl_machNumber;
+	cinf=1.0/pnt_config->machNumber;
 	cii=pnt_U->c[ijkSymmetry];
 
 
-	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->dbl_u_inflow)+(cinf-cii)/(pnt_config->dbl_gammaNumber-1.);
-	pnt_U->v[ijk] = pnt_config->dbl_v_inflow;
-	pnt_U->w[ijk] = pnt_config->dbl_w_inflow;
+	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->u_inflow)+(cinf-cii)/(pnt_config->gammaNumber-1.);
+	pnt_U->v[ijk] = pnt_config->v_inflow;
+	pnt_U->w[ijk] = pnt_config->w_inflow;
 
-	d__1 = (0.5*(cii+cinf)+0.25*(pnt_config->dbl_gammaNumber-1.)*(pnt_config->dbl_u_inflow-pnt_U->u[ijkSymmetry]))/cinf;
-	d__2 = 2./(pnt_config->dbl_gammaNumber-1.);
+	d__1 = (0.5*(cii+cinf)+0.25*(pnt_config->gammaNumber-1.)*(pnt_config->u_inflow-pnt_U->u[ijkSymmetry]))/cinf;
+	d__2 = 2./(pnt_config->gammaNumber-1.);
 	rrr = pow(d__1, d__2);
-	pnt_U->rho[ijk]= pnt_config->dbl_rho_inflow*rrr;
+	pnt_U->rho[ijk]= pnt_config->rho_inflow*rrr;
 
-	d__2 = 2.*pnt_config->dbl_gammaNumber/(pnt_config->dbl_gammaNumber-1.);
+	d__2 = 2.*pnt_config->gammaNumber/(pnt_config->gammaNumber-1.);
 	rrr = pow(d__1, d__2);
-	pnt_U->p[ijk]= pnt_config->dbl_p_inflow*rrr;
+	pnt_U->p[ijk]= pnt_config->p_inflow*rrr;
 
 	pnt_U->theta1[ijk]=
 			pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2441,12 +2441,12 @@ void WriteInflowSubsonicRiemannBoundary(
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+	pnt_U->c[ijk]=sqrt(pnt_config->Upsilon*
+			pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 
 
 //				Viskose Randbedingungen
@@ -2462,9 +2462,9 @@ void WriteInflowSubsonicNormalBoundary(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	pnt_U->u[ijk]=pnt_config->dbl_u_inflow;
-	pnt_U->v[ijk]=pnt_config->dbl_v_inflow;
-	pnt_U->w[ijk]=pnt_config->dbl_w_inflow;
+	pnt_U->u[ijk]=pnt_config->u_inflow;
+	pnt_U->v[ijk]=pnt_config->v_inflow;
+	pnt_U->w[ijk]=pnt_config->w_inflow;
 
 	pnt_U->theta1[ijk]=
 			pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2485,13 +2485,13 @@ void WriteInflowSubsonicNormalBoundary(
 //				T_unendlich=1.0 ---> p_unendlich=rho_unendlich
 	pnt_U->rho[ijk]=pnt_U->p[ijk];
 	//Veraendert am 24.10.2014:
-	pnt_U->p[ijk]=pnt_config->dbl_p_inflow;
-	pnt_U->rho[ijk]=pnt_config->dbl_rho_inflow;
+	pnt_U->p[ijk]=pnt_config->p_inflow;
+	pnt_U->rho[ijk]=pnt_config->rho_inflow;
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->Upsilon*
+			pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 
@@ -2509,12 +2509,12 @@ void WriteInflowSupersonicNormalBoundary(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	pnt_U->p[ijk]=pnt_config->dbl_p_inflow;
-	pnt_U->rho[ijk]=pnt_config->dbl_rho_inflow;
+	pnt_U->p[ijk]=pnt_config->p_inflow;
+	pnt_U->rho[ijk]=pnt_config->rho_inflow;
 
-	pnt_U->u[ijk]=pnt_config->dbl_u_inflow;
-	pnt_U->v[ijk]=pnt_config->dbl_v_inflow;
-	pnt_U->w[ijk]=pnt_config->dbl_w_inflow;
+	pnt_U->u[ijk]=pnt_config->u_inflow;
+	pnt_U->v[ijk]=pnt_config->v_inflow;
+	pnt_U->w[ijk]=pnt_config->w_inflow;
 
 	pnt_U->theta1[ijk]=
 			pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2530,15 +2530,15 @@ void WriteInflowSupersonicNormalBoundary(
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->Upsilon*
+			pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 //				Viskose Randbedingungen
-	pnt_U->T[ijk]=pnt_config->dbl_p_inflow/pnt_config->dbl_rho_inflow;
-	pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-			(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+	pnt_U->T[ijk]=pnt_config->p_inflow/pnt_config->rho_inflow;
+	pnt_U->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+			(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->SutherlandConstant));
 }
 
 void WriteOutflowSubsonicNormalBoundary(
@@ -2558,7 +2558,7 @@ void WriteOutflowSubsonicNormalBoundary(
 	pnt_U->w[ijk]=-(-pnt_U->theta1[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_y[ijk]+pnt_U->theta1[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_x[ijk]+pnt_U->theta2[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->zeta_y[ijk]-pnt_U->theta2[ijk]*pnt_mesh->xi_y[ijk]*pnt_mesh->zeta_x[ijk]-pnt_U->theta3[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_U->theta3[ijk]*pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_z[ijk]-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_z[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_x[ijk]+pnt_mesh->xi_z[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_y[ijk]-pnt_mesh->xi_z[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_x[ijk]);
 
 
-	pnt_U->p[ijk]=pnt_config->dbl_p_out;
+	pnt_U->p[ijk]=pnt_config->p_out;
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];
 	pnt_U->e[ijk]=pnt_U->e[ijkSymmetry];
 	pnt_U->c[ijk]=pnt_U->c[ijkSymmetry];
@@ -2578,19 +2578,19 @@ void WriteOutflowSubsonicRiemannBoundary(
 		struct strct_U * pnt_U)
 {
 	FLT cinf,d__1,d__2,rrr,cii;
-	cinf=1.0/pnt_config->dbl_machNumber;
+	cinf=1.0/pnt_config->machNumber;
 	cii=pnt_U->c[ijkSymmetry];
 
-	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->dbl_u_inflow)-(cinf-cii)/(pnt_config->dbl_gammaNumber-1.);
+	pnt_U->u[ijk] = 0.5*(pnt_U->u[ijkSymmetry]+pnt_config->u_inflow)-(cinf-cii)/(pnt_config->gammaNumber-1.);
 	pnt_U->v[ijk] = pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk] = pnt_U->w[ijkSymmetry];
 
-	d__1 = (0.5*(cii+cinf)-0.25*(pnt_config->dbl_gammaNumber-1.)*(pnt_config->dbl_u_inflow-pnt_U->u[ijkSymmetry]))/cii;
-	d__2 = 2./(pnt_config->dbl_gammaNumber-1.);
+	d__1 = (0.5*(cii+cinf)-0.25*(pnt_config->gammaNumber-1.)*(pnt_config->u_inflow-pnt_U->u[ijkSymmetry]))/cii;
+	d__2 = 2./(pnt_config->gammaNumber-1.);
 	rrr = pow(d__1, d__2);
 	pnt_U->rho[ijk]= pnt_U->rho[ijkSymmetry]*rrr;
 
-	d__2 = 2.*pnt_config->dbl_gammaNumber/(pnt_config->dbl_gammaNumber-1.);
+	d__2 = 2.*pnt_config->gammaNumber/(pnt_config->gammaNumber-1.);
 	rrr = pow(d__1, d__2);
 	pnt_U->p[ijk]= pnt_U->p[ijkSymmetry]*rrr;
 
@@ -2608,12 +2608,12 @@ void WriteOutflowSubsonicRiemannBoundary(
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-			pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+	pnt_U->c[ijk]=sqrt(pnt_config->Upsilon*
+			pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+			pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 
 
 //				Viskose Randbedingungen
@@ -2641,9 +2641,9 @@ void WriteOutflowSubsonicRudyBoundary(
 
 
 	pnt_U->p[ijk]=
-			(pnt_U_lastStep->p[ijk]+pnt_config->AlphaNonRef*pnt_config->dbl_numericalTau*pnt_config->dbl_p_out+
-			pnt_U_lastStep->rho[ijk]*pnt_U_lastStep->c[ijkSymmetry]*(pnt_U->u[ijk]-pnt_U_lastStep->u[ijk])/pnt_config->dbl_Upsilon)
-			/(1.0+pnt_config->AlphaNonRef*pnt_config->dbl_numericalTau);
+			(pnt_U_lastStep->p[ijk]+pnt_config->AlphaNonRef*pnt_config->numericalTau*pnt_config->p_out+
+			pnt_U_lastStep->rho[ijk]*pnt_U_lastStep->c[ijkSymmetry]*(pnt_U->u[ijk]-pnt_U_lastStep->u[ijk])/pnt_config->Upsilon)
+			/(1.0+pnt_config->AlphaNonRef*pnt_config->numericalTau);
 
 	pnt_U->rho[ijk]=pnt_U->p[ijk]/pnt_U->p[ijkSymmetry]*pnt_U->rho[ijkSymmetry];
 	pnt_U->e[ijk]=pnt_U->e[ijkSymmetry];
@@ -2722,8 +2722,8 @@ void WriteMovingWallSlipBoundary(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {   
-	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
-	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
+	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;
+	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;
 	pnt_U->v[ijk]=pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk]=pnt_U->w[ijkSymmetry];
 
@@ -2748,7 +2748,7 @@ void WriteMovingWallSlipBoundary(
 	
 	pnt_U->c[ijk]=pnt_U->c[ijkSymmetry];
     pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 				
 //				Viskose Randbedingungen
 	pnt_U->mue[ijk]=pnt_U->mue[ijkSymmetry];
@@ -2763,8 +2763,8 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 		struct strct_U * pnt_U)
 {
 	FLT prandtl_local;
-	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
-	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
+	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;
+	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;
 	pnt_U->v[ijk]=-pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk]=-pnt_U->w[ijkSymmetry];
 
@@ -2786,13 +2786,13 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 	pnt_U->p[ijk]=pnt_U->p[ijkSymmetry];
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];
 	pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-	pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+				pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
+	pnt_U->c[ijk]=sqrt(pnt_config->Upsilon*pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 					
 //				Viskose Randbedingungen
-	pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-	                (pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+	pnt_U->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+	                (pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->SutherlandConstant));
 
 //  adiabat moving wand
 //	pnt_U->T[ijk]=pnt_U->T[ijkSymmetry];
@@ -2802,7 +2802,7 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 	
 // um die Wärmeflüsse am Wand zu kontrollieren.			
     prandtl_local=0.72;
-    pnt_config->dbl_Gamma[ijk]=1.0/((pnt_config->dbl_gammaNumber-1.0)*pow(pnt_config->dbl_machNumber,2.0)*pnt_config->dbl_reynoldsNumber*prandtl_local);			
+    pnt_config->Gamma[ijk]=1.0/((pnt_config->gammaNumber-1.0)*pow(pnt_config->machNumber,2.0)*pnt_config->reynoldsNumber*prandtl_local);			
 		
 }
 
@@ -2870,7 +2870,7 @@ void WriteMovingBCUpperJ(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 				ijkSymmetry=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+int_symmetryIndex*pnt_config->int_kMeshPointsGhostCells+k;
 
-				x_shock = 1./6. + pnt_mesh->y[ijk]/tan(60.*M_PI/180.) + pnt_config->dbl_time_dim * u_shock / sin(60.*M_PI/180.);
+				x_shock = 1./6. + pnt_mesh->y[ijk]/tan(60.*M_PI/180.) + pnt_config->time_dim * u_shock / sin(60.*M_PI/180.);
 				if (pnt_mesh->x[ijk] > x_shock)
 				{
 
@@ -2893,11 +2893,11 @@ void WriteMovingBCUpperJ(
 				}
 				else
 				{
-				pnt_U->p[ijk]=pnt_config->dbl_p_inflow;
-				pnt_U->rho[ijk]=pnt_config->dbl_rho_inflow;
-				pnt_U->u[ijk]=pnt_config->dbl_u_inflow;
-				pnt_U->v[ijk]=pnt_config->dbl_v_inflow;
-				pnt_U->w[ijk]=pnt_config->dbl_w_inflow;
+				pnt_U->p[ijk]=pnt_config->p_inflow;
+				pnt_U->rho[ijk]=pnt_config->rho_inflow;
+				pnt_U->u[ijk]=pnt_config->u_inflow;
+				pnt_U->v[ijk]=pnt_config->v_inflow;
+				pnt_U->w[ijk]=pnt_config->w_inflow;
 
 				pnt_U->theta1[ijk]=
 						pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2913,9 +2913,9 @@ void WriteMovingBCUpperJ(
 						pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
 				pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-						pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
-				pnt_U->c[ijk]=sqrt(pnt_config->dbl_Upsilon*
-						pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+						pnt_U->p[ijk]/pnt_U->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
+				pnt_U->c[ijk]=sqrt(pnt_config->Upsilon*
+						pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 
 
@@ -2923,8 +2923,8 @@ void WriteMovingBCUpperJ(
 //				Viskose Randbedingungen
 
 				pnt_U->T[ijk]=1.0;
-				pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-						(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+				pnt_U->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+						(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->SutherlandConstant));
 				}
 			}
 			int_symmetryIndex=int_symmetryIndex-1;
@@ -2963,7 +2963,7 @@ void WriteWallNoSlipIsothermalBoundary(
 	
 	// um die Wärmeflüsse an Wand zu kontrollieren.			
     prandtl_local=0.72;
-    pnt_config->dbl_Gamma[ijk]=1.0/((pnt_config->dbl_gammaNumber-1.0)*pow(pnt_config->dbl_machNumber,2.0)*pnt_config->dbl_reynoldsNumber*prandtl_local);			
+    pnt_config->Gamma[ijk]=1.0/((pnt_config->gammaNumber-1.0)*pow(pnt_config->machNumber,2.0)*pnt_config->reynoldsNumber*prandtl_local);			
 }
 
 

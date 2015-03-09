@@ -1,20 +1,30 @@
 #include "mpi.h"
 #include "cgnslib.h"
-
 #define NO_NEIGHBOUR -1
 
 #ifndef PRECISION
-#define PRECISION 1
+#define PRECISION 3
 #endif
 #if PRECISION == 1
 #define FLT_name "float"
 #define FLT float
 #define MY_FLT_MIN FLT_MIN
-#define MPI_FLT MPI_FLT
-
+#define MPI_FLT MPI_FLOAT
 #elif PRECISION == 2
+#define FLT_name "double"
+#define FLT double
+#define MY_FLT_MIN DBL_MIN
+#define MPI_FLT MPI_DOUBLE
 #elif PRECISION == 3
+#define FLT_name "long double"
+#define FLT long double
+#define MY_FLT_MIN DBL_MIN
+#define MPI_FLT MPI_LONG_DOUBLE
 #elif PRECISION == 4
+#define FLT_name "quad"
+#define FLT __float128
+#define MY_FLT_MIN DBL_MIN
+#define MPI_FLT MPI_LONG_DOUBLE
 #endif
 
 #ifndef SPACEORDER
@@ -53,10 +63,10 @@ struct strct_configuration
 	//	Rudy-BC
 	FLT AlphaNonRef;
 
-	FLT dbl_is_minimum;
-	FLT dbl_is_maximum;
-	FLT dbl_is_avrg;
-	FLT dbl_is_avrg_counter;
+	FLT is_minimum;
+	FLT is_maximum;
+	FLT is_avrg;
+	FLT is_avrg_counter;
 
 
 	int flag_ManufacturedSolution;
@@ -180,9 +190,9 @@ struct strct_configuration
 	int int_kStartGhosts_original;
 	int int_kEndGhosts_original;
 
-	FLT comm_time;
-	FLT dbl_p_out;
-	FLT dbl_T_wall;
+	double comm_time;
+	FLT p_out;
+	FLT T_wall;
 
 	int flag_BC_option_inflow_normal_sub;
 	int flag_BC_option_inflow_riemann_sub;
@@ -193,48 +203,48 @@ struct strct_configuration
 	int flag_BC_option_outflow_riemann_sub;
 	int flag_BC_option_outflow_rudy_sub;
 
-	FLT dbl_p_inflow;
-	FLT dbl_rho_inflow;
-	FLT dbl_u_inflow;
-	FLT dbl_v_inflow;
-	FLT dbl_w_inflow;
+	FLT p_inflow;
+	FLT rho_inflow;
+	FLT u_inflow;
+	FLT v_inflow;
+	FLT w_inflow;
 
-	FLT dbl_deltaXi;
-	FLT dbl_deltaEta;
-	FLT dbl_deltaZeta;
+	FLT deltaXi;
+	FLT deltaEta;
+	FLT deltaZeta;
 
-	FLT dbl_AoA;
-	FLT dbl_numericalTau;
-	FLT dbl_numericalTauStart;
-	FLT dbl_machNumber;
-	FLT dbl_reynoldsNumber;
-	FLT dbl_prandtlNumber;
-	FLT dbl_gammaNumber;
-	FLT dbl_gasConstantNumber;
+	FLT AoA;
+	FLT numericalTau;
+	FLT numericalTauStart;
+	FLT machNumber;
+	FLT reynoldsNumber;
+	FLT prandtlNumber;
+	FLT gammaNumber;
+	FLT gasConstantNumber;
 
-	FLT dbl_wenoP;
-	FLT dbl_wenoEpsilon;
-	FLT dbl_wenoOptimalerKoeffizient_W9[5];
-	FLT dbl_wenoOptimalerKoeffizient_W5[3];
+	FLT wenoP;
+	FLT wenoEpsilon;
+	FLT wenoOptimalerKoeffizient_W9[5];
+	FLT wenoOptimalerKoeffizient_W5[3];
 
 	//fuer neue ZD-Berechnung
-	FLT *dbl_ZD_Interpolation_Koeffizient;
-	FLT *dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient;
-	FLT *dbl_ZD_Ableitung_Koeffizient;
-	FLT *dbl_ZD_ZweiteAbleitung_Koeffizient;
+	FLT *ZD_Interpolation_Koeffizient;
+	FLT *ZD_ZweiteAbleitungZwischenPunkt_Koeffizient;
+	FLT *ZD_Ableitung_Koeffizient;
+	FLT *ZD_ZweiteAbleitung_Koeffizient;
 
-	FLT dbl_RK_U_n_Faktor[4];
-	FLT dbl_RK_U_ABC_Faktor[4];
-	FLT dbl_RK_Q_Faktor[4];
-	FLT dbl_RK_Q_Summe_Flag[4];
-	FLT dbl_RK_Q_Summe_Faktor[4];
+	FLT RK_U_n_Faktor[4];
+	FLT RK_U_ABC_Faktor[4];
+	FLT RK_Q_Faktor[4];
+	FLT RK_Q_Summe_Flag[4];
+	FLT RK_Q_Summe_Faktor[4];
 
-	FLT dbl_Upsilon;
-	FLT dbl_Psi;
-	FLT *dbl_Gamma; //ist jetzt eine lokale Größe, um den Wärmefluss (lokales Lambda) unabhängig vom Reibungsterm (nü) zu bestimmen
+	FLT Upsilon;
+	FLT Psi;
+	FLT *Gamma; //ist jetzt eine lokale Größe, um den Wärmefluss (lokales Lambda) unabhängig vom Reibungsterm (nü) zu bestimmen
 
-	FLT dbl_SutherlandConstant;
-	FLT dbl_T0_dim;
+	FLT SutherlandConstant;
+	FLT T0_dim;
 
 	int * MPI_intArray_NoCPUs;
 	int MPI_rank;
@@ -259,9 +269,9 @@ struct strct_configuration
 	cgsize_t **RangeOfInterface;
 	cgsize_t **DonorRangeOfInterface;
 	int **TransformMatrixOfInterface;
-	FLT **RotationCenter;
-	FLT **RotationAngle;
-	FLT **Translation;
+	float **RotationCenter;
+	float **RotationAngle;
+	float **Translation;
 
 	int NumberInterfaces;
 	long *MPI_tag;
@@ -376,20 +386,20 @@ struct strct_configuration
 	FLT * bufferRecieveMeshBehind;
 	FLT * bufferRecieveMeshInFront;
 
-    FLT dbl_L0_dim;
-    FLT dbl_u0_dim;
-    FLT dbl_c0_dim;
-	FLT dbl_time_dim;
-	FLT dbl_time_dim_lastAction;
-	FLT dbl_time_dim_backup1;
-	FLT dbl_time_dim_backup2;
+    FLT L0_dim;
+    FLT u0_dim;
+    FLT c0_dim;
+	FLT time_dim;
+	FLT time_dim_lastAction;
+	FLT time_dim_backup1;
+	FLT time_dim_backup2;
 
 	//ManufacturedSolution
 	int ManufacturedSolution_case;
 	char BCManufacturedSolution[30];
 
 
-//    FLT dbl_c0;
+//    FLT c0;
 
 
 //	IBC
@@ -476,8 +486,8 @@ struct strct_configuration
 	//Tau
 	int flag_TauAccelerator;
 	int flag_reinitialization;
-	FLT dbl_TauAccelerator_factor;
-	FLT dbl_TauDecelerator_factor;
+	FLT TauAccelerator_factor;
+	FLT TauDecelerator_factor;
 	int int_distanceNAN;
 	int int_distanceForward;
 	int int_distanceForwardStart;
@@ -590,7 +600,7 @@ struct strct_Film
 	FLT *gradRho;
 	FLT *Lambda2;
 	FLT *MachNumber;
-	FLT *dbl_time_dim;
+	FLT *time_dim;
 };
 
 struct strct_Flux
@@ -633,8 +643,8 @@ struct strct_ZD
 };
 
 //Variables
-extern FLT dbl_leftEigenvector[5][5];
-extern FLT dbl_rightEigenvector[5][5];
+extern FLT leftEigenvector[5][5];
+extern FLT rightEigenvector[5][5];
 
 extern int int_interations;
 extern int int_interationsStart;
@@ -646,8 +656,8 @@ extern int int_MaxNumberCPUs;
 extern struct strct_configuration configuration;
 extern struct strct_mesh *mesh;
 
-extern FLT dbl_helpValue1;
-extern FLT dbl_helpValue2;
+extern FLT helpValue1;
+extern FLT helpValue2;
 
 void startSimulation(
 		struct strct_configuration * pnt_config,

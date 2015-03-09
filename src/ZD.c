@@ -66,30 +66,30 @@ void CalcViscidFluxesInXiDirectionDirectly(
 					indexMinus_xi=(i+l-(SPACEORDER+1)/2)*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 					indexPlus_xi=(i+l-(SPACEORDER+1)/2+1)*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
-					u_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexMinus_xi];		u_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexPlus_xi];
-					v_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];		v_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
-					T_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];		T_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
+					u_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexMinus_xi];		u_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexPlus_xi];
+					v_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];		v_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
+					T_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];		T_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
 
-					u_xi_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_xi];	u_xi_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_xi];
-					v_xi_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];	v_xi_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
-					T_xi_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];	T_xi_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
+					u_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_xi];	u_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_xi];
+					v_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];	v_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
+					T_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];	T_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
 
-					u_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexMinus_xi];	u_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexPlus_xi];
-					v_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexMinus_xi];	v_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexPlus_xi];
-					T_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexMinus_xi];	T_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexPlus_xi];
+					u_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexMinus_xi];	u_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexPlus_xi];
+					v_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexMinus_xi];	v_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexPlus_xi];
+					T_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexMinus_xi];	T_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexPlus_xi];
 
 #if MESHDIMENSIONS==3
 
-						w_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];		w_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
+						w_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];		w_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
 
-						w_xi_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];	w_xi_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
+						w_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];	w_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
 
-						w_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexMinus_xi];	w_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexPlus_xi];
+						w_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexMinus_xi];	w_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexPlus_xi];
 
-						u_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_xi];	u_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_xi];
-						v_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_xi];	v_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_xi];
-						w_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_xi];	w_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_xi];
-						T_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_xi];	T_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_xi];
+						u_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_xi];	u_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_xi];
+						v_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_xi];	v_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_xi];
+						w_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_xi];	w_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_xi];
+						T_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_xi];	T_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_xi];
 #endif
 				}
 
@@ -111,21 +111,21 @@ void CalcViscidFluxesInXiDirectionDirectly(
 				{
 					XiMomRotSymm=pnt_mesh->jacobian[ijk]*(1./3.*pnt_mesh->xi_x[ijk]*0.5*(v_xi_MinusHalf+v_xi_PlusHalf)
 									+pnt_mesh->xi_y[ijk]*0.5*(u_xi_MinusHalf+u_xi_PlusHalf))
-									*pnt_config->dbl_Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
+									*pnt_config->Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
 
 					EtaMomRotSymm=pnt_mesh->jacobian[ijk]*2./3.*(pnt_mesh->xi_y[ijk]*0.5*(v_xi_MinusHalf+v_xi_PlusHalf)
 									+pnt_mesh->xi_x[ijk]*0.5*(u_xi_MinusHalf+u_xi_PlusHalf)+pnt_U_RK->v[ijk]/pnt_mesh->y[ijk])
-									*pnt_config->dbl_Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
+									*pnt_config->Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
 
 					EnergyRotSymm=pnt_mesh->jacobian[ijk]*((1./3.*pnt_U_RK->u[ijk]*pnt_mesh->xi_x[ijk]+2./3.*pnt_U_RK->v[ijk]*pnt_mesh->xi_y[ijk])*0.5*(v_xi_MinusHalf+v_xi_PlusHalf)
 									+(pnt_U_RK->u[ijk]*pnt_mesh->xi_y[ijk]+2./3.*pnt_U_RK->v[ijk]*pnt_mesh->xi_x[ijk])*0.5*(u_xi_MinusHalf+u_xi_PlusHalf)
 									-2./3.*pnt_U_RK->v[ijk]*pnt_U_RK->v[ijk]/pnt_mesh->y[ijk])
-									*pnt_config->dbl_Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk]
-									+0.5*(pnt_config->dbl_Gamma[iPlus1jk]+pnt_config->dbl_Gamma[ijk])*pnt_mesh->xi_y[ijk]*0.5*(T_xi_MinusHalf+T_xi_PlusHalf)/pnt_mesh->y[ijk];
+									*pnt_config->Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk]
+									+0.5*(pnt_config->Gamma[iPlus1jk]+pnt_config->Gamma[ijk])*pnt_mesh->xi_y[ijk]*0.5*(T_xi_MinusHalf+T_xi_PlusHalf)/pnt_mesh->y[ijk];
 				}
 
 				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_xi_MinusHalf*Koeffizient_MinusHalf[0]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_eta_MinusHalf*Koeffizient_MinusHalf[1]+
 					u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_zeta_MinusHalf*Koeffizient_MinusHalf[2]+
@@ -139,7 +139,7 @@ void CalcViscidFluxesInXiDirectionDirectly(
 					pnt_config->flag_rotation_symmetric*XiMomRotSymm;
 
 				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[9]-u_xi_MinusHalf*Koeffizient_MinusHalf[9]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[10]-u_eta_MinusHalf*Koeffizient_MinusHalf[10]+
 					u_zeta_PlusHalf*Koeffizient_PlusHalf[11]-u_zeta_MinusHalf*Koeffizient_MinusHalf[11]+
@@ -154,7 +154,7 @@ void CalcViscidFluxesInXiDirectionDirectly(
 
 #if MESHDIMENSIONS==3
 					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+
-							pnt_config->dbl_Psi*(
+							pnt_config->Psi*(
 						u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18]+
 						u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19]+
 						u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20]+
@@ -167,11 +167,11 @@ void CalcViscidFluxesInXiDirectionDirectly(
 #endif
 
 				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+
-						0.5*(pnt_config->dbl_Gamma[iPlus1jk]+pnt_config->dbl_Gamma[ijk])*(
+						0.5*(pnt_config->Gamma[iPlus1jk]+pnt_config->Gamma[ijk])*(
 					T_xi_PlusHalf*Koeffizient_PlusHalf[27]-T_xi_MinusHalf*Koeffizient_MinusHalf[27]+
 					T_eta_PlusHalf*Koeffizient_PlusHalf[28]-T_eta_MinusHalf*Koeffizient_MinusHalf[28]+
 					T_zeta_PlusHalf*Koeffizient_PlusHalf[29]-T_zeta_MinusHalf*Koeffizient_MinusHalf[29])+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_iPlusHalf*u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_iMinusHalf*u_xi_MinusHalf*Koeffizient_MinusHalf[0]+
 					u_iPlusHalf*u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_iMinusHalf*u_eta_MinusHalf*Koeffizient_MinusHalf[1]+
 					u_iPlusHalf*u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_iMinusHalf*u_zeta_MinusHalf*Koeffizient_MinusHalf[2]+
@@ -269,29 +269,29 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 					indexMinus_eta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+(j+l-(SPACEORDER+1)/2)*pnt_config->int_kMeshPointsGhostCells+k;
 					indexPlus_eta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+(j+l-(SPACEORDER+1)/2+1)*pnt_config->int_kMeshPointsGhostCells+k;
 
-					u_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexMinus_eta];		u_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexPlus_eta];
-					v_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];		v_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
-					T_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];		T_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
+					u_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexMinus_eta];		u_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexPlus_eta];
+					v_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];		v_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
+					T_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];		T_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
 
-					u_eta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_eta];	u_eta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_eta];
-					v_eta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];	v_eta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
-					T_eta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];	T_eta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
+					u_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_eta];	u_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_eta];
+					v_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];	v_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
+					T_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];	T_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
 
-					u_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_eta];	u_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_eta];
-					v_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_eta];	v_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_eta];
-					T_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexMinus_eta];	T_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexPlus_eta];
+					u_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_eta];	u_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_eta];
+					v_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_eta];	v_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_eta];
+					T_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexMinus_eta];	T_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexPlus_eta];
 
 #if MESHDIMENSIONS==3
-						w_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];		w_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
+						w_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];		w_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
 
-						w_eta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];	w_eta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
+						w_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];	w_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
 
-						w_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexMinus_eta];	w_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexPlus_eta];
+						w_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexMinus_eta];	w_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexPlus_eta];
 
-						u_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_eta];	u_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_eta];
-						v_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_eta];	v_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_eta];
-						w_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_eta];	w_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_eta];
-						T_zeta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_eta];	T_zeta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_eta];
+						u_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_eta];	u_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_eta];
+						v_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_eta];	v_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_eta];
+						w_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_eta];	w_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_eta];
+						T_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_eta];	T_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_eta];
 #endif
 				}
 
@@ -312,20 +312,20 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 				if(pnt_config->flag_rotation_symmetric==1)
 				{
 					XiMomRotSymm=pnt_mesh->jacobian[ijk]*(1./3.*pnt_mesh->eta_x[ijk]*0.5*(v_eta_MinusHalf+v_eta_PlusHalf)
-							-pnt_mesh->xi_y[ijk]*0.5*(u_eta_MinusHalf+u_eta_PlusHalf))*pnt_config->dbl_Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
+							-pnt_mesh->xi_y[ijk]*0.5*(u_eta_MinusHalf+u_eta_PlusHalf))*pnt_config->Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
 
 					EtaMomRotSymm=pnt_mesh->jacobian[ijk]*2./3.*(pnt_mesh->xi_y[ijk]*0.5*(v_eta_MinusHalf+v_eta_PlusHalf)
-							-pnt_mesh->eta_x[ijk]*0.5*(u_eta_MinusHalf+u_eta_PlusHalf))*pnt_config->dbl_Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
+							-pnt_mesh->eta_x[ijk]*0.5*(u_eta_MinusHalf+u_eta_PlusHalf))*pnt_config->Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk];
 
 					EnergyRotSymm=pnt_mesh->jacobian[ijk]*((1./3.*pnt_U_RK->u[ijk]*pnt_mesh->eta_x[ijk]+2./3.*pnt_U_RK->v[ijk]*pnt_mesh->xi_y[ijk])*0.5*(v_eta_MinusHalf+v_eta_PlusHalf)
 							+(pnt_U_RK->u[ijk]*pnt_mesh->xi_y[ijk]-2./3.*pnt_U_RK->v[ijk]*pnt_mesh->eta_x[ijk])*0.5*(u_eta_MinusHalf+u_eta_PlusHalf))
-							*pnt_config->dbl_Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk]
-							-0.5*(pnt_config->dbl_Gamma[ijPlus1k]+pnt_config->dbl_Gamma[ijk])*pnt_mesh->xi_y[ijk]*0.5*(T_eta_MinusHalf+T_eta_PlusHalf)/pnt_mesh->y[ijk];
+							*pnt_config->Psi*pnt_U_RK->mue[ijk]/pnt_mesh->y[ijk]
+							-0.5*(pnt_config->Gamma[ijPlus1k]+pnt_config->Gamma[ijk])*pnt_mesh->xi_y[ijk]*0.5*(T_eta_MinusHalf+T_eta_PlusHalf)/pnt_mesh->y[ijk];
 				}
 
 
 				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_xi_MinusHalf*Koeffizient_MinusHalf[0]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_eta_MinusHalf*Koeffizient_MinusHalf[1]+
 					u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_zeta_MinusHalf*Koeffizient_MinusHalf[2]+
@@ -340,7 +340,7 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 
 
 				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[9]-u_xi_MinusHalf*Koeffizient_MinusHalf[9]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[10]-u_eta_MinusHalf*Koeffizient_MinusHalf[10]+
 					u_zeta_PlusHalf*Koeffizient_PlusHalf[11]-u_zeta_MinusHalf*Koeffizient_MinusHalf[11]+
@@ -356,7 +356,7 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 
 #if MESHDIMENSIONS==3
 					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+
-							pnt_config->dbl_Psi*(
+							pnt_config->Psi*(
 						u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18]+
 						u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19]+
 						u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20]+
@@ -369,11 +369,11 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 #endif
 
 				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+
-						0.5*(pnt_config->dbl_Gamma[ijPlus1k]+pnt_config->dbl_Gamma[ijk])*(
+						0.5*(pnt_config->Gamma[ijPlus1k]+pnt_config->Gamma[ijk])*(
 					T_xi_PlusHalf*Koeffizient_PlusHalf[27]-T_xi_MinusHalf*Koeffizient_MinusHalf[27]+
 					T_eta_PlusHalf*Koeffizient_PlusHalf[28]-T_eta_MinusHalf*Koeffizient_MinusHalf[28]+
 					T_zeta_PlusHalf*Koeffizient_PlusHalf[29]-T_zeta_MinusHalf*Koeffizient_MinusHalf[29])+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_jPlusHalf*u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_jMinusHalf*u_xi_MinusHalf*Koeffizient_MinusHalf[0]+
 					u_jPlusHalf*u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_jMinusHalf*u_eta_MinusHalf*Koeffizient_MinusHalf[1]+
 					u_jPlusHalf*u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_jMinusHalf*u_zeta_MinusHalf*Koeffizient_MinusHalf[2]+
@@ -468,25 +468,25 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 					indexMinus_zeta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+(j+l-(SPACEORDER+1)/2);
 					indexPlus_zeta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+(j+l-(SPACEORDER+1)/2)+1;
 
-					u_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexMinus_zeta];		u_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexPlus_zeta];
-					v_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_zeta];		v_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_zeta];
-					w_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_zeta];		w_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_zeta];
-					T_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_zeta];		T_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_zeta];
+					u_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexMinus_zeta];		u_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u[indexPlus_zeta];
+					v_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_zeta];		v_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_zeta];
+					w_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_zeta];		w_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_zeta];
+					T_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_zeta];		T_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_zeta];
 
-					u_zeta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_zeta];	u_zeta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_zeta];
-					v_zeta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_zeta];	v_zeta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_zeta];
-					w_zeta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_zeta];	w_zeta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_zeta];
-					T_zeta_MinusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_zeta];	T_zeta_PlusHalf+=pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_zeta];
+					u_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_zeta];	u_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_zeta];
+					v_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_zeta];	v_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_zeta];
+					w_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_zeta];	w_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_zeta];
+					T_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_zeta];	T_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_zeta];
 
-					u_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_zeta];	u_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_zeta];
-					v_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_zeta];	v_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_zeta];
-					w_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexMinus_zeta];	w_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexPlus_zeta];
-					T_xi_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexMinus_zeta];	T_xi_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexPlus_zeta];
+					u_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_zeta];	u_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_zeta];
+					v_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_zeta];	v_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_zeta];
+					w_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexMinus_zeta];	w_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexPlus_zeta];
+					T_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexMinus_zeta];	T_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexPlus_zeta];
 
-					u_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexMinus_zeta];	u_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexPlus_zeta];
-					v_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexMinus_zeta];	v_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexPlus_zeta];
-					w_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexMinus_zeta];	w_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexPlus_zeta];
-					T_eta_MinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexMinus_zeta];	T_eta_PlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexPlus_zeta];
+					u_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexMinus_zeta];	u_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexPlus_zeta];
+					v_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexMinus_zeta];	v_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexPlus_zeta];
+					w_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexMinus_zeta];	w_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexPlus_zeta];
+					T_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexMinus_zeta];	T_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexPlus_zeta];
 				}
 
 
@@ -505,7 +505,7 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 
 
 				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_xi_MinusHalf*Koeffizient_MinusHalf[0]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_eta_MinusHalf*Koeffizient_MinusHalf[1]+
 					u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_zeta_MinusHalf*Koeffizient_MinusHalf[2]+
@@ -517,7 +517,7 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 					w_zeta_PlusHalf*Koeffizient_PlusHalf[8]-w_zeta_MinusHalf*Koeffizient_MinusHalf[8]);
 
 				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[9]-u_xi_MinusHalf*Koeffizient_MinusHalf[9]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[10]-u_eta_MinusHalf*Koeffizient_MinusHalf[10]+
 					u_zeta_PlusHalf*Koeffizient_PlusHalf[11]-u_zeta_MinusHalf*Koeffizient_MinusHalf[11]+
@@ -529,7 +529,7 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 					w_zeta_PlusHalf*Koeffizient_PlusHalf[17]-w_zeta_MinusHalf*Koeffizient_MinusHalf[17]);
 
 				pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19]+
 					u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20]+
@@ -541,11 +541,11 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 					w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26]);
 
 				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+
-						0.5*(pnt_config->dbl_Gamma[ijkPlus1]+pnt_config->dbl_Gamma[ijk])*(
+						0.5*(pnt_config->Gamma[ijkPlus1]+pnt_config->Gamma[ijk])*(
 					T_xi_PlusHalf*Koeffizient_PlusHalf[27]-T_xi_MinusHalf*Koeffizient_MinusHalf[27]+
 					T_eta_PlusHalf*Koeffizient_PlusHalf[28]-T_eta_MinusHalf*Koeffizient_MinusHalf[28]+
 					T_zeta_PlusHalf*Koeffizient_PlusHalf[29]-T_zeta_MinusHalf*Koeffizient_MinusHalf[29])+
-						pnt_config->dbl_Psi*(
+						pnt_config->Psi*(
 					u_kPlusHalf*u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_kMinusHalf*u_xi_MinusHalf*Koeffizient_MinusHalf[0]+
 					u_kPlusHalf*u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_kMinusHalf*u_eta_MinusHalf*Koeffizient_MinusHalf[1]+
 					u_kPlusHalf*u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_kMinusHalf*u_zeta_MinusHalf*Koeffizient_MinusHalf[2]+
@@ -597,35 +597,35 @@ int iMinus1jk,iMinus2jk,iMinus3jk,iMinus4jk,iMinus5jk;
 int ijPlus1k,ijPlus2k,ijPlus3k,ijPlus4k,ijPlus5k;
 int ijMinus1k,ijMinus2k,ijMinus3k,ijMinus4k,ijMinus5k;
 
-FLT dbl_xImpuls_xi;
-FLT dbl_yImpuls_xi;
-FLT dbl_zImpuls_xi;
-FLT dbl_Energie_xi;
+FLT xImpuls_xi;
+FLT yImpuls_xi;
+FLT zImpuls_xi;
+FLT Energie_xi;
 
-FLT dbl_xImpuls_eta;
-FLT dbl_yImpuls_eta;
-FLT dbl_zImpuls_eta;
-FLT dbl_Energie_eta;
+FLT xImpuls_eta;
+FLT yImpuls_eta;
+FLT zImpuls_eta;
+FLT Energie_eta;
 
-FLT dbl_xImpuls_zeta;
-FLT dbl_yImpuls_zeta;
-FLT dbl_zImpuls_zeta;
-FLT dbl_Energie_zeta;
+FLT xImpuls_zeta;
+FLT yImpuls_zeta;
+FLT zImpuls_zeta;
+FLT Energie_zeta;
 
-FLT dbl_xImpuls_xi_help[11];
-FLT dbl_yImpuls_xi_help[11];
-FLT dbl_zImpuls_xi_help[11];
-FLT dbl_Energie_xi_help[11];
+FLT xImpuls_xi_help[11];
+FLT yImpuls_xi_help[11];
+FLT zImpuls_xi_help[11];
+FLT Energie_xi_help[11];
 
-FLT dbl_xImpuls_eta_help[11];
-FLT dbl_yImpuls_eta_help[11];
-FLT dbl_zImpuls_eta_help[11];
-FLT dbl_Energie_eta_help[11];
+FLT xImpuls_eta_help[11];
+FLT yImpuls_eta_help[11];
+FLT zImpuls_eta_help[11];
+FLT Energie_eta_help[11];
 
-FLT dbl_xImpuls_zeta_help[11];
-FLT dbl_yImpuls_zeta_help[11];
-FLT dbl_zImpuls_zeta_help[11];
-FLT dbl_Energie_zeta_help[11];
+FLT xImpuls_zeta_help[11];
+FLT yImpuls_zeta_help[11];
+FLT zImpuls_zeta_help[11];
+FLT Energie_zeta_help[11];
 
 void CalcDeviationsForViscidFluxes(
 		struct strct_configuration * pnt_config,
@@ -676,51 +676,51 @@ void CalcDeviationsForViscidFluxes(
 
 #if SPACEORDER==5
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_ZD->u_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus3jk]);
-					pnt_ZD->v_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus3jk]);
-					pnt_ZD->T_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus3jk]);
+					pnt_ZD->u_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus3jk]);
+					pnt_ZD->v_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus3jk]);
+					pnt_ZD->T_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus3jk]);
 
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_ZD->u_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus3k]);
-					pnt_ZD->v_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus3k]);
-					pnt_ZD->T_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus3k]);
+					pnt_ZD->u_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus3k]);
+					pnt_ZD->v_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus3k]);
+					pnt_ZD->T_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus3k]);
 
 #if MESHDIMENSIONS==3
 
-						pnt_ZD->w_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus3jk]);
+						pnt_ZD->w_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus3jk]);
 
-						pnt_ZD->w_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus3k]);
+						pnt_ZD->w_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus3k]);
 
 //						Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-						pnt_ZD->u_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus3]);
-						pnt_ZD->v_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus3]);
-						pnt_ZD->w_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus3]);
-						pnt_ZD->T_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus3]);
+						pnt_ZD->u_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus3]);
+						pnt_ZD->v_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus3]);
+						pnt_ZD->w_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus3]);
+						pnt_ZD->T_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus3]);
 #endif
 #endif
 
 #if SPACEORDER==9
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_ZD->u_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[iPlus5jk]);
-					pnt_ZD->v_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[iPlus5jk]);
-					pnt_ZD->T_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[iPlus5jk]);
+					pnt_ZD->u_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[iPlus5jk]);
+					pnt_ZD->v_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[iPlus5jk]);
+					pnt_ZD->T_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[iPlus5jk]);
 
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_ZD->u_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijPlus5k]);
-					pnt_ZD->v_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijPlus5k]);
-					pnt_ZD->T_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijPlus5k]);
+					pnt_ZD->u_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijPlus5k]);
+					pnt_ZD->v_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijPlus5k]);
+					pnt_ZD->T_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijPlus5k]);
 
 #if MESHDIMENSIONS==3
 
-						pnt_ZD->w_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[iPlus5jk]);
+						pnt_ZD->w_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[iPlus5jk]);
 
-						pnt_ZD->w_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijPlus5k]);
+						pnt_ZD->w_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijPlus5k]);
 
 //						Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-						pnt_ZD->u_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijkPlus5]);
-						pnt_ZD->v_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijkPlus5]);
-						pnt_ZD->w_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijkPlus5]);
-						pnt_ZD->T_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijkPlus5]);
+						pnt_ZD->u_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijkPlus5]);
+						pnt_ZD->v_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijkPlus5]);
+						pnt_ZD->w_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijkPlus5]);
+						pnt_ZD->T_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijkPlus5]);
 #endif
 #endif
 
@@ -766,23 +766,23 @@ void CalcDeviationsForDirectViscidFluxes(
 
 #if SPACEORDER==5
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_U_RK->u_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus3jk]);
-					pnt_U_RK->v_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus3jk]);
-					pnt_U_RK->T_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus3jk]);
+					pnt_U_RK->u_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus3jk]);
+					pnt_U_RK->v_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus3jk]);
+					pnt_U_RK->T_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus3jk]);
 
 #if MESHDIMENSIONS==3
-						pnt_U_RK->w_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus3jk]);
+						pnt_U_RK->w_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus3jk]);
 #endif
 #endif
 
 #if SPACEORDER==9
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_U_RK->u_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[iPlus5jk]);
-					pnt_U_RK->v_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[iPlus5jk]);
-					pnt_U_RK->T_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[iPlus5jk]);
+					pnt_U_RK->u_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[iPlus5jk]);
+					pnt_U_RK->v_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[iPlus5jk]);
+					pnt_U_RK->T_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[iPlus5jk]);
 
 #if MESHDIMENSIONS==3
-						pnt_U_RK->w_xi[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus5jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[iMinus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iMinus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus1jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[iPlus2jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[iPlus3jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[iPlus4jk]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[iPlus5jk]);
+						pnt_U_RK->w_xi[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[iMinus5jk]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[iMinus4jk]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[iMinus3jk]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[iMinus2jk]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[iMinus1jk]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[iPlus1jk]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[iPlus2jk]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[iPlus3jk]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[iPlus4jk]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[iPlus5jk]);
 #endif
 #endif
 
@@ -821,23 +821,23 @@ void CalcDeviationsForDirectViscidFluxes(
 
 #if SPACEORDER==5
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_U_RK->u_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus3k]);
-					pnt_U_RK->v_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus3k]);
-					pnt_U_RK->T_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus3k]);
+					pnt_U_RK->u_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus3k]);
+					pnt_U_RK->v_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus3k]);
+					pnt_U_RK->T_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus3k]);
 
 #if MESHDIMENSIONS==3
-						pnt_U_RK->w_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus3k]);
+						pnt_U_RK->w_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus3k]);
 #endif
 #endif
 
 #if SPACEORDER==9
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-					pnt_U_RK->u_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijPlus5k]);
-					pnt_U_RK->v_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijPlus5k]);
-					pnt_U_RK->T_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijPlus5k]);
+					pnt_U_RK->u_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijPlus5k]);
+					pnt_U_RK->v_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijPlus5k]);
+					pnt_U_RK->T_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijPlus5k]);
 
 #if MESHDIMENSIONS==3
-						pnt_U_RK->w_eta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus5k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijMinus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijMinus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus1k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijPlus2k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijPlus3k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijPlus4k]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijPlus5k]);
+						pnt_U_RK->w_eta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijMinus5k]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijMinus4k]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijMinus3k]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijMinus2k]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijMinus1k]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijPlus1k]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijPlus2k]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijPlus3k]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijPlus4k]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijPlus5k]);
 #endif
 #endif
 
@@ -877,18 +877,18 @@ void CalcDeviationsForDirectViscidFluxes(
 
 #if SPACEORDER==5
 //						Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-						pnt_U_RK->u_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus3]);
-						pnt_U_RK->v_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus3]);
-						pnt_U_RK->w_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus3]);
-						pnt_U_RK->T_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus3]);
+						pnt_U_RK->u_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->u[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus3]);
+						pnt_U_RK->v_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->v[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus3]);
+						pnt_U_RK->w_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->w[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus3]);
+						pnt_U_RK->T_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[5]*pnt_U_RK->T[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus3]);
 #endif
 
 #if SPACEORDER==9
 //						Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-						pnt_U_RK->u_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijkPlus5]);
-						pnt_U_RK->v_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijkPlus5]);
-						pnt_U_RK->w_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijkPlus5]);
-						pnt_U_RK->T_zeta[ijk]=(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijkMinus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkMinus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijkPlus2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijkPlus3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijkPlus4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijkPlus5]);
+						pnt_U_RK->u_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->u[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->u[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->u[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->u[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->u[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->u[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->u[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->u[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->u[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->u[ijkPlus5]);
+						pnt_U_RK->v_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->v[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->v[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->v[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->v[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->v[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->v[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->v[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->v[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->v[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->v[ijkPlus5]);
+						pnt_U_RK->w_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->w[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->w[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->w[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->w[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->w[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->w[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->w[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->w[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->w[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->w[ijkPlus5]);
+						pnt_U_RK->T_zeta[ijk]=(pnt_config->ZD_Ableitung_Koeffizient[0]*pnt_U_RK->T[ijkMinus5]+pnt_config->ZD_Ableitung_Koeffizient[1]*pnt_U_RK->T[ijkMinus4]+pnt_config->ZD_Ableitung_Koeffizient[2]*pnt_U_RK->T[ijkMinus3]+pnt_config->ZD_Ableitung_Koeffizient[3]*pnt_U_RK->T[ijkMinus2]+pnt_config->ZD_Ableitung_Koeffizient[4]*pnt_U_RK->T[ijkMinus1]+pnt_config->ZD_Ableitung_Koeffizient[6]*pnt_U_RK->T[ijkPlus1]+pnt_config->ZD_Ableitung_Koeffizient[7]*pnt_U_RK->T[ijkPlus2]+pnt_config->ZD_Ableitung_Koeffizient[8]*pnt_U_RK->T[ijkPlus3]+pnt_config->ZD_Ableitung_Koeffizient[9]*pnt_U_RK->T[ijkPlus4]+pnt_config->ZD_Ableitung_Koeffizient[10]*pnt_U_RK->T[ijkPlus5]);
 #endif
 
 				}
@@ -968,132 +968,132 @@ void CalcViscidFluxesInZetaDirection(
 
 
 #if SPACEORDER==9
-					dbl_xImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->tau_xx[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->tau_xy[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->tau_xz[ijkMinus5]));
-					dbl_xImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->tau_xx[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->tau_xy[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->tau_xz[ijkMinus4]));
-					dbl_xImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xx[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]));
-					dbl_xImpuls_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xx[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]));
-					dbl_xImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xx[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]));
-					dbl_xImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xx[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]));
-					dbl_xImpuls_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xx[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]));
-					dbl_xImpuls_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xx[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]));
-					dbl_xImpuls_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->tau_xx[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->tau_xy[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->tau_xz[ijkPlus4]));
-					dbl_xImpuls_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->tau_xx[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->tau_xy[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->tau_xz[ijkPlus5]));
+					xImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->tau_xx[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->tau_xy[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->tau_xz[ijkMinus5]));
+					xImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->tau_xx[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->tau_xy[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->tau_xz[ijkMinus4]));
+					xImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xx[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]));
+					xImpuls_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xx[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]));
+					xImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xx[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]));
+					xImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xx[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]));
+					xImpuls_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xx[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]));
+					xImpuls_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xx[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]));
+					xImpuls_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->tau_xx[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->tau_xy[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->tau_xz[ijkPlus4]));
+					xImpuls_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->tau_xx[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->tau_xy[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->tau_xz[ijkPlus5]));
 
-					dbl_xImpuls_zeta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_xImpuls_zeta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_xImpuls_zeta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_xImpuls_zeta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_xImpuls_zeta_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_xImpuls_zeta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_xImpuls_zeta_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_xImpuls_zeta_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_xImpuls_zeta_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_xImpuls_zeta_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_xImpuls_zeta_help[10]);
+					xImpuls_zeta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*xImpuls_zeta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*xImpuls_zeta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*xImpuls_zeta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*xImpuls_zeta_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*xImpuls_zeta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*xImpuls_zeta_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*xImpuls_zeta_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*xImpuls_zeta_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*xImpuls_zeta_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*xImpuls_zeta_help[10]);
 
 
-					dbl_yImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->tau_xy[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->tau_yy[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->tau_yz[ijkMinus5]));
-					dbl_yImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->tau_xy[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->tau_yy[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->tau_yz[ijkMinus4]));
-					dbl_yImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]));
-					dbl_yImpuls_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]));
-					dbl_yImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]));
-					dbl_yImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]));
-					dbl_yImpuls_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]));
-					dbl_yImpuls_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]));
-					dbl_yImpuls_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->tau_xy[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->tau_yy[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->tau_yz[ijkPlus4]));
-					dbl_yImpuls_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->tau_xy[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->tau_yy[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->tau_yz[ijkPlus5]));
+					yImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->tau_xy[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->tau_yy[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->tau_yz[ijkMinus5]));
+					yImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->tau_xy[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->tau_yy[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->tau_yz[ijkMinus4]));
+					yImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]));
+					yImpuls_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]));
+					yImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]));
+					yImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]));
+					yImpuls_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]));
+					yImpuls_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]));
+					yImpuls_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->tau_xy[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->tau_yy[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->tau_yz[ijkPlus4]));
+					yImpuls_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->tau_xy[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->tau_yy[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->tau_yz[ijkPlus5]));
 
-					dbl_yImpuls_zeta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_yImpuls_zeta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_yImpuls_zeta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_yImpuls_zeta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_yImpuls_zeta_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_yImpuls_zeta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_yImpuls_zeta_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_yImpuls_zeta_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_yImpuls_zeta_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_yImpuls_zeta_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_yImpuls_zeta_help[10]);
+					yImpuls_zeta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*yImpuls_zeta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*yImpuls_zeta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*yImpuls_zeta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*yImpuls_zeta_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*yImpuls_zeta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*yImpuls_zeta_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*yImpuls_zeta_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*yImpuls_zeta_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*yImpuls_zeta_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*yImpuls_zeta_help[10]);
 
 
 #if MESHDIMENSIONS==3
-						dbl_zImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->tau_xz[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->tau_yz[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->tau_zz[ijkMinus5]));
-						dbl_zImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->tau_xz[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->tau_yz[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->tau_zz[ijkMinus4]));
-						dbl_zImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_zz[ijkMinus3]));
-						dbl_zImpuls_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_zz[ijkMinus2]));
-						dbl_zImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_zz[ijkMinus1]));
-						dbl_zImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_zz[ijkPlus1]));
-						dbl_zImpuls_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_zz[ijkPlus2]));
-						dbl_zImpuls_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_zz[ijkPlus3]));
-						dbl_zImpuls_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->tau_xz[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->tau_yz[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->tau_zz[ijkPlus4]));
-						dbl_zImpuls_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->tau_xz[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->tau_yz[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->tau_zz[ijkPlus5]));
+						zImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->tau_xz[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->tau_yz[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->tau_zz[ijkMinus5]));
+						zImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->tau_xz[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->tau_yz[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->tau_zz[ijkMinus4]));
+						zImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_zz[ijkMinus3]));
+						zImpuls_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_zz[ijkMinus2]));
+						zImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_zz[ijkMinus1]));
+						zImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_zz[ijkPlus1]));
+						zImpuls_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_zz[ijkPlus2]));
+						zImpuls_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_zz[ijkPlus3]));
+						zImpuls_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->tau_xz[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->tau_yz[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->tau_zz[ijkPlus4]));
+						zImpuls_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->tau_xz[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->tau_yz[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->tau_zz[ijkPlus5]));
 
-						dbl_zImpuls_zeta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_zImpuls_zeta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_zImpuls_zeta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_zImpuls_zeta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_zImpuls_zeta_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_zImpuls_zeta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_zImpuls_zeta_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_zImpuls_zeta_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_zImpuls_zeta_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_zImpuls_zeta_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_zImpuls_zeta_help[10]);
+						zImpuls_zeta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*zImpuls_zeta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*zImpuls_zeta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*zImpuls_zeta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*zImpuls_zeta_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*zImpuls_zeta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*zImpuls_zeta_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*zImpuls_zeta_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*zImpuls_zeta_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*zImpuls_zeta_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*zImpuls_zeta_help[10]);
 #endif
 
 
-					dbl_Energie_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->q_x[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->q_y[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->q_z[ijkMinus5]));
-					dbl_Energie_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->q_x[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->q_y[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->q_z[ijkMinus4]));
-					dbl_Energie_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->q_x[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->q_y[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->q_z[ijkMinus3]));
-					dbl_Energie_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->q_x[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->q_y[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->q_z[ijkMinus2]));
-					dbl_Energie_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->q_x[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->q_y[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->q_z[ijkMinus1]));
-					dbl_Energie_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->q_x[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->q_y[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->q_z[ijkPlus1]));
-					dbl_Energie_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->q_x[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->q_y[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->q_z[ijkPlus2]));
-					dbl_Energie_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->q_x[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->q_y[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->q_z[ijkPlus3]));
-					dbl_Energie_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->q_x[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->q_y[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->q_z[ijkPlus4]));
-					dbl_Energie_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->q_x[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->q_y[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->q_z[ijkPlus5]));
+					Energie_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus5]*(pnt_mesh->zeta_x[ijkMinus5]*pnt_ZD->q_x[ijkMinus5]+pnt_mesh->zeta_y[ijkMinus5]*pnt_ZD->q_y[ijkMinus5]+pnt_mesh->zeta_z[ijkMinus5]*pnt_ZD->q_z[ijkMinus5]));
+					Energie_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus4]*(pnt_mesh->zeta_x[ijkMinus4]*pnt_ZD->q_x[ijkMinus4]+pnt_mesh->zeta_y[ijkMinus4]*pnt_ZD->q_y[ijkMinus4]+pnt_mesh->zeta_z[ijkMinus4]*pnt_ZD->q_z[ijkMinus4]));
+					Energie_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->q_x[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->q_y[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->q_z[ijkMinus3]));
+					Energie_zeta_help[3]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->q_x[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->q_y[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->q_z[ijkMinus2]));
+					Energie_zeta_help[4]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->q_x[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->q_y[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->q_z[ijkMinus1]));
+					Energie_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->q_x[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->q_y[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->q_z[ijkPlus1]));
+					Energie_zeta_help[7]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->q_x[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->q_y[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->q_z[ijkPlus2]));
+					Energie_zeta_help[8]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->q_x[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->q_y[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->q_z[ijkPlus3]));
+					Energie_zeta_help[9]=(pnt_mesh->jacobian[ijkPlus4]*(pnt_mesh->zeta_x[ijkPlus4]*pnt_ZD->q_x[ijkPlus4]+pnt_mesh->zeta_y[ijkPlus4]*pnt_ZD->q_y[ijkPlus4]+pnt_mesh->zeta_z[ijkPlus4]*pnt_ZD->q_z[ijkPlus4]));
+					Energie_zeta_help[10]=(pnt_mesh->jacobian[ijkPlus5]*(pnt_mesh->zeta_x[ijkPlus5]*pnt_ZD->q_x[ijkPlus5]+pnt_mesh->zeta_y[ijkPlus5]*pnt_ZD->q_y[ijkPlus5]+pnt_mesh->zeta_z[ijkPlus5]*pnt_ZD->q_z[ijkPlus5]));
 
-					dbl_Energie_zeta=
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*(dbl_Energie_zeta_help[0]*pnt_config->dbl_Gamma[ijkMinus5]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[0]*pnt_U_RK->u[ijkMinus5]+dbl_yImpuls_zeta_help[0]*pnt_U_RK->v[ijkMinus5]+dbl_zImpuls_zeta_help[0]*pnt_U_RK->w[ijkMinus5]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*(dbl_Energie_zeta_help[1]*pnt_config->dbl_Gamma[ijkMinus4]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[1]*pnt_U_RK->u[ijkMinus4]+dbl_yImpuls_zeta_help[1]*pnt_U_RK->v[ijkMinus4]+dbl_zImpuls_zeta_help[1]*pnt_U_RK->w[ijkMinus4]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*(dbl_Energie_zeta_help[2]*pnt_config->dbl_Gamma[ijkMinus3]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[2]*pnt_U_RK->u[ijkMinus3]+dbl_yImpuls_zeta_help[2]*pnt_U_RK->v[ijkMinus3]+dbl_zImpuls_zeta_help[2]*pnt_U_RK->w[ijkMinus3]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*(dbl_Energie_zeta_help[3]*pnt_config->dbl_Gamma[ijkMinus2]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[3]*pnt_U_RK->u[ijkMinus2]+dbl_yImpuls_zeta_help[3]*pnt_U_RK->v[ijkMinus2]+dbl_zImpuls_zeta_help[3]*pnt_U_RK->w[ijkMinus2]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*(dbl_Energie_zeta_help[4]*pnt_config->dbl_Gamma[ijkMinus1]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[4]*pnt_U_RK->u[ijkMinus1]+dbl_yImpuls_zeta_help[4]*pnt_U_RK->v[ijkMinus1]+dbl_zImpuls_zeta_help[4]*pnt_U_RK->w[ijkMinus1]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*(dbl_Energie_zeta_help[6]*pnt_config->dbl_Gamma[ijkPlus1]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[6]*pnt_U_RK->u[ijkPlus1]+dbl_yImpuls_zeta_help[6]*pnt_U_RK->v[ijkPlus1]+dbl_zImpuls_zeta_help[6]*pnt_U_RK->w[ijkPlus1]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*(dbl_Energie_zeta_help[7]*pnt_config->dbl_Gamma[ijkPlus2]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[7]*pnt_U_RK->u[ijkPlus2]+dbl_yImpuls_zeta_help[7]*pnt_U_RK->v[ijkPlus2]+dbl_zImpuls_zeta_help[7]*pnt_U_RK->w[ijkPlus2]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*(dbl_Energie_zeta_help[8]*pnt_config->dbl_Gamma[ijkPlus3]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[8]*pnt_U_RK->u[ijkPlus3]+dbl_yImpuls_zeta_help[8]*pnt_U_RK->v[ijkPlus3]+dbl_zImpuls_zeta_help[8]*pnt_U_RK->w[ijkPlus3]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*(dbl_Energie_zeta_help[9]*pnt_config->dbl_Gamma[ijkPlus4]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[9]*pnt_U_RK->u[ijkPlus4]+dbl_yImpuls_zeta_help[9]*pnt_U_RK->v[ijkPlus4]+dbl_zImpuls_zeta_help[9]*pnt_U_RK->w[ijkPlus4]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*(dbl_Energie_zeta_help[10]*pnt_config->dbl_Gamma[ijkPlus5]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[10]*pnt_U_RK->u[ijkPlus5]+dbl_yImpuls_zeta_help[10]*pnt_U_RK->v[ijkPlus5]+dbl_zImpuls_zeta_help[10]*pnt_U_RK->w[ijkPlus5]));
+					Energie_zeta=
+							pnt_config->ZD_Ableitung_Koeffizient[0]*(Energie_zeta_help[0]*pnt_config->Gamma[ijkMinus5]+pnt_config->Psi*(xImpuls_zeta_help[0]*pnt_U_RK->u[ijkMinus5]+yImpuls_zeta_help[0]*pnt_U_RK->v[ijkMinus5]+zImpuls_zeta_help[0]*pnt_U_RK->w[ijkMinus5]))+
+							pnt_config->ZD_Ableitung_Koeffizient[1]*(Energie_zeta_help[1]*pnt_config->Gamma[ijkMinus4]+pnt_config->Psi*(xImpuls_zeta_help[1]*pnt_U_RK->u[ijkMinus4]+yImpuls_zeta_help[1]*pnt_U_RK->v[ijkMinus4]+zImpuls_zeta_help[1]*pnt_U_RK->w[ijkMinus4]))+
+							pnt_config->ZD_Ableitung_Koeffizient[2]*(Energie_zeta_help[2]*pnt_config->Gamma[ijkMinus3]+pnt_config->Psi*(xImpuls_zeta_help[2]*pnt_U_RK->u[ijkMinus3]+yImpuls_zeta_help[2]*pnt_U_RK->v[ijkMinus3]+zImpuls_zeta_help[2]*pnt_U_RK->w[ijkMinus3]))+
+							pnt_config->ZD_Ableitung_Koeffizient[3]*(Energie_zeta_help[3]*pnt_config->Gamma[ijkMinus2]+pnt_config->Psi*(xImpuls_zeta_help[3]*pnt_U_RK->u[ijkMinus2]+yImpuls_zeta_help[3]*pnt_U_RK->v[ijkMinus2]+zImpuls_zeta_help[3]*pnt_U_RK->w[ijkMinus2]))+
+							pnt_config->ZD_Ableitung_Koeffizient[4]*(Energie_zeta_help[4]*pnt_config->Gamma[ijkMinus1]+pnt_config->Psi*(xImpuls_zeta_help[4]*pnt_U_RK->u[ijkMinus1]+yImpuls_zeta_help[4]*pnt_U_RK->v[ijkMinus1]+zImpuls_zeta_help[4]*pnt_U_RK->w[ijkMinus1]))+
+							pnt_config->ZD_Ableitung_Koeffizient[6]*(Energie_zeta_help[6]*pnt_config->Gamma[ijkPlus1]+pnt_config->Psi*(xImpuls_zeta_help[6]*pnt_U_RK->u[ijkPlus1]+yImpuls_zeta_help[6]*pnt_U_RK->v[ijkPlus1]+zImpuls_zeta_help[6]*pnt_U_RK->w[ijkPlus1]))+
+							pnt_config->ZD_Ableitung_Koeffizient[7]*(Energie_zeta_help[7]*pnt_config->Gamma[ijkPlus2]+pnt_config->Psi*(xImpuls_zeta_help[7]*pnt_U_RK->u[ijkPlus2]+yImpuls_zeta_help[7]*pnt_U_RK->v[ijkPlus2]+zImpuls_zeta_help[7]*pnt_U_RK->w[ijkPlus2]))+
+							pnt_config->ZD_Ableitung_Koeffizient[8]*(Energie_zeta_help[8]*pnt_config->Gamma[ijkPlus3]+pnt_config->Psi*(xImpuls_zeta_help[8]*pnt_U_RK->u[ijkPlus3]+yImpuls_zeta_help[8]*pnt_U_RK->v[ijkPlus3]+zImpuls_zeta_help[8]*pnt_U_RK->w[ijkPlus3]))+
+							pnt_config->ZD_Ableitung_Koeffizient[9]*(Energie_zeta_help[9]*pnt_config->Gamma[ijkPlus4]+pnt_config->Psi*(xImpuls_zeta_help[9]*pnt_U_RK->u[ijkPlus4]+yImpuls_zeta_help[9]*pnt_U_RK->v[ijkPlus4]+zImpuls_zeta_help[9]*pnt_U_RK->w[ijkPlus4]))+
+							pnt_config->ZD_Ableitung_Koeffizient[10]*(Energie_zeta_help[10]*pnt_config->Gamma[ijkPlus5]+pnt_config->Psi*(xImpuls_zeta_help[10]*pnt_U_RK->u[ijkPlus5]+yImpuls_zeta_help[10]*pnt_U_RK->v[ijkPlus5]+zImpuls_zeta_help[10]*pnt_U_RK->w[ijkPlus5]));
 #endif
 #if SPACEORDER==5
-					dbl_xImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xx[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]));
-					dbl_xImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xx[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]));
-					dbl_xImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xx[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]));
-					dbl_xImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xx[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]));
-					dbl_xImpuls_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xx[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]));
-					dbl_xImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xx[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]));
+					xImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xx[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]));
+					xImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xx[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]));
+					xImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xx[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]));
+					xImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xx[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]));
+					xImpuls_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xx[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]));
+					xImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xx[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]));
 
-					dbl_xImpuls_zeta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_xImpuls_zeta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_xImpuls_zeta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_xImpuls_zeta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_xImpuls_zeta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_xImpuls_zeta_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_xImpuls_zeta_help[6]);
+					xImpuls_zeta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*xImpuls_zeta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*xImpuls_zeta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*xImpuls_zeta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*xImpuls_zeta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*xImpuls_zeta_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*xImpuls_zeta_help[6]);
 
 
-					dbl_yImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]));
-					dbl_yImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]));
-					dbl_yImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]));
-					dbl_yImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]));
-					dbl_yImpuls_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]));
-					dbl_yImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]));
+					yImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xy[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yy[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]));
+					yImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xy[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yy[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]));
+					yImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xy[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yy[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]));
+					yImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xy[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yy[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]));
+					yImpuls_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xy[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yy[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]));
+					yImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xy[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yy[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]));
 
-					dbl_yImpuls_zeta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_yImpuls_zeta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_yImpuls_zeta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_yImpuls_zeta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_yImpuls_zeta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_yImpuls_zeta_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_yImpuls_zeta_help[6]);
+					yImpuls_zeta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*yImpuls_zeta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*yImpuls_zeta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*yImpuls_zeta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*yImpuls_zeta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*yImpuls_zeta_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*yImpuls_zeta_help[6]);
 
 
 #if MESHDIMENSIONS==3
-						dbl_zImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_zz[ijkMinus3]));
-						dbl_zImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_zz[ijkMinus2]));
-						dbl_zImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_zz[ijkMinus1]));
-						dbl_zImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_zz[ijkPlus1]));
-						dbl_zImpuls_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_zz[ijkPlus2]));
-						dbl_zImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_zz[ijkPlus3]));
+						zImpuls_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->tau_xz[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->tau_yz[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->tau_zz[ijkMinus3]));
+						zImpuls_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->tau_xz[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->tau_yz[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->tau_zz[ijkMinus2]));
+						zImpuls_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->tau_xz[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->tau_yz[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->tau_zz[ijkMinus1]));
+						zImpuls_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->tau_xz[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->tau_yz[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->tau_zz[ijkPlus1]));
+						zImpuls_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->tau_xz[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->tau_yz[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->tau_zz[ijkPlus2]));
+						zImpuls_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->tau_xz[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->tau_yz[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->tau_zz[ijkPlus3]));
 
-						dbl_zImpuls_zeta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_zImpuls_zeta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_zImpuls_zeta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_zImpuls_zeta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_zImpuls_zeta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_zImpuls_zeta_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_zImpuls_zeta_help[6]);
+						zImpuls_zeta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*zImpuls_zeta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*zImpuls_zeta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*zImpuls_zeta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*zImpuls_zeta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*zImpuls_zeta_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*zImpuls_zeta_help[6]);
 #endif
 
 
-					dbl_Energie_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->q_x[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->q_y[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->q_z[ijkMinus3]));
-					dbl_Energie_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->q_x[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->q_y[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->q_z[ijkMinus2]));
-					dbl_Energie_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->q_x[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->q_y[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->q_z[ijkMinus1]));
-					dbl_Energie_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->q_x[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->q_y[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->q_z[ijkPlus1]));
-					dbl_Energie_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->q_x[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->q_y[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->q_z[ijkPlus2]));
-					dbl_Energie_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->q_x[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->q_y[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->q_z[ijkPlus3]));
+					Energie_zeta_help[0]=(pnt_mesh->jacobian[ijkMinus3]*(pnt_mesh->zeta_x[ijkMinus3]*pnt_ZD->q_x[ijkMinus3]+pnt_mesh->zeta_y[ijkMinus3]*pnt_ZD->q_y[ijkMinus3]+pnt_mesh->zeta_z[ijkMinus3]*pnt_ZD->q_z[ijkMinus3]));
+					Energie_zeta_help[1]=(pnt_mesh->jacobian[ijkMinus2]*(pnt_mesh->zeta_x[ijkMinus2]*pnt_ZD->q_x[ijkMinus2]+pnt_mesh->zeta_y[ijkMinus2]*pnt_ZD->q_y[ijkMinus2]+pnt_mesh->zeta_z[ijkMinus2]*pnt_ZD->q_z[ijkMinus2]));
+					Energie_zeta_help[2]=(pnt_mesh->jacobian[ijkMinus1]*(pnt_mesh->zeta_x[ijkMinus1]*pnt_ZD->q_x[ijkMinus1]+pnt_mesh->zeta_y[ijkMinus1]*pnt_ZD->q_y[ijkMinus1]+pnt_mesh->zeta_z[ijkMinus1]*pnt_ZD->q_z[ijkMinus1]));
+					Energie_zeta_help[4]=(pnt_mesh->jacobian[ijkPlus1]*(pnt_mesh->zeta_x[ijkPlus1]*pnt_ZD->q_x[ijkPlus1]+pnt_mesh->zeta_y[ijkPlus1]*pnt_ZD->q_y[ijkPlus1]+pnt_mesh->zeta_z[ijkPlus1]*pnt_ZD->q_z[ijkPlus1]));
+					Energie_zeta_help[5]=(pnt_mesh->jacobian[ijkPlus2]*(pnt_mesh->zeta_x[ijkPlus2]*pnt_ZD->q_x[ijkPlus2]+pnt_mesh->zeta_y[ijkPlus2]*pnt_ZD->q_y[ijkPlus2]+pnt_mesh->zeta_z[ijkPlus2]*pnt_ZD->q_z[ijkPlus2]));
+					Energie_zeta_help[6]=(pnt_mesh->jacobian[ijkPlus3]*(pnt_mesh->zeta_x[ijkPlus3]*pnt_ZD->q_x[ijkPlus3]+pnt_mesh->zeta_y[ijkPlus3]*pnt_ZD->q_y[ijkPlus3]+pnt_mesh->zeta_z[ijkPlus3]*pnt_ZD->q_z[ijkPlus3]));
 
-					dbl_Energie_zeta=
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*(dbl_Energie_zeta_help[0]*pnt_config->dbl_Gamma[ijkMinus3]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[0]*pnt_U_RK->u[ijkMinus3]+dbl_yImpuls_zeta_help[0]*pnt_U_RK->v[ijkMinus3]+dbl_zImpuls_zeta_help[0]*pnt_U_RK->w[ijkMinus3]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*(dbl_Energie_zeta_help[1]*pnt_config->dbl_Gamma[ijkMinus2]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[1]*pnt_U_RK->u[ijkMinus2]+dbl_yImpuls_zeta_help[1]*pnt_U_RK->v[ijkMinus2]+dbl_zImpuls_zeta_help[1]*pnt_U_RK->w[ijkMinus2]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*(dbl_Energie_zeta_help[2]*pnt_config->dbl_Gamma[ijkMinus1]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[2]*pnt_U_RK->u[ijkMinus1]+dbl_yImpuls_zeta_help[2]*pnt_U_RK->v[ijkMinus1]+dbl_zImpuls_zeta_help[2]*pnt_U_RK->w[ijkMinus1]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*(dbl_Energie_zeta_help[4]*pnt_config->dbl_Gamma[ijkPlus1]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[4]*pnt_U_RK->u[ijkPlus1]+dbl_yImpuls_zeta_help[4]*pnt_U_RK->v[ijkPlus1]+dbl_zImpuls_zeta_help[4]*pnt_U_RK->w[ijkPlus1]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*(dbl_Energie_zeta_help[5]*pnt_config->dbl_Gamma[ijkPlus2]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[5]*pnt_U_RK->u[ijkPlus2]+dbl_yImpuls_zeta_help[5]*pnt_U_RK->v[ijkPlus2]+dbl_zImpuls_zeta_help[5]*pnt_U_RK->w[ijkPlus2]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*(dbl_Energie_zeta_help[6]*pnt_config->dbl_Gamma[ijkPlus3]+pnt_config->dbl_Psi*(dbl_xImpuls_zeta_help[6]*pnt_U_RK->u[ijkPlus3]+dbl_yImpuls_zeta_help[6]*pnt_U_RK->v[ijkPlus3]+dbl_zImpuls_zeta_help[6]*pnt_U_RK->w[ijkPlus3]));
+					Energie_zeta=
+							pnt_config->ZD_Ableitung_Koeffizient[0]*(Energie_zeta_help[0]*pnt_config->Gamma[ijkMinus3]+pnt_config->Psi*(xImpuls_zeta_help[0]*pnt_U_RK->u[ijkMinus3]+yImpuls_zeta_help[0]*pnt_U_RK->v[ijkMinus3]+zImpuls_zeta_help[0]*pnt_U_RK->w[ijkMinus3]))+
+							pnt_config->ZD_Ableitung_Koeffizient[1]*(Energie_zeta_help[1]*pnt_config->Gamma[ijkMinus2]+pnt_config->Psi*(xImpuls_zeta_help[1]*pnt_U_RK->u[ijkMinus2]+yImpuls_zeta_help[1]*pnt_U_RK->v[ijkMinus2]+zImpuls_zeta_help[1]*pnt_U_RK->w[ijkMinus2]))+
+							pnt_config->ZD_Ableitung_Koeffizient[2]*(Energie_zeta_help[2]*pnt_config->Gamma[ijkMinus1]+pnt_config->Psi*(xImpuls_zeta_help[2]*pnt_U_RK->u[ijkMinus1]+yImpuls_zeta_help[2]*pnt_U_RK->v[ijkMinus1]+zImpuls_zeta_help[2]*pnt_U_RK->w[ijkMinus1]))+
+							pnt_config->ZD_Ableitung_Koeffizient[4]*(Energie_zeta_help[4]*pnt_config->Gamma[ijkPlus1]+pnt_config->Psi*(xImpuls_zeta_help[4]*pnt_U_RK->u[ijkPlus1]+yImpuls_zeta_help[4]*pnt_U_RK->v[ijkPlus1]+zImpuls_zeta_help[4]*pnt_U_RK->w[ijkPlus1]))+
+							pnt_config->ZD_Ableitung_Koeffizient[5]*(Energie_zeta_help[5]*pnt_config->Gamma[ijkPlus2]+pnt_config->Psi*(xImpuls_zeta_help[5]*pnt_U_RK->u[ijkPlus2]+yImpuls_zeta_help[5]*pnt_U_RK->v[ijkPlus2]+zImpuls_zeta_help[5]*pnt_U_RK->w[ijkPlus2]))+
+							pnt_config->ZD_Ableitung_Koeffizient[6]*(Energie_zeta_help[6]*pnt_config->Gamma[ijkPlus3]+pnt_config->Psi*(xImpuls_zeta_help[6]*pnt_U_RK->u[ijkPlus3]+yImpuls_zeta_help[6]*pnt_U_RK->v[ijkPlus3]+zImpuls_zeta_help[6]*pnt_U_RK->w[ijkPlus3]));
 #endif
 
 //				Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+dbl_xImpuls_zeta;
-				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+dbl_yImpuls_zeta;
+				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+xImpuls_zeta;
+				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+yImpuls_zeta;
 #if MESHDIMENSIONS==3
-					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+dbl_zImpuls_zeta;
+					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+zImpuls_zeta;
 #endif
 #if MESHDIMENSIONS==2
 					pnt_Q->zetaMomentum[ijk]=0.0;
 #endif
-				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+dbl_Energie_zeta;
+				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+Energie_zeta;
 			}
 		}
 	}
@@ -1151,133 +1151,133 @@ void CalcViscidFluxesInEtaDirection(
 
 
 #if SPACEORDER==9
-					dbl_xImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->tau_xx[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->tau_xy[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->tau_xz[ijMinus5k]));
-					dbl_xImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->tau_xx[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->tau_xy[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->tau_xz[ijMinus4k]));
-					dbl_xImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xx[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]));
-					dbl_xImpuls_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xx[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]));
-					dbl_xImpuls_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xx[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]));
-					dbl_xImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xx[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]));
-					dbl_xImpuls_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xx[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]));
-					dbl_xImpuls_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xx[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]));
-					dbl_xImpuls_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->tau_xx[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->tau_xy[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->tau_xz[ijPlus4k]));
-					dbl_xImpuls_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->tau_xx[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->tau_xy[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->tau_xz[ijPlus5k]));
+					xImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->tau_xx[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->tau_xy[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->tau_xz[ijMinus5k]));
+					xImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->tau_xx[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->tau_xy[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->tau_xz[ijMinus4k]));
+					xImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xx[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]));
+					xImpuls_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xx[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]));
+					xImpuls_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xx[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]));
+					xImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xx[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]));
+					xImpuls_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xx[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]));
+					xImpuls_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xx[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]));
+					xImpuls_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->tau_xx[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->tau_xy[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->tau_xz[ijPlus4k]));
+					xImpuls_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->tau_xx[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->tau_xy[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->tau_xz[ijPlus5k]));
 
-					dbl_xImpuls_eta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_xImpuls_eta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_xImpuls_eta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_xImpuls_eta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_xImpuls_eta_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_xImpuls_eta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_xImpuls_eta_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_xImpuls_eta_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_xImpuls_eta_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_xImpuls_eta_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_xImpuls_eta_help[10]);
+					xImpuls_eta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*xImpuls_eta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*xImpuls_eta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*xImpuls_eta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*xImpuls_eta_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*xImpuls_eta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*xImpuls_eta_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*xImpuls_eta_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*xImpuls_eta_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*xImpuls_eta_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*xImpuls_eta_help[10]);
 
 
-					dbl_yImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->tau_xy[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->tau_yy[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->tau_yz[ijMinus5k]));
-					dbl_yImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->tau_xy[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->tau_yy[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->tau_yz[ijMinus4k]));
-					dbl_yImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]));
-					dbl_yImpuls_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]));
-					dbl_yImpuls_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]));
-					dbl_yImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]));
-					dbl_yImpuls_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]));
-					dbl_yImpuls_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]));
-					dbl_yImpuls_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->tau_xy[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->tau_yy[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->tau_yz[ijPlus4k]));
-					dbl_yImpuls_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->tau_xy[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->tau_yy[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->tau_yz[ijPlus5k]));
+					yImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->tau_xy[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->tau_yy[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->tau_yz[ijMinus5k]));
+					yImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->tau_xy[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->tau_yy[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->tau_yz[ijMinus4k]));
+					yImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]));
+					yImpuls_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]));
+					yImpuls_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]));
+					yImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]));
+					yImpuls_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]));
+					yImpuls_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]));
+					yImpuls_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->tau_xy[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->tau_yy[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->tau_yz[ijPlus4k]));
+					yImpuls_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->tau_xy[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->tau_yy[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->tau_yz[ijPlus5k]));
 
-					dbl_yImpuls_eta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_yImpuls_eta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_yImpuls_eta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_yImpuls_eta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_yImpuls_eta_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_yImpuls_eta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_yImpuls_eta_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_yImpuls_eta_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_yImpuls_eta_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_yImpuls_eta_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_yImpuls_eta_help[10]);
+					yImpuls_eta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*yImpuls_eta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*yImpuls_eta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*yImpuls_eta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*yImpuls_eta_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*yImpuls_eta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*yImpuls_eta_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*yImpuls_eta_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*yImpuls_eta_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*yImpuls_eta_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*yImpuls_eta_help[10]);
 
 
 #if MESHDIMENSIONS==3
-						dbl_zImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->tau_xz[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->tau_yz[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->tau_zz[ijMinus5k]));
-						dbl_zImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->tau_xz[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->tau_yz[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->tau_zz[ijMinus4k]));
-						dbl_zImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_zz[ijMinus3k]));
-						dbl_zImpuls_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_zz[ijMinus2k]));
-						dbl_zImpuls_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_zz[ijMinus1k]));
-						dbl_zImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_zz[ijPlus1k]));
-						dbl_zImpuls_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_zz[ijPlus2k]));
-						dbl_zImpuls_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_zz[ijPlus3k]));
-						dbl_zImpuls_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->tau_xz[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->tau_yz[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->tau_zz[ijPlus4k]));
-						dbl_zImpuls_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->tau_xz[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->tau_yz[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->tau_zz[ijPlus5k]));
+						zImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->tau_xz[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->tau_yz[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->tau_zz[ijMinus5k]));
+						zImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->tau_xz[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->tau_yz[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->tau_zz[ijMinus4k]));
+						zImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_zz[ijMinus3k]));
+						zImpuls_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_zz[ijMinus2k]));
+						zImpuls_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_zz[ijMinus1k]));
+						zImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_zz[ijPlus1k]));
+						zImpuls_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_zz[ijPlus2k]));
+						zImpuls_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_zz[ijPlus3k]));
+						zImpuls_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->tau_xz[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->tau_yz[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->tau_zz[ijPlus4k]));
+						zImpuls_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->tau_xz[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->tau_yz[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->tau_zz[ijPlus5k]));
 
-						dbl_zImpuls_eta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_zImpuls_eta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_zImpuls_eta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_zImpuls_eta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_zImpuls_eta_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_zImpuls_eta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_zImpuls_eta_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_zImpuls_eta_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_zImpuls_eta_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_zImpuls_eta_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_zImpuls_eta_help[10]);
+						zImpuls_eta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*zImpuls_eta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*zImpuls_eta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*zImpuls_eta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*zImpuls_eta_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*zImpuls_eta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*zImpuls_eta_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*zImpuls_eta_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*zImpuls_eta_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*zImpuls_eta_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*zImpuls_eta_help[10]);
 #endif
 
 
-					dbl_Energie_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->q_x[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->q_y[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->q_z[ijMinus5k]));
-					dbl_Energie_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->q_x[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->q_y[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->q_z[ijMinus4k]));
-					dbl_Energie_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->q_x[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->q_y[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->q_z[ijMinus3k]));
-					dbl_Energie_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->q_x[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->q_y[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->q_z[ijMinus2k]));
-					dbl_Energie_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->q_x[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->q_y[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->q_z[ijMinus1k]));
-					dbl_Energie_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->q_x[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->q_y[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->q_z[ijPlus1k]));
-					dbl_Energie_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->q_x[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->q_y[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->q_z[ijPlus2k]));
-					dbl_Energie_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->q_x[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->q_y[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->q_z[ijPlus3k]));
-					dbl_Energie_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->q_x[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->q_y[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->q_z[ijPlus4k]));
-					dbl_Energie_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->q_x[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->q_y[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->q_z[ijPlus5k]));
+					Energie_eta_help[0]=(pnt_mesh->jacobian[ijMinus5k]*(pnt_mesh->eta_x[ijMinus5k]*pnt_ZD->q_x[ijMinus5k]+pnt_mesh->eta_y[ijMinus5k]*pnt_ZD->q_y[ijMinus5k]+pnt_mesh->eta_z[ijMinus5k]*pnt_ZD->q_z[ijMinus5k]));
+					Energie_eta_help[1]=(pnt_mesh->jacobian[ijMinus4k]*(pnt_mesh->eta_x[ijMinus4k]*pnt_ZD->q_x[ijMinus4k]+pnt_mesh->eta_y[ijMinus4k]*pnt_ZD->q_y[ijMinus4k]+pnt_mesh->eta_z[ijMinus4k]*pnt_ZD->q_z[ijMinus4k]));
+					Energie_eta_help[2]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->q_x[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->q_y[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->q_z[ijMinus3k]));
+					Energie_eta_help[3]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->q_x[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->q_y[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->q_z[ijMinus2k]));
+					Energie_eta_help[4]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->q_x[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->q_y[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->q_z[ijMinus1k]));
+					Energie_eta_help[6]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->q_x[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->q_y[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->q_z[ijPlus1k]));
+					Energie_eta_help[7]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->q_x[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->q_y[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->q_z[ijPlus2k]));
+					Energie_eta_help[8]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->q_x[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->q_y[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->q_z[ijPlus3k]));
+					Energie_eta_help[9]=(pnt_mesh->jacobian[ijPlus4k]*(pnt_mesh->eta_x[ijPlus4k]*pnt_ZD->q_x[ijPlus4k]+pnt_mesh->eta_y[ijPlus4k]*pnt_ZD->q_y[ijPlus4k]+pnt_mesh->eta_z[ijPlus4k]*pnt_ZD->q_z[ijPlus4k]));
+					Energie_eta_help[10]=(pnt_mesh->jacobian[ijPlus5k]*(pnt_mesh->eta_x[ijPlus5k]*pnt_ZD->q_x[ijPlus5k]+pnt_mesh->eta_y[ijPlus5k]*pnt_ZD->q_y[ijPlus5k]+pnt_mesh->eta_z[ijPlus5k]*pnt_ZD->q_z[ijPlus5k]));
 
-					dbl_Energie_eta=
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*(dbl_Energie_eta_help[0]*pnt_config->dbl_Gamma[ijMinus5k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[0]*pnt_U_RK->u[ijMinus5k]+dbl_yImpuls_eta_help[0]*pnt_U_RK->v[ijMinus5k]+dbl_zImpuls_eta_help[0]*pnt_U_RK->w[ijMinus5k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*(dbl_Energie_eta_help[1]*pnt_config->dbl_Gamma[ijMinus4k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[1]*pnt_U_RK->u[ijMinus4k]+dbl_yImpuls_eta_help[1]*pnt_U_RK->v[ijMinus4k]+dbl_zImpuls_eta_help[1]*pnt_U_RK->w[ijMinus4k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*(dbl_Energie_eta_help[2]*pnt_config->dbl_Gamma[ijMinus3k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[2]*pnt_U_RK->u[ijMinus3k]+dbl_yImpuls_eta_help[2]*pnt_U_RK->v[ijMinus3k]+dbl_zImpuls_eta_help[2]*pnt_U_RK->w[ijMinus3k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*(dbl_Energie_eta_help[3]*pnt_config->dbl_Gamma[ijMinus2k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[3]*pnt_U_RK->u[ijMinus2k]+dbl_yImpuls_eta_help[3]*pnt_U_RK->v[ijMinus2k]+dbl_zImpuls_eta_help[3]*pnt_U_RK->w[ijMinus2k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*(dbl_Energie_eta_help[4]*pnt_config->dbl_Gamma[ijMinus1k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[4]*pnt_U_RK->u[ijMinus1k]+dbl_yImpuls_eta_help[4]*pnt_U_RK->v[ijMinus1k]+dbl_zImpuls_eta_help[4]*pnt_U_RK->w[ijMinus1k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*(dbl_Energie_eta_help[6]*pnt_config->dbl_Gamma[ijPlus1k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[6]*pnt_U_RK->u[ijPlus1k]+dbl_yImpuls_eta_help[6]*pnt_U_RK->v[ijPlus1k]+dbl_zImpuls_eta_help[6]*pnt_U_RK->w[ijPlus1k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*(dbl_Energie_eta_help[7]*pnt_config->dbl_Gamma[ijPlus2k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[7]*pnt_U_RK->u[ijPlus2k]+dbl_yImpuls_eta_help[7]*pnt_U_RK->v[ijPlus2k]+dbl_zImpuls_eta_help[7]*pnt_U_RK->w[ijPlus2k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*(dbl_Energie_eta_help[8]*pnt_config->dbl_Gamma[ijPlus3k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[8]*pnt_U_RK->u[ijPlus3k]+dbl_yImpuls_eta_help[8]*pnt_U_RK->v[ijPlus3k]+dbl_zImpuls_eta_help[8]*pnt_U_RK->w[ijPlus3k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*(dbl_Energie_eta_help[9]*pnt_config->dbl_Gamma[ijPlus4k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[9]*pnt_U_RK->u[ijPlus4k]+dbl_yImpuls_eta_help[9]*pnt_U_RK->v[ijPlus4k]+dbl_zImpuls_eta_help[9]*pnt_U_RK->w[ijPlus4k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*(dbl_Energie_eta_help[10]*pnt_config->dbl_Gamma[ijPlus5k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[10]*pnt_U_RK->u[ijPlus5k]+dbl_yImpuls_eta_help[10]*pnt_U_RK->v[ijPlus5k]+dbl_zImpuls_eta_help[10]*pnt_U_RK->w[ijPlus5k]));
+					Energie_eta=
+							pnt_config->ZD_Ableitung_Koeffizient[0]*(Energie_eta_help[0]*pnt_config->Gamma[ijMinus5k]+pnt_config->Psi*(xImpuls_eta_help[0]*pnt_U_RK->u[ijMinus5k]+yImpuls_eta_help[0]*pnt_U_RK->v[ijMinus5k]+zImpuls_eta_help[0]*pnt_U_RK->w[ijMinus5k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[1]*(Energie_eta_help[1]*pnt_config->Gamma[ijMinus4k]+pnt_config->Psi*(xImpuls_eta_help[1]*pnt_U_RK->u[ijMinus4k]+yImpuls_eta_help[1]*pnt_U_RK->v[ijMinus4k]+zImpuls_eta_help[1]*pnt_U_RK->w[ijMinus4k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[2]*(Energie_eta_help[2]*pnt_config->Gamma[ijMinus3k]+pnt_config->Psi*(xImpuls_eta_help[2]*pnt_U_RK->u[ijMinus3k]+yImpuls_eta_help[2]*pnt_U_RK->v[ijMinus3k]+zImpuls_eta_help[2]*pnt_U_RK->w[ijMinus3k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[3]*(Energie_eta_help[3]*pnt_config->Gamma[ijMinus2k]+pnt_config->Psi*(xImpuls_eta_help[3]*pnt_U_RK->u[ijMinus2k]+yImpuls_eta_help[3]*pnt_U_RK->v[ijMinus2k]+zImpuls_eta_help[3]*pnt_U_RK->w[ijMinus2k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[4]*(Energie_eta_help[4]*pnt_config->Gamma[ijMinus1k]+pnt_config->Psi*(xImpuls_eta_help[4]*pnt_U_RK->u[ijMinus1k]+yImpuls_eta_help[4]*pnt_U_RK->v[ijMinus1k]+zImpuls_eta_help[4]*pnt_U_RK->w[ijMinus1k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[6]*(Energie_eta_help[6]*pnt_config->Gamma[ijPlus1k]+pnt_config->Psi*(xImpuls_eta_help[6]*pnt_U_RK->u[ijPlus1k]+yImpuls_eta_help[6]*pnt_U_RK->v[ijPlus1k]+zImpuls_eta_help[6]*pnt_U_RK->w[ijPlus1k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[7]*(Energie_eta_help[7]*pnt_config->Gamma[ijPlus2k]+pnt_config->Psi*(xImpuls_eta_help[7]*pnt_U_RK->u[ijPlus2k]+yImpuls_eta_help[7]*pnt_U_RK->v[ijPlus2k]+zImpuls_eta_help[7]*pnt_U_RK->w[ijPlus2k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[8]*(Energie_eta_help[8]*pnt_config->Gamma[ijPlus3k]+pnt_config->Psi*(xImpuls_eta_help[8]*pnt_U_RK->u[ijPlus3k]+yImpuls_eta_help[8]*pnt_U_RK->v[ijPlus3k]+zImpuls_eta_help[8]*pnt_U_RK->w[ijPlus3k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[9]*(Energie_eta_help[9]*pnt_config->Gamma[ijPlus4k]+pnt_config->Psi*(xImpuls_eta_help[9]*pnt_U_RK->u[ijPlus4k]+yImpuls_eta_help[9]*pnt_U_RK->v[ijPlus4k]+zImpuls_eta_help[9]*pnt_U_RK->w[ijPlus4k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[10]*(Energie_eta_help[10]*pnt_config->Gamma[ijPlus5k]+pnt_config->Psi*(xImpuls_eta_help[10]*pnt_U_RK->u[ijPlus5k]+yImpuls_eta_help[10]*pnt_U_RK->v[ijPlus5k]+zImpuls_eta_help[10]*pnt_U_RK->w[ijPlus5k]));
 #endif
 #if SPACEORDER==5
-					dbl_xImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xx[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]));
-					dbl_xImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xx[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]));
-					dbl_xImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xx[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]));
-					dbl_xImpuls_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xx[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]));
-					dbl_xImpuls_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xx[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]));
-					dbl_xImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xx[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]));
+					xImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xx[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]));
+					xImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xx[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]));
+					xImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xx[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]));
+					xImpuls_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xx[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]));
+					xImpuls_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xx[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]));
+					xImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xx[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]));
 
-					dbl_xImpuls_eta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_xImpuls_eta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_xImpuls_eta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_xImpuls_eta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_xImpuls_eta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_xImpuls_eta_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_xImpuls_eta_help[6]);
+					xImpuls_eta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*xImpuls_eta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*xImpuls_eta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*xImpuls_eta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*xImpuls_eta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*xImpuls_eta_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*xImpuls_eta_help[6]);
 
 
-					dbl_yImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]));
-					dbl_yImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]));
-					dbl_yImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]));
-					dbl_yImpuls_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]));
-					dbl_yImpuls_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]));
-					dbl_yImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]));
+					yImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xy[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yy[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]));
+					yImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xy[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yy[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]));
+					yImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xy[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yy[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]));
+					yImpuls_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xy[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yy[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]));
+					yImpuls_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xy[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yy[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]));
+					yImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xy[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yy[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]));
 
-					dbl_yImpuls_eta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_yImpuls_eta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_yImpuls_eta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_yImpuls_eta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_yImpuls_eta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_yImpuls_eta_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_yImpuls_eta_help[6]);
+					yImpuls_eta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*yImpuls_eta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*yImpuls_eta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*yImpuls_eta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*yImpuls_eta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*yImpuls_eta_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*yImpuls_eta_help[6]);
 
 
 #if MESHDIMENSIONS==3
-						dbl_zImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_zz[ijMinus3k]));
-						dbl_zImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_zz[ijMinus2k]));
-						dbl_zImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_zz[ijMinus1k]));
-						dbl_zImpuls_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_zz[ijPlus1k]));
-						dbl_zImpuls_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_zz[ijPlus2k]));
-						dbl_zImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_zz[ijPlus3k]));
+						zImpuls_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->tau_xz[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->tau_yz[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->tau_zz[ijMinus3k]));
+						zImpuls_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->tau_xz[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->tau_yz[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->tau_zz[ijMinus2k]));
+						zImpuls_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->tau_xz[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->tau_yz[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->tau_zz[ijMinus1k]));
+						zImpuls_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->tau_xz[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->tau_yz[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->tau_zz[ijPlus1k]));
+						zImpuls_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->tau_xz[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->tau_yz[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->tau_zz[ijPlus2k]));
+						zImpuls_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->tau_xz[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->tau_yz[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->tau_zz[ijPlus3k]));
 
-						dbl_zImpuls_eta=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_zImpuls_eta_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_zImpuls_eta_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_zImpuls_eta_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_zImpuls_eta_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_zImpuls_eta_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_zImpuls_eta_help[6]);
+						zImpuls_eta=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*zImpuls_eta_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*zImpuls_eta_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*zImpuls_eta_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*zImpuls_eta_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*zImpuls_eta_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*zImpuls_eta_help[6]);
 #endif
 
 
-					dbl_Energie_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->q_x[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->q_y[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->q_z[ijMinus3k]));
-					dbl_Energie_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->q_x[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->q_y[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->q_z[ijMinus2k]));
-					dbl_Energie_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->q_x[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->q_y[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->q_z[ijMinus1k]));
-					dbl_Energie_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->q_x[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->q_y[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->q_z[ijPlus1k]));
-					dbl_Energie_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->q_x[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->q_y[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->q_z[ijPlus2k]));
-					dbl_Energie_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->q_x[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->q_y[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->q_z[ijPlus3k]));
+					Energie_eta_help[0]=(pnt_mesh->jacobian[ijMinus3k]*(pnt_mesh->eta_x[ijMinus3k]*pnt_ZD->q_x[ijMinus3k]+pnt_mesh->eta_y[ijMinus3k]*pnt_ZD->q_y[ijMinus3k]+pnt_mesh->eta_z[ijMinus3k]*pnt_ZD->q_z[ijMinus3k]));
+					Energie_eta_help[1]=(pnt_mesh->jacobian[ijMinus2k]*(pnt_mesh->eta_x[ijMinus2k]*pnt_ZD->q_x[ijMinus2k]+pnt_mesh->eta_y[ijMinus2k]*pnt_ZD->q_y[ijMinus2k]+pnt_mesh->eta_z[ijMinus2k]*pnt_ZD->q_z[ijMinus2k]));
+					Energie_eta_help[2]=(pnt_mesh->jacobian[ijMinus1k]*(pnt_mesh->eta_x[ijMinus1k]*pnt_ZD->q_x[ijMinus1k]+pnt_mesh->eta_y[ijMinus1k]*pnt_ZD->q_y[ijMinus1k]+pnt_mesh->eta_z[ijMinus1k]*pnt_ZD->q_z[ijMinus1k]));
+					Energie_eta_help[4]=(pnt_mesh->jacobian[ijPlus1k]*(pnt_mesh->eta_x[ijPlus1k]*pnt_ZD->q_x[ijPlus1k]+pnt_mesh->eta_y[ijPlus1k]*pnt_ZD->q_y[ijPlus1k]+pnt_mesh->eta_z[ijPlus1k]*pnt_ZD->q_z[ijPlus1k]));
+					Energie_eta_help[5]=(pnt_mesh->jacobian[ijPlus2k]*(pnt_mesh->eta_x[ijPlus2k]*pnt_ZD->q_x[ijPlus2k]+pnt_mesh->eta_y[ijPlus2k]*pnt_ZD->q_y[ijPlus2k]+pnt_mesh->eta_z[ijPlus2k]*pnt_ZD->q_z[ijPlus2k]));
+					Energie_eta_help[6]=(pnt_mesh->jacobian[ijPlus3k]*(pnt_mesh->eta_x[ijPlus3k]*pnt_ZD->q_x[ijPlus3k]+pnt_mesh->eta_y[ijPlus3k]*pnt_ZD->q_y[ijPlus3k]+pnt_mesh->eta_z[ijPlus3k]*pnt_ZD->q_z[ijPlus3k]));
 
-					dbl_Energie_eta=
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*(dbl_Energie_eta_help[0]*pnt_config->dbl_Gamma[ijMinus3k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[0]*pnt_U_RK->u[ijMinus3k]+dbl_yImpuls_eta_help[0]*pnt_U_RK->v[ijMinus3k]+dbl_zImpuls_eta_help[0]*pnt_U_RK->w[ijMinus3k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*(dbl_Energie_eta_help[1]*pnt_config->dbl_Gamma[ijMinus2k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[1]*pnt_U_RK->u[ijMinus2k]+dbl_yImpuls_eta_help[1]*pnt_U_RK->v[ijMinus2k]+dbl_zImpuls_eta_help[1]*pnt_U_RK->w[ijMinus2k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*(dbl_Energie_eta_help[2]*pnt_config->dbl_Gamma[ijMinus1k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[2]*pnt_U_RK->u[ijMinus1k]+dbl_yImpuls_eta_help[2]*pnt_U_RK->v[ijMinus1k]+dbl_zImpuls_eta_help[2]*pnt_U_RK->w[ijMinus1k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*(dbl_Energie_eta_help[4]*pnt_config->dbl_Gamma[ijPlus1k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[4]*pnt_U_RK->u[ijPlus1k]+dbl_yImpuls_eta_help[4]*pnt_U_RK->v[ijPlus1k]+dbl_zImpuls_eta_help[4]*pnt_U_RK->w[ijPlus1k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*(dbl_Energie_eta_help[5]*pnt_config->dbl_Gamma[ijPlus2k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[5]*pnt_U_RK->u[ijPlus2k]+dbl_yImpuls_eta_help[5]*pnt_U_RK->v[ijPlus2k]+dbl_zImpuls_eta_help[5]*pnt_U_RK->w[ijPlus2k]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*(dbl_Energie_eta_help[6]*pnt_config->dbl_Gamma[ijPlus3k]+pnt_config->dbl_Psi*(dbl_xImpuls_eta_help[6]*pnt_U_RK->u[ijPlus3k]+dbl_yImpuls_eta_help[6]*pnt_U_RK->v[ijPlus3k]+dbl_zImpuls_eta_help[6]*pnt_U_RK->w[ijPlus3k]));
+					Energie_eta=
+							pnt_config->ZD_Ableitung_Koeffizient[0]*(Energie_eta_help[0]*pnt_config->Gamma[ijMinus3k]+pnt_config->Psi*(xImpuls_eta_help[0]*pnt_U_RK->u[ijMinus3k]+yImpuls_eta_help[0]*pnt_U_RK->v[ijMinus3k]+zImpuls_eta_help[0]*pnt_U_RK->w[ijMinus3k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[1]*(Energie_eta_help[1]*pnt_config->Gamma[ijMinus2k]+pnt_config->Psi*(xImpuls_eta_help[1]*pnt_U_RK->u[ijMinus2k]+yImpuls_eta_help[1]*pnt_U_RK->v[ijMinus2k]+zImpuls_eta_help[1]*pnt_U_RK->w[ijMinus2k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[2]*(Energie_eta_help[2]*pnt_config->Gamma[ijMinus1k]+pnt_config->Psi*(xImpuls_eta_help[2]*pnt_U_RK->u[ijMinus1k]+yImpuls_eta_help[2]*pnt_U_RK->v[ijMinus1k]+zImpuls_eta_help[2]*pnt_U_RK->w[ijMinus1k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[4]*(Energie_eta_help[4]*pnt_config->Gamma[ijPlus1k]+pnt_config->Psi*(xImpuls_eta_help[4]*pnt_U_RK->u[ijPlus1k]+yImpuls_eta_help[4]*pnt_U_RK->v[ijPlus1k]+zImpuls_eta_help[4]*pnt_U_RK->w[ijPlus1k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[5]*(Energie_eta_help[5]*pnt_config->Gamma[ijPlus2k]+pnt_config->Psi*(xImpuls_eta_help[5]*pnt_U_RK->u[ijPlus2k]+yImpuls_eta_help[5]*pnt_U_RK->v[ijPlus2k]+zImpuls_eta_help[5]*pnt_U_RK->w[ijPlus2k]))+
+							pnt_config->ZD_Ableitung_Koeffizient[6]*(Energie_eta_help[6]*pnt_config->Gamma[ijPlus3k]+pnt_config->Psi*(xImpuls_eta_help[6]*pnt_U_RK->u[ijPlus3k]+yImpuls_eta_help[6]*pnt_U_RK->v[ijPlus3k]+zImpuls_eta_help[6]*pnt_U_RK->w[ijPlus3k]));
 #endif
 
 
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+dbl_xImpuls_eta;
-				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+dbl_yImpuls_eta;
+				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+xImpuls_eta;
+				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+yImpuls_eta;
 #if MESHDIMENSIONS==3
-					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+dbl_zImpuls_eta;
+					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+zImpuls_eta;
 #endif
 #if MESHDIMENSIONS==2
 					pnt_Q->zetaMomentum[ijk]=0.0;
 #endif
-				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+dbl_Energie_eta;
+				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+Energie_eta;
 			}
 		}
 	}
@@ -1334,133 +1334,133 @@ void CalcViscidFluxesInXiDirection(
 
 
 #if SPACEORDER==9
-					dbl_xImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->tau_xx[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->tau_xy[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->tau_xz[iMinus5jk]));
-					dbl_xImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->tau_xx[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->tau_xy[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->tau_xz[iMinus4jk]));
-					dbl_xImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xx[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]));
-					dbl_xImpuls_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xx[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]));
-					dbl_xImpuls_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xx[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]));
-					dbl_xImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xx[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]));
-					dbl_xImpuls_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xx[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]));
-					dbl_xImpuls_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xx[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]));
-					dbl_xImpuls_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->tau_xx[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->tau_xy[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->tau_xz[iPlus4jk]));
-					dbl_xImpuls_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->tau_xx[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->tau_xy[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->tau_xz[iPlus5jk]));
+					xImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->tau_xx[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->tau_xy[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->tau_xz[iMinus5jk]));
+					xImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->tau_xx[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->tau_xy[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->tau_xz[iMinus4jk]));
+					xImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xx[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]));
+					xImpuls_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xx[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]));
+					xImpuls_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xx[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]));
+					xImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xx[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]));
+					xImpuls_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xx[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]));
+					xImpuls_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xx[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]));
+					xImpuls_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->tau_xx[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->tau_xy[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->tau_xz[iPlus4jk]));
+					xImpuls_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->tau_xx[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->tau_xy[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->tau_xz[iPlus5jk]));
 
-					dbl_xImpuls_xi=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_xImpuls_xi_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_xImpuls_xi_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_xImpuls_xi_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_xImpuls_xi_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_xImpuls_xi_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_xImpuls_xi_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_xImpuls_xi_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_xImpuls_xi_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_xImpuls_xi_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_xImpuls_xi_help[10]);
+					xImpuls_xi=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*xImpuls_xi_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*xImpuls_xi_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*xImpuls_xi_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*xImpuls_xi_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*xImpuls_xi_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*xImpuls_xi_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*xImpuls_xi_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*xImpuls_xi_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*xImpuls_xi_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*xImpuls_xi_help[10]);
 
 
-					dbl_yImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->tau_xy[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->tau_yy[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->tau_yz[iMinus5jk]));
-					dbl_yImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->tau_xy[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->tau_yy[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->tau_yz[iMinus4jk]));
-					dbl_yImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]));
-					dbl_yImpuls_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]));
-					dbl_yImpuls_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]));
-					dbl_yImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]));
-					dbl_yImpuls_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]));
-					dbl_yImpuls_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]));
-					dbl_yImpuls_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->tau_xy[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->tau_yy[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->tau_yz[iPlus4jk]));
-					dbl_yImpuls_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->tau_xy[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->tau_yy[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->tau_yz[iPlus5jk]));
+					yImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->tau_xy[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->tau_yy[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->tau_yz[iMinus5jk]));
+					yImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->tau_xy[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->tau_yy[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->tau_yz[iMinus4jk]));
+					yImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]));
+					yImpuls_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]));
+					yImpuls_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]));
+					yImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]));
+					yImpuls_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]));
+					yImpuls_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]));
+					yImpuls_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->tau_xy[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->tau_yy[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->tau_yz[iPlus4jk]));
+					yImpuls_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->tau_xy[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->tau_yy[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->tau_yz[iPlus5jk]));
 
-					dbl_yImpuls_xi=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_yImpuls_xi_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_yImpuls_xi_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_yImpuls_xi_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_yImpuls_xi_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_yImpuls_xi_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_yImpuls_xi_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_yImpuls_xi_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_yImpuls_xi_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_yImpuls_xi_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_yImpuls_xi_help[10]);
+					yImpuls_xi=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*yImpuls_xi_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*yImpuls_xi_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*yImpuls_xi_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*yImpuls_xi_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*yImpuls_xi_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*yImpuls_xi_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*yImpuls_xi_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*yImpuls_xi_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*yImpuls_xi_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*yImpuls_xi_help[10]);
 
 
 #if MESHDIMENSIONS==3
-						dbl_zImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->tau_xz[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->tau_yz[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->tau_zz[iMinus5jk]));
-						dbl_zImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->tau_xz[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->tau_yz[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->tau_zz[iMinus4jk]));
-						dbl_zImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_zz[iMinus3jk]));
-						dbl_zImpuls_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_zz[iMinus2jk]));
-						dbl_zImpuls_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_zz[iMinus1jk]));
-						dbl_zImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_zz[iPlus1jk]));
-						dbl_zImpuls_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_zz[iPlus2jk]));
-						dbl_zImpuls_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_zz[iPlus3jk]));
-						dbl_zImpuls_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->tau_xz[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->tau_yz[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->tau_zz[iPlus4jk]));
-						dbl_zImpuls_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->tau_xz[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->tau_yz[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->tau_zz[iPlus5jk]));
+						zImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->tau_xz[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->tau_yz[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->tau_zz[iMinus5jk]));
+						zImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->tau_xz[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->tau_yz[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->tau_zz[iMinus4jk]));
+						zImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_zz[iMinus3jk]));
+						zImpuls_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_zz[iMinus2jk]));
+						zImpuls_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_zz[iMinus1jk]));
+						zImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_zz[iPlus1jk]));
+						zImpuls_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_zz[iPlus2jk]));
+						zImpuls_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_zz[iPlus3jk]));
+						zImpuls_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->tau_xz[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->tau_yz[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->tau_zz[iPlus4jk]));
+						zImpuls_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->tau_xz[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->tau_yz[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->tau_zz[iPlus5jk]));
 
-						dbl_zImpuls_xi=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_zImpuls_xi_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_zImpuls_xi_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_zImpuls_xi_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*dbl_zImpuls_xi_help[3]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_zImpuls_xi_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_zImpuls_xi_help[6]+pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*dbl_zImpuls_xi_help[7]+pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*dbl_zImpuls_xi_help[8]+pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*dbl_zImpuls_xi_help[9]+pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*dbl_zImpuls_xi_help[10]);
+						zImpuls_xi=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*zImpuls_xi_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*zImpuls_xi_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*zImpuls_xi_help[2]+pnt_config->ZD_Ableitung_Koeffizient[3]*zImpuls_xi_help[3]+pnt_config->ZD_Ableitung_Koeffizient[4]*zImpuls_xi_help[4]+pnt_config->ZD_Ableitung_Koeffizient[6]*zImpuls_xi_help[6]+pnt_config->ZD_Ableitung_Koeffizient[7]*zImpuls_xi_help[7]+pnt_config->ZD_Ableitung_Koeffizient[8]*zImpuls_xi_help[8]+pnt_config->ZD_Ableitung_Koeffizient[9]*zImpuls_xi_help[9]+pnt_config->ZD_Ableitung_Koeffizient[10]*zImpuls_xi_help[10]);
 #endif
 
 
-					dbl_Energie_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->q_x[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->q_y[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->q_z[iMinus5jk]));
-					dbl_Energie_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->q_x[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->q_y[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->q_z[iMinus4jk]));
-					dbl_Energie_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->q_x[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->q_y[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->q_z[iMinus3jk]));
-					dbl_Energie_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->q_x[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->q_y[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->q_z[iMinus2jk]));
-					dbl_Energie_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->q_x[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->q_y[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->q_z[iMinus1jk]));
-					dbl_Energie_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->q_x[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->q_y[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->q_z[iPlus1jk]));
-					dbl_Energie_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->q_x[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->q_y[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->q_z[iPlus2jk]));
-					dbl_Energie_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->q_x[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->q_y[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->q_z[iPlus3jk]));
-					dbl_Energie_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->q_x[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->q_y[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->q_z[iPlus4jk]));
-					dbl_Energie_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->q_x[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->q_y[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->q_z[iPlus5jk]));
+					Energie_xi_help[0]=(pnt_mesh->jacobian[iMinus5jk]*(pnt_mesh->xi_x[iMinus5jk]*pnt_ZD->q_x[iMinus5jk]+pnt_mesh->xi_y[iMinus5jk]*pnt_ZD->q_y[iMinus5jk]+pnt_mesh->xi_z[iMinus5jk]*pnt_ZD->q_z[iMinus5jk]));
+					Energie_xi_help[1]=(pnt_mesh->jacobian[iMinus4jk]*(pnt_mesh->xi_x[iMinus4jk]*pnt_ZD->q_x[iMinus4jk]+pnt_mesh->xi_y[iMinus4jk]*pnt_ZD->q_y[iMinus4jk]+pnt_mesh->xi_z[iMinus4jk]*pnt_ZD->q_z[iMinus4jk]));
+					Energie_xi_help[2]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->q_x[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->q_y[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->q_z[iMinus3jk]));
+					Energie_xi_help[3]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->q_x[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->q_y[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->q_z[iMinus2jk]));
+					Energie_xi_help[4]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->q_x[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->q_y[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->q_z[iMinus1jk]));
+					Energie_xi_help[6]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->q_x[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->q_y[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->q_z[iPlus1jk]));
+					Energie_xi_help[7]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->q_x[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->q_y[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->q_z[iPlus2jk]));
+					Energie_xi_help[8]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->q_x[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->q_y[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->q_z[iPlus3jk]));
+					Energie_xi_help[9]=(pnt_mesh->jacobian[iPlus4jk]*(pnt_mesh->xi_x[iPlus4jk]*pnt_ZD->q_x[iPlus4jk]+pnt_mesh->xi_y[iPlus4jk]*pnt_ZD->q_y[iPlus4jk]+pnt_mesh->xi_z[iPlus4jk]*pnt_ZD->q_z[iPlus4jk]));
+					Energie_xi_help[10]=(pnt_mesh->jacobian[iPlus5jk]*(pnt_mesh->xi_x[iPlus5jk]*pnt_ZD->q_x[iPlus5jk]+pnt_mesh->xi_y[iPlus5jk]*pnt_ZD->q_y[iPlus5jk]+pnt_mesh->xi_z[iPlus5jk]*pnt_ZD->q_z[iPlus5jk]));
 
-					dbl_Energie_xi=
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*(dbl_Energie_xi_help[0]*pnt_config->dbl_Gamma[iMinus5jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[0]*pnt_U_RK->u[iMinus5jk]+dbl_yImpuls_xi_help[0]*pnt_U_RK->v[iMinus5jk]+dbl_zImpuls_xi_help[0]*pnt_U_RK->w[iMinus5jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*(dbl_Energie_xi_help[1]*pnt_config->dbl_Gamma[iMinus4jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[1]*pnt_U_RK->u[iMinus4jk]+dbl_yImpuls_xi_help[1]*pnt_U_RK->v[iMinus4jk]+dbl_zImpuls_xi_help[1]*pnt_U_RK->w[iMinus4jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*(dbl_Energie_xi_help[2]*pnt_config->dbl_Gamma[iMinus3jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[2]*pnt_U_RK->u[iMinus3jk]+dbl_yImpuls_xi_help[2]*pnt_U_RK->v[iMinus3jk]+dbl_zImpuls_xi_help[2]*pnt_U_RK->w[iMinus3jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[3]*(dbl_Energie_xi_help[3]*pnt_config->dbl_Gamma[iMinus2jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[3]*pnt_U_RK->u[iMinus2jk]+dbl_yImpuls_xi_help[3]*pnt_U_RK->v[iMinus2jk]+dbl_zImpuls_xi_help[3]*pnt_U_RK->w[iMinus2jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*(dbl_Energie_xi_help[4]*pnt_config->dbl_Gamma[iMinus1jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[4]*pnt_U_RK->u[iMinus1jk]+dbl_yImpuls_xi_help[4]*pnt_U_RK->v[iMinus1jk]+dbl_zImpuls_xi_help[4]*pnt_U_RK->w[iMinus1jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*(dbl_Energie_xi_help[6]*pnt_config->dbl_Gamma[iPlus1jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[6]*pnt_U_RK->u[iPlus1jk]+dbl_yImpuls_xi_help[6]*pnt_U_RK->v[iPlus1jk]+dbl_zImpuls_xi_help[6]*pnt_U_RK->w[iPlus1jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[7]*(dbl_Energie_xi_help[7]*pnt_config->dbl_Gamma[iPlus2jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[7]*pnt_U_RK->u[iPlus2jk]+dbl_yImpuls_xi_help[7]*pnt_U_RK->v[iPlus2jk]+dbl_zImpuls_xi_help[7]*pnt_U_RK->w[iPlus2jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[8]*(dbl_Energie_xi_help[8]*pnt_config->dbl_Gamma[iPlus3jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[8]*pnt_U_RK->u[iPlus3jk]+dbl_yImpuls_xi_help[8]*pnt_U_RK->v[iPlus3jk]+dbl_zImpuls_xi_help[8]*pnt_U_RK->w[iPlus3jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[9]*(dbl_Energie_xi_help[9]*pnt_config->dbl_Gamma[iPlus4jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[9]*pnt_U_RK->u[iPlus4jk]+dbl_yImpuls_xi_help[9]*pnt_U_RK->v[iPlus4jk]+dbl_zImpuls_xi_help[9]*pnt_U_RK->w[iPlus4jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[10]*(dbl_Energie_xi_help[10]*pnt_config->dbl_Gamma[iPlus5jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[10]*pnt_U_RK->u[iPlus5jk]+dbl_yImpuls_xi_help[10]*pnt_U_RK->v[iPlus5jk]+dbl_zImpuls_xi_help[10]*pnt_U_RK->w[iPlus5jk]));
+					Energie_xi=
+							pnt_config->ZD_Ableitung_Koeffizient[0]*(Energie_xi_help[0]*pnt_config->Gamma[iMinus5jk]+pnt_config->Psi*(xImpuls_xi_help[0]*pnt_U_RK->u[iMinus5jk]+yImpuls_xi_help[0]*pnt_U_RK->v[iMinus5jk]+zImpuls_xi_help[0]*pnt_U_RK->w[iMinus5jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[1]*(Energie_xi_help[1]*pnt_config->Gamma[iMinus4jk]+pnt_config->Psi*(xImpuls_xi_help[1]*pnt_U_RK->u[iMinus4jk]+yImpuls_xi_help[1]*pnt_U_RK->v[iMinus4jk]+zImpuls_xi_help[1]*pnt_U_RK->w[iMinus4jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[2]*(Energie_xi_help[2]*pnt_config->Gamma[iMinus3jk]+pnt_config->Psi*(xImpuls_xi_help[2]*pnt_U_RK->u[iMinus3jk]+yImpuls_xi_help[2]*pnt_U_RK->v[iMinus3jk]+zImpuls_xi_help[2]*pnt_U_RK->w[iMinus3jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[3]*(Energie_xi_help[3]*pnt_config->Gamma[iMinus2jk]+pnt_config->Psi*(xImpuls_xi_help[3]*pnt_U_RK->u[iMinus2jk]+yImpuls_xi_help[3]*pnt_U_RK->v[iMinus2jk]+zImpuls_xi_help[3]*pnt_U_RK->w[iMinus2jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[4]*(Energie_xi_help[4]*pnt_config->Gamma[iMinus1jk]+pnt_config->Psi*(xImpuls_xi_help[4]*pnt_U_RK->u[iMinus1jk]+yImpuls_xi_help[4]*pnt_U_RK->v[iMinus1jk]+zImpuls_xi_help[4]*pnt_U_RK->w[iMinus1jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[6]*(Energie_xi_help[6]*pnt_config->Gamma[iPlus1jk]+pnt_config->Psi*(xImpuls_xi_help[6]*pnt_U_RK->u[iPlus1jk]+yImpuls_xi_help[6]*pnt_U_RK->v[iPlus1jk]+zImpuls_xi_help[6]*pnt_U_RK->w[iPlus1jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[7]*(Energie_xi_help[7]*pnt_config->Gamma[iPlus2jk]+pnt_config->Psi*(xImpuls_xi_help[7]*pnt_U_RK->u[iPlus2jk]+yImpuls_xi_help[7]*pnt_U_RK->v[iPlus2jk]+zImpuls_xi_help[7]*pnt_U_RK->w[iPlus2jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[8]*(Energie_xi_help[8]*pnt_config->Gamma[iPlus3jk]+pnt_config->Psi*(xImpuls_xi_help[8]*pnt_U_RK->u[iPlus3jk]+yImpuls_xi_help[8]*pnt_U_RK->v[iPlus3jk]+zImpuls_xi_help[8]*pnt_U_RK->w[iPlus3jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[9]*(Energie_xi_help[9]*pnt_config->Gamma[iPlus4jk]+pnt_config->Psi*(xImpuls_xi_help[9]*pnt_U_RK->u[iPlus4jk]+yImpuls_xi_help[9]*pnt_U_RK->v[iPlus4jk]+zImpuls_xi_help[9]*pnt_U_RK->w[iPlus4jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[10]*(Energie_xi_help[10]*pnt_config->Gamma[iPlus5jk]+pnt_config->Psi*(xImpuls_xi_help[10]*pnt_U_RK->u[iPlus5jk]+yImpuls_xi_help[10]*pnt_U_RK->v[iPlus5jk]+zImpuls_xi_help[10]*pnt_U_RK->w[iPlus5jk]));
 #endif
 #if SPACEORDER==5
-					dbl_xImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xx[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]));
-					dbl_xImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xx[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]));
-					dbl_xImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xx[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]));
-					dbl_xImpuls_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xx[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]));
-					dbl_xImpuls_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xx[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]));
-					dbl_xImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xx[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]));
+					xImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xx[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]));
+					xImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xx[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]));
+					xImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xx[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]));
+					xImpuls_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xx[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]));
+					xImpuls_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xx[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]));
+					xImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xx[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]));
 
-					dbl_xImpuls_xi=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_xImpuls_xi_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_xImpuls_xi_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_xImpuls_xi_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_xImpuls_xi_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_xImpuls_xi_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_xImpuls_xi_help[6]);
+					xImpuls_xi=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*xImpuls_xi_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*xImpuls_xi_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*xImpuls_xi_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*xImpuls_xi_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*xImpuls_xi_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*xImpuls_xi_help[6]);
 
 
-					dbl_yImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]));
-					dbl_yImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]));
-					dbl_yImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]));
-					dbl_yImpuls_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]));
-					dbl_yImpuls_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]));
-					dbl_yImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]));
+					yImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xy[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yy[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]));
+					yImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xy[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yy[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]));
+					yImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xy[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yy[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]));
+					yImpuls_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xy[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yy[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]));
+					yImpuls_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xy[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yy[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]));
+					yImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xy[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yy[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]));
 
-					dbl_yImpuls_xi=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_yImpuls_xi_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_yImpuls_xi_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_yImpuls_xi_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_yImpuls_xi_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_yImpuls_xi_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_yImpuls_xi_help[6]);
+					yImpuls_xi=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*yImpuls_xi_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*yImpuls_xi_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*yImpuls_xi_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*yImpuls_xi_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*yImpuls_xi_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*yImpuls_xi_help[6]);
 
 
 #if MESHDIMENSIONS==3
-						dbl_zImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_zz[iMinus3jk]));
-						dbl_zImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_zz[iMinus2jk]));
-						dbl_zImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_zz[iMinus1jk]));
-						dbl_zImpuls_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_zz[iPlus1jk]));
-						dbl_zImpuls_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_zz[iPlus2jk]));
-						dbl_zImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_zz[iPlus3jk]));
+						zImpuls_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->tau_xz[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->tau_yz[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->tau_zz[iMinus3jk]));
+						zImpuls_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->tau_xz[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->tau_yz[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->tau_zz[iMinus2jk]));
+						zImpuls_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->tau_xz[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->tau_yz[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->tau_zz[iMinus1jk]));
+						zImpuls_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->tau_xz[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->tau_yz[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->tau_zz[iPlus1jk]));
+						zImpuls_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->tau_xz[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->tau_yz[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->tau_zz[iPlus2jk]));
+						zImpuls_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->tau_xz[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->tau_yz[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->tau_zz[iPlus3jk]));
 
-						dbl_zImpuls_xi=pnt_config->dbl_Psi*(pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*dbl_zImpuls_xi_help[0]+pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*dbl_zImpuls_xi_help[1]+pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*dbl_zImpuls_xi_help[2]+pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*dbl_zImpuls_xi_help[4]+pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*dbl_zImpuls_xi_help[5]+pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*dbl_zImpuls_xi_help[6]);
+						zImpuls_xi=pnt_config->Psi*(pnt_config->ZD_Ableitung_Koeffizient[0]*zImpuls_xi_help[0]+pnt_config->ZD_Ableitung_Koeffizient[1]*zImpuls_xi_help[1]+pnt_config->ZD_Ableitung_Koeffizient[2]*zImpuls_xi_help[2]+pnt_config->ZD_Ableitung_Koeffizient[4]*zImpuls_xi_help[4]+pnt_config->ZD_Ableitung_Koeffizient[5]*zImpuls_xi_help[5]+pnt_config->ZD_Ableitung_Koeffizient[6]*zImpuls_xi_help[6]);
 #endif
 
 
-					dbl_Energie_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->q_x[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->q_y[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->q_z[iMinus3jk]));
-					dbl_Energie_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->q_x[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->q_y[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->q_z[iMinus2jk]));
-					dbl_Energie_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->q_x[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->q_y[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->q_z[iMinus1jk]));
-					dbl_Energie_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->q_x[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->q_y[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->q_z[iPlus1jk]));
-					dbl_Energie_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->q_x[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->q_y[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->q_z[iPlus2jk]));
-					dbl_Energie_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->q_x[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->q_y[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->q_z[iPlus3jk]));
+					Energie_xi_help[0]=(pnt_mesh->jacobian[iMinus3jk]*(pnt_mesh->xi_x[iMinus3jk]*pnt_ZD->q_x[iMinus3jk]+pnt_mesh->xi_y[iMinus3jk]*pnt_ZD->q_y[iMinus3jk]+pnt_mesh->xi_z[iMinus3jk]*pnt_ZD->q_z[iMinus3jk]));
+					Energie_xi_help[1]=(pnt_mesh->jacobian[iMinus2jk]*(pnt_mesh->xi_x[iMinus2jk]*pnt_ZD->q_x[iMinus2jk]+pnt_mesh->xi_y[iMinus2jk]*pnt_ZD->q_y[iMinus2jk]+pnt_mesh->xi_z[iMinus2jk]*pnt_ZD->q_z[iMinus2jk]));
+					Energie_xi_help[2]=(pnt_mesh->jacobian[iMinus1jk]*(pnt_mesh->xi_x[iMinus1jk]*pnt_ZD->q_x[iMinus1jk]+pnt_mesh->xi_y[iMinus1jk]*pnt_ZD->q_y[iMinus1jk]+pnt_mesh->xi_z[iMinus1jk]*pnt_ZD->q_z[iMinus1jk]));
+					Energie_xi_help[4]=(pnt_mesh->jacobian[iPlus1jk]*(pnt_mesh->xi_x[iPlus1jk]*pnt_ZD->q_x[iPlus1jk]+pnt_mesh->xi_y[iPlus1jk]*pnt_ZD->q_y[iPlus1jk]+pnt_mesh->xi_z[iPlus1jk]*pnt_ZD->q_z[iPlus1jk]));
+					Energie_xi_help[5]=(pnt_mesh->jacobian[iPlus2jk]*(pnt_mesh->xi_x[iPlus2jk]*pnt_ZD->q_x[iPlus2jk]+pnt_mesh->xi_y[iPlus2jk]*pnt_ZD->q_y[iPlus2jk]+pnt_mesh->xi_z[iPlus2jk]*pnt_ZD->q_z[iPlus2jk]));
+					Energie_xi_help[6]=(pnt_mesh->jacobian[iPlus3jk]*(pnt_mesh->xi_x[iPlus3jk]*pnt_ZD->q_x[iPlus3jk]+pnt_mesh->xi_y[iPlus3jk]*pnt_ZD->q_y[iPlus3jk]+pnt_mesh->xi_z[iPlus3jk]*pnt_ZD->q_z[iPlus3jk]));
 
-					dbl_Energie_xi=
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[0]*(dbl_Energie_xi_help[0]*pnt_config->dbl_Gamma[iMinus3jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[0]*pnt_U_RK->u[iMinus3jk]+dbl_yImpuls_xi_help[0]*pnt_U_RK->v[iMinus3jk]+dbl_zImpuls_xi_help[0]*pnt_U_RK->w[iMinus3jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[1]*(dbl_Energie_xi_help[1]*pnt_config->dbl_Gamma[iMinus2jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[1]*pnt_U_RK->u[iMinus2jk]+dbl_yImpuls_xi_help[1]*pnt_U_RK->v[iMinus2jk]+dbl_zImpuls_xi_help[1]*pnt_U_RK->w[iMinus2jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[2]*(dbl_Energie_xi_help[2]*pnt_config->dbl_Gamma[iMinus1jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[2]*pnt_U_RK->u[iMinus1jk]+dbl_yImpuls_xi_help[2]*pnt_U_RK->v[iMinus1jk]+dbl_zImpuls_xi_help[2]*pnt_U_RK->w[iMinus1jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[4]*(dbl_Energie_xi_help[4]*pnt_config->dbl_Gamma[iPlus1jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[4]*pnt_U_RK->u[iPlus1jk]+dbl_yImpuls_xi_help[4]*pnt_U_RK->v[iPlus1jk]+dbl_zImpuls_xi_help[4]*pnt_U_RK->w[iPlus1jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[5]*(dbl_Energie_xi_help[5]*pnt_config->dbl_Gamma[iPlus2jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[5]*pnt_U_RK->u[iPlus2jk]+dbl_yImpuls_xi_help[5]*pnt_U_RK->v[iPlus2jk]+dbl_zImpuls_xi_help[5]*pnt_U_RK->w[iPlus2jk]))+
-							pnt_config->dbl_ZD_Ableitung_Koeffizient[6]*(dbl_Energie_xi_help[6]*pnt_config->dbl_Gamma[iPlus3jk]+pnt_config->dbl_Psi*(dbl_xImpuls_xi_help[6]*pnt_U_RK->u[iPlus3jk]+dbl_yImpuls_xi_help[6]*pnt_U_RK->v[iPlus3jk]+dbl_zImpuls_xi_help[6]*pnt_U_RK->w[iPlus3jk]));
+					Energie_xi=
+							pnt_config->ZD_Ableitung_Koeffizient[0]*(Energie_xi_help[0]*pnt_config->Gamma[iMinus3jk]+pnt_config->Psi*(xImpuls_xi_help[0]*pnt_U_RK->u[iMinus3jk]+yImpuls_xi_help[0]*pnt_U_RK->v[iMinus3jk]+zImpuls_xi_help[0]*pnt_U_RK->w[iMinus3jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[1]*(Energie_xi_help[1]*pnt_config->Gamma[iMinus2jk]+pnt_config->Psi*(xImpuls_xi_help[1]*pnt_U_RK->u[iMinus2jk]+yImpuls_xi_help[1]*pnt_U_RK->v[iMinus2jk]+zImpuls_xi_help[1]*pnt_U_RK->w[iMinus2jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[2]*(Energie_xi_help[2]*pnt_config->Gamma[iMinus1jk]+pnt_config->Psi*(xImpuls_xi_help[2]*pnt_U_RK->u[iMinus1jk]+yImpuls_xi_help[2]*pnt_U_RK->v[iMinus1jk]+zImpuls_xi_help[2]*pnt_U_RK->w[iMinus1jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[4]*(Energie_xi_help[4]*pnt_config->Gamma[iPlus1jk]+pnt_config->Psi*(xImpuls_xi_help[4]*pnt_U_RK->u[iPlus1jk]+yImpuls_xi_help[4]*pnt_U_RK->v[iPlus1jk]+zImpuls_xi_help[4]*pnt_U_RK->w[iPlus1jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[5]*(Energie_xi_help[5]*pnt_config->Gamma[iPlus2jk]+pnt_config->Psi*(xImpuls_xi_help[5]*pnt_U_RK->u[iPlus2jk]+yImpuls_xi_help[5]*pnt_U_RK->v[iPlus2jk]+zImpuls_xi_help[5]*pnt_U_RK->w[iPlus2jk]))+
+							pnt_config->ZD_Ableitung_Koeffizient[6]*(Energie_xi_help[6]*pnt_config->Gamma[iPlus3jk]+pnt_config->Psi*(xImpuls_xi_help[6]*pnt_U_RK->u[iPlus3jk]+yImpuls_xi_help[6]*pnt_U_RK->v[iPlus3jk]+zImpuls_xi_help[6]*pnt_U_RK->w[iPlus3jk]));
 #endif
 
 
 //					Auf den Divisor deltaXi, deltaEta und deltaZeta wird verzichtet, da diese zu 1 gesetzt wurden
-				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+dbl_xImpuls_xi;
-				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+dbl_yImpuls_xi;
+				pnt_Q->xiMomentum[ijk]=pnt_Q->xiMomentum[ijk]+xImpuls_xi;
+				pnt_Q->etaMomentum[ijk]=pnt_Q->etaMomentum[ijk]+yImpuls_xi;
 #if MESHDIMENSIONS==3
-					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+dbl_zImpuls_xi;
+					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+zImpuls_xi;
 #endif
 #if MESHDIMENSIONS==2
 					pnt_Q->zetaMomentum[ijk]=0.0;
 #endif
-				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+dbl_Energie_xi;
+				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+Energie_xi;
 			}
 		}
 	}
@@ -1480,12 +1480,12 @@ void CalcTauQValues(
 				4./3.*(pnt_mesh->xi_x[ijk]*pnt_ZD->u_xi[ijk]+pnt_mesh->eta_x[ijk]*pnt_ZD->u_eta[ijk])
 				-2./3.*
 				(pnt_mesh->xi_y[ijk]*pnt_ZD->v_xi[ijk]+pnt_mesh->eta_y[ijk]*pnt_ZD->v_eta[ijk]
-				+pnt_config->flag_rotation_symmetric*pnt_U_RK->v[ijk]/(pnt_mesh->y[ijk]+pnt_config->dbl_wenoEpsilon))); //Zusatzterm, der nur fuer rotationssymmetrische Simulationen beruecksichtigt wird
+				+pnt_config->flag_rotation_symmetric*pnt_U_RK->v[ijk]/(pnt_mesh->y[ijk]+pnt_config->wenoEpsilon))); //Zusatzterm, der nur fuer rotationssymmetrische Simulationen beruecksichtigt wird
 		pnt_ZD->tau_yy[ijk]=pnt_U_RK->mue[ijk]*(
 				4./3.*(pnt_mesh->xi_y[ijk]*pnt_ZD->v_xi[ijk]+pnt_mesh->eta_y[ijk]*pnt_ZD->v_eta[ijk])
 				-2./3.*
 				(pnt_mesh->xi_x[ijk]*pnt_ZD->u_xi[ijk]+pnt_mesh->eta_x[ijk]*pnt_ZD->u_eta[ijk]
-				+pnt_config->flag_rotation_symmetric*pnt_U_RK->v[ijk]/(pnt_mesh->y[ijk]+pnt_config->dbl_wenoEpsilon))); //Zusatzterm, der nur fuer rotationssymmetrische Simulationen beruecksichtigt wird
+				+pnt_config->flag_rotation_symmetric*pnt_U_RK->v[ijk]/(pnt_mesh->y[ijk]+pnt_config->wenoEpsilon))); //Zusatzterm, der nur fuer rotationssymmetrische Simulationen beruecksichtigt wird
 
 		pnt_ZD->tau_xy[ijk]=pnt_U_RK->mue[ijk]*(
 				(pnt_mesh->xi_y[ijk]*pnt_ZD->u_xi[ijk]+pnt_mesh->eta_y[ijk]*pnt_ZD->u_eta[ijk])

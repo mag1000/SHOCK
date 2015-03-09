@@ -43,16 +43,16 @@ void SnapshotExportEachCPU(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
 				fprintf(file0," %le %le %le %le %le %le %le %le %le %le\n",
-						pnt_mesh->x[ijk],
-						pnt_mesh->y[ijk],
-						pnt_mesh->z[ijk],
-						pnt_U_lastStep->rho[ijk],
-						pnt_U_lastStep->u[ijk],
-						pnt_U_lastStep->v[ijk],
-						pnt_U_lastStep->w[ijk],
-						pnt_U_lastStep->p[ijk],
-						pnt_U_lastStep->e[ijk],
-						pnt_U_lastStep->gradRho[ijk]);
+						(double)pnt_mesh->x[ijk],
+						(double)pnt_mesh->y[ijk],
+						(double)pnt_mesh->z[ijk],
+						(double)pnt_U_lastStep->rho[ijk],
+						(double)pnt_U_lastStep->u[ijk],
+						(double)pnt_U_lastStep->v[ijk],
+						(double)pnt_U_lastStep->w[ijk],
+						(double)pnt_U_lastStep->p[ijk],
+						(double)pnt_U_lastStep->e[ijk],
+						(double)pnt_U_lastStep->gradRho[ijk]);
 			}
 		}
 	}
@@ -105,24 +105,24 @@ void MeshMetricExport(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
 				fprintf(file0," %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le\n",
-						pnt_mesh->x[ijk],
-						pnt_mesh->y[ijk],
-						pnt_mesh->z[ijk],
-						pnt_mesh->xi_x[ijk],
-						pnt_mesh->xi_y[ijk],
-						pnt_mesh->xi_z[ijk],
-						pnt_mesh->eta_x[ijk],
-						pnt_mesh->eta_y[ijk],
-						pnt_mesh->eta_z[ijk],
-						pnt_mesh->zeta_x[ijk],
-						pnt_mesh->zeta_y[ijk],
-						pnt_mesh->zeta_z[ijk],
-						pnt_mesh->jacobian[ijk],
-						pnt_U->u[ijk],
-						pnt_U->v[ijk],
-						pnt_U->w[ijk],
-						pnt_U->p[ijk],
-						pnt_U->rho[ijk]);
+						(double)pnt_mesh->x[ijk],
+						(double)pnt_mesh->y[ijk],
+						(double)pnt_mesh->z[ijk],
+						(double)pnt_mesh->xi_x[ijk],
+						(double)pnt_mesh->xi_y[ijk],
+						(double)pnt_mesh->xi_z[ijk],
+						(double)pnt_mesh->eta_x[ijk],
+						(double)pnt_mesh->eta_y[ijk],
+						(double)pnt_mesh->eta_z[ijk],
+						(double)pnt_mesh->zeta_x[ijk],
+						(double)pnt_mesh->zeta_y[ijk],
+						(double)pnt_mesh->zeta_z[ijk],
+						(double)pnt_mesh->jacobian[ijk],
+						(double)pnt_U->u[ijk],
+						(double)pnt_U->v[ijk],
+						(double)pnt_U->w[ijk],
+						(double)pnt_U->p[ijk],
+						(double)pnt_U->rho[ijk]);
 
 			}
 		}
@@ -198,7 +198,7 @@ void CGNS_PressureHistoryValuesExportParallel(
 	for(t=0;t<pnt_config->int_TotalIterations;t++)
 	{
 		time[t]=pnt_config->start_Time+(FLT)(t+1)*pnt_config->int_IterationsBetweenSamples*
-				(pnt_config->dbl_L0_dim*pnt_config->dbl_numericalTau/pnt_config->dbl_u0_dim);
+				(pnt_config->L0_dim*pnt_config->numericalTau/pnt_config->u0_dim);
 
 		sprintf(sn[t],"FlowSolution%d",t);
 		sprintf(solname,"%s%-32s",solname,sn[t]);
@@ -330,16 +330,16 @@ void ASCii_PressureHistoryValuesExportParallel(
 
 	fprintf(file0,"ZONE T=\"Point%d(x=%f, y=%f, z=%f)\", F=POINT, I=%d, DT=(SINGLE)\n",
 			p_index,
-			pnt_config->PressureHistory_x_P_real[p_index],
-			pnt_config->PressureHistory_y_P_real[p_index],
-			pnt_config->PressureHistory_z_P_real[p_index],
+			(double)pnt_config->PressureHistory_x_P_real[p_index],
+			(double)pnt_config->PressureHistory_y_P_real[p_index],
+			(double)pnt_config->PressureHistory_z_P_real[p_index],
 			pnt_config->int_TotalIterations);
 
 	for(t=0;t<pnt_config->int_TotalIterations;t++)
 	{
 		fprintf(file0,"%le %le\n",
-				pnt_config->PressureHistory_time[t],
-				pnt_config->PressureHistory_pressure[p_index][t]);
+				(double)pnt_config->PressureHistory_time[t],
+				(double)pnt_config->PressureHistory_pressure[p_index][t]);
 	}
 
 
@@ -373,18 +373,18 @@ void ASCii_VelocityHistoryValuesExportParallel(
 
 	fprintf(file0,"ZONE T=\"Point%d(x=%f, y=%f, z=%f)\", F=POINT, I=%d, DT=(SINGLE)\n",
 			p_index,
-			pnt_config->VelocityHistory_x_P_real[p_index],
-			pnt_config->VelocityHistory_y_P_real[p_index],
-			pnt_config->VelocityHistory_z_P_real[p_index],
+			(double)pnt_config->VelocityHistory_x_P_real[p_index],
+			(double)pnt_config->VelocityHistory_y_P_real[p_index],
+			(double)pnt_config->VelocityHistory_z_P_real[p_index],
 			pnt_config->int_TotalIterations);
 
 	for(t=0;t<pnt_config->int_TotalIterations;t++)
 	{
 		fprintf(file0,"%le %le %le %le\n",
-				pnt_config->VelocityHistory_time[t],
-				pnt_config->VelocityHistory_VelocityX[p_index][t],
-				pnt_config->VelocityHistory_VelocityY[p_index][t],
-				pnt_config->VelocityHistory_VelocityZ[p_index][t]);
+				(double)pnt_config->VelocityHistory_time[t],
+				(double)pnt_config->VelocityHistory_VelocityX[p_index][t],
+				(double)pnt_config->VelocityHistory_VelocityY[p_index][t],
+				(double)pnt_config->VelocityHistory_VelocityZ[p_index][t]);
 	}
 
 
@@ -423,24 +423,24 @@ void NANExport(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
 				fprintf(file0," %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le\n",
-						pnt_mesh->x[ijk],
-						pnt_mesh->y[ijk],
-						pnt_mesh->z[ijk],
-						pnt_mesh->xi_x[ijk],
-						pnt_mesh->xi_y[ijk],
-						pnt_mesh->xi_z[ijk],
-						pnt_mesh->eta_x[ijk],
-						pnt_mesh->eta_y[ijk],
-						pnt_mesh->eta_z[ijk],
-						pnt_mesh->zeta_x[ijk],
-						pnt_mesh->zeta_y[ijk],
-						pnt_mesh->zeta_z[ijk],
-						pnt_mesh->jacobian[ijk],
-						pnt_U->u[ijk],
-						pnt_U->v[ijk],
-						pnt_U->w[ijk],
-						pnt_U->p[ijk],
-						pnt_U->rho[ijk]);
+						(double)pnt_mesh->x[ijk],
+						(double)pnt_mesh->y[ijk],
+						(double)pnt_mesh->z[ijk],
+						(double)pnt_mesh->xi_x[ijk],
+						(double)pnt_mesh->xi_y[ijk],
+						(double)pnt_mesh->xi_z[ijk],
+						(double)pnt_mesh->eta_x[ijk],
+						(double)pnt_mesh->eta_y[ijk],
+						(double)pnt_mesh->eta_z[ijk],
+						(double)pnt_mesh->zeta_x[ijk],
+						(double)pnt_mesh->zeta_y[ijk],
+						(double)pnt_mesh->zeta_z[ijk],
+						(double)pnt_mesh->jacobian[ijk],
+						(double)pnt_U->u[ijk],
+						(double)pnt_U->v[ijk],
+						(double)pnt_U->w[ijk],
+						(double)pnt_U->p[ijk],
+						(double)pnt_U->rho[ijk]);
 
 			}
 		}

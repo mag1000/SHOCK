@@ -628,9 +628,9 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 				CG( cg_array_read( array,timearray ) );
 
 				if( dt==RealDouble )
-					pnt_config->dbl_time_dim =( (double*)timearray )[ dimv[ 0 ]-1 ];
+					pnt_config->time_dim =( (double*)timearray )[ dimv[ 0 ]-1 ];
 				else
-					pnt_config->dbl_time_dim =( (float*)timearray )[ dimv[ 0 ]-1 ];
+					pnt_config->time_dim =( (float*)timearray )[ dimv[ 0 ]-1 ];
 
 				free( timearray );
 				break;
@@ -667,7 +667,7 @@ bool loadFile( struct strct_configuration* pnt_config,vta* x,vta* y,vta* z,vta* 
 			}
 		}
 	} else
-		pnt_config->dbl_time_dim = 0;
+		pnt_config->time_dim = 0;
 	TM_END ( "SHOCK: Loading mesh" )
 	TM_START ( )
 	if(( sol<=nsols )&&(abs(pnt_config->int_initializeType)==1)) {

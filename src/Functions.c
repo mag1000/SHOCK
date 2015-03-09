@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "FLT.h"
+#include "float.h"
 #include "string.h"
 #include "cgnslib.h"
 //make and remove directories
@@ -43,7 +43,7 @@ void postprocessLoad(
 
 	if(abs(pnt_config->int_initializeType)!=1)
 	{
-		pnt_config->dbl_time_dim=0;
+		pnt_config->time_dim=0;
 		pnt_config->int_StartIteration=0;
 	}
 
@@ -138,7 +138,7 @@ void postprocessLoad(
 
 
 //  Speicherallokierung für lokales Gamma (Prandtl)
-    pnt_config->dbl_Gamma=(FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+    pnt_config->Gamma=(FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
 		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
@@ -146,7 +146,7 @@ void postprocessLoad(
 			for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 			{
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-                pnt_config->dbl_Gamma[ijk]=1.0/((pnt_config->dbl_gammaNumber-1.0)*pow(pnt_config->dbl_machNumber,2.0)*pnt_config->dbl_reynoldsNumber*pnt_config->dbl_prandtlNumber);
+                pnt_config->Gamma[ijk]=1.0/((pnt_config->gammaNumber-1.0)*pow(pnt_config->machNumber,2.0)*pnt_config->reynoldsNumber*pnt_config->prandtlNumber);
             }
         }
     }
@@ -715,7 +715,7 @@ void postprocessLoad(
 //	printf(": Top: %d, index: %d",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourTop],pnt_config->InterfaceNeighbourTop);
 //	printf(": Behind: %d, index: %d ",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourBehind],pnt_config->InterfaceNeighbourBehind);
 //	printf(": InFront: %d, index: %d\n",pnt_config->MPI_rankNeighbours[pnt_config->InterfaceNeighbourInFront],pnt_config->InterfaceNeighbourInFront);
-
+//
 //	for (i=0;i<pnt_config->NumberInterfaces;i++)
 //	{
 //		printf("myrank: %d | rank: %d | interface:%d | transform: %d %d %d | donorname: %s\n",
@@ -760,21 +760,21 @@ void postprocessLoad(
 				ijk2=k2*pnt_config->int_jMeshPoints*pnt_config->int_iMeshPoints+j2*pnt_config->int_iMeshPoints+i2;
 
 				if( x->dt==RealSingle )
-					pnt_mesh->x[ijk]=( (FLT*)x->ptr )[ijk2];
+					pnt_mesh->x[ijk]=(FLT)( (float*)x->ptr )[ijk2];
 				else
-					pnt_mesh->x[ijk]=( (FLT*)x->ptr )[ijk2];
+					pnt_mesh->x[ijk]=(FLT)( (double*)x->ptr )[ijk2];
 
 				if( y->dt==RealSingle )
-					pnt_mesh->y[ijk]=( (FLT*)y->ptr )[ijk2];
+					pnt_mesh->y[ijk]=(FLT)( (float*)y->ptr )[ijk2];
 				else
-					pnt_mesh->y[ijk]=( (FLT*)y->ptr )[ijk2];
+					pnt_mesh->y[ijk]=(FLT)( (double*)y->ptr )[ijk2];
 
 				if(MESHDIMENSIONS==3)
 				{
 					if( z->dt==RealSingle )
-						pnt_mesh->z[ijk]=( (FLT*)z->ptr )[ijk2];
+						pnt_mesh->z[ijk]=(FLT)( (float*)z->ptr )[ijk2];
 					else
-						pnt_mesh->z[ijk]=( (FLT*)z->ptr )[ijk2];
+						pnt_mesh->z[ijk]=(FLT)( (double*)z->ptr )[ijk2];
 				}
 				else
 				{
@@ -815,14 +815,14 @@ void postprocessLoad(
 					ijk2=k2*pnt_config->int_jMeshPoints*pnt_config->int_iMeshPoints+j2*pnt_config->int_iMeshPoints+i2;
 
 					if( u->dt==RealSingle )
-						pnt_U_lastStep->u[ijk]=( (FLT*)u->ptr )[ijk2];
+						pnt_U_lastStep->u[ijk]=(FLT)( (float*)u->ptr )[ijk2];
 					else
-						pnt_U_lastStep->u[ijk]=( (FLT*)u->ptr )[ijk2];
+						pnt_U_lastStep->u[ijk]=(FLT)( (double*)u->ptr )[ijk2];
 
 					if( v->dt==RealSingle )
-						pnt_U_lastStep->v[ijk]=( (FLT*)v->ptr )[ijk2];
+						pnt_U_lastStep->v[ijk]=(FLT)( (float*)v->ptr )[ijk2];
 					else
-						pnt_U_lastStep->v[ijk]=( (FLT*)v->ptr )[ijk2];
+						pnt_U_lastStep->v[ijk]=(FLT)( (double*)v->ptr )[ijk2];
 
 
 					FLT total_z_size=0.1;
@@ -836,7 +836,7 @@ void postprocessLoad(
 						}
 						else
 						{
-							pnt_U_lastStep->w[ijk]=( (FLT*)w->ptr )[ijk2];
+							pnt_U_lastStep->w[ijk]=( (float*)w->ptr )[ijk2];
 						}
 
 					}
@@ -850,30 +850,30 @@ void postprocessLoad(
 						}
 						else
 						{
-							pnt_U_lastStep->w[ijk]=( (FLT*)w->ptr )[ijk2];
+							pnt_U_lastStep->w[ijk]=(FLT)( (double*)w->ptr )[ijk2];
 						}
 					}
 
 					if( p->dt==RealSingle )
-						pnt_U_lastStep->p[ijk]=( (FLT*)p->ptr )[ijk2];
+						pnt_U_lastStep->p[ijk]=(FLT)( (float*)p->ptr )[ijk2];
 					else
-						pnt_U_lastStep->p[ijk]=( (FLT*)p->ptr )[ijk2];
+						pnt_U_lastStep->p[ijk]=(FLT)( (double*)p->ptr )[ijk2];
 
 					if( rho->dt==RealSingle )
-						pnt_U_lastStep->rho[ijk]=( (FLT*)rho->ptr )[ijk2];
+						pnt_U_lastStep->rho[ijk]=(FLT)( (float*)rho->ptr )[ijk2];
 					else
-						pnt_U_lastStep->rho[ijk]=( (FLT*)rho->ptr )[ijk2];
+						pnt_U_lastStep->rho[ijk]=(FLT)( (double*)rho->ptr )[ijk2];
 
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-											pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+											pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 
 				}
 			}
 		}
 		if(pnt_config->MPI_rank==0){printf("SHOCK: Import der Ergebnisse fertig! (Iteration: %d, Time: %g)\n",
 				pnt_config->int_StartIteration,
-				pnt_config->start_Time);}
+				(double)pnt_config->start_Time);}
 	}
 
 	if(pnt_config->int_initializeType==1)
@@ -910,7 +910,7 @@ void AllocMemory(
 		struct strct_U * pnt_U_backup1,
 		struct strct_U * pnt_U_backup2)
 {
-AllocMemoryMesh(
+	AllocMemoryMesh(
 			pnt_config,
 			pnt_mesh);
 	AllocMemoryStrctU(
@@ -1252,7 +1252,7 @@ void AllocMemoryStrctFilm(
 	pnt_strctFilm->gradRho = (FLT *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(FLT ));
 	pnt_strctFilm->Lambda2 = (FLT *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(FLT ));
 	pnt_strctFilm->MachNumber = (FLT *)calloc(pnt_config->int_Samples*pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints, sizeof(FLT ));
-	pnt_strctFilm->dbl_time_dim = (FLT *)calloc(pnt_config->int_Samples, sizeof(FLT ));
+	pnt_strctFilm->time_dim = (FLT *)calloc(pnt_config->int_Samples, sizeof(FLT ));
 }
 
 void FreeMemoryStrctFilm(
@@ -1345,12 +1345,12 @@ void Initialize(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
 				pnt_U_lastStep->rho[ijk]=pnt_config->InitializeValues_rho0;
-				pnt_U_lastStep->u[ijk]=pnt_config->dbl_u_inflow;
-				pnt_U_lastStep->v[ijk]=pnt_config->dbl_v_inflow;
-				pnt_U_lastStep->w[ijk]=pnt_config->dbl_w_inflow;
+				pnt_U_lastStep->u[ijk]=pnt_config->u_inflow;
+				pnt_U_lastStep->v[ijk]=pnt_config->v_inflow;
+				pnt_U_lastStep->w[ijk]=pnt_config->w_inflow;
 				pnt_U_lastStep->p[ijk]=pnt_config->InitializeValues_p0;
 				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 
 			}
 		}
@@ -1392,9 +1392,9 @@ void InitializeLaminarBoundary(
 					ijPlus1k=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+(j+1)*pnt_config->int_kMeshPointsGhostCells+k;
 					delta_y=pnt_mesh->y[ijPlus1k]-pnt_mesh->y[ijk];
 					T_unendl=p/rho;
-					T_ad=T_unendl*(1+(pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0));
+					T_ad=T_unendl*(1+(pnt_config->gammaNumber-1.0)/2.0*pow(pnt_config->machNumber,2.0));
 
-					grenzschicht_dicke_x=4.9*sqrt((pnt_mesh->x[ijk]-x_start)/pnt_config->dbl_reynoldsNumber);
+					grenzschicht_dicke_x=4.9*sqrt((pnt_mesh->x[ijk]-x_start)/pnt_config->reynoldsNumber);
 					eta=(pnt_mesh->y[ijk]+delta_y*0.5)/
 							grenzschicht_dicke_x;
 					if (eta<1.0)
@@ -1404,9 +1404,9 @@ void InitializeLaminarBoundary(
 //						Loesung nach Schroeder
 						u=1.5*eta-0.5*eta*eta*eta;
 //							Temperaturverlauf nach Busemann/Crocco
-//							printf(">%f %f %f< ",pnt_config->dbl_gammaNumber,pnt_config->dbl_machNumber,T_ad);
+//							printf(">%f %f %f< ",pnt_config->gammaNumber,pnt_config->machNumber,T_ad);
 						rho=p/(T_unendl*
-								((pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
+								((pnt_config->gammaNumber-1.0)/2.0*pow(pnt_config->machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
 
 					}
 				}
@@ -1418,7 +1418,7 @@ void InitializeLaminarBoundary(
 				pnt_U_lastStep->w[ijk]=0.0;
 				pnt_U_lastStep->p[ijk]=p;
 				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+						pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 			}
 		}
 	}
@@ -1549,10 +1549,10 @@ void InitializeSpecialConditions(
 
 					p=pnt_config->InitializeValues_p0;
 					rho=pnt_config->InitializeValues_rho0;
-					u=pnt_config->dbl_u_inflow;
-					v=pnt_config->dbl_v_inflow;
+					u=pnt_config->u_inflow;
+					v=pnt_config->v_inflow;
 					
-					e=(0.5*((u*u)+(v*v))+p/rho/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+					e=(0.5*((u*u)+(v*v))+p/rho/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 					
 					distance=sqrt(
 					pow((pnt_mesh->x[ijk]-0.),2.)
@@ -1572,16 +1572,16 @@ void InitializeSpecialConditions(
 						(pnt_mesh->x[ijk]-pnt_mesh->x[ij0k])*(pnt_mesh->x[ijk]-pnt_mesh->x[ij0k])
 						);
 						T_unendl=p/rho;
-						T_ad=T_unendl*(1+(pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0));
+						T_ad=T_unendl*(1+(pnt_config->gammaNumber-1.0)/2.0*pow(pnt_config->machNumber,2.0));
 
-						eta=delta_y/(4.9*pnt_mesh->x[ijk]/sqrt(pnt_config->dbl_reynoldsNumber*pnt_mesh->x[ijk]));
+						eta=delta_y/(4.9*pnt_mesh->x[ijk]/sqrt(pnt_config->reynoldsNumber*pnt_mesh->x[ijk]));
 						if (eta<7.0)
 						{
 //							approximation der blasius-lösung
 							theta1=1.0-1.4567*exp(-1.0*eta)-1.2956*exp(-1.0*eta)*(eta-1.0)-0.8392*exp(-2.0*eta);
 //							Temperaturverlauf nach Busemann/Crocco
-//							printf(">%f %f %f< ",pnt_config->dbl_gammaNumber,pnt_config->dbl_machNumber,T_ad);
-							rho=p/(T_unendl*((pnt_config->dbl_gammaNumber-1.0)/2.0*pow(pnt_config->dbl_machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
+//							printf(">%f %f %f< ",pnt_config->gammaNumber,pnt_config->machNumber,T_ad);
+							rho=p/(T_unendl*((pnt_config->gammaNumber-1.0)/2.0*pow(pnt_config->machNumber,2.0)*u*(1.0-u)+u*(T_unendl-T_ad)/T_unendl+T_ad));
 
 						
 							u_tmp=fabs(-(theta1*pnt_mesh->eta_y[ijk]-theta2*pnt_mesh->xi_y[ijk]))/
@@ -1605,7 +1605,7 @@ void InitializeSpecialConditions(
 						
 					}
 					
-					p=(e-0.5*((u*u)+(v*v)))*rho*(pnt_config->dbl_gammaNumber-1.0)/pnt_config->dbl_Upsilon;					
+					p=(e-0.5*((u*u)+(v*v)))*rho*(pnt_config->gammaNumber-1.0)/pnt_config->Upsilon;					
 					
 					
 					break;
@@ -1643,8 +1643,8 @@ void InitializeSpecialConditions(
 					p=pnt_config->InitializeValues_p0;
 					rho=pnt_config->InitializeValues_rho0;
 
-					theta1=pnt_config->dbl_u_inflow;
-					theta2=pnt_config->dbl_v_inflow;
+					theta1=pnt_config->u_inflow;
+					theta2=pnt_config->v_inflow;
 					if(distance<1.)
 					{
 					u_tmp=fabs(-(theta1*pnt_mesh->eta_y[ijk]-theta2*pnt_mesh->xi_y[ijk]))/
@@ -1666,8 +1666,8 @@ void InitializeSpecialConditions(
 					}
 					else
 					{
-					u=pnt_config->dbl_u_inflow;
-					v=pnt_config->dbl_v_inflow;
+					u=pnt_config->u_inflow;
+					v=pnt_config->v_inflow;
 					}
 					
 					break;
@@ -1679,7 +1679,7 @@ void InitializeSpecialConditions(
 				pnt_U_lastStep->v[ijk]=v;
 				pnt_U_lastStep->w[ijk]=w;
 				pnt_U_lastStep->p[ijk]=p;
-				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+				pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 			}
 		}
 	}
@@ -1722,7 +1722,7 @@ void InitializeMPI(
 //
 ////Bei einem oder 2 freien Rändern in i-Richtung müssen die GC berücksichtigt werden
 //
-//    pnt_config->MPI_datatype = MPI_DOUBLE;
+//    pnt_config->MPI_datatype = MPI_FLT;
 //    MPI_Type_size(pnt_config->MPI_datatype, &pnt_config->MPI_intMyDatatypeSize);
 //
 //    if (pnt_config->int_meshDimensions>=1)
@@ -1762,10 +1762,10 @@ void InitializeMPI(
 
 void DefineParameters(struct strct_configuration * pnt_config)
 {
-	pnt_config->dbl_c0_dim=sqrt(pnt_config->dbl_gammaNumber*pnt_config->dbl_gasConstantNumber*pnt_config->dbl_T0_dim);
-	pnt_config->dbl_u0_dim=pnt_config->dbl_c0_dim*pnt_config->dbl_machNumber;
+	pnt_config->c0_dim=sqrt(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim);
+	pnt_config->u0_dim=pnt_config->c0_dim*pnt_config->machNumber;
 
-	pnt_config->AlphaNonRef=0.25*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim;
+	pnt_config->AlphaNonRef=0.25*pnt_config->L0_dim/pnt_config->u0_dim;
 
 	pnt_config->IBC_yKolben=40.0;
 	pnt_config->IBC_alphaKolben=27.5;
@@ -1774,10 +1774,10 @@ void DefineParameters(struct strct_configuration * pnt_config)
 	pnt_config->IBC_MovingLastPosition=IBC_getActualPosition(pnt_config);
 	pnt_config->IBC_MovingActualPosition=IBC_getActualPosition(pnt_config);
 
-	pnt_config->dbl_is_avrg=0.0;
-	pnt_config->dbl_is_avrg_counter=0.0;
-	pnt_config->dbl_is_maximum=0.0;
-	pnt_config->dbl_is_minimum=999.0;
+	pnt_config->is_avrg=0.0;
+	pnt_config->is_avrg_counter=0.0;
+	pnt_config->is_maximum=0.0;
+	pnt_config->is_minimum=999.0;
 
 	sprintf(pnt_config->BCFarfield,"BCFarfield");
 	sprintf(pnt_config->BCInflow,"BCInflow");
@@ -1800,8 +1800,8 @@ void DefineParameters(struct strct_configuration * pnt_config)
 
 	pnt_config->start_Time=0.0;
 
-	pnt_config->dbl_time_dim=0.0;
-	pnt_config->dbl_time_dim_lastAction=0.0;
+	pnt_config->time_dim=0.0;
+	pnt_config->time_dim_lastAction=0.0;
 
 	pnt_config->int_IterationsBetweenSamples=(int)((pnt_config->int_TotalIterations-pnt_config->int_StartSampling)/pnt_config->int_Samples);
 	if (pnt_config->int_IterationsBetweenSamples<1)
@@ -1820,176 +1820,176 @@ void DefineParameters(struct strct_configuration * pnt_config)
     {
 //    	In Anlehnung an:
 //    	Efficient Implementation of Weichted ENO Schemes, Jiang, G-S,1996
-    	pnt_config->dbl_wenoEpsilon=1.e-6;
+    	pnt_config->wenoEpsilon=1.e-6;
     }
     if(SPACEORDER==9)
     {
 //    	In Anlehnung an:
 //    	Monoticity Preserving Weighted Essentially Non-oscillatory Schemes with Increasingly High Order of Accuracy, Balsara D.,2000
-//    	pnt_config->dbl_wenoEpsilon=1.e-10;
-    	pnt_config->dbl_wenoEpsilon=1.e-6;
+//    	pnt_config->wenoEpsilon=1.e-10;
+    	pnt_config->wenoEpsilon=1.e-6;
     }
 //    In Anlehnung an:
 //    Mapped weighted essentially non-oscillatory schemes: Achieving optimal order near critical points, Henrick, A.K.,2005
-	pnt_config->dbl_wenoEpsilon=40.*pow(DBL_MIN,0.5);
+	pnt_config->wenoEpsilon=10.*pow(MY_FLT_MIN,0.5);
 
 
-	pnt_config->dbl_wenoP=2.;
-	pnt_config->dbl_wenoOptimalerKoeffizient_W9[0]=1./126.;
-	pnt_config->dbl_wenoOptimalerKoeffizient_W9[1]=10./63.;
-	pnt_config->dbl_wenoOptimalerKoeffizient_W9[2]=10./21.;
-	pnt_config->dbl_wenoOptimalerKoeffizient_W9[3]=20./63.;
-	pnt_config->dbl_wenoOptimalerKoeffizient_W9[4]=5./126.;
+	pnt_config->wenoP=2.;
+	pnt_config->wenoOptimalerKoeffizient_W9[0]=1./126.;
+	pnt_config->wenoOptimalerKoeffizient_W9[1]=10./63.;
+	pnt_config->wenoOptimalerKoeffizient_W9[2]=10./21.;
+	pnt_config->wenoOptimalerKoeffizient_W9[3]=20./63.;
+	pnt_config->wenoOptimalerKoeffizient_W9[4]=5./126.;
 
-	pnt_config->dbl_wenoOptimalerKoeffizient_W5[0]=1./10.;
-	pnt_config->dbl_wenoOptimalerKoeffizient_W5[1]=3./5.;
-	pnt_config->dbl_wenoOptimalerKoeffizient_W5[2]=3./10.;
+	pnt_config->wenoOptimalerKoeffizient_W5[0]=1./10.;
+	pnt_config->wenoOptimalerKoeffizient_W5[1]=3./5.;
+	pnt_config->wenoOptimalerKoeffizient_W5[2]=3./10.;
 
 
-	pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
-	pnt_config->dbl_ZD_Interpolation_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
-	pnt_config->dbl_ZD_Ableitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
-	pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
+	pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
+	pnt_config->ZD_Interpolation_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
+	pnt_config->ZD_Ableitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
+	pnt_config->ZD_ZweiteAbleitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
 	if(SPACEORDER==9)
 	{
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[0] =       1. / 1260.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[1] =     -23. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[2] =     127. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[3] =    -473. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[4] =    1627. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[5] =    1627. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[6] =    -473. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[7] =     127. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[8] =     -23. / 2520.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[9] =       1. / 1260.;
+		pnt_config->ZD_Interpolation_Koeffizient[0] =       1. / 1260.;
+		pnt_config->ZD_Interpolation_Koeffizient[1] =     -23. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[2] =     127. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[3] =    -473. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[4] =    1627. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[5] =    1627. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[6] =    -473. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[7] =     127. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[8] =     -23. / 2520.;
+		pnt_config->ZD_Interpolation_Koeffizient[9] =       1. / 1260.;
 
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =     -3. /  9450.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    351. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -2649. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =  15351. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =-110649. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] = 110649. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[6] = -15351. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[7] =   2649. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[8] =   -351. / 75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[9] =      3. /  9450.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =     -3. /  9450.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    351. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -2649. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =  15351. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =-110649. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] = 110649. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[6] = -15351. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[7] =   2649. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[8] =   -351. / 75600.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[9] =      3. /  9450.;
 
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[0]=   -1./1260.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[1]=   25./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[2]= -150./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[3]=  600./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[4]=-2100./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[5]=    0.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[6]= 2100./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[7]= -600./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[8]=  150./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[9]=  -25./2520.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[10]=   1./1260.;
+		pnt_config->ZD_Ableitung_Koeffizient[0]=   -1./1260.;
+		pnt_config->ZD_Ableitung_Koeffizient[1]=   25./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[2]= -150./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[3]=  600./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[4]=-2100./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[5]=    0.;
+		pnt_config->ZD_Ableitung_Koeffizient[6]= 2100./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[7]= -600./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[8]=  150./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[9]=  -25./2520.;
+		pnt_config->ZD_Ableitung_Koeffizient[10]=   1./1260.;
 
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[0]=      24./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[1]=    -375./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[2]=    3000./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[3]=  -18000./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[4]=  126000./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[5]= -221298./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[6]=  126000./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[7]=  -18000./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[8]=    3000./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[9]=    -375./75600.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[10]=     24./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[0]=      24./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[1]=    -375./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[2]=    3000./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[3]=  -18000./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[4]=  126000./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[5]= -221298./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[6]=  126000./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[7]=  -18000./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[8]=    3000./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[9]=    -375./75600.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[10]=     24./75600.;
 	}
 	else
 	{
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[0] =   1. / 60.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[1] =  -8. / 60.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[2] =  37. / 60.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[3] =  37. / 60.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[4] =  -8. / 60.;
-		pnt_config->dbl_ZD_Interpolation_Koeffizient[5] =   1. / 60.;
+		pnt_config->ZD_Interpolation_Koeffizient[0] =   1. / 60.;
+		pnt_config->ZD_Interpolation_Koeffizient[1] =  -8. / 60.;
+		pnt_config->ZD_Interpolation_Koeffizient[2] =  37. / 60.;
+		pnt_config->ZD_Interpolation_Koeffizient[3] =  37. / 60.;
+		pnt_config->ZD_Interpolation_Koeffizient[4] =  -8. / 60.;
+		pnt_config->ZD_Interpolation_Koeffizient[5] =   1. / 60.;
 
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =    -1. / 90.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    25. / 180.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -245. / 180.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =   245. / 180.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =   -25. / 180.;
-		pnt_config->dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] =     1. / 90.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =    -1. / 90.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    25. / 180.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -245. / 180.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =   245. / 180.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =   -25. / 180.;
+		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] =     1. / 90.;
 
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[0]=    -1./60.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[1]=     3./20.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[2]=    -3./4.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[3]=     0.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[4]=     3./4.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[5]=    -3./20.;
-		pnt_config->dbl_ZD_Ableitung_Koeffizient[6]=     1./60.;
+		pnt_config->ZD_Ableitung_Koeffizient[0]=    -1./60.;
+		pnt_config->ZD_Ableitung_Koeffizient[1]=     3./20.;
+		pnt_config->ZD_Ableitung_Koeffizient[2]=    -3./4.;
+		pnt_config->ZD_Ableitung_Koeffizient[3]=     0.;
+		pnt_config->ZD_Ableitung_Koeffizient[4]=     3./4.;
+		pnt_config->ZD_Ableitung_Koeffizient[5]=    -3./20.;
+		pnt_config->ZD_Ableitung_Koeffizient[6]=     1./60.;
 
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[0]=      2./180.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[1]=    -27./180.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[2]=    270./180.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[3]=   -490./180.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[4]=    270./180;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[5]=    -27./180.;
-		pnt_config->dbl_ZD_ZweiteAbleitung_Koeffizient[6]=      2./180.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[0]=      2./180.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[1]=    -27./180.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[2]=    270./180.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[3]=   -490./180.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[4]=    270./180;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[5]=    -27./180.;
+		pnt_config->ZD_ZweiteAbleitung_Koeffizient[6]=      2./180.;
 	}
 
 
-	pnt_config->dbl_deltaXi=1.0;
-	pnt_config->dbl_deltaEta=1.0;
-	pnt_config->dbl_deltaZeta=1.0;
+	pnt_config->deltaXi=1.0;
+	pnt_config->deltaEta=1.0;
+	pnt_config->deltaZeta=1.0;
 
 	if(pnt_config->int_TimeOrder==4)
 	{
-		pnt_config->dbl_RK_U_n_Faktor[0]=1.;
-		pnt_config->dbl_RK_U_n_Faktor[1]=1.;
-		pnt_config->dbl_RK_U_n_Faktor[2]=1.;
-		pnt_config->dbl_RK_U_n_Faktor[3]=1.;
+		pnt_config->RK_U_n_Faktor[0]=1.;
+		pnt_config->RK_U_n_Faktor[1]=1.;
+		pnt_config->RK_U_n_Faktor[2]=1.;
+		pnt_config->RK_U_n_Faktor[3]=1.;
 
-		pnt_config->dbl_RK_U_ABC_Faktor[0]=0.;
-		pnt_config->dbl_RK_U_ABC_Faktor[1]=0.;
-		pnt_config->dbl_RK_U_ABC_Faktor[2]=0.;
-		pnt_config->dbl_RK_U_ABC_Faktor[3]=0.;
+		pnt_config->RK_U_ABC_Faktor[0]=0.;
+		pnt_config->RK_U_ABC_Faktor[1]=0.;
+		pnt_config->RK_U_ABC_Faktor[2]=0.;
+		pnt_config->RK_U_ABC_Faktor[3]=0.;
 
-		pnt_config->dbl_RK_Q_Faktor[0]=0.5;
-		pnt_config->dbl_RK_Q_Faktor[1]=0.5;
-		pnt_config->dbl_RK_Q_Faktor[2]=1.;
-		pnt_config->dbl_RK_Q_Faktor[3]=1./6.;
+		pnt_config->RK_Q_Faktor[0]=0.5;
+		pnt_config->RK_Q_Faktor[1]=0.5;
+		pnt_config->RK_Q_Faktor[2]=1.;
+		pnt_config->RK_Q_Faktor[3]=1./6.;
 
-		pnt_config->dbl_RK_Q_Summe_Flag[0]=0.;
-		pnt_config->dbl_RK_Q_Summe_Flag[1]=0.;
-		pnt_config->dbl_RK_Q_Summe_Flag[2]=0.;
-		pnt_config->dbl_RK_Q_Summe_Flag[3]=1./6.;
+		pnt_config->RK_Q_Summe_Flag[0]=0.;
+		pnt_config->RK_Q_Summe_Flag[1]=0.;
+		pnt_config->RK_Q_Summe_Flag[2]=0.;
+		pnt_config->RK_Q_Summe_Flag[3]=1./6.;
 
-		pnt_config->dbl_RK_Q_Summe_Faktor[0]=1.;
-		pnt_config->dbl_RK_Q_Summe_Faktor[1]=2.;
-		pnt_config->dbl_RK_Q_Summe_Faktor[2]=2.;
-		pnt_config->dbl_RK_Q_Summe_Faktor[3]=0.;
+		pnt_config->RK_Q_Summe_Faktor[0]=1.;
+		pnt_config->RK_Q_Summe_Faktor[1]=2.;
+		pnt_config->RK_Q_Summe_Faktor[2]=2.;
+		pnt_config->RK_Q_Summe_Faktor[3]=0.;
 	}
 	if(pnt_config->int_TimeOrder==3)
 	{
-		pnt_config->dbl_RK_U_n_Faktor[0]=1.;
-		pnt_config->dbl_RK_U_n_Faktor[1]=3./4.;
-		pnt_config->dbl_RK_U_n_Faktor[2]=1./3.;
+		pnt_config->RK_U_n_Faktor[0]=1.;
+		pnt_config->RK_U_n_Faktor[1]=3./4.;
+		pnt_config->RK_U_n_Faktor[2]=1./3.;
 
-		pnt_config->dbl_RK_U_ABC_Faktor[0]=0.;
-		pnt_config->dbl_RK_U_ABC_Faktor[1]=1./4.;
-		pnt_config->dbl_RK_U_ABC_Faktor[2]=2./3.;
+		pnt_config->RK_U_ABC_Faktor[0]=0.;
+		pnt_config->RK_U_ABC_Faktor[1]=1./4.;
+		pnt_config->RK_U_ABC_Faktor[2]=2./3.;
 
-		pnt_config->dbl_RK_Q_Faktor[0]=1.;
-		pnt_config->dbl_RK_Q_Faktor[1]=1./4.;
-		pnt_config->dbl_RK_Q_Faktor[2]=2./3.;
+		pnt_config->RK_Q_Faktor[0]=1.;
+		pnt_config->RK_Q_Faktor[1]=1./4.;
+		pnt_config->RK_Q_Faktor[2]=2./3.;
 
-		pnt_config->dbl_RK_Q_Summe_Flag[0]=0.;
-		pnt_config->dbl_RK_Q_Summe_Flag[1]=0.;
-		pnt_config->dbl_RK_Q_Summe_Flag[2]=0.;
+		pnt_config->RK_Q_Summe_Flag[0]=0.;
+		pnt_config->RK_Q_Summe_Flag[1]=0.;
+		pnt_config->RK_Q_Summe_Flag[2]=0.;
 
-		pnt_config->dbl_RK_Q_Summe_Faktor[0]=0.;
-		pnt_config->dbl_RK_Q_Summe_Faktor[1]=0.;
-		pnt_config->dbl_RK_Q_Summe_Faktor[2]=0.;
+		pnt_config->RK_Q_Summe_Faktor[0]=0.;
+		pnt_config->RK_Q_Summe_Faktor[1]=0.;
+		pnt_config->RK_Q_Summe_Faktor[2]=0.;
 	}
 
 
-	pnt_config->dbl_Upsilon=1.0/(pnt_config->dbl_gammaNumber*pow(pnt_config->dbl_machNumber,2.0));
-	pnt_config->dbl_Psi=1.0/pnt_config->dbl_reynoldsNumber;
-	pnt_config->dbl_SutherlandConstant=100.4/pnt_config->dbl_T0_dim;
+	pnt_config->Upsilon=1.0/(pnt_config->gammaNumber*pow(pnt_config->machNumber,2.0));
+	pnt_config->Psi=1.0/pnt_config->reynoldsNumber;
+	pnt_config->SutherlandConstant=100.4/pnt_config->T0_dim;
 
     //Gamma wird nach dem Import des Gitters bei postprocessload definiert
 
@@ -2011,9 +2011,9 @@ void CalcRungeKutta(
 //	-----------------------------------------------------
 //	Erster bis Vierter RK-Schritt
 //	Folgende Variablen enthalten die Faktoren für die 4 Schritte:
-//	dbl_RKSchrittFaktor[4];
-//	dbl_RKQsummeFlag[4];
-//	dbl_RKQsummeFaktor[4];
+//	RKSchrittFaktor[4];
+//	RKQsummeFlag[4];
+//	RKQsummeFaktor[4];
 //	-----------------------------------------------------
 
 	DeleteQ(
@@ -2265,47 +2265,47 @@ void CalcRungeKutta(
 				{
 					ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
-					pnt_Q_sum->Mass[ijk]=pnt_Q_sum->Mass[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk];
-					pnt_Q_sum->xiMomentum[ijk]=pnt_Q_sum->xiMomentum[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk];
-					pnt_Q_sum->etaMomentum[ijk]=pnt_Q_sum->etaMomentum[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk];
-					pnt_Q_sum->zetaMomentum[ijk]=pnt_Q_sum->zetaMomentum[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk];
-					pnt_Q_sum->Energy[ijk]=pnt_Q_sum->Energy[ijk]+pnt_config->dbl_RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk];
+					pnt_Q_sum->Mass[ijk]=pnt_Q_sum->Mass[ijk]+pnt_config->RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk];
+					pnt_Q_sum->xiMomentum[ijk]=pnt_Q_sum->xiMomentum[ijk]+pnt_config->RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk];
+					pnt_Q_sum->etaMomentum[ijk]=pnt_Q_sum->etaMomentum[ijk]+pnt_config->RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk];
+					pnt_Q_sum->zetaMomentum[ijk]=pnt_Q_sum->zetaMomentum[ijk]+pnt_config->RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk];
+					pnt_Q_sum->Energy[ijk]=pnt_Q_sum->Energy[ijk]+pnt_config->RK_Q_Summe_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk];
 
 					rho_letzterRK_Schritt=pnt_U_RK->rho[ijk];
 
 					pnt_U_RK->rho[ijk]=
-											pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->rho[ijk]+
-											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
+											pnt_config->RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->rho[ijk]+
+											pnt_config->numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk]+
-											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Mass[ijk]
+											pnt_config->RK_Q_Faktor[int_RKSchritt]*pnt_Q->Mass[ijk]+
+											pnt_config->RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Mass[ijk]
 											);
 					pnt_U_RK->u[ijk]=
-											(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->u[ijk]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->u[ijk]*rho_letzterRK_Schritt+
-											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
+											(pnt_config->RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->u[ijk]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->u[ijk]*rho_letzterRK_Schritt+
+											pnt_config->numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk]+
-											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->xiMomentum[ijk]
+											pnt_config->RK_Q_Faktor[int_RKSchritt]*pnt_Q->xiMomentum[ijk]+
+											pnt_config->RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->xiMomentum[ijk]
 											))/pnt_U_RK->rho[ijk];
 					pnt_U_RK->v[ijk]=
-											(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->v[ijk]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->v[ijk]*rho_letzterRK_Schritt+
-											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
+											(pnt_config->RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->v[ijk]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->v[ijk]*rho_letzterRK_Schritt+
+											pnt_config->numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk]+
-											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->etaMomentum[ijk]
+											pnt_config->RK_Q_Faktor[int_RKSchritt]*pnt_Q->etaMomentum[ijk]+
+											pnt_config->RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->etaMomentum[ijk]
 											))/pnt_U_RK->rho[ijk];
 
 #if MESHDIMENSIONS==3
 						pnt_U_RK->w[ijk]=
-												(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->w[ijk]*pnt_U_lastStep->rho[ijk]+
-												pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->w[ijk]*rho_letzterRK_Schritt+
-												pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
+												(pnt_config->RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->w[ijk]*pnt_U_lastStep->rho[ijk]+
+												pnt_config->RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->w[ijk]*rho_letzterRK_Schritt+
+												pnt_config->numericalTau/pnt_mesh->jacobian[ijk]*
 												(
-												pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk]+
-												pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->zetaMomentum[ijk]
+												pnt_config->RK_Q_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk]+
+												pnt_config->RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->zetaMomentum[ijk]
 												))/pnt_U_RK->rho[ijk];
 #endif
 #if MESHDIMENSION==2
@@ -2313,12 +2313,12 @@ void CalcRungeKutta(
 #endif
 
 					pnt_U_RK->e[ijk]=
-											(pnt_config->dbl_RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->e[ijk]*pnt_U_lastStep->rho[ijk]+
-											pnt_config->dbl_RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->e[ijk]*rho_letzterRK_Schritt+
-											pnt_config->dbl_numericalTau/pnt_mesh->jacobian[ijk]*
+											(pnt_config->RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->e[ijk]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->e[ijk]*rho_letzterRK_Schritt+
+											pnt_config->numericalTau/pnt_mesh->jacobian[ijk]*
 											(
-											pnt_config->dbl_RK_Q_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk]+
-											pnt_config->dbl_RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Energy[ijk]
+											pnt_config->RK_Q_Faktor[int_RKSchritt]*pnt_Q->Energy[ijk]+
+											pnt_config->RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->Energy[ijk]
 											))/pnt_U_RK->rho[ijk];
 
 				}
@@ -2381,8 +2381,8 @@ void CalcValues(
 								fabs
 								(
 								pnt_U->rho[ijk]*
-								(pnt_config->dbl_gammaNumber-1)/
-								pnt_config->dbl_Upsilon*
+								(pnt_config->gammaNumber-1)/
+								pnt_config->Upsilon*
 								(
 								pnt_U->e[ijk]
 								-0.5*
@@ -2411,8 +2411,8 @@ void CalcValues(
 								fabs
 								(
 								pnt_U->rho[ijk]*
-								(pnt_config->dbl_gammaNumber-1)/
-								pnt_config->dbl_Upsilon*
+								(pnt_config->gammaNumber-1)/
+								pnt_config->Upsilon*
 								(
 								pnt_U->e[ijk]
 								-0.5*
@@ -2428,11 +2428,11 @@ void CalcValues(
 							fabs(pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
 					pnt_U->c[ijk]=
-							sqrt(pnt_config->dbl_Upsilon*
-							pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+							sqrt(pnt_config->Upsilon*
+							pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
-					pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+					pnt_U->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->SutherlandConstant));
 				}
 			}
 		}
@@ -2473,7 +2473,7 @@ void WriteValuesFromUToFilm(
 {
 	int i,j,k,ijk,ijkFilm;
 
-	pnt_Film->dbl_time_dim[pnt_config->int_actualSample]=pnt_config->dbl_time_dim;
+	pnt_Film->time_dim[pnt_config->int_actualSample]=pnt_config->time_dim;
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -2497,8 +2497,8 @@ void WriteValuesFromUToFilm(
 //				Werte innerhalb des Solids (IBC)
 				if(pnt_mesh->flag_IBC[ijk]==1)
 				{
-					if(pnt_config->flag_IBC_Moving==1){pnt_Film->u[ijkFilm]=//pnt_config->IBC_MovingSpeed/pnt_config->dbl_u0_dim;
-						(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau ;}
+					if(pnt_config->flag_IBC_Moving==1){pnt_Film->u[ijkFilm]=//pnt_config->IBC_MovingSpeed/pnt_config->u0_dim;
+						(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau ;}
 					else{pnt_Film->u[ijkFilm]=-10.0;}
 					pnt_Film->v[ijkFilm]=-10.0;
 					pnt_Film->w[ijkFilm]=-10.0;
@@ -2892,12 +2892,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendRight,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		10,
 //		bufferRecieveLeft,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		10,
 //		pnt_config->MPI_comm,
@@ -2905,12 +2905,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendLeft,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		11,
 //		bufferRecieveRight,
 //		pnt_config->MPI_intSizeITransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		11,
 //		pnt_config->MPI_comm,
@@ -2974,12 +2974,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendTop,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		12,
 //		bufferRecieveBottom,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		12,
 //		pnt_config->MPI_comm,
@@ -2987,12 +2987,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendBottom,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		13,
 //		bufferRecieveTop,
 //		pnt_config->MPI_intSizeJTransfer,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		13,
 //		pnt_config->MPI_comm,
@@ -3059,12 +3059,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendInFront,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			14,
 //			bufferRecieveBehind,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			14,
 //			pnt_config->MPI_comm,
@@ -3072,12 +3072,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendBehind,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			15,
 //			bufferRecieveInFront,
 //			pnt_config->MPI_intSizeKTransfer,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			15,
 //			pnt_config->MPI_comm,
@@ -3160,12 +3160,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendRightViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		16,
 //		bufferRecieveLeftViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		16,
 //		pnt_config->MPI_comm,
@@ -3173,12 +3173,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendLeftViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourLeft[0],
 //		17,
 //		bufferRecieveRightViscid,
 //		pnt_config->MPI_intSizeITransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourRight[0],
 //		17,
 //		pnt_config->MPI_comm,
@@ -3242,12 +3242,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendTopViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		18,
 //		bufferRecieveBottomViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		18,
 //		pnt_config->MPI_comm,
@@ -3255,12 +3255,12 @@ void DeleteQ(
 //	MPI_Sendrecv(
 //		bufferSendBottomViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourBottom[0],
 //		19,
 //		bufferRecieveTopViscid,
 //		pnt_config->MPI_intSizeJTransferViscid,
-//		MPI_DOUBLE,
+//		MPI_FLT,
 //		pnt_config->InterfaceNeighbourTop[0],
 //		19,
 //		pnt_config->MPI_comm,
@@ -3327,12 +3327,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendInFrontViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			20,
 //			bufferRecieveBehindViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			20,
 //			pnt_config->MPI_comm,
@@ -3340,12 +3340,12 @@ void DeleteQ(
 //		MPI_Sendrecv(
 //			bufferSendBehindViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourBehind[0],
 //			21,
 //			bufferRecieveInFrontViscid,
 //			pnt_config->MPI_intSizeKTransferViscid,
-//			MPI_DOUBLE,
+//			MPI_FLT,
 //			pnt_config->InterfaceNeighbourInFront[0],
 //			21,
 //			pnt_config->MPI_comm,
@@ -3408,12 +3408,12 @@ void DeleteQ(
 //			MPI_Sendrecv(
 //				pnt_config->MPI_SendBufferMesh[interface],
 //				pnt_config->MPI_intTransferSizeMesh[interface],
-//				MPI_DOUBLE,
+//				MPI_FLT,
 //				pnt_config->MPI_rankNeighbours[interface],
 //				interface,
 //				pnt_config->MPI_RecieveBufferMesh[interface],
 //				pnt_config->MPI_intTransferSizeMesh[interface],
-//				MPI_DOUBLE,
+//				MPI_FLT,
 //				pnt_config->MPI_rankNeighbours[interface],
 //				interface,
 //				pnt_config->MPI_comm,
@@ -3463,7 +3463,7 @@ void TransferMeshParameter(
 		{
 			MPI_Irecv(pnt_config->MPI_RecieveBufferMesh[interface],
 					 pnt_config->MPI_intTransferSizeMesh[interface],
-				 MPI_DOUBLE,
+				 MPI_FLT,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3494,7 +3494,7 @@ void TransferMeshParameter(
 		{
 			MPI_Isend(pnt_config->MPI_SendBufferMesh[interface],
 				 pnt_config->MPI_intTransferSizeMesh[interface],
-				 MPI_DOUBLE,
+				 MPI_FLT,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3540,7 +3540,7 @@ void TransferFlowParameterWithGhosts(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	FLT comm_t0,comm_t1;
+	double comm_t0,comm_t1;
 	comm_t0 = MPI_Wtime();
 
 	int interface, flag;
@@ -3566,7 +3566,7 @@ void TransferFlowParameterWithGhosts(
 		{
 			MPI_Irecv(pnt_config->MPI_RecieveBufferFlowWithGhosts[interface],
 					 pnt_config->MPI_intTransferSizeFlow_WithGhosts[interface],
-				 MPI_DOUBLE,
+				 MPI_FLT,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3597,7 +3597,7 @@ void TransferFlowParameterWithGhosts(
 		{
 			MPI_Isend(pnt_config->MPI_SendBufferFlowWithGhosts[interface],
 				 pnt_config->MPI_intTransferSizeFlow_WithGhosts[interface],
-				 MPI_DOUBLE,
+				 MPI_FLT,
 				 pnt_config->MPI_rankNeighbours[interface],
 				 pnt_config->MPI_tag[interface],
 				 pnt_config->MPI_comm,
@@ -3672,31 +3672,31 @@ void CalcValuesForPost(
 									sqrt(pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk]+
 										pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk]+
 										pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))/
-									sqrt(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk])*pnt_config->dbl_machNumber;
+									sqrt(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk])*pnt_config->machNumber;
 
 					if(MESHDIMENSIONS==2)
 					{
 						pnt_U_lastStep->gradRho[ijk]=
 						sqrt(
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_y[ijk],2.0)
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->deltaEta)*pnt_mesh->eta_y[ijk],2.0)
 						);
 					}
 					else
 					{
 						pnt_U_lastStep->gradRho[ijk]=
 						sqrt(
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->dbl_deltaZeta)*pnt_mesh->zeta_x[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->dbl_deltaZeta)*pnt_mesh->zeta_y[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->dbl_deltaXi)*pnt_mesh->xi_z[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->dbl_deltaEta)*pnt_mesh->eta_z[ijk],2.0)+
-						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->dbl_deltaZeta)*pnt_mesh->zeta_z[ijk],2.0)
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->deltaXi)*pnt_mesh->xi_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->deltaEta)*pnt_mesh->eta_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->deltaZeta)*pnt_mesh->zeta_x[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->deltaXi)*pnt_mesh->xi_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->deltaEta)*pnt_mesh->eta_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->deltaZeta)*pnt_mesh->zeta_y[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[iPlus1jk]-0.5*pnt_U_lastStep->rho[iMinus1jk])/(pnt_config->deltaXi)*pnt_mesh->xi_z[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijPlus1k]-0.5*pnt_U_lastStep->rho[ijMinus1k])/(pnt_config->deltaEta)*pnt_mesh->eta_z[ijk],2.0)+
+						pow((0.5*pnt_U_lastStep->rho[ijkPlus1]-0.5*pnt_U_lastStep->rho[ijkMinus1])/(pnt_config->deltaZeta)*pnt_mesh->zeta_z[ijk],2.0)
 						);
 
 						pnt_U_lastStep->Lambda2[ijk]=CalcLambda2(i,j,k,pnt_config,pnt_mesh,pnt_U_lastStep);
@@ -3705,7 +3705,7 @@ void CalcValuesForPost(
 					if(pnt_mesh->flag_IBC[ijk]==1)
 					{
 						if(pnt_config->flag_IBC_Moving==1)
-						{pnt_U_lastStep->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;}
+						{pnt_U_lastStep->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;}
 						else{pnt_U_lastStep->u[ijk]=0.;}
 						pnt_U_lastStep->v[ijk]=0.;
 						pnt_U_lastStep->w[ijk]=0.;
@@ -4824,8 +4824,8 @@ void IBC_set(
 				{
 					if(pnt_config->flag_IBC_Moving==1)
 					{
-						pnt_U->u[ijk]=//pnt_config->IBC_MovingSpeed/pnt_config->dbl_u0_dim;}
-							(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
+						pnt_U->u[ijk]=//pnt_config->IBC_MovingSpeed/pnt_config->u0_dim;}
+							(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;
 					}
 					else
 					{
@@ -4846,7 +4846,7 @@ void IBC_set(
 							pnt_U->v[ijk]*pnt_mesh->zeta_y[ijk]+
 							pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 					pnt_U->e[ijk]=(0.5*((pnt_U->u[ijk]*pnt_U->u[ijk])+(pnt_U->v[ijk]*pnt_U->v[ijk])+(pnt_U->w[ijk]*pnt_U->w[ijk]))+
-												1.0/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+												1.0/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
                     
 					pnt_U->p[ijk]=1.0;
 					pnt_U->rho[ijk]=1.0;
@@ -4854,11 +4854,11 @@ void IBC_set(
 				    pnt_U->T[ijk]=1.0;
 
 					pnt_U->c[ijk]=
-							sqrt(pnt_config->dbl_Upsilon*
-							pnt_config->dbl_gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
+							sqrt(pnt_config->Upsilon*
+							pnt_config->gammaNumber*pnt_U->p[ijk]/pnt_U->rho[ijk]);
 
-					pnt_U->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
-							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+					pnt_U->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
+							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->SutherlandConstant));
 
 					pnt_mesh->BC_Corrector[ijk]=1.0;
 				}
@@ -4885,30 +4885,30 @@ void inducePressureWavesPlateau(
 					r=sqrt(pow((pnt_mesh->x[ijk]-pnt_config->pw_x1),2)+
 							pow((pnt_mesh->y[ijk]-pnt_config->pw_y1),2));
 
-					Ma_r=pnt_config->dbl_machNumber*(pnt_mesh->x[ijk]-pnt_config->pw_x1)/r
-							+sqrt(1.-pnt_config->dbl_machNumber*pow((pnt_mesh->y[ijk]-pnt_config->pw_y1),2)/r);
+					Ma_r=pnt_config->machNumber*(pnt_mesh->x[ijk]-pnt_config->pw_x1)/r
+							+sqrt(1.-pnt_config->machNumber*pow((pnt_mesh->y[ijk]-pnt_config->pw_y1),2)/r);
 
 					c=pnt_U_lastStep->c[ijk];
 
-					delta_t=(r-pnt_config->pw_r0*Ma_r)/(Ma_r*c)*pnt_config->dbl_L0_dim/pnt_config->dbl_u0_dim;
+					delta_t=(r-pnt_config->pw_r0*Ma_r)/(Ma_r*c)*pnt_config->L0_dim/pnt_config->u0_dim;
 
 					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+
-							pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->dbl_time_dim-delta_t))*sqrt(Ma_r*pnt_config->pw_r0/r);
+							pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->time_dim-delta_t))*sqrt(Ma_r*pnt_config->pw_r0/r);
 
-//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->dbl_time_dim));
+//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->time_dim));
 
 				    pnt_U_lastStep->T[ijk]=pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk];					
-					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->dbl_gammaNumber);
+					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->gammaNumber);
 
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 
-					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->dbl_Upsilon*pnt_config->dbl_gammaNumber
+					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->Upsilon*pnt_config->gammaNumber
 							*pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]);
 
-					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
-							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
+							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->SutherlandConstant));
 
 				}
 
@@ -4923,10 +4923,10 @@ void inducePressureWaves(
 		struct strct_U * pnt_U_lastStep)
 {
 	FLT alpha,r,r_quelle,u_alpha,lambda_alpha,f,lambda,x_Q,y_Q;
-	f=pnt_config->pw_frequency/pnt_config->dbl_u0_dim*pnt_config->dbl_L0_dim;
-	lambda=(1.0/pnt_config->dbl_machNumber)/f;
+	f=pnt_config->pw_frequency/pnt_config->u0_dim*pnt_config->L0_dim;
+	lambda=(1.0/pnt_config->machNumber)/f;
 	r_quelle=pnt_config->pw_r0;
-	x_Q=pnt_config->pw_x0-r_quelle*pnt_config->dbl_machNumber;
+	x_Q=pnt_config->pw_x0-r_quelle*pnt_config->machNumber;
 	y_Q=pnt_config->pw_y0;
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
@@ -4941,7 +4941,7 @@ void inducePressureWaves(
 					alpha=atan((y_Q-pnt_mesh->y[ijk])/(x_Q-pnt_mesh->x[ijk]));
 					if(pnt_mesh->x[ijk]<x_Q){alpha=M_PI-alpha;}
 
-					u_alpha=1.0*cos(alpha)+sqrt(pow(1.0/pnt_config->dbl_machNumber,2.)-pow(1.0*sin(alpha),2.));
+					u_alpha=1.0*cos(alpha)+sqrt(pow(1.0/pnt_config->machNumber,2.)-pow(1.0*sin(alpha),2.));
 
 					r=sqrt(pow((pnt_mesh->x[ijk]-x_Q),2)+
 							pow((pnt_mesh->y[ijk]-y_Q),2));
@@ -4949,23 +4949,23 @@ void inducePressureWaves(
 
 					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+
 							pnt_config->pw_amplitude
-							*sin(2.0*M_PI*(pnt_config->pw_frequency*(pnt_config->dbl_time_dim-pnt_config->start_Time)-r/lambda_alpha+r_quelle/lambda))
+							*sin(2.0*M_PI*(pnt_config->pw_frequency*(pnt_config->time_dim-pnt_config->start_Time)-r/lambda_alpha+r_quelle/lambda))
 					//*sqrt(lambda_alpha/r*r_quelle/lambda);
 					*sqrt(1.0/r);
 
-//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->dbl_time_dim));
+//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->time_dim));
 
 				    pnt_U_lastStep->T[ijk]=pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk];					
-					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->dbl_gammaNumber);
+					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->gammaNumber);
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 
-					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->dbl_Upsilon*pnt_config->dbl_gammaNumber
+					pnt_U_lastStep->c[ijk]=sqrt(pnt_config->Upsilon*pnt_config->gammaNumber
 							*pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]);
 
-					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
-							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+					pnt_U_lastStep->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk],1.5)/
+							(pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]+pnt_config->SutherlandConstant));
 
 				}
 
@@ -4981,8 +4981,8 @@ void preparePressureWaves(
 {
 	//Bestimmung des Radius, der genau eine Wellenlaenge enthaelt
 	FLT c_tmp,f_tmp;
-	f_tmp=pnt_config->pw_frequency/pnt_config->dbl_u0_dim*pnt_config->dbl_L0_dim;
-	c_tmp=(1.0/pnt_config->dbl_machNumber);
+	f_tmp=pnt_config->pw_frequency/pnt_config->u0_dim*pnt_config->L0_dim;
+	c_tmp=(1.0/pnt_config->machNumber);
 	pnt_config->pw_r0=c_tmp/f_tmp;
 
 	FLT distance;
@@ -5131,7 +5131,14 @@ void preparePressureHistoryValues(
 	{
 		if(pnt_config->flag_PressureHistory_P[p]==1)
 		{
-			printf("Druckaufzeichnung bei x=%g, y=%g, z=%g (Vorgabe: x=%g, y=%g, z=%g) von Rank %d\n",pnt_config->PressureHistory_x_P_real[p],pnt_config->PressureHistory_y_P_real[p],pnt_config->PressureHistory_z_P_real[p],pnt_config->PressureHistory_x_P[p],pnt_config->PressureHistory_y_P[p],pnt_config->PressureHistory_z_P[p],pnt_config->MPI_rank);
+			printf("Druckaufzeichnung bei x=%g, y=%g, z=%g (Vorgabe: x=%g, y=%g, z=%g) von Rank %d\n",
+					(double)pnt_config->PressureHistory_x_P_real[p],
+					(double)pnt_config->PressureHistory_y_P_real[p],
+					(double)pnt_config->PressureHistory_z_P_real[p],
+					(double)pnt_config->PressureHistory_x_P[p],
+					(double)pnt_config->PressureHistory_y_P[p],
+					(double)pnt_config->PressureHistory_z_P[p],
+					pnt_config->MPI_rank);
 		}
 	}
 }
@@ -5200,7 +5207,14 @@ void prepareVelocityHistoryValues(
 	{
 		if(pnt_config->flag_VelocityHistory_P[p]==1)
 		{
-			printf("Geschwindigkeitsaufzeichnung bei x=%g, y=%g, z=%g (Vorgabe: x=%g, y=%g, z=%g) von Rank %d\n",pnt_config->VelocityHistory_x_P_real[p],pnt_config->VelocityHistory_y_P_real[p],pnt_config->VelocityHistory_z_P_real[p],pnt_config->VelocityHistory_x_P[p],pnt_config->VelocityHistory_y_P[p],pnt_config->VelocityHistory_z_P[p],pnt_config->MPI_rank);
+			printf("Geschwindigkeitsaufzeichnung bei x=%g, y=%g, z=%g (Vorgabe: x=%g, y=%g, z=%g) von Rank %d\n",
+					(double)pnt_config->VelocityHistory_x_P_real[p],
+					(double)pnt_config->VelocityHistory_y_P_real[p],
+					(double)pnt_config->VelocityHistory_z_P_real[p],
+					(double)pnt_config->VelocityHistory_x_P[p],
+					(double)pnt_config->VelocityHistory_y_P[p],
+					(double)pnt_config->VelocityHistory_z_P[p],
+					pnt_config->MPI_rank);
 		}
 	}
 }
@@ -5250,14 +5264,14 @@ void InitializeVortex(
 					beta = 1.;
 
 					pnt_U_lastStep->rho[ijk] = pow((pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]
-					- (pnt_config->dbl_gammaNumber - 1.)*beta*beta/
-					(8.*pnt_config->dbl_gammaNumber*M_PI*M_PI)/pnt_config->dbl_Upsilon*exp(1. - radius)), (1./(pnt_config->dbl_gammaNumber - 1.)));
+					- (pnt_config->gammaNumber - 1.)*beta*beta/
+					(8.*pnt_config->gammaNumber*M_PI*M_PI)/pnt_config->Upsilon*exp(1. - radius)), (1./(pnt_config->gammaNumber - 1.)));
 
-					pnt_U_lastStep->p[ijk] = pow(pnt_U_lastStep->rho[ijk], pnt_config->dbl_gammaNumber);
+					pnt_U_lastStep->p[ijk] = pow(pnt_U_lastStep->rho[ijk], pnt_config->gammaNumber);
 
 
 					pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
-							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 				}
 
 			}
@@ -5326,7 +5340,7 @@ void WriteValuesForPressureHistory(
 {
 	int p;
 
-	pnt_config->PressureHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->dbl_time_dim;
+	pnt_config->PressureHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->time_dim;
 	for (p=0;p<pnt_config->PressureHistory_No;p++)
 	{
 		if(pnt_config->flag_PressureHistory_P[p]==1)
@@ -5344,7 +5358,7 @@ void WriteValuesForVelocityHistory(
 {
 	int p;
 
-	pnt_config->VelocityHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->dbl_time_dim;
+	pnt_config->VelocityHistory_time[pnt_config->int_actualIteration-(pnt_config->int_StartIteration+1)]=pnt_config->time_dim;
 	for (p=0;p<pnt_config->VelocityHistory_No;p++)
 	{
 		if(pnt_config->flag_VelocityHistory_P[p]==1)
@@ -5375,7 +5389,10 @@ int checkNAN(
 				if( (isinf(pnt_U->rho[ijk])||isnan(pnt_U->rho[ijk])) && (pnt_mesh->flag_IBC[ijk]==0))
 				{
 					NANCounter++;
-					printf("SHOCK: NAN bei x=%g, y=%g, z=%g\n",pnt_mesh->x[ijk],pnt_mesh->y[ijk],pnt_mesh->z[ijk]);
+					printf("SHOCK: NAN bei x=%g, y=%g, z=%g\n",
+							(double)pnt_mesh->x[ijk],
+							(double)pnt_mesh->y[ijk],
+							(double)pnt_mesh->z[ijk]);
 //					MPI_Abort(pnt_config->MPI_comm,13370);
 					pnt_config->flag_NAN=1;
 
@@ -5473,7 +5490,7 @@ void IBC_BornCells(
 //					pnt_U_RK->v[ijk]=0.0;
 //					pnt_U_RK->w[ijk]=0.0;
 					pnt_U_RK->e[ijk]=(0.5*((pnt_U_RK->u[ijk]*pnt_U_RK->u[ijk])+(pnt_U_RK->v[ijk]*pnt_U_RK->v[ijk])+(pnt_U_RK->w[ijk]*pnt_U_RK->w[ijk]))+
-							pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]/(pnt_config->dbl_gammaNumber-1.0)*pnt_config->dbl_Upsilon);
+							pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
 
 //					pnt_U_RK->theta1[ijk]=0.0;
 //					pnt_U_RK->theta2[ijk]=0.0;
@@ -5483,11 +5500,11 @@ void IBC_BornCells(
 						fabs(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]);
 
 					pnt_U_RK->c[ijk]=
-						sqrt(pnt_config->dbl_Upsilon*
-						pnt_config->dbl_gammaNumber*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]);
+						sqrt(pnt_config->Upsilon*
+						pnt_config->gammaNumber*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]);
 
-					pnt_U_RK->mue[ijk]=((1.0+pnt_config->dbl_SutherlandConstant)*pow(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk],1.5)/
-						(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]+pnt_config->dbl_SutherlandConstant));
+					pnt_U_RK->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk],1.5)/
+						(pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk]+pnt_config->SutherlandConstant));
 
 					//###################################
 
@@ -5843,15 +5860,15 @@ FLT CalcLambda2(
 		index0_zeta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+(k+(m-(SPACEORDER+1)/2));
 		index1_zeta=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+(k+(m-(SPACEORDER+1)/2+1));
 
-		u_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_xi];		u_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_xi];
-		v_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_xi];		v_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_xi];
-		w_iMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_xi];		w_iPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_xi];
-		u_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_eta];		u_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_eta];
-		v_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_eta];		v_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_eta];
-		w_jMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_eta];		w_jPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_eta];
-		u_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_zeta];	u_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_zeta];
-		v_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_zeta];	v_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_zeta];
-		w_kMinusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_zeta];	w_kPlusHalf+=pnt_config->dbl_ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_zeta];
+		u_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_xi];		u_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_xi];
+		v_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_xi];		v_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_xi];
+		w_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_xi];		w_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_xi];
+		u_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_eta];		u_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_eta];
+		v_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_eta];		v_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_eta];
+		w_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_eta];		w_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_eta];
+		u_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index0_zeta];	u_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->u[index1_zeta];
+		v_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index0_zeta];	v_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->v[index1_zeta];
+		w_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index0_zeta];	w_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[m]*pnt_U_lastStep->w[index1_zeta];
 	}
 
 	u_xi=(u_iPlusHalf-u_iMinusHalf);
@@ -6025,7 +6042,7 @@ void AddRotationSymmetricFluxes(
 				pnt_Q->xiMomentum[ijk]-=pnt_mesh->jacobian[ijk]*pnt_U_RK->rho[ijk]*pnt_U_RK->u[ijk]*pnt_U_RK->v[ijk]/pnt_mesh->y[ijk];
 				pnt_Q->etaMomentum[ijk]-=pnt_mesh->jacobian[ijk]*pnt_U_RK->rho[ijk]*pnt_U_RK->v[ijk]*pnt_U_RK->v[ijk]/pnt_mesh->y[ijk];
 				pnt_Q->Energy[ijk]-=pnt_mesh->jacobian[ijk]*pnt_U_RK->rho[ijk]*pnt_U_RK->v[ijk]*
-						(pnt_U_RK->e[ijk]+pnt_config->dbl_Upsilon*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk])
+						(pnt_U_RK->e[ijk]+pnt_config->Upsilon*pnt_U_RK->p[ijk]/pnt_U_RK->rho[ijk])
 						/pnt_mesh->y[ijk];
 			}
 		}
@@ -6036,7 +6053,7 @@ FLT IBC_getActualPosition(
 		struct strct_configuration * pnt_config)
 {
 	FLT A,B,C,D,E,F,G,H,I,J,K,Y,X;
-	X=pnt_config->dbl_time_dim;
+	X=pnt_config->time_dim;
 	if((pnt_config->int_actualIteration%pnt_config->IBC_MovingStepsize==0)||
 			(pnt_config->int_actualIteration==pnt_config->int_StartIteration))
 	{
@@ -6085,7 +6102,7 @@ FLT IBC_getActualPosition(
 		}
 		else
 		{
-			Y=pnt_config->dbl_time_dim*pnt_config->IBC_MovingSpeed/pnt_config->dbl_L0_dim;
+			Y=pnt_config->time_dim*pnt_config->IBC_MovingSpeed/pnt_config->L0_dim;
 
 //			Y = 0.5*sin(X*1000);
 //			if(X>((M_PI/2)/1000.))
@@ -6166,7 +6183,11 @@ void check_Metric(
 		ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k; */
 
 		printf("ERROR: Rank %d (x_mid=%g y_mid=%g z_mid=%g) hat %d Gitterpunkte mit negativer Jacobian.\n",
-				pnt_config->MPI_rank,pnt_mesh->x[ijk],pnt_mesh->y[ijk],pnt_mesh->z[ijk],flag_negjacobian);
+				pnt_config->MPI_rank,
+				(double)pnt_mesh->x[ijk],
+				(double)pnt_mesh->y[ijk],
+				(double)pnt_mesh->z[ijk],
+				flag_negjacobian);
 		printf("ERROR: Die Gruende sind meistens linksdrehendes Koordinatensystem oder sich ueberkreuzende GhostCells (keine Orthogonalitaet am Rand).\n");
 	}
 }
@@ -6363,11 +6384,11 @@ void CreateMetric(
 
 				if(MESHDIMENSIONS==2)
 				{
-					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
-					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
+					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->deltaXi;
+					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->deltaXi;
 					z_xi=0.0;
-					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
-					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
+					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->deltaEta;
+					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->deltaEta;
 					z_eta=0.0;
 					x_zeta=0.0;
 					y_zeta=0.0;
@@ -6376,15 +6397,15 @@ void CreateMetric(
 				}
 				else
 				{
-					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
-					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
-					z_xi=(-0.5*pnt_mesh->z_extrapolate[iMinus1jk]+0.5*pnt_mesh->z_extrapolate[iPlus1jk])/pnt_config->dbl_deltaXi;
-					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
-					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
-					z_eta=(-0.5*pnt_mesh->z_extrapolate[ijMinus1k]+0.5*pnt_mesh->z_extrapolate[ijPlus1k])/pnt_config->dbl_deltaEta;
-					x_zeta=(-0.5*pnt_mesh->x_extrapolate[ijkMinus1]+0.5*pnt_mesh->x_extrapolate[ijkPlus1])/pnt_config->dbl_deltaZeta;
-					y_zeta=(-0.5*pnt_mesh->y_extrapolate[ijkMinus1]+0.5*pnt_mesh->y_extrapolate[ijkPlus1])/pnt_config->dbl_deltaZeta;
-					z_zeta=(-0.5*pnt_mesh->z_extrapolate[ijkMinus1]+0.5*pnt_mesh->z_extrapolate[ijkPlus1])/pnt_config->dbl_deltaZeta;
+					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->deltaXi;
+					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->deltaXi;
+					z_xi=(-0.5*pnt_mesh->z_extrapolate[iMinus1jk]+0.5*pnt_mesh->z_extrapolate[iPlus1jk])/pnt_config->deltaXi;
+					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->deltaEta;
+					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->deltaEta;
+					z_eta=(-0.5*pnt_mesh->z_extrapolate[ijMinus1k]+0.5*pnt_mesh->z_extrapolate[ijPlus1k])/pnt_config->deltaEta;
+					x_zeta=(-0.5*pnt_mesh->x_extrapolate[ijkMinus1]+0.5*pnt_mesh->x_extrapolate[ijkPlus1])/pnt_config->deltaZeta;
+					y_zeta=(-0.5*pnt_mesh->y_extrapolate[ijkMinus1]+0.5*pnt_mesh->y_extrapolate[ijkPlus1])/pnt_config->deltaZeta;
+					z_zeta=(-0.5*pnt_mesh->z_extrapolate[ijkMinus1]+0.5*pnt_mesh->z_extrapolate[ijkPlus1])/pnt_config->deltaZeta;
 				}
 
 
@@ -7065,8 +7086,8 @@ extern void print_memusage_c()
 
   fclose (f);
 
-  printf("SHOCK: current MEMSIZE RSS  : %.2f mbyte\n", (FLT)rss/(1024*1024));
-  printf("SHOCK: current MEMSIZE VSIZE: %.2f mbyte\n", (FLT)vsize/(1024*1024));
+  printf("SHOCK: current MEMSIZE RSS  : %.2f mbyte\n", (double)rss/(1024*1024));
+  printf("SHOCK: current MEMSIZE VSIZE: %.2f mbyte\n", (double)vsize/(1024*1024));
 }
 #else
 
