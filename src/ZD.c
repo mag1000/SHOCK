@@ -15,21 +15,21 @@ void CalcViscidFluxesInXiDirectionDirectly(
 	int ijkMAX;
 	int indexMinus_xi, indexPlus_xi;
 
-	double u_xi_MinusHalf, u_eta_MinusHalf, u_zeta_MinusHalf;
-	double v_xi_MinusHalf, v_eta_MinusHalf, v_zeta_MinusHalf;
- 	double w_xi_MinusHalf, w_eta_MinusHalf, w_zeta_MinusHalf;
- 	double T_xi_MinusHalf, T_eta_MinusHalf, T_zeta_MinusHalf;
-	double u_xi_PlusHalf, u_eta_PlusHalf, u_zeta_PlusHalf;
-	double v_xi_PlusHalf, v_eta_PlusHalf, v_zeta_PlusHalf;
- 	double w_xi_PlusHalf, w_eta_PlusHalf, w_zeta_PlusHalf;
- 	double T_xi_PlusHalf, T_eta_PlusHalf, T_zeta_PlusHalf;
+	FLT u_xi_MinusHalf, u_eta_MinusHalf, u_zeta_MinusHalf;
+	FLT v_xi_MinusHalf, v_eta_MinusHalf, v_zeta_MinusHalf;
+ 	FLT w_xi_MinusHalf, w_eta_MinusHalf, w_zeta_MinusHalf;
+ 	FLT T_xi_MinusHalf, T_eta_MinusHalf, T_zeta_MinusHalf;
+	FLT u_xi_PlusHalf, u_eta_PlusHalf, u_zeta_PlusHalf;
+	FLT v_xi_PlusHalf, v_eta_PlusHalf, v_zeta_PlusHalf;
+ 	FLT w_xi_PlusHalf, w_eta_PlusHalf, w_zeta_PlusHalf;
+ 	FLT T_xi_PlusHalf, T_eta_PlusHalf, T_zeta_PlusHalf;
 
-	double u_iMinusHalf, u_iPlusHalf;
-	double v_iMinusHalf, v_iPlusHalf;
-	double w_iMinusHalf, w_iPlusHalf;
-	double T_iMinusHalf, T_iPlusHalf;
+	FLT u_iMinusHalf, u_iPlusHalf;
+	FLT v_iMinusHalf, v_iPlusHalf;
+	FLT w_iMinusHalf, w_iPlusHalf;
+	FLT T_iMinusHalf, T_iPlusHalf;
 
-	double XiMomRotSymm,EtaMomRotSymm,EnergyRotSymm;
+	FLT XiMomRotSymm,EtaMomRotSymm,EnergyRotSymm;
 	XiMomRotSymm=0.0;
 	EtaMomRotSymm=0.0;
 	EnergyRotSymm=0.0;
@@ -37,8 +37,8 @@ void CalcViscidFluxesInXiDirectionDirectly(
 	ijkMAX=pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
 
 
-	double Koeffizient_PlusHalf[30];
-	double Koeffizient_MinusHalf[30];
+	FLT Koeffizient_PlusHalf[30];
+	FLT Koeffizient_MinusHalf[30];
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -219,21 +219,21 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 	int ijk,i,j,k,l,ijMinus1k,ijPlus1k;
 	int ijkMAX;
 	int indexMinus_eta, indexPlus_eta;
-	double u_xi_MinusHalf, u_eta_MinusHalf, u_zeta_MinusHalf;
-	double v_xi_MinusHalf, v_eta_MinusHalf, v_zeta_MinusHalf;
- 	double w_xi_MinusHalf, w_eta_MinusHalf, w_zeta_MinusHalf;
- 	double T_xi_MinusHalf, T_eta_MinusHalf, T_zeta_MinusHalf;
-	double u_xi_PlusHalf, u_eta_PlusHalf, u_zeta_PlusHalf;
-	double v_xi_PlusHalf, v_eta_PlusHalf, v_zeta_PlusHalf;
- 	double w_xi_PlusHalf, w_eta_PlusHalf, w_zeta_PlusHalf;
- 	double T_xi_PlusHalf, T_eta_PlusHalf, T_zeta_PlusHalf;
+	FLT u_xi_MinusHalf, u_eta_MinusHalf, u_zeta_MinusHalf;
+	FLT v_xi_MinusHalf, v_eta_MinusHalf, v_zeta_MinusHalf;
+ 	FLT w_xi_MinusHalf, w_eta_MinusHalf, w_zeta_MinusHalf;
+ 	FLT T_xi_MinusHalf, T_eta_MinusHalf, T_zeta_MinusHalf;
+	FLT u_xi_PlusHalf, u_eta_PlusHalf, u_zeta_PlusHalf;
+	FLT v_xi_PlusHalf, v_eta_PlusHalf, v_zeta_PlusHalf;
+ 	FLT w_xi_PlusHalf, w_eta_PlusHalf, w_zeta_PlusHalf;
+ 	FLT T_xi_PlusHalf, T_eta_PlusHalf, T_zeta_PlusHalf;
 
-	double u_jMinusHalf, u_jPlusHalf;
-	double v_jMinusHalf, v_jPlusHalf;
-	double w_jMinusHalf, w_jPlusHalf;
-	double T_jMinusHalf, T_jPlusHalf;
+	FLT u_jMinusHalf, u_jPlusHalf;
+	FLT v_jMinusHalf, v_jPlusHalf;
+	FLT w_jMinusHalf, w_jPlusHalf;
+	FLT T_jMinusHalf, T_jPlusHalf;
 
-	double XiMomRotSymm,EtaMomRotSymm,EnergyRotSymm;
+	FLT XiMomRotSymm,EtaMomRotSymm,EnergyRotSymm;
 	XiMomRotSymm=0.0;
 	EtaMomRotSymm=0.0;
 	EnergyRotSymm=0.0;
@@ -241,8 +241,8 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 	ijkMAX=pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
 
 
-	double Koeffizient_PlusHalf[30];
-	double Koeffizient_MinusHalf[30];
+	FLT Koeffizient_PlusHalf[30];
+	FLT Koeffizient_MinusHalf[30];
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -419,19 +419,19 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 	int ijk,i,j,k,l,ijkMinus1,ijkPlus1;
 	int ijkMAX;
 	int indexMinus_zeta, indexPlus_zeta;
-	double u_xi_MinusHalf, u_eta_MinusHalf, u_zeta_MinusHalf;
-	double v_xi_MinusHalf, v_eta_MinusHalf, v_zeta_MinusHalf;
- 	double w_xi_MinusHalf, w_eta_MinusHalf, w_zeta_MinusHalf;
- 	double T_xi_MinusHalf, T_eta_MinusHalf, T_zeta_MinusHalf;
-	double u_xi_PlusHalf, u_eta_PlusHalf, u_zeta_PlusHalf;
-	double v_xi_PlusHalf, v_eta_PlusHalf, v_zeta_PlusHalf;
- 	double w_xi_PlusHalf, w_eta_PlusHalf, w_zeta_PlusHalf;
- 	double T_xi_PlusHalf, T_eta_PlusHalf, T_zeta_PlusHalf;
+	FLT u_xi_MinusHalf, u_eta_MinusHalf, u_zeta_MinusHalf;
+	FLT v_xi_MinusHalf, v_eta_MinusHalf, v_zeta_MinusHalf;
+ 	FLT w_xi_MinusHalf, w_eta_MinusHalf, w_zeta_MinusHalf;
+ 	FLT T_xi_MinusHalf, T_eta_MinusHalf, T_zeta_MinusHalf;
+	FLT u_xi_PlusHalf, u_eta_PlusHalf, u_zeta_PlusHalf;
+	FLT v_xi_PlusHalf, v_eta_PlusHalf, v_zeta_PlusHalf;
+ 	FLT w_xi_PlusHalf, w_eta_PlusHalf, w_zeta_PlusHalf;
+ 	FLT T_xi_PlusHalf, T_eta_PlusHalf, T_zeta_PlusHalf;
 
-	double u_kMinusHalf, u_kPlusHalf;
-	double v_kMinusHalf, v_kPlusHalf;
-	double w_kMinusHalf, w_kPlusHalf;
-	double T_kMinusHalf, T_kPlusHalf;
+	FLT u_kMinusHalf, u_kPlusHalf;
+	FLT v_kMinusHalf, v_kPlusHalf;
+	FLT w_kMinusHalf, w_kPlusHalf;
+	FLT T_kMinusHalf, T_kPlusHalf;
 
 
 
@@ -439,8 +439,8 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 	ijkMAX=pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
 
 
-	double Koeffizient_PlusHalf[30];
-	double Koeffizient_MinusHalf[30];
+	FLT Koeffizient_PlusHalf[30];
+	FLT Koeffizient_MinusHalf[30];
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -597,35 +597,35 @@ int iMinus1jk,iMinus2jk,iMinus3jk,iMinus4jk,iMinus5jk;
 int ijPlus1k,ijPlus2k,ijPlus3k,ijPlus4k,ijPlus5k;
 int ijMinus1k,ijMinus2k,ijMinus3k,ijMinus4k,ijMinus5k;
 
-double dbl_xImpuls_xi;
-double dbl_yImpuls_xi;
-double dbl_zImpuls_xi;
-double dbl_Energie_xi;
+FLT dbl_xImpuls_xi;
+FLT dbl_yImpuls_xi;
+FLT dbl_zImpuls_xi;
+FLT dbl_Energie_xi;
 
-double dbl_xImpuls_eta;
-double dbl_yImpuls_eta;
-double dbl_zImpuls_eta;
-double dbl_Energie_eta;
+FLT dbl_xImpuls_eta;
+FLT dbl_yImpuls_eta;
+FLT dbl_zImpuls_eta;
+FLT dbl_Energie_eta;
 
-double dbl_xImpuls_zeta;
-double dbl_yImpuls_zeta;
-double dbl_zImpuls_zeta;
-double dbl_Energie_zeta;
+FLT dbl_xImpuls_zeta;
+FLT dbl_yImpuls_zeta;
+FLT dbl_zImpuls_zeta;
+FLT dbl_Energie_zeta;
 
-double dbl_xImpuls_xi_help[11];
-double dbl_yImpuls_xi_help[11];
-double dbl_zImpuls_xi_help[11];
-double dbl_Energie_xi_help[11];
+FLT dbl_xImpuls_xi_help[11];
+FLT dbl_yImpuls_xi_help[11];
+FLT dbl_zImpuls_xi_help[11];
+FLT dbl_Energie_xi_help[11];
 
-double dbl_xImpuls_eta_help[11];
-double dbl_yImpuls_eta_help[11];
-double dbl_zImpuls_eta_help[11];
-double dbl_Energie_eta_help[11];
+FLT dbl_xImpuls_eta_help[11];
+FLT dbl_yImpuls_eta_help[11];
+FLT dbl_zImpuls_eta_help[11];
+FLT dbl_Energie_eta_help[11];
 
-double dbl_xImpuls_zeta_help[11];
-double dbl_yImpuls_zeta_help[11];
-double dbl_zImpuls_zeta_help[11];
-double dbl_Energie_zeta_help[11];
+FLT dbl_xImpuls_zeta_help[11];
+FLT dbl_yImpuls_zeta_help[11];
+FLT dbl_zImpuls_zeta_help[11];
+FLT dbl_Energie_zeta_help[11];
 
 void CalcDeviationsForViscidFluxes(
 		struct strct_configuration * pnt_config,

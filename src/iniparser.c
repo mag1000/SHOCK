@@ -416,18 +416,18 @@ int iniparser_getint(dictionary * d, const char * key, int notfound)
 
 /*-------------------------------------------------------------------------*/
 /**
-  @brief    Get the string associated to a key, convert to a double
+  @brief    Get the string associated to a key, convert to a FLT
   @param    d Dictionary to search
   @param    key Key string to look for
   @param    notfound Value to return in case of error
-  @return   double
+  @return   FLT
 
   This function queries a dictionary for a key. A key as read from an
   ini file is given as "section:key". If the key cannot be found,
   the notfound value is returned.
  */
 /*--------------------------------------------------------------------------*/
-double iniparser_getdouble(dictionary * d, const char * key, double notfound)
+FLT iniparser_getfloat(dictionary * d, const char * key, FLT notfound)
 {
     char    *   str ;
 

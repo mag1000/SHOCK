@@ -22,7 +22,7 @@
 int int_interationsStart;
 int int_interationsEnd;
 
-double t0,t1,t2;
+FLT t0,t1,t2;
 
 int int_myCPUID;
 int actualID,actualP;
@@ -30,12 +30,12 @@ int int_MaxNumberCPUs;
 
 int i,j,k,ijk;
 
-double dbl_leftEigenvector[5][5];
-double dbl_rightEigenvector[5][5];
+FLT dbl_leftEigenvector[5][5];
+FLT dbl_rightEigenvector[5][5];
 
 
 int int_helpValue1;
-double dbl_helpValue2;
+FLT dbl_helpValue2;
 
 int int_iterationCounterStdOut;
 int int_iterationCounterBackupOut;
@@ -91,6 +91,7 @@ int main(int argc, char *argv[])
 	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
 	if(configuration.MPI_rank==0){printf("SHOCK:                Start\n");}
 	if(configuration.MPI_rank==0){printf("SHOCK: (git-ID: %s)\n",GITID);}
+	if(configuration.MPI_rank==0){printf("SHOCK: (Precision: %s)\n",FLT_name);}
 	if(configuration.MPI_rank==0){printf("SHOCK: (MPI_Version: %d.%d.%d)\n",OMPI_MAJOR_VERSION,OMPI_MINOR_VERSION,OMPI_RELEASE_VERSION);}
 	if(configuration.MPI_rank==0){printf("SHOCK: (CGNS_Version: %d)\n",CGNS_VERSION);}
 	if(configuration.MPI_rank==0){printf("SHOCK: (HDF5_Version: %d.%d.%d)\n",H5_VERS_MAJOR,H5_VERS_MINOR,H5_VERS_RELEASE);}
@@ -127,7 +128,7 @@ int main(int argc, char *argv[])
 	DefineParameters(
 			&configuration);
 	if(configuration.MPI_rank==0){printf("SHOCK: Definition der Variablen fertig!\n");}
-	double ts;
+	FLT ts;
 
 	ts = MPI_Wtime( );
 

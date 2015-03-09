@@ -68,7 +68,7 @@ void MeshMetricExport(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-//	double *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(double));
+//	FLT *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(FLT));
 
 
 	char actual_file[200];
@@ -178,26 +178,26 @@ void CGNS_PressureHistoryValuesExportParallel(
 
 
 	//    timedepended CGNS-DATA
-	double time[pnt_config->int_TotalIterations];
+	FLT time[pnt_config->int_TotalIterations];
 	char sn[pnt_config->int_TotalIterations][33];
 	char solname[pnt_config->int_TotalIterations*32+1];  /* need an extra byte for the terminating 0 */
 
 	strcpy(solname,"");
 
-	double* x;
-	double* y;
-	double* z;
-	double* p;
+	FLT* x;
+	FLT* y;
+	FLT* z;
+	FLT* p;
 
 //Speicherallokierung für die dynamischen-1D Arrays, worin die 3D-Lösungen gespeichert werden
-	x = (double*) calloc(buffer,sizeof(double));
-	y = (double*) calloc(buffer,sizeof(double));
-	z = (double*) calloc(buffer,sizeof(double));
-	p = (double*) calloc(buffer,sizeof(double));
+	x = (FLT*) calloc(buffer,sizeof(FLT));
+	y = (FLT*) calloc(buffer,sizeof(FLT));
+	z = (FLT*) calloc(buffer,sizeof(FLT));
+	p = (FLT*) calloc(buffer,sizeof(FLT));
 
 	for(t=0;t<pnt_config->int_TotalIterations;t++)
 	{
-		time[t]=pnt_config->start_Time+(double)(t+1)*pnt_config->int_IterationsBetweenSamples*
+		time[t]=pnt_config->start_Time+(FLT)(t+1)*pnt_config->int_IterationsBetweenSamples*
 				(pnt_config->dbl_L0_dim*pnt_config->dbl_numericalTau/pnt_config->dbl_u0_dim);
 
 		sprintf(sn[t],"FlowSolution%d",t);
@@ -396,7 +396,7 @@ void NANExport(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-//	double *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(double));
+//	FLT *buffer = calloc(pnt_config->int_iStartGhosts * pnt_config->int_jStartGhosts, sizeof(FLT));
 
 
 	char actual_file[200];

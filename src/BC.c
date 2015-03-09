@@ -642,7 +642,7 @@ void WriteFarfieldBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -669,7 +669,7 @@ void WriteFarfieldBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -696,7 +696,7 @@ void WriteFarfieldBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -725,7 +725,7 @@ void WriteFarfieldBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -751,7 +751,7 @@ void WriteFarfieldBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -779,7 +779,7 @@ void WriteFarfieldBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -808,7 +808,7 @@ void WriteWallNoSlipBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -839,7 +839,7 @@ void WriteWallNoSlipBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -872,7 +872,7 @@ void WriteWallNoSlipBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -903,7 +903,7 @@ void WriteWallNoSlipBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -935,7 +935,7 @@ void WriteWallNoSlipBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -963,7 +963,7 @@ void WriteWallNoSlipBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -992,7 +992,7 @@ void WriteWallSlipBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -1024,7 +1024,7 @@ void WriteWallSlipBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -1056,7 +1056,7 @@ void WriteWallSlipBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
@@ -1086,7 +1086,7 @@ void WriteWallSlipBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -1116,7 +1116,7 @@ void WriteWallSlipBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -1148,7 +1148,7 @@ void WriteWallSlipBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
@@ -1178,7 +1178,7 @@ void WriteInflowSubsonicRiemannBoundaryUpperJ(
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
 
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1206,7 +1206,7 @@ void WriteInflowSubsonicRiemannBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1234,7 +1234,7 @@ void WriteInflowSubsonicRiemannBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1263,7 +1263,7 @@ void WriteInflowSubsonicRiemannBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1291,7 +1291,7 @@ void WriteInflowSubsonicRiemannBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1320,7 +1320,7 @@ void WriteInflowSubsonicRiemannBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1348,7 +1348,7 @@ void WriteInflowSupersonicNormalBoundaryLowerI(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1376,7 +1376,7 @@ void WriteInflowSupersonicNormalBoundaryLowerJ(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1406,7 +1406,7 @@ void WriteInflowSupersonicNormalBoundaryLowerK(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1436,7 +1436,7 @@ void WriteInflowSupersonicNormalBoundaryUpperI(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1464,7 +1464,7 @@ void WriteInflowSupersonicNormalBoundaryUpperJ(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1490,7 +1490,7 @@ void WriteInflowSupersonicNormalBoundaryUpperK(
 {
 	int i,j,k,ijk;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1518,7 +1518,7 @@ void WriteInflowSubsonicIsentropBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1545,7 +1545,7 @@ void WriteInflowSubsonicIsentropBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1574,7 +1574,7 @@ void WriteInflowSubsonicIsentropBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1602,7 +1602,7 @@ void WriteInflowSubsonicIsentropBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1631,7 +1631,7 @@ void WriteInflowSubsonicIsentropBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1659,7 +1659,7 @@ void WriteInflowSubsonicIsentropBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1687,7 +1687,7 @@ void WriteInflowSubsonicNormalBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1715,7 +1715,7 @@ void WriteInflowSubsonicNormalBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1744,7 +1744,7 @@ void WriteInflowSubsonicNormalBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1772,7 +1772,7 @@ void WriteInflowSubsonicNormalBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1801,7 +1801,7 @@ void WriteInflowSubsonicNormalBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1829,7 +1829,7 @@ void WriteInflowSubsonicNormalBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1858,7 +1858,7 @@ void WriteOutflowSubsonicRudyBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -1886,7 +1886,7 @@ void WriteOutflowSubsonicRudyBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1914,7 +1914,7 @@ void WriteOutflowSubsonicRudyBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -1944,7 +1944,7 @@ void WriteOutflowSubsonicRudyBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -1973,7 +1973,7 @@ void WriteOutflowSubsonicRudyBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2002,7 +2002,7 @@ void WriteOutflowSubsonicRudyBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2030,7 +2030,7 @@ void WriteOutflowSubsonicRiemannBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2058,7 +2058,7 @@ void WriteOutflowSubsonicRiemannBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2086,7 +2086,7 @@ void WriteOutflowSubsonicRiemannBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -2115,7 +2115,7 @@ void WriteOutflowSubsonicRiemannBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -2143,7 +2143,7 @@ void WriteOutflowSubsonicRiemannBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2172,7 +2172,7 @@ void WriteOutflowSubsonicRiemannBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2200,7 +2200,7 @@ void WriteOutflowSubsonicNormalBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2228,7 +2228,7 @@ void WriteOutflowSubsonicNormalBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2256,7 +2256,7 @@ void WriteOutflowSubsonicNormalBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -2285,7 +2285,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)
@@ -2313,7 +2313,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
@@ -2340,7 +2340,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
 	{
 		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
@@ -2361,7 +2361,7 @@ void WriteOutflowSubsonicNormalBoundaryLowerK(
 }
 
 void WriteInflowSubsonicIsentropBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2402,14 +2402,14 @@ void WriteInflowSubsonicIsentropBoundary(
 }
 
 void WriteInflowSubsonicRiemannBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	double cinf,d__1,d__2,rrr,cii;
+	FLT cinf,d__1,d__2,rrr,cii;
 	cinf=1.0/pnt_config->dbl_machNumber;
 	cii=pnt_U->c[ijkSymmetry];
 
@@ -2455,7 +2455,7 @@ void WriteInflowSubsonicRiemannBoundary(
 }
 
 void WriteInflowSubsonicNormalBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2503,7 +2503,7 @@ void WriteInflowSubsonicNormalBoundary(
 }
 
 void WriteInflowSupersonicNormalBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
@@ -2542,7 +2542,7 @@ void WriteInflowSupersonicNormalBoundary(
 }
 
 void WriteOutflowSubsonicNormalBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2570,14 +2570,14 @@ void WriteOutflowSubsonicNormalBoundary(
 }
 
 void WriteOutflowSubsonicRiemannBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	double cinf,d__1,d__2,rrr,cii;
+	FLT cinf,d__1,d__2,rrr,cii;
 	cinf=1.0/pnt_config->dbl_machNumber;
 	cii=pnt_U->c[ijkSymmetry];
 
@@ -2622,7 +2622,7 @@ void WriteOutflowSubsonicRiemannBoundary(
 }
 
 void WriteOutflowSubsonicRudyBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2655,7 +2655,7 @@ void WriteOutflowSubsonicRudyBoundary(
 }
 
 void WriteWallNoSlipBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2684,7 +2684,7 @@ void WriteWallNoSlipBoundary(
 }
 
 void WriteWallSlipBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2715,7 +2715,7 @@ void WriteWallSlipBoundary(
 }
 
 void WriteMovingWallSlipBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2755,14 +2755,14 @@ void WriteMovingWallSlipBoundary(
 		
 }
 void WriteMovingWallNoSlipIsothermalBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {
-	double prandtl_local;
+	FLT prandtl_local;
 	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
 	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->dbl_numericalTau;
 	pnt_U->v[ijk]=-pnt_U->v[ijkSymmetry];
@@ -2807,7 +2807,7 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 }
 
 void WriteFarfieldBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
@@ -2857,7 +2857,7 @@ void WriteMovingBCUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double x_shock,u_shock;
+	FLT x_shock,u_shock;
 	u_shock=10.0;
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
@@ -2933,14 +2933,14 @@ void WriteMovingBCUpperJ(
 }
 
 void WriteWallNoSlipIsothermalBoundary(
-		double corrector[3],
+		FLT corrector[3],
 		int ijk,
 		int ijkSymmetry,
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U)
 {   
-    double prandtl_local;
+    FLT prandtl_local;
 	pnt_U->theta1[ijk]=-pnt_U->theta1[ijkSymmetry];
 	pnt_U->theta2[ijk]=-pnt_U->theta2[ijkSymmetry];
 	pnt_U->theta3[ijk]=-pnt_U->theta3[ijkSymmetry];
@@ -2974,7 +2974,7 @@ void WriteWallNoSlipIsothermalBoundaryLowerJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -3003,7 +3003,7 @@ void WriteWallNoSlipIsothermalBoundaryLowerK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -3033,7 +3033,7 @@ void WriteWallNoSlipIsothermalBoundaryUpperJ(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,-1.,1.};
+	FLT corrector[3]={1.,-1.,1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -3062,7 +3062,7 @@ void WriteWallNoSlipIsothermalBoundaryUpperK(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={1.,1.,-1.};
+	FLT corrector[3]={1.,1.,-1.};
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -3091,7 +3091,7 @@ void WriteWallNoSlipIsothermalBoundaryUpperI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iEndReal;
 	for (i=pnt_config->int_iEndReal+1; i <= pnt_config->int_iEndGhosts; i++)
@@ -3118,7 +3118,7 @@ void WriteWallNoSlipIsothermalBoundaryLowerI(
 {
 	int i,j,k,ijk,ijkSymmetry;
 	int int_symmetryIndex;
-	double corrector[3]={-1.,1.,1.};
+	FLT corrector[3]={-1.,1.,1.};
 
 	int_symmetryIndex=pnt_config->int_iStartReal;
 	for (i=pnt_config->int_iStartReal-1; i >= pnt_config->int_iStartGhosts; i--)

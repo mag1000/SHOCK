@@ -57,13 +57,13 @@ void ErrorManufacturedSolution(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep);
 
-double GetRhoManufacturedSolution(
+FLT GetRhoManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep,
 		int ijk);
 
-double GetPressureManufacturedSolution(
+FLT GetPressureManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep,

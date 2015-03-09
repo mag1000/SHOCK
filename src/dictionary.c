@@ -20,7 +20,7 @@
 #include <string.h>
 #include <unistd.h>
 
-/** Maximum value size for integers and doubles. */
+/** Maximum value size for integers and FLTs. */
 #define MAXVALSZ    1024
 
 /** Minimal allocated number of entries in a dictionary */
@@ -35,7 +35,7 @@
 
 /* Doubles the allocated size associated to a pointer */
 /* 'size' is the current allocated size. */
-static void * mem_double(void * ptr, int size)
+static void * mem_FLT(void * ptr, int size)
 {
     void * newptr ;
  
@@ -249,9 +249,9 @@ int dictionary_set(dictionary * d, const char * key, const char * val)
     if (d->n==d->size) {
 
         /* Reached maximum size: reallocate dictionary */
-        d->val  = (char **)mem_double(d->val,  d->size * sizeof(char*)) ;
-        d->key  = (char **)mem_double(d->key,  d->size * sizeof(char*)) ;
-        d->hash = (unsigned int *)mem_double(d->hash, d->size * sizeof(unsigned)) ;
+        d->val  = (char **)mem_FLT(d->val,  d->size * sizeof(char*)) ;
+        d->key  = (char **)mem_FLT(d->key,  d->size * sizeof(char*)) ;
+        d->hash = (unsigned int *)mem_FLT(d->hash, d->size * sizeof(unsigned)) ;
         if ((d->val==NULL) || (d->key==NULL) || (d->hash==NULL)) {
             /* Cannot grow dictionary */
             return -1 ;

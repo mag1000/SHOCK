@@ -118,7 +118,7 @@ void saveFile( struct strct_configuration* pnt_config,struct strct_Film* pnt_Fil
 
 				if( !strcmp( arrayname,"TimeValues" ) ) {
 					if( dt==RealDouble ) {
-						float* buffer = malloc( nsteps*sizeof( float ) );
+						double* buffer = malloc( nsteps*sizeof( double ) );
 
 						CG( cg_array_read( array,buffer ) );
 

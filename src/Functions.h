@@ -46,7 +46,7 @@ extern void ExtrapolateGhostCells(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh);
 
-double IBC_getActualPosition(
+FLT IBC_getActualPosition(
 		struct strct_configuration * pnt_config);
 
 extern void AllocMemory(
@@ -97,7 +97,7 @@ void preparePressureWaves(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep);
 
-double CalcLambda2(
+FLT CalcLambda2(
 		int i,
 		int j,
 		int k,
@@ -239,7 +239,7 @@ extern void WriteValuesFromMeshToB(
 		int kEnd);
 
 void WriteValuesFromUAndMeshToBuffer(
-		double * buffer,
+		FLT * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U,
 		struct strct_mesh * pnt_mesh,
@@ -283,7 +283,7 @@ extern void TransferViscidParameter(
 		struct strct_mesh * pnt_mesh);
 
 extern void WriteValuesFromBufferToU(
-		double * buffer,
+		FLT * buffer,
 		struct strct_configuration * pnt_config,
 		struct strct_U * pnt_U,
 		int iStart,

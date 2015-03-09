@@ -12,7 +12,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "float.h"
+#include "FLT.h"
 #include "string.h"
 #include "cgnslib.h"
 
@@ -27,16 +27,16 @@ void AddManufacturedSolutionSource(
 		struct strct_mesh * pnt_mesh,
 		struct strct_Flux * pnt_Q)
 {
-	double L=1.0;
-	double p_ref=100000.0;
-	double u_ref=pnt_config->dbl_u0_dim;
-	double rho_ref=1.0;
+	FLT L=1.0;
+	FLT p_ref=100000.0;
+	FLT u_ref=pnt_config->dbl_u0_dim;
+	FLT rho_ref=1.0;
 
 
-	double rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
-	double u_0,u_x,u_y,a_u_x,a_u_y;
-	double v_0,v_x,v_y,a_v_x,a_v_y;
-	double p_0,p_x,p_y,a_p_x,a_p_y;
+	FLT rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
+	FLT u_0,u_x,u_y,a_u_x,a_u_y;
+	FLT v_0,v_x,v_y,a_v_x,a_v_y;
+	FLT p_0,p_x,p_y,a_p_x,a_p_y;
 
 	if (pnt_config->ManufacturedSolution_case==1)
 	{
@@ -55,7 +55,7 @@ void AddManufacturedSolutionSource(
 	p_0=100000.0;	p_x=0.2*100000.0;	p_y=0.5*100000.0;	a_p_x=2.0;		a_p_y=1.0;
 	}
 
-	double mass,x_momentum,y_momentum,energy;
+	FLT mass,x_momentum,y_momentum,energy;
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -310,15 +310,15 @@ void WriteManufacturedSolution(
 		struct strct_U * pnt_U_lastStep,
 		int ijk)
 {
-	double L=1.0;
-	double p_ref=100000.0;
-	double u_ref=pnt_config->dbl_u0_dim;
-	double rho_ref=1.0;
+	FLT L=1.0;
+	FLT p_ref=100000.0;
+	FLT u_ref=pnt_config->dbl_u0_dim;
+	FLT rho_ref=1.0;
 
-	double rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
-	double u_0,u_x,u_y,a_u_x,a_u_y;
-	double v_0,v_x,v_y,a_v_x,a_v_y;
-	double p_0,p_x,p_y,a_p_x,a_p_y;
+	FLT rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
+	FLT u_0,u_x,u_y,a_u_x,a_u_y;
+	FLT v_0,v_x,v_y,a_v_x,a_v_y;
+	FLT p_0,p_x,p_y,a_p_x,a_p_y;
 
 	if (pnt_config->ManufacturedSolution_case==1)
 	{
@@ -357,38 +357,38 @@ void WriteManufacturedSolution(
 
 }
 
-double GetRhoManufacturedSolution(
+FLT GetRhoManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep,
 		int ijk)
 {
-	double L=pnt_config->dbl_L0_dim;
-	double rho_ref=1.0;
+	FLT L=pnt_config->dbl_L0_dim;
+	FLT rho_ref=1.0;
 
-	double rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
+	FLT rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
 
 
 	rho_0=1.0;	rho_x=0.15;	rho_y=-0.1;	a_rho_x=1.0;	a_rho_y=0.5;
 
-	double rho=1./rho_ref*(rho_0+rho_x*sin(a_rho_x*M_PI*pnt_mesh->x[ijk]/L)+rho_y*cos(a_rho_y*M_PI*pnt_mesh->y[ijk]/L));
+	FLT rho=1./rho_ref*(rho_0+rho_x*sin(a_rho_x*M_PI*pnt_mesh->x[ijk]/L)+rho_y*cos(a_rho_y*M_PI*pnt_mesh->y[ijk]/L));
 	return rho;
 }
 
-double GetPressureManufacturedSolution(
+FLT GetPressureManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep,
 		int ijk)
 {
-	double L=pnt_config->dbl_L0_dim;
-	double p_ref=100000.0;
-	double p_0,p_x,p_y,a_p_x,a_p_y;
+	FLT L=pnt_config->dbl_L0_dim;
+	FLT p_ref=100000.0;
+	FLT p_0,p_x,p_y,a_p_x,a_p_y;
 
 	p_0=100000.0;	p_x=0.2*100000.0;	p_y=0.5*100000.0;	a_p_x=2.0;		a_p_y=1.0;
 
 
-	double pressure;
+	FLT pressure;
 	pressure=1./p_ref*(p_0+p_x*cos(a_p_x*M_PI*pnt_mesh->x[ijk]/L)+p_y*sin(a_p_y*M_PI*pnt_mesh->y[ijk]/L));
 	return pressure;
 }
@@ -398,10 +398,10 @@ void ErrorManufacturedSolution(
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep)
 {
-	double L2_norm_rho=0.0;
-	double L2_norm_pressure=0.0;
-	double rho_exact,pressure_exact;
-	double N=pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints;
+	FLT L2_norm_rho=0.0;
+	FLT L2_norm_pressure=0.0;
+	FLT rho_exact,pressure_exact;
+	FLT N=pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints;
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
 		for (j=pnt_config->int_jStartReal; j <= pnt_config->int_jEndReal; j++)
@@ -426,14 +426,14 @@ void ErrorManufacturedSolution(
 			}
 		}
 	}
-	double* all_L2_norm_rho;
-	all_L2_norm_rho = (double *)malloc(1*sizeof(double));
+	FLT* all_L2_norm_rho;
+	all_L2_norm_rho = (FLT *)malloc(1*sizeof(FLT));
 	MPI_Reduce( &L2_norm_rho, all_L2_norm_rho,1,MPI_DOUBLE,MPI_SUM,0,pnt_config->MPI_comm);
 	all_L2_norm_rho[0]=sqrt(all_L2_norm_rho[0]);
 	if(pnt_config->MPI_rank==0){printf("SHOCK: ManufacturedSolution: L2_norm(rho):%.8le\n",all_L2_norm_rho[0]);}
 
-	double* all_L2_norm_pressure;
-	all_L2_norm_pressure = (double *)malloc(1*sizeof(double));
+	FLT* all_L2_norm_pressure;
+	all_L2_norm_pressure = (FLT *)malloc(1*sizeof(FLT));
 	MPI_Reduce( &L2_norm_pressure, all_L2_norm_pressure,1,MPI_DOUBLE,MPI_SUM,0,pnt_config->MPI_comm);
 	all_L2_norm_pressure[0]=sqrt(all_L2_norm_pressure[0]);
 	if(pnt_config->MPI_rank==0){printf("SHOCK: ManufacturedSolution: L2_norm(pressure):%.8le\n",all_L2_norm_pressure[0]);}

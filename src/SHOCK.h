@@ -3,6 +3,20 @@
 
 #define NO_NEIGHBOUR -1
 
+#ifndef PRECISION
+#define PRECISION 1
+#endif
+#if PRECISION == 1
+#define FLT_name "float"
+#define FLT float
+#define MY_FLT_MIN FLT_MIN
+#define MPI_FLT MPI_FLT
+
+#elif PRECISION == 2
+#elif PRECISION == 3
+#elif PRECISION == 4
+#endif
+
 #ifndef SPACEORDER
 #define SPACEORDER 5
 #endif
@@ -37,12 +51,12 @@
 struct strct_configuration
 {
 	//	Rudy-BC
-	double AlphaNonRef;
+	FLT AlphaNonRef;
 
-	double dbl_is_minimum;
-	double dbl_is_maximum;
-	double dbl_is_avrg;
-	double dbl_is_avrg_counter;
+	FLT dbl_is_minimum;
+	FLT dbl_is_maximum;
+	FLT dbl_is_avrg;
+	FLT dbl_is_avrg_counter;
 
 
 	int flag_ManufacturedSolution;
@@ -59,24 +73,24 @@ struct strct_configuration
 
 
 	int PressureHistory_No;
-	double *PressureHistory_x_P,*PressureHistory_y_P,*PressureHistory_z_P;
-	double *PressureHistory_x_P_real,*PressureHistory_y_P_real,*PressureHistory_z_P_real;
-	double *PressureHistory_time;
-	double **PressureHistory_pressure;
+	FLT *PressureHistory_x_P,*PressureHistory_y_P,*PressureHistory_z_P;
+	FLT *PressureHistory_x_P_real,*PressureHistory_y_P_real,*PressureHistory_z_P_real;
+	FLT *PressureHistory_time;
+	FLT **PressureHistory_pressure;
 	int *ijk_PressureHistory_P;
 
 	int VelocityHistory_No;
-	double *VelocityHistory_x_P,*VelocityHistory_y_P,*VelocityHistory_z_P;
-	double *VelocityHistory_x_P_real,*VelocityHistory_y_P_real,*VelocityHistory_z_P_real;
-	double *VelocityHistory_time;
-	double **VelocityHistory_VelocityX;
-	double **VelocityHistory_VelocityY;
-	double **VelocityHistory_VelocityZ;
+	FLT *VelocityHistory_x_P,*VelocityHistory_y_P,*VelocityHistory_z_P;
+	FLT *VelocityHistory_x_P_real,*VelocityHistory_y_P_real,*VelocityHistory_z_P_real;
+	FLT *VelocityHistory_time;
+	FLT **VelocityHistory_VelocityX;
+	FLT **VelocityHistory_VelocityY;
+	FLT **VelocityHistory_VelocityZ;
 	int *ijk_VelocityHistory_P;
 
-	double LaminarBoundary_xStart;
+	FLT LaminarBoundary_xStart;
 
-	double global_lambdaMax;
+	FLT global_lambdaMax;
 
 	int int_CGNS_Sample_File;
 	int int_CGNS_Sample_Base;
@@ -166,9 +180,9 @@ struct strct_configuration
 	int int_kStartGhosts_original;
 	int int_kEndGhosts_original;
 
-	double comm_time;
-	double dbl_p_out;
-	double dbl_T_wall;
+	FLT comm_time;
+	FLT dbl_p_out;
+	FLT dbl_T_wall;
 
 	int flag_BC_option_inflow_normal_sub;
 	int flag_BC_option_inflow_riemann_sub;
@@ -179,48 +193,48 @@ struct strct_configuration
 	int flag_BC_option_outflow_riemann_sub;
 	int flag_BC_option_outflow_rudy_sub;
 
-	double dbl_p_inflow;
-	double dbl_rho_inflow;
-	double dbl_u_inflow;
-	double dbl_v_inflow;
-	double dbl_w_inflow;
+	FLT dbl_p_inflow;
+	FLT dbl_rho_inflow;
+	FLT dbl_u_inflow;
+	FLT dbl_v_inflow;
+	FLT dbl_w_inflow;
 
-	double dbl_deltaXi;
-	double dbl_deltaEta;
-	double dbl_deltaZeta;
+	FLT dbl_deltaXi;
+	FLT dbl_deltaEta;
+	FLT dbl_deltaZeta;
 
-	double dbl_AoA;
-	double dbl_numericalTau;
-	double dbl_numericalTauStart;
-	double dbl_machNumber;
-	double dbl_reynoldsNumber;
-	double dbl_prandtlNumber;
-	double dbl_gammaNumber;
-	double dbl_gasConstantNumber;
+	FLT dbl_AoA;
+	FLT dbl_numericalTau;
+	FLT dbl_numericalTauStart;
+	FLT dbl_machNumber;
+	FLT dbl_reynoldsNumber;
+	FLT dbl_prandtlNumber;
+	FLT dbl_gammaNumber;
+	FLT dbl_gasConstantNumber;
 
-	double dbl_wenoP;
-	double dbl_wenoEpsilon;
-	double dbl_wenoOptimalerKoeffizient_W9[5];
-	double dbl_wenoOptimalerKoeffizient_W5[3];
+	FLT dbl_wenoP;
+	FLT dbl_wenoEpsilon;
+	FLT dbl_wenoOptimalerKoeffizient_W9[5];
+	FLT dbl_wenoOptimalerKoeffizient_W5[3];
 
 	//fuer neue ZD-Berechnung
-	double *dbl_ZD_Interpolation_Koeffizient;
-	double *dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient;
-	double *dbl_ZD_Ableitung_Koeffizient;
-	double *dbl_ZD_ZweiteAbleitung_Koeffizient;
+	FLT *dbl_ZD_Interpolation_Koeffizient;
+	FLT *dbl_ZD_ZweiteAbleitungZwischenPunkt_Koeffizient;
+	FLT *dbl_ZD_Ableitung_Koeffizient;
+	FLT *dbl_ZD_ZweiteAbleitung_Koeffizient;
 
-	double dbl_RK_U_n_Faktor[4];
-	double dbl_RK_U_ABC_Faktor[4];
-	double dbl_RK_Q_Faktor[4];
-	double dbl_RK_Q_Summe_Flag[4];
-	double dbl_RK_Q_Summe_Faktor[4];
+	FLT dbl_RK_U_n_Faktor[4];
+	FLT dbl_RK_U_ABC_Faktor[4];
+	FLT dbl_RK_Q_Faktor[4];
+	FLT dbl_RK_Q_Summe_Flag[4];
+	FLT dbl_RK_Q_Summe_Faktor[4];
 
-	double dbl_Upsilon;
-	double dbl_Psi;
-	double *dbl_Gamma; //ist jetzt eine lokale Größe, um den Wärmefluss (lokales Lambda) unabhängig vom Reibungsterm (nü) zu bestimmen
+	FLT dbl_Upsilon;
+	FLT dbl_Psi;
+	FLT *dbl_Gamma; //ist jetzt eine lokale Größe, um den Wärmefluss (lokales Lambda) unabhängig vom Reibungsterm (nü) zu bestimmen
 
-	double dbl_SutherlandConstant;
-	double dbl_T0_dim;
+	FLT dbl_SutherlandConstant;
+	FLT dbl_T0_dim;
 
 	int * MPI_intArray_NoCPUs;
 	int MPI_rank;
@@ -245,9 +259,9 @@ struct strct_configuration
 	cgsize_t **RangeOfInterface;
 	cgsize_t **DonorRangeOfInterface;
 	int **TransformMatrixOfInterface;
-	double **RotationCenter;
-	double **RotationAngle;
-	double **Translation;
+	FLT **RotationCenter;
+	FLT **RotationAngle;
+	FLT **Translation;
 
 	int NumberInterfaces;
 	long *MPI_tag;
@@ -278,12 +292,12 @@ struct strct_configuration
 	int *MPI_intKStartRecieve_WithGhosts;
 	int *MPI_intKEndRecieve_WithGhosts;
 
-	double **MPI_SendBufferMesh;
-	double **MPI_RecieveBufferMesh;
-//	double **MPI_SendBufferFlow;
-//	double **MPI_RecieveBufferFlow;
-	double **MPI_SendBufferFlowWithGhosts;
-	double **MPI_RecieveBufferFlowWithGhosts;
+	FLT **MPI_SendBufferMesh;
+	FLT **MPI_RecieveBufferMesh;
+//	FLT **MPI_SendBufferFlow;
+//	FLT **MPI_RecieveBufferFlow;
+	FLT **MPI_SendBufferFlowWithGhosts;
+	FLT **MPI_RecieveBufferFlowWithGhosts;
 
 
 	int *MPI_intTransformation_IMax;
@@ -309,107 +323,107 @@ struct strct_configuration
 	int *MPI_intTransformation_Offset_K_Ghosts;
 
 
-	double *MPI_dblTransformation_xi_x;
-	double *MPI_dblTransformation_xi_y;
-	double *MPI_dblTransformation_xi_z;
-	double *MPI_dblTransformation_eta_x;
-	double *MPI_dblTransformation_eta_y;
-	double *MPI_dblTransformation_eta_z;
-	double *MPI_dblTransformation_zeta_x;
-	double *MPI_dblTransformation_zeta_y;
-	double *MPI_dblTransformation_zeta_z;
+	FLT *MPI_dblTransformation_xi_x;
+	FLT *MPI_dblTransformation_xi_y;
+	FLT *MPI_dblTransformation_xi_z;
+	FLT *MPI_dblTransformation_eta_x;
+	FLT *MPI_dblTransformation_eta_y;
+	FLT *MPI_dblTransformation_eta_z;
+	FLT *MPI_dblTransformation_zeta_x;
+	FLT *MPI_dblTransformation_zeta_y;
+	FLT *MPI_dblTransformation_zeta_z;
 
     MPI_Status MPI_status;
     MPI_Comm MPI_comm;
     MPI_Info MPI_info;
 
-//    double * bufferSendFlowLeft;
-//	double * bufferSendFlowRight;
-//	double * bufferSendFlowBottom;
-//	double * bufferSendFlowTop;
-//	double * bufferSendFlowBehind;
-//	double * bufferSendFlowInFront;
-//	double * bufferRecieveFlowLeft;
-//	double * bufferRecieveFlowRight;
-//	double * bufferRecieveFlowBottom;
-//	double * bufferRecieveFlowTop;
-//	double * bufferRecieveFlowBehind;
-//	double * bufferRecieveFlowInFront;
+//    FLT * bufferSendFlowLeft;
+//	FLT * bufferSendFlowRight;
+//	FLT * bufferSendFlowBottom;
+//	FLT * bufferSendFlowTop;
+//	FLT * bufferSendFlowBehind;
+//	FLT * bufferSendFlowInFront;
+//	FLT * bufferRecieveFlowLeft;
+//	FLT * bufferRecieveFlowRight;
+//	FLT * bufferRecieveFlowBottom;
+//	FLT * bufferRecieveFlowTop;
+//	FLT * bufferRecieveFlowBehind;
+//	FLT * bufferRecieveFlowInFront;
 
-    double * bufferSendFlowWithGhostsLeft;
-	double * bufferSendFlowWithGhostsRight;
-	double * bufferSendFlowWithGhostsBottom;
-	double * bufferSendFlowWithGhostsTop;
-	double * bufferSendFlowWithGhostsBehind;
-	double * bufferSendFlowWithGhostsInFront;
-	double * bufferRecieveFlowWithGhostsLeft;
-	double * bufferRecieveFlowWithGhostsRight;
-	double * bufferRecieveFlowWithGhostsBottom;
-	double * bufferRecieveFlowWithGhostsTop;
-	double * bufferRecieveFlowWithGhostsBehind;
-	double * bufferRecieveFlowWithGhostsInFront;
+    FLT * bufferSendFlowWithGhostsLeft;
+	FLT * bufferSendFlowWithGhostsRight;
+	FLT * bufferSendFlowWithGhostsBottom;
+	FLT * bufferSendFlowWithGhostsTop;
+	FLT * bufferSendFlowWithGhostsBehind;
+	FLT * bufferSendFlowWithGhostsInFront;
+	FLT * bufferRecieveFlowWithGhostsLeft;
+	FLT * bufferRecieveFlowWithGhostsRight;
+	FLT * bufferRecieveFlowWithGhostsBottom;
+	FLT * bufferRecieveFlowWithGhostsTop;
+	FLT * bufferRecieveFlowWithGhostsBehind;
+	FLT * bufferRecieveFlowWithGhostsInFront;
 
-	double * bufferSendMeshLeft;
-	double * bufferSendMeshRight;
-	double * bufferSendMeshBottom;
-	double * bufferSendMeshTop;
-	double * bufferSendMeshBehind;
-	double * bufferSendMeshInFront;
-	double * bufferRecieveMeshLeft;
-	double * bufferRecieveMeshRight;
-	double * bufferRecieveMeshBottom;
-	double * bufferRecieveMeshTop;
-	double * bufferRecieveMeshBehind;
-	double * bufferRecieveMeshInFront;
+	FLT * bufferSendMeshLeft;
+	FLT * bufferSendMeshRight;
+	FLT * bufferSendMeshBottom;
+	FLT * bufferSendMeshTop;
+	FLT * bufferSendMeshBehind;
+	FLT * bufferSendMeshInFront;
+	FLT * bufferRecieveMeshLeft;
+	FLT * bufferRecieveMeshRight;
+	FLT * bufferRecieveMeshBottom;
+	FLT * bufferRecieveMeshTop;
+	FLT * bufferRecieveMeshBehind;
+	FLT * bufferRecieveMeshInFront;
 
-    double dbl_L0_dim;
-    double dbl_u0_dim;
-    double dbl_c0_dim;
-	double dbl_time_dim;
-	double dbl_time_dim_lastAction;
-	double dbl_time_dim_backup1;
-	double dbl_time_dim_backup2;
+    FLT dbl_L0_dim;
+    FLT dbl_u0_dim;
+    FLT dbl_c0_dim;
+	FLT dbl_time_dim;
+	FLT dbl_time_dim_lastAction;
+	FLT dbl_time_dim_backup1;
+	FLT dbl_time_dim_backup2;
 
 	//ManufacturedSolution
 	int ManufacturedSolution_case;
 	char BCManufacturedSolution[30];
 
 
-//    double dbl_c0;
+//    FLT dbl_c0;
 
 
 //	IBC
 	int flag_IBC;
 	int IBC_Type;
-    double IBC_yKolben;
-	double IBC_alphaKolben;
+    FLT IBC_yKolben;
+	FLT IBC_alphaKolben;
 
 //	IBC:Moving
 	int flag_IBC_Moving;
-	double IBC_StartpositionX;
-	double IBC_StartpositionY;
-	double IBC_StartpositionZ;
-	double IBC_SizeX;
-	double IBC_SizeY;
-	double IBC_SizeZ;
-	double IBC_MovingSpeed;
+	FLT IBC_StartpositionX;
+	FLT IBC_StartpositionY;
+	FLT IBC_StartpositionZ;
+	FLT IBC_SizeX;
+	FLT IBC_SizeY;
+	FLT IBC_SizeZ;
+	FLT IBC_MovingSpeed;
 	int IBC_MovingType;
-	double IBC_SpeedFactor;
+	FLT IBC_SpeedFactor;
 	int IBC_MovingStepsize;
-	double IBC_MovingActualPosition;
-	double IBC_MovingLastPosition;
+	FLT IBC_MovingActualPosition;
+	FLT IBC_MovingLastPosition;
 
 
 
     //    VortexGenerator
 	int flag_Vortex;
-	double Vortex_x_wirb_zentr;
-	double Vortex_beta;
-	double Vortex_y_wirb_zentr;
-	double Vortex_faktor_quer;
-	double Vortex_r_wirb_max;
+	FLT Vortex_x_wirb_zentr;
+	FLT Vortex_beta;
+	FLT Vortex_y_wirb_zentr;
+	FLT Vortex_faktor_quer;
+	FLT Vortex_r_wirb_max;
 
-	double start_Time;
+	FLT start_Time;
 
 
 	//	Pressure Waves
@@ -417,15 +431,15 @@ struct strct_configuration
 	int pw_UseBC;
 	int pw_UseFlowAverage;
 	int pw_numberSources;
-	double pw_amplitude;
-	double pw_frequency;
-	double pw_x0;
-	double pw_y0;
-	double pw_z0;
-	double pw_x1;
-	double pw_y1;
-	double pw_z1;
-	double pw_r0;
+	FLT pw_amplitude;
+	FLT pw_frequency;
+	FLT pw_x0;
+	FLT pw_y0;
+	FLT pw_z0;
+	FLT pw_x1;
+	FLT pw_y1;
+	FLT pw_z1;
+	FLT pw_r0;
 
 //	BoundaryConditions
 	char BC_Left[30];
@@ -447,13 +461,13 @@ struct strct_configuration
 
 
 //		InitializeValues
-	double InitializeValues_u0;
-	double InitializeValues_p0;
-	double InitializeValues_rho0;
-	double InitializeValues_u1;
-	double InitializeValues_p1;
-	double InitializeValues_rho1;
-	double InitializeValues_xBorder;
+	FLT InitializeValues_u0;
+	FLT InitializeValues_p0;
+	FLT InitializeValues_rho0;
+	FLT InitializeValues_u1;
+	FLT InitializeValues_p1;
+	FLT InitializeValues_rho1;
+	FLT InitializeValues_xBorder;
 
 
 	//	2D-Rotation-Symmetric
@@ -462,8 +476,8 @@ struct strct_configuration
 	//Tau
 	int flag_TauAccelerator;
 	int flag_reinitialization;
-	double dbl_TauAccelerator_factor;
-	double dbl_TauDecelerator_factor;
+	FLT dbl_TauAccelerator_factor;
+	FLT dbl_TauDecelerator_factor;
 	int int_distanceNAN;
 	int int_distanceForward;
 	int int_distanceForwardStart;
@@ -495,29 +509,29 @@ struct strct_configuration
 
 struct strct_mesh
 {
-	double *BC_Corrector;
+	FLT *BC_Corrector;
 
-	double *x;
-	double *y;
-	double *z;
+	FLT *x;
+	FLT *y;
+	FLT *z;
 
-	double *x_extrapolate;
-	double *y_extrapolate;
-	double *z_extrapolate;
+	FLT *x_extrapolate;
+	FLT *y_extrapolate;
+	FLT *z_extrapolate;
 
-	double *xi_x;
-	double *xi_y;
-	double *xi_z;
+	FLT *xi_x;
+	FLT *xi_y;
+	FLT *xi_z;
 
-	double *eta_x;
-	double *eta_y;
-	double *eta_z;
+	FLT *eta_x;
+	FLT *eta_y;
+	FLT *eta_z;
 
-	double *zeta_x;
-	double *zeta_y;
-	double *zeta_z;
+	FLT *zeta_x;
+	FLT *zeta_y;
+	FLT *zeta_z;
 
-	double *jacobian;
+	FLT *jacobian;
 
 	//    ImmergedBC
 	int* flag_IBC;
@@ -525,102 +539,102 @@ struct strct_mesh
 
 	//	Pressure-Waves
 	int* flag_PressureWaves;
-	double* startPressure_PressureWaves;
-	double* startDensity_PressureWaves;
+	FLT* startPressure_PressureWaves;
+	FLT* startDensity_PressureWaves;
 
 //	Metric fuer viskose Fluesse
-	double *xiFluss_Faktor;
-	double *etaFluss_Faktor;
-	double *zetaFluss_Faktor;
+	FLT *xiFluss_Faktor;
+	FLT *etaFluss_Faktor;
+	FLT *zetaFluss_Faktor;
 };
 
 struct strct_U
 {
-	double *rho;
-	double *u;
-	double *v;
-	double *w;
-	double *p;
-	double *e;
-	double *theta1;
-	double *theta2;
-	double *theta3;
-	double *c;
-	double *gradRho;
-	double *Lambda2;
-	double *MachNumber;
-	double *T;
-	double *mue;
+	FLT *rho;
+	FLT *u;
+	FLT *v;
+	FLT *w;
+	FLT *p;
+	FLT *e;
+	FLT *theta1;
+	FLT *theta2;
+	FLT *theta3;
+	FLT *c;
+	FLT *gradRho;
+	FLT *Lambda2;
+	FLT *MachNumber;
+	FLT *T;
+	FLT *mue;
 
-	double *u_xi;
-	double *u_eta;
-	double *u_zeta;
-	double *v_xi;
-	double *v_eta;
-	double *v_zeta;
-	double *w_xi;
-	double *w_eta;
-	double *w_zeta;
-	double *T_xi;
-	double *T_eta;
-	double *T_zeta;
+	FLT *u_xi;
+	FLT *u_eta;
+	FLT *u_zeta;
+	FLT *v_xi;
+	FLT *v_eta;
+	FLT *v_zeta;
+	FLT *w_xi;
+	FLT *w_eta;
+	FLT *w_zeta;
+	FLT *T_xi;
+	FLT *T_eta;
+	FLT *T_zeta;
 };
 
 struct strct_Film
 {
-	double *rho;
-	double *u;
-	double *v;
-	double *w;
-	double *p;
-	double *gradRho;
-	double *Lambda2;
-	double *MachNumber;
-	double *dbl_time_dim;
+	FLT *rho;
+	FLT *u;
+	FLT *v;
+	FLT *w;
+	FLT *p;
+	FLT *gradRho;
+	FLT *Lambda2;
+	FLT *MachNumber;
+	FLT *dbl_time_dim;
 };
 
 struct strct_Flux
 {
-	double *Mass;
-	double *xiMomentum;
-	double *etaMomentum;
-	double *zetaMomentum;
-	double *Energy;
+	FLT *Mass;
+	FLT *xiMomentum;
+	FLT *etaMomentum;
+	FLT *zetaMomentum;
+	FLT *Energy;
 };
 
 //Derzeit nicht unter Verwendung
 struct strct_ZD
 {
-	double *u_xi;
-	double *u_eta;
-	double *u_zeta;
-	double *v_xi;
-	double *v_eta;
-	double *v_zeta;
-	double *w_xi;
-	double *w_eta;
-	double *w_zeta;
-	double *T_xi;
-	double *T_eta;
-	double *T_zeta;
-	double *mue_xi;
-	double *mue_eta;
-	double *mue_zeta;
+	FLT *u_xi;
+	FLT *u_eta;
+	FLT *u_zeta;
+	FLT *v_xi;
+	FLT *v_eta;
+	FLT *v_zeta;
+	FLT *w_xi;
+	FLT *w_eta;
+	FLT *w_zeta;
+	FLT *T_xi;
+	FLT *T_eta;
+	FLT *T_zeta;
+	FLT *mue_xi;
+	FLT *mue_eta;
+	FLT *mue_zeta;
 
-	double *tau_xx;
-	double *tau_yy;
-	double *tau_zz;
-	double *tau_xy;
-	double *tau_xz;
-	double *tau_yz;
-	double *q_x;
-	double *q_y;
-	double *q_z;
+	FLT *tau_xx;
+	FLT *tau_yy;
+	FLT *tau_zz;
+	FLT *tau_xy;
+	FLT *tau_xz;
+	FLT *tau_yz;
+	FLT *q_x;
+	FLT *q_y;
+	FLT *q_z;
 };
 
 //Variables
-extern double dbl_leftEigenvector[5][5];
-extern double dbl_rightEigenvector[5][5];
+extern FLT dbl_leftEigenvector[5][5];
+extern FLT dbl_rightEigenvector[5][5];
 
 extern int int_interations;
 extern int int_interationsStart;
@@ -632,8 +646,8 @@ extern int int_MaxNumberCPUs;
 extern struct strct_configuration configuration;
 extern struct strct_mesh *mesh;
 
-extern double dbl_helpValue1;
-extern double dbl_helpValue2;
+extern FLT dbl_helpValue1;
+extern FLT dbl_helpValue2;
 
 void startSimulation(
 		struct strct_configuration * pnt_config,

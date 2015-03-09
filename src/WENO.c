@@ -8,16 +8,16 @@
 #define CONSVEQU 5
 
 
-double Phi_Function_W9(
+FLT Phi_Function_W9(
         struct strct_configuration * pnt_config,
-        double * pnt_flux,
-        double * pnt_deltaFlux)
+        FLT * pnt_flux,
+        FLT * pnt_deltaFlux)
 {
-    double dbl_is0, dbl_is1, dbl_is2, dbl_is3, dbl_is4;
-    double dbl_omegaTmp0, dbl_omegaTmp1, dbl_omegaTmp2, dbl_omegaTmp3, dbl_omegaTmp4;
-    double dbl_omega0, dbl_omega2, dbl_omega3, dbl_omega4;
-    double dbl_q1, dbl_q2, dbl_q3, dbl_q4;
-    double dbl_result;
+    FLT dbl_is0, dbl_is1, dbl_is2, dbl_is3, dbl_is4;
+    FLT dbl_omegaTmp0, dbl_omegaTmp1, dbl_omegaTmp2, dbl_omegaTmp3, dbl_omegaTmp4;
+    FLT dbl_omega0, dbl_omega2, dbl_omega3, dbl_omega4;
+    FLT dbl_q1, dbl_q2, dbl_q3, dbl_q4;
+    FLT dbl_result;
 
 //  Berechnung der Glättungsindikatoren basierend auf FLUESSEN
 //    Eine abweichende Berechnung auf Basis von DeltaFlüssen exisitert ebenfalls in der Literatur und wir von
@@ -115,16 +115,16 @@ double Phi_Function_W9(
     return (dbl_result);
 }
 
-double Phi_Function_W5(
+FLT Phi_Function_W5(
         struct strct_configuration * pnt_config,
-        double * pnt_flux,
-        double * pnt_deltaFlux)
+        FLT * pnt_flux,
+        FLT * pnt_deltaFlux)
 {
-    double dbl_is0, dbl_is1, dbl_is2;
-    double dbl_omegaTmp0, dbl_omegaTmp1, dbl_omegaTmp2;
-    double dbl_omega0, dbl_omega2;
-    double dbl_q1, dbl_q2;
-    double dbl_result;
+    FLT dbl_is0, dbl_is1, dbl_is2;
+    FLT dbl_omegaTmp0, dbl_omegaTmp1, dbl_omegaTmp2;
+    FLT dbl_omega0, dbl_omega2;
+    FLT dbl_q1, dbl_q2;
+    FLT dbl_result;
 
 
 //    Alle Glaettungsindikatoren werden eigentlich noch durch 12 dividiert. Da aber nur die Gewichtungskoeffizienten
@@ -221,29 +221,29 @@ void CalcFluxesInXiDirection(
     int int_c;
     int int_iStencilStart,int_iStencilEnd,int_iStencil,int_iStencilPlus,int_iStencilMinus;
 
-    double lambdaMax;
+    FLT lambdaMax;
 
-    double dbl_jacobian_PlusHalf;
+    FLT dbl_jacobian_PlusHalf;
 
 
-    double * dbl_fluxPlus;
-    double * dbl_fluxMinus;
-    double * dbl_deltaFluxPlus;
-    double * dbl_deltaFluxMinus;
+    FLT * dbl_fluxPlus;
+    FLT * dbl_fluxMinus;
+    FLT * dbl_deltaFluxPlus;
+    FLT * dbl_deltaFluxMinus;
 
-    double dbl_Phi_FunctionPlus;
-    double dbl_Phi_FunctionMinus;
-    double * dbl_Phi_FunctionSum;
-    double * dbl_Phi_FunctionSumRightEigen;
-    double * dbl_Theta_Function;
+    FLT dbl_Phi_FunctionPlus;
+    FLT dbl_Phi_FunctionMinus;
+    FLT * dbl_Phi_FunctionSum;
+    FLT * dbl_Phi_FunctionSumRightEigen;
+    FLT * dbl_Theta_Function;
 
-    dbl_fluxPlus = (double *)calloc(pnt_config->int_SpaceOrder, sizeof(double));
-    dbl_fluxMinus = (double *)calloc(pnt_config->int_SpaceOrder, sizeof(double));
-    dbl_deltaFluxPlus = (double *)calloc((pnt_config->int_SpaceOrder-1), sizeof(double));
-    dbl_deltaFluxMinus = (double *)calloc((pnt_config->int_SpaceOrder-1), sizeof(double));
-    dbl_Phi_FunctionSum = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
-    dbl_Phi_FunctionSumRightEigen = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
-    dbl_Theta_Function = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
+    dbl_fluxPlus = (FLT *)calloc(pnt_config->int_SpaceOrder, sizeof(FLT));
+    dbl_fluxMinus = (FLT *)calloc(pnt_config->int_SpaceOrder, sizeof(FLT));
+    dbl_deltaFluxPlus = (FLT *)calloc((pnt_config->int_SpaceOrder-1), sizeof(FLT));
+    dbl_deltaFluxMinus = (FLT *)calloc((pnt_config->int_SpaceOrder-1), sizeof(FLT));
+    dbl_Phi_FunctionSum = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
+    dbl_Phi_FunctionSumRightEigen = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
+    dbl_Theta_Function = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
 
 //    Berechnung der Flüsse in den Gitterpunkten
 //    Die Berechnung der Gitterpunkte an den i+1/2 Stellen, die benötigt werden
@@ -510,28 +510,28 @@ void CalcFluxesInEtaDirection(
     int int_c;
     int int_jStencilStart,int_jStencilEnd,int_jStencil,int_jStencilPlus,int_jStencilMinus;
 
-    double lambdaMax;
+    FLT lambdaMax;
 
-    double dbl_jacobian_PlusHalf;
+    FLT dbl_jacobian_PlusHalf;
 
-    double * dbl_fluxPlus;
-    double * dbl_fluxMinus;
-    double * dbl_deltaFluxPlus;
-    double * dbl_deltaFluxMinus;
+    FLT * dbl_fluxPlus;
+    FLT * dbl_fluxMinus;
+    FLT * dbl_deltaFluxPlus;
+    FLT * dbl_deltaFluxMinus;
 
-    double dbl_Phi_FunctionPlus;
-    double dbl_Phi_FunctionMinus;
-    double * dbl_Phi_FunctionSum;
-    double * dbl_Phi_FunctionSumRightEigen;
-    double * dbl_Theta_Function;
+    FLT dbl_Phi_FunctionPlus;
+    FLT dbl_Phi_FunctionMinus;
+    FLT * dbl_Phi_FunctionSum;
+    FLT * dbl_Phi_FunctionSumRightEigen;
+    FLT * dbl_Theta_Function;
 
-    dbl_fluxPlus = (double *)calloc(pnt_config->int_SpaceOrder, sizeof(double));
-    dbl_fluxMinus = (double *)calloc(pnt_config->int_SpaceOrder, sizeof(double));
-    dbl_deltaFluxPlus = (double *)calloc((pnt_config->int_SpaceOrder-1), sizeof(double));
-    dbl_deltaFluxMinus = (double *)calloc((pnt_config->int_SpaceOrder-1), sizeof(double));
-    dbl_Phi_FunctionSum = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
-    dbl_Phi_FunctionSumRightEigen = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
-    dbl_Theta_Function = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
+    dbl_fluxPlus = (FLT *)calloc(pnt_config->int_SpaceOrder, sizeof(FLT));
+    dbl_fluxMinus = (FLT *)calloc(pnt_config->int_SpaceOrder, sizeof(FLT));
+    dbl_deltaFluxPlus = (FLT *)calloc((pnt_config->int_SpaceOrder-1), sizeof(FLT));
+    dbl_deltaFluxMinus = (FLT *)calloc((pnt_config->int_SpaceOrder-1), sizeof(FLT));
+    dbl_Phi_FunctionSum = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
+    dbl_Phi_FunctionSumRightEigen = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
+    dbl_Theta_Function = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
 
 //    Berechnung der Flüsse in den Gitterpunkten
 //    Die Berechnung der Gitterpunkte an den j+1/2 Stellen, die benötigt werden
@@ -813,28 +813,28 @@ void CalcFluxesInZetaDirection(
     int int_c;
     int int_kStencilStart,int_kStencilEnd,int_kStencil,int_kStencilPlus,int_kStencilMinus;
 
-    double lambdaMax;
+    FLT lambdaMax;
 
-    double dbl_jacobian_PlusHalf;
+    FLT dbl_jacobian_PlusHalf;
 
-    double * dbl_fluxPlus;
-    double * dbl_fluxMinus;
-    double * dbl_deltaFluxPlus;
-    double * dbl_deltaFluxMinus;
+    FLT * dbl_fluxPlus;
+    FLT * dbl_fluxMinus;
+    FLT * dbl_deltaFluxPlus;
+    FLT * dbl_deltaFluxMinus;
 
-    double dbl_Phi_FunctionPlus;
-    double dbl_Phi_FunctionMinus;
-    double * dbl_Phi_FunctionSum;
-    double * dbl_Phi_FunctionSumRightEigen;
-    double * dbl_Theta_Function;
+    FLT dbl_Phi_FunctionPlus;
+    FLT dbl_Phi_FunctionMinus;
+    FLT * dbl_Phi_FunctionSum;
+    FLT * dbl_Phi_FunctionSumRightEigen;
+    FLT * dbl_Theta_Function;
 
-    dbl_fluxPlus = (double *)calloc(pnt_config->int_SpaceOrder, sizeof(double));
-    dbl_fluxMinus = (double *)calloc(pnt_config->int_SpaceOrder, sizeof(double));
-    dbl_deltaFluxPlus = (double *)calloc((pnt_config->int_SpaceOrder-1), sizeof(double));
-    dbl_deltaFluxMinus = (double *)calloc((pnt_config->int_SpaceOrder-1), sizeof(double));
-    dbl_Phi_FunctionSum = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
-    dbl_Phi_FunctionSumRightEigen = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
-    dbl_Theta_Function = (double *)calloc(pnt_config->int_conservationEquations, sizeof(double));
+    dbl_fluxPlus = (FLT *)calloc(pnt_config->int_SpaceOrder, sizeof(FLT));
+    dbl_fluxMinus = (FLT *)calloc(pnt_config->int_SpaceOrder, sizeof(FLT));
+    dbl_deltaFluxPlus = (FLT *)calloc((pnt_config->int_SpaceOrder-1), sizeof(FLT));
+    dbl_deltaFluxMinus = (FLT *)calloc((pnt_config->int_SpaceOrder-1), sizeof(FLT));
+    dbl_Phi_FunctionSum = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
+    dbl_Phi_FunctionSumRightEigen = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
+    dbl_Theta_Function = (FLT *)calloc(pnt_config->int_conservationEquations, sizeof(FLT));
 
 //    Berechnung der Flüsse in den Gitterpunkten
 //    Die Berechnung der Gitterpunkte an den j+1/2 Stellen, die benötigt werden
@@ -1090,12 +1090,12 @@ void CalcEigenVectorsInXiDirection(
         int iPlus1jk,
         int iMinus1jk)
 {
-    double u,v,w,rho;
-    double xi_x_hat,xi_y_hat,xi_z_hat;
-//    double eta_x_hat,eta_y_hat,eta_z_hat;
-//    double zeta_x_hat,zeta_y_hat,zeta_z_hat;
-    double gamma,c,M;
-    double sqrt_2;
+    FLT u,v,w,rho;
+    FLT xi_x_hat,xi_y_hat,xi_z_hat;
+//    FLT eta_x_hat,eta_y_hat,eta_z_hat;
+//    FLT zeta_x_hat,zeta_y_hat,zeta_z_hat;
+    FLT gamma,c,M;
+    FLT sqrt_2;
 
     sqrt_2=sqrt(2.);
 
@@ -1108,8 +1108,8 @@ void CalcEigenVectorsInXiDirection(
     c=0.5*(pnt_U_RK->c[ijk]+pnt_U_RK->c[iPlus1jk]);
     M=sqrt(u*u+v*v+w*w)/c;
 
-//    double sqrt_rho=sqrt(pnt_U_RK->rho[ijk]);
-//    double sqrt_rhoP1=sqrt(pnt_U_RK->rho[iPlus1jk]);
+//    FLT sqrt_rho=sqrt(pnt_U_RK->rho[ijk]);
+//    FLT sqrt_rhoP1=sqrt(pnt_U_RK->rho[iPlus1jk]);
 //
 //    u=(pnt_U_RK->u[ijk]*sqrt_rhoP1+pnt_U_RK->u[iPlus1jk]*sqrt_rho)
 //    		/(sqrt_rhoP1+sqrt_rho);
@@ -1245,12 +1245,12 @@ void CalcEigenVectorsInEtaDirection(
         int ijPlus1k,
         int ijMinus1k)
 {
-    double u,v,w,rho;
-//    double xi_x_hat,xi_y_hat,xi_z_hat;
-    double eta_x_hat,eta_y_hat,eta_z_hat;
-//    double zeta_x_hat,zeta_y_hat,zeta_z_hat;
-    double gamma,c,M;
-    double sqrt_2;
+    FLT u,v,w,rho;
+//    FLT xi_x_hat,xi_y_hat,xi_z_hat;
+    FLT eta_x_hat,eta_y_hat,eta_z_hat;
+//    FLT zeta_x_hat,zeta_y_hat,zeta_z_hat;
+    FLT gamma,c,M;
+    FLT sqrt_2;
 
     sqrt_2=sqrt(2.);
 
@@ -1263,8 +1263,8 @@ void CalcEigenVectorsInEtaDirection(
     c=0.5*(pnt_U_RK->c[ijk]+pnt_U_RK->c[ijPlus1k]);
     M=sqrt(u*u+v*v+w*w)/c;
 
-//    double sqrt_rho=sqrt(pnt_U_RK->rho[ijk]);
-//    double sqrt_rhoP1=sqrt(pnt_U_RK->rho[ijPlus1k]);
+//    FLT sqrt_rho=sqrt(pnt_U_RK->rho[ijk]);
+//    FLT sqrt_rhoP1=sqrt(pnt_U_RK->rho[ijPlus1k]);
 //
 //    u=(pnt_U_RK->u[ijk]*sqrt_rhoP1+pnt_U_RK->u[ijPlus1k]*sqrt_rho)
 //    		/(sqrt_rhoP1+sqrt_rho);
@@ -1400,12 +1400,12 @@ void CalcEigenVectorsInZetaDirection(
         int ijkPlus1,
         int ijkMinus1)
 {
-    double u,v,w,rho;
-//    double xi_x_hat,xi_y_hat,xi_z_hat;
-//    double eta_x_hat,eta_y_hat,eta_z_hat;
-    double zeta_x_hat,zeta_y_hat,zeta_z_hat;
-    double gamma,c,M;
-    double sqrt_2;
+    FLT u,v,w,rho;
+//    FLT xi_x_hat,xi_y_hat,xi_z_hat;
+//    FLT eta_x_hat,eta_y_hat,eta_z_hat;
+    FLT zeta_x_hat,zeta_y_hat,zeta_z_hat;
+    FLT gamma,c,M;
+    FLT sqrt_2;
 
     sqrt_2=sqrt(2.);
 
@@ -1418,8 +1418,8 @@ void CalcEigenVectorsInZetaDirection(
     c=0.5*(pnt_U_RK->c[ijk]+pnt_U_RK->c[ijkPlus1]);
     M=sqrt(u*u+v*v+w*w)/c;
 
-//    double sqrt_rho=sqrt(pnt_U_RK->rho[ijk]);
-//    double sqrt_rhoP1=sqrt(pnt_U_RK->rho[ijkPlus1]);
+//    FLT sqrt_rho=sqrt(pnt_U_RK->rho[ijk]);
+//    FLT sqrt_rhoP1=sqrt(pnt_U_RK->rho[ijkPlus1]);
 //
 //    u=(pnt_U_RK->u[ijk]*sqrt_rhoP1+pnt_U_RK->u[ijkPlus1]*sqrt_rho)
 //    		/(sqrt_rhoP1+sqrt_rho);
@@ -1547,7 +1547,7 @@ void CalcEigenVectorsInZetaDirection(
 
 }
 
-double GetLambdaMaxInXiDirection(
+FLT GetLambdaMaxInXiDirection(
         struct strct_configuration * pnt_config,
         struct strct_mesh * pnt_mesh,
         struct strct_U * pnt_U_RK,
@@ -1561,10 +1561,10 @@ double GetLambdaMaxInXiDirection(
     i_end=int_acutalI+(pnt_config->int_SpaceOrder-1)/2+1;
     j=int_acutalJ;
     k=int_acutalK;
-//    double dbl_lambdaMaxPlus;
-//    double dbl_lambdaMaxMinus;
-    double dbl_lambdaMax;
-    double dbl_lambdaMaxActual;
+//    FLT dbl_lambdaMaxPlus;
+//    FLT dbl_lambdaMaxMinus;
+    FLT dbl_lambdaMax;
+    FLT dbl_lambdaMaxActual;
     dbl_lambdaMaxActual=0.0;
     for (i=i_start; i <= i_end; i++)
     {
@@ -1615,7 +1615,7 @@ double GetLambdaMaxInXiDirection(
     return(dbl_lambdaMaxActual);
 }
 
-double GetLambdaMaxInEtaDirection(
+FLT GetLambdaMaxInEtaDirection(
         struct strct_configuration * pnt_config,
         struct strct_mesh * pnt_mesh,
         struct strct_U * pnt_U_RK,
@@ -1629,10 +1629,10 @@ double GetLambdaMaxInEtaDirection(
     j_end=int_acutalJ+(pnt_config->int_SpaceOrder-1)/2+1;
     i=int_acutalI;
     k=int_acutalK;
-//    double dbl_lambdaMaxPlus;
-//    double dbl_lambdaMaxMinus;
-    double dbl_lambdaMax;
-    double dbl_lambdaMaxActual;
+//    FLT dbl_lambdaMaxPlus;
+//    FLT dbl_lambdaMaxMinus;
+    FLT dbl_lambdaMax;
+    FLT dbl_lambdaMaxActual;
     dbl_lambdaMaxActual=0.0;
     for (j=j_start; j <= j_end; j++)
     {
@@ -1683,7 +1683,7 @@ double GetLambdaMaxInEtaDirection(
     return(dbl_lambdaMaxActual);
 }
 
-double GetLambdaMaxInZetaDirection(
+FLT GetLambdaMaxInZetaDirection(
         struct strct_configuration * pnt_config,
         struct strct_mesh * pnt_mesh,
         struct strct_U * pnt_U_RK,
@@ -1697,10 +1697,10 @@ double GetLambdaMaxInZetaDirection(
     k_end=int_acutalK+(pnt_config->int_SpaceOrder-1)/2+1;
     i=int_acutalI;
     j=int_acutalJ;
-//    double dbl_lambdaMaxPlus;
-//    double dbl_lambdaMaxMinus;
-    double dbl_lambdaMax;
-    double dbl_lambdaMaxActual;
+//    FLT dbl_lambdaMaxPlus;
+//    FLT dbl_lambdaMaxMinus;
+    FLT dbl_lambdaMax;
+    FLT dbl_lambdaMaxActual;
     dbl_lambdaMaxActual=0.0;
     for (k=k_start; k <= k_end; k++)
     {
@@ -1753,7 +1753,7 @@ double GetLambdaMaxInZetaDirection(
 
 void Theta_Function_W9(
     struct strct_Flux * pnt_Flux,
-    double * pnt_theta,
+    FLT * pnt_theta,
     int ijk,
     int Plus1ijk,
     int Plus2ijk,
@@ -1792,7 +1792,7 @@ pnt_theta[4]=1./840.*(
 
 void Theta_Function_W5(
     struct strct_Flux * pnt_Flux,
-    double * pnt_theta,
+    FLT * pnt_theta,
     int ijk,
     int Plus1ijk,
     int Plus2ijk,
