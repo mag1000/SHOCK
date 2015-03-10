@@ -6,25 +6,33 @@
 #define PRECISION 3
 #endif
 #if PRECISION == 1
-#define FLT_name "float"
-#define FLT float
-#define MY_FLT_MIN FLT_MIN
-#define MPI_FLT MPI_FLOAT
+	#define FLT_name "float"
+	#define FLT float
+	#define MY_FLT_MIN FLT_MIN
+	#define MPI_FLT MPI_FLOAT
+	#define MY_PI 3.14159265358979323846264338327950288419716939937510
+	#define CONV_ERROR	1.0E-10L
 #elif PRECISION == 2
-#define FLT_name "double"
-#define FLT double
-#define MY_FLT_MIN DBL_MIN
-#define MPI_FLT MPI_DOUBLE
+	#define FLT_name "double"
+	#define FLT double
+	#define MY_FLT_MIN DBL_MIN
+	#define MPI_FLT MPI_DOUBLE
+	#define MY_PI 3.14159265358979323846264338327950288419716939937510
+	#define CONV_ERROR	1.0E-16L
 #elif PRECISION == 3
-#define FLT_name "long double"
-#define FLT long double
-#define MY_FLT_MIN DBL_MIN
-#define MPI_FLT MPI_LONG_DOUBLE
+	#define FLT_name "long double"
+	#define FLT long double
+	#define MY_FLT_MIN DBL_MIN
+	#define MPI_FLT MPI_LONG_DOUBLE
+	#define MY_PI 3.14159265358979323846264338327950288419716939937510L
+	#define CONV_ERROR	1.0E-32L
 #elif PRECISION == 4
-#define FLT_name "quad"
-#define FLT __float128
-#define MY_FLT_MIN DBL_MIN
-#define MPI_FLT MPI_LONG_DOUBLE
+	#define FLT_name "quad"
+	#define FLT __float128
+	#define MY_FLT_MIN DBL_MIN
+	#define MPI_FLT MPI_LONG_DOUBLE
+	#define MY_PI 3.14159265358979323846264338327950288419716939937510Q
+	#define CONV_ERROR	1.0E-32L
 #endif
 
 #ifndef SPACEORDER
@@ -397,6 +405,13 @@ struct strct_configuration
 	//ManufacturedSolution
 	int ManufacturedSolution_case;
 	char BCManufacturedSolution[30];
+	long double ManufacturedSolution_L2_last;
+	long double ManufacturedSolution_L2_Delta;
+	long double all_L2_norm_rho;
+	long double all_L2_norm_pressure;
+	long double all_Linf_norm_rho;
+	long double all_Linf_norm_pressure;
+	int ManufacturedSolution_L2_counter;
 
 
 //    FLT c0;

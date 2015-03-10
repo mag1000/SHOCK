@@ -320,7 +320,8 @@ int main(int argc, char *argv[])
 		ErrorManufacturedSolution(
 				&configuration,
 				&mesh,
-				&U_lastStep);
+				&U_lastStep,
+				1);
 	}
 
 	if(configuration.int_TotalIterations==0)
@@ -743,6 +744,20 @@ void startSimulation(
 				if(pnt_config->MPI_rank==0){printf("SHOCK: MovingWall at x-Position %g!\n",
 						(double)pnt_config->IBC_MovingActualPosition);}
 			}
+			if(pnt_config->flag_ManufacturedSolution==1)
+			{
+				if(pnt_config->MPI_rank==0){printf("SHOCK: Recent L2-Delta(rho): %.8Le)\n",
+						pnt_config->ManufacturedSolution_L2_Delta);}
+			}
+			if(pnt_config->MPI_rank==0){printf("SHOCK: --------\n");}
+		}
+		if(pnt_config->flag_ManufacturedSolution==1)
+		{
+			ErrorManufacturedSolution(
+					pnt_config,
+					pnt_mesh,
+					pnt_U_lastStep,
+					0);
 		}
 	}
 }

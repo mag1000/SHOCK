@@ -1,9 +1,5 @@
 #include "SHOCK.h"
 
-#ifndef M_PIl
-#define M_PIl 3.1415926535897932384626433832795029L  /* pi */
-#endif
-
 #ifndef MANUFACTUREDSOLUTION_H
 #define MANUFACTUREDSOLUTION_H
 
@@ -59,7 +55,8 @@ void WriteManufacturedSolution(
 void ErrorManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
-		struct strct_U * pnt_U_lastStep);
+		struct strct_U * pnt_U_lastStep,
+		int flag);
 
 long double GetRhoManufacturedSolution(
 		struct strct_configuration * pnt_config,

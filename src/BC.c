@@ -2870,7 +2870,7 @@ void WriteMovingBCUpperJ(
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 				ijkSymmetry=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+int_symmetryIndex*pnt_config->int_kMeshPointsGhostCells+k;
 
-				x_shock = 1./6. + pnt_mesh->y[ijk]/tan(60.*M_PI/180.) + pnt_config->time_dim * u_shock / sin(60.*M_PI/180.);
+				x_shock = 1./6. + pnt_mesh->y[ijk]/tan(60.*MY_PI/180.) + pnt_config->time_dim * u_shock / sin(60.*MY_PI/180.);
 				if (pnt_mesh->x[ijk] > x_shock)
 				{
 

@@ -230,8 +230,8 @@ void ConfigImport(
 	pnt_config->InitializeValues_rho1 = iniparser_getdouble(ini, "InitializeValues:rho1", 1);
 	pnt_config->InitializeValues_u1 = iniparser_getdouble(ini, "InitializeValues:u1", 1);
 	pnt_config->InitializeValues_xBorder = iniparser_getdouble(ini, "InitializeValues:xBorder", 0.);	
-	pnt_config->u_inflow = cos(pnt_config->AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
-	pnt_config->v_inflow = sin(pnt_config->AoA/360*2*M_PI)*pnt_config->InitializeValues_u0;
+	pnt_config->u_inflow = cos(pnt_config->AoA/360*2*MY_PI)*pnt_config->InitializeValues_u0;
+	pnt_config->v_inflow = sin(pnt_config->AoA/360*2*MY_PI)*pnt_config->InitializeValues_u0;
 	pnt_config->w_inflow = 0.0;
 
 	//ManufacturedSolution

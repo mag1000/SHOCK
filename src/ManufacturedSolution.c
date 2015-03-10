@@ -15,6 +15,7 @@
 #include "float.h"
 #include "string.h"
 #include "cgnslib.h"
+#include <quadmath.h>
 
 #include "SHOCK.h"
 #include "Functions.h"
@@ -27,10 +28,10 @@ void AddManufacturedSolutionSource(
 		struct strct_mesh * pnt_mesh,
 		struct strct_Flux * pnt_Q)
 {
-	long double L=(long double)1.0;
-	long double rho_ref=(long double)1.0;
-	long double u_ref=(long double)pnt_config->u0_dim;
-	long double p_ref=(long double)rho_ref*u_ref*u_ref*pnt_config->Upsilon;
+	long double L=1.0L;
+	long double rho_ref=1.0L;
+	long double u_ref=(long double)(pnt_config->machNumber*sqrtl(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim));
+	long double p_ref=(long double)rho_ref*u_ref*u_ref/(pnt_config->gammaNumber*pnt_config->machNumber*pnt_config->machNumber);
 
 
 	long double rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
@@ -41,18 +42,18 @@ void AddManufacturedSolutionSource(
 	if (pnt_config->ManufacturedSolution_case==1)
 	{
 	//supersonic
-	rho_0=1.0/rho_ref;	rho_x=0.15/rho_ref;		rho_y=-0.1/rho_ref;		a_rho_x=1.0;	a_rho_y=0.5;
-	u_0=800.0/u_ref;	u_x=50.0/u_ref;			u_y=-30.0/u_ref;		a_u_x=1.5;		a_u_y=0.6;
-	v_0=800.0/u_ref;	v_x=-75.0/u_ref;		v_y=40.0/u_ref;			a_v_x=0.5;		a_v_y=2./3.;
-	p_0=100000.0/p_ref;	p_x=0.2*100000.0/p_ref;	p_y=0.5*100000.0/p_ref;	a_p_x=2.0;		a_p_y=1.0;
+	rho_0=1.0L/rho_ref;		rho_x=0.15L/rho_ref;		rho_y=-0.1L/rho_ref;		a_rho_x=1.0L;	a_rho_y=0.5L;
+	u_0=800.0L/u_ref;		u_x=50.0L/u_ref;			u_y=-30.0L/u_ref;			a_u_x=1.5L;		a_u_y=0.6L;
+	v_0=800.0L/u_ref;		v_x=-75.0L/u_ref;			v_y=40.0L/u_ref;			a_v_x=0.5L;		a_v_y=2.L/3.L;
+	p_0=100000.0L/p_ref;	p_x=0.2L*100000.0L/p_ref;	p_y=0.5L*100000.0L/p_ref;	a_p_x=2.0L;		a_p_y=1.0L;
 	}
 	else // (pnt_config->ManufacturedSolution_case==0)
 	{
 	//subsonic
-	rho_0=1.0/rho_ref;	rho_x=0.15/rho_ref;		rho_y=-0.1/rho_ref;		a_rho_x=1.0;	a_rho_y=0.5;
-	u_0=70.0/u_ref;		u_x=5.0/u_ref;			u_y=-7.0/u_ref;			a_u_x=1.5;		a_u_y=0.6;
-	v_0=90.0/u_ref;		v_x=-15.0/u_ref;		v_y=8.5/u_ref;			a_v_x=0.5;		a_v_y=2./3.;
-	p_0=100000.0/p_ref;	p_x=0.2*100000.0/p_ref;	p_y=0.5*100000.0/p_ref;	a_p_x=2.0;		a_p_y=1.0;
+	rho_0=1.0L/rho_ref;		rho_x=0.15L/rho_ref;		rho_y=-0.1L/rho_ref;		a_rho_x=1.0L;	a_rho_y=0.5L;
+	u_0=70.0L/u_ref;		u_x=5.0L/u_ref;				u_y=-7.0L/u_ref;			a_u_x=1.5L;		a_u_y=0.6L;
+	v_0=90.0L/u_ref;		v_x=-15.0L/u_ref;			v_y=8.5L/u_ref;				a_v_x=0.5L;		a_v_y=2.L/3.L;
+	p_0=100000.0L/p_ref;	p_x=0.2L*100000.0L/p_ref;	p_y=0.5L*100000.0L/p_ref;	a_p_x=2.0L;		a_p_y=1.0L;
 	}
 
 	long double mass,x_momentum,y_momentum,energy;
@@ -60,6 +61,9 @@ void AddManufacturedSolutionSource(
 
 	Upsilon=(long double)pnt_config->Upsilon;
 	gammaNumber=(long double)pnt_config->gammaNumber;
+
+	//long double value_old,value_new;
+
 
 	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 	{
@@ -72,10 +76,13 @@ void AddManufacturedSolutionSource(
 				CoordX=(long double)pnt_mesh->x[ijk];
 				CoordY=(long double)pnt_mesh->y[ijk];
 
-				mass = (M_PIl*a_u_x*u_x*cosl((CoordX*M_PIl*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L)))/L+(M_PIl*a_v_y*v_y*cosl((CoordY*M_PIl*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L)))/L+(M_PIl*a_rho_x*rho_x*cosl((CoordX*M_PIl*a_rho_x)/L)*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L)))/L-(M_PIl*a_rho_y*rho_y*sinl((CoordY*M_PIl*a_rho_y)/L)*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L)))/L;
-				x_momentum = (M_PIl*a_rho_x*rho_x*cosl((CoordX*M_PIl*a_rho_x)/L)*powl(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L),2.0))/L-(M_PIl*Upsilon*a_p_x*p_x*sinl((CoordX*M_PIl*a_p_x)/L))/L+(M_PIl*a_u_x*u_x*cosl((CoordX*M_PIl*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L))*2.0)/L+(M_PIl*a_v_y*v_y*cosl((CoordY*M_PIl*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L)))/L-(M_PIl*a_u_y*u_y*sinl((CoordY*M_PIl*a_u_y)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L)))/L-(M_PIl*a_rho_y*rho_y*sinl((CoordY*M_PIl*a_rho_y)/L)*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L))*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L)))/L;
-				y_momentum = -(M_PIl*a_rho_y*rho_y*sinl((CoordY*M_PIl*a_rho_y)/L)*powl(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L),2.0))/L+(M_PIl*Upsilon*a_p_y*p_y*cosl((CoordY*M_PIl*a_p_y)/L))/L+(M_PIl*a_u_x*u_x*cosl((CoordX*M_PIl*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L)))/L+(M_PIl*a_v_y*v_y*cosl((CoordY*M_PIl*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L))*2.0)/L+(M_PIl*a_rho_x*rho_x*cosl((CoordX*M_PIl*a_rho_x)/L)*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L))*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L)))/L-(M_PIl*a_v_x*v_x*sinl((CoordX*M_PIl*a_v_x)/L)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L)))/L;
-				energy = -(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L))*((rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(-(M_PIl*a_u_x*u_x*cosl((CoordX*M_PIl*a_u_x)/L)*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L)))/L+(M_PIl*a_v_x*v_x*sinl((CoordX*M_PIl*a_v_x)/L)*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L)))/L+(M_PIl*Upsilon*a_p_x*p_x*sinl((CoordX*M_PIl*a_p_x)/L))/(L*(gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L)))+(M_PIl*Upsilon*a_rho_x*rho_x*cosl((CoordX*M_PIl*a_rho_x)/L)*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L))*1.0/powl(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L),2.0))/(L*(gammaNumber-1.0)))-(M_PIl*a_rho_x*rho_x*cosl((CoordX*M_PIl*a_rho_x)/L)*(powl(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L)))))/L+(M_PIl*Upsilon*a_p_x*p_x*sinl((CoordX*M_PIl*a_p_x)/L))/L)+(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L))*((rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*((M_PIl*a_v_y*v_y*cosl((CoordY*M_PIl*a_v_y)/L)*(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L)))/L-(M_PIl*a_u_y*u_y*sinl((CoordY*M_PIl*a_u_y)/L)*(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L)))/L+(M_PIl*Upsilon*a_p_y*p_y*cosl((CoordY*M_PIl*a_p_y)/L))/(L*(gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L)))+(M_PIl*Upsilon*a_rho_y*rho_y*sinl((CoordY*M_PIl*a_rho_y)/L)*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L))*1.0/powl(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L),2.0))/(L*(gammaNumber-1.0)))+(M_PIl*Upsilon*a_p_y*p_y*cosl((CoordY*M_PIl*a_p_y)/L))/L-(M_PIl*a_rho_y*rho_y*sinl((CoordY*M_PIl*a_rho_y)/L)*(powl(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L)))))/L)+(M_PIl*a_u_x*u_x*cosl((CoordX*M_PIl*a_u_x)/L)*((rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L))))/L+(M_PIl*a_v_y*v_y*cosl((CoordY*M_PIl*a_v_y)/L)*((rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*M_PIl*a_u_y)/L)+u_x*sinl((CoordX*M_PIl*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*M_PIl*a_v_x)/L)+v_y*sinl((CoordY*M_PIl*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*M_PIl*a_rho_y)/L)+rho_x*sinl((CoordX*M_PIl*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*M_PIl*a_p_x)/L)+p_y*sinl((CoordY*M_PIl*a_p_y)/L))))/L;
+				mass = (MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))/L+(MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L-(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L;
+				x_momentum = (MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0))/L-(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/L+(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*2.0)/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L-(MY_PI*a_u_y*u_y*sinl((CoordY*MY_PI*a_u_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L-(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L;
+				y_momentum = -(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0))/L+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/L+(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L))*2.0)/L+(MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L-(MY_PI*a_v_x*v_x*sinl((CoordX*MY_PI*a_v_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L;
+				energy = -(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(-(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L+(MY_PI*a_v_x*v_x*sinl((CoordX*MY_PI*a_v_x)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L+(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/(L*(gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))+(MY_PI*Upsilon*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0))/(L*(gammaNumber-1.0)))-(MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))))/L+(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/L)+(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*((MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L-(MY_PI*a_u_y*u_y*sinl((CoordY*MY_PI*a_u_y)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/(L*(gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))+(MY_PI*Upsilon*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0))/(L*(gammaNumber-1.0)))+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/L-(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))))/L)+(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))))/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))))/L;
+
+				//value_old=-(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(-(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L+(MY_PI*a_v_x*v_x*sinl((CoordX*MY_PI*a_v_x)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L+(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/(L*(gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))+(MY_PI*Upsilon*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0))/(L*(gammaNumber-1.0)))-(MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))))/L+(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/L)+(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*((MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L-(MY_PI*a_u_y*u_y*sinl((CoordY*MY_PI*a_u_y)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/(L*(gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))+(MY_PI*Upsilon*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0))/(L*(gammaNumber-1.0)))+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/L-(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))))/L)+(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))))/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0)*(1.0/2.0)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0)*(1.0/2.0)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))))/L;
+				//value_new=-(u_0+u_y*cosl((CoordY*MY_PI2*a_u_y)/L)+u_x*sinl((CoordX*MY_PI2*a_u_x)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L))*(-(MY_PI2*a_u_x*u_x*cosl((CoordX*MY_PI2*a_u_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI2*a_u_y)/L)+u_x*sinl((CoordX*MY_PI2*a_u_x)/L)))/L+(MY_PI2*a_v_x*v_x*sinl((CoordX*MY_PI2*a_v_x)/L)*(v_0+v_x*cosl((CoordX*MY_PI2*a_v_x)/L)+v_y*sinl((CoordY*MY_PI2*a_v_y)/L)))/L+(MY_PI2*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI2*a_p_x)/L))/(L*(gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L)))+(MY_PI2*Upsilon*a_rho_x*rho_x*cosl((CoordX*MY_PI2*a_rho_x)/L)*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L),2.0L))/(L*(gammaNumber-1.0L)))-(MY_PI2*a_rho_x*rho_x*cosl((CoordX*MY_PI2*a_rho_x)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI2*a_u_y)/L)+u_x*sinl((CoordX*MY_PI2*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI2*a_v_x)/L)+v_y*sinl((CoordY*MY_PI2*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L)))))/L+(MY_PI2*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI2*a_p_x)/L))/L)+(v_0+v_x*cosl((CoordX*MY_PI2*a_v_x)/L)+v_y*sinl((CoordY*MY_PI2*a_v_y)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L))*((MY_PI2*a_v_y*v_y*cosl((CoordY*MY_PI2*a_v_y)/L)*(v_0+v_x*cosl((CoordX*MY_PI2*a_v_x)/L)+v_y*sinl((CoordY*MY_PI2*a_v_y)/L)))/L-(MY_PI2*a_u_y*u_y*sinl((CoordY*MY_PI2*a_u_y)/L)*(u_0+u_y*cosl((CoordY*MY_PI2*a_u_y)/L)+u_x*sinl((CoordX*MY_PI2*a_u_x)/L)))/L+(MY_PI2*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI2*a_p_y)/L))/(L*(gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L)))+(MY_PI2*Upsilon*a_rho_y*rho_y*sinl((CoordY*MY_PI2*a_rho_y)/L)*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L),2.0L))/(L*(gammaNumber-1.0L)))+(MY_PI2*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI2*a_p_y)/L))/L-(MY_PI2*a_rho_y*rho_y*sinl((CoordY*MY_PI2*a_rho_y)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI2*a_u_y)/L)+u_x*sinl((CoordX*MY_PI2*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI2*a_v_x)/L)+v_y*sinl((CoordY*MY_PI2*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L)))))/L)+(MY_PI2*a_u_x*u_x*cosl((CoordX*MY_PI2*a_u_x)/L)*((rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*MY_PI2*a_u_y)/L)+u_x*sinl((CoordX*MY_PI2*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI2*a_v_x)/L)+v_y*sinl((CoordY*MY_PI2*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L))))/L+(MY_PI2*a_v_y*v_y*cosl((CoordY*MY_PI2*a_v_y)/L)*((rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L))*(powl(u_0+u_y*cosl((CoordY*MY_PI2*a_u_y)/L)+u_x*sinl((CoordX*MY_PI2*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI2*a_v_x)/L)+v_y*sinl((CoordY*MY_PI2*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI2*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI2*a_rho_x)/L))))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI2*a_p_x)/L)+p_y*sinl((CoordY*MY_PI2*a_p_y)/L))))/L;
 
 
 
@@ -89,6 +96,14 @@ void AddManufacturedSolutionSource(
 			}
 		}
 	}
+	/*if (pnt_config->MPI_rank==0){printf("SHOCK: Fehler durch PRECISION:\n "
+			"old: %.128Le\n "
+			"new: %.128Le\n "
+			"delta: %.128Le\n",
+			value_old,
+			value_new,
+			(value_new-value_old)
+			);}*/
 }
 
 void InitializeManufacturedSolution(
@@ -295,11 +310,11 @@ void WriteManufacturedSolution(
 		struct strct_U * pnt_U_lastStep,
 		int ijk)
 {
-	long double L=(long double)1.0;
-	long double rho_ref=(long double)1.0;
-	long double u_ref=(long double)pnt_config->u0_dim;
-	long double p_ref=(long double)rho_ref*u_ref*u_ref*pnt_config->Upsilon;
-
+	long double L=1.0L;
+	long double rho_ref=1.0L;
+	long double u_ref=(long double)(pnt_config->machNumber*sqrtl(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim));
+	long double p_ref=(long double)rho_ref*u_ref*u_ref/(pnt_config->gammaNumber*pnt_config->machNumber*pnt_config->machNumber);
+	long double CoordX,CoordY;
 
 	long double rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
 	long double u_0,u_x,u_y,a_u_x,a_u_y;
@@ -309,24 +324,27 @@ void WriteManufacturedSolution(
 	if (pnt_config->ManufacturedSolution_case==1)
 	{
 	//supersonic
-	rho_0=1.0/rho_ref;	rho_x=0.15/rho_ref;		rho_y=-0.1/rho_ref;		a_rho_x=1.0;	a_rho_y=0.5;
-	u_0=800.0/u_ref;	u_x=50.0/u_ref;			u_y=-30.0/u_ref;		a_u_x=1.5;		a_u_y=0.6;
-	v_0=800.0/u_ref;	v_x=-75.0/u_ref;		v_y=40.0/u_ref;			a_v_x=0.5;		a_v_y=2./3.;
-	p_0=100000.0/p_ref;	p_x=0.2*100000.0/p_ref;	p_y=0.5*100000.0/p_ref;	a_p_x=2.0;		a_p_y=1.0;
+	rho_0=1.0L/rho_ref;		rho_x=0.15L/rho_ref;		rho_y=-0.1L/rho_ref;		a_rho_x=1.0L;	a_rho_y=0.5L;
+	u_0=800.0L/u_ref;		u_x=50.0L/u_ref;			u_y=-30.0L/u_ref;			a_u_x=1.5L;		a_u_y=0.6L;
+	v_0=800.0L/u_ref;		v_x=-75.0L/u_ref;			v_y=40.0L/u_ref;			a_v_x=0.5L;		a_v_y=2.L/3.L;
+	p_0=100000.0L/p_ref;	p_x=0.2L*100000.0L/p_ref;	p_y=0.5L*100000.0L/p_ref;	a_p_x=2.0L;		a_p_y=1.0L;
 	}
-	else //if (pnt_config->ManufacturedSolution_case==0)
+	else // (pnt_config->ManufacturedSolution_case==0)
 	{
 	//subsonic
-	rho_0=1.0/rho_ref;	rho_x=0.15/rho_ref;		rho_y=-0.1/rho_ref;		a_rho_x=1.0;	a_rho_y=0.5;
-	u_0=70.0/u_ref;		u_x=5.0/u_ref;			u_y=-7.0/u_ref;			a_u_x=1.5;		a_u_y=0.6;
-	v_0=90.0/u_ref;		v_x=-15.0/u_ref;		v_y=8.5/u_ref;			a_v_x=0.5;		a_v_y=2./3.;
-	p_0=100000.0/p_ref;	p_x=0.2*100000.0/p_ref;	p_y=0.5*100000.0/p_ref;	a_p_x=2.0;		a_p_y=1.0;
+	rho_0=1.0L/rho_ref;		rho_x=0.15L/rho_ref;		rho_y=-0.1L/rho_ref;		a_rho_x=1.0L;	a_rho_y=0.5L;
+	u_0=70.0L/u_ref;		u_x=5.0L/u_ref;				u_y=-7.0L/u_ref;			a_u_x=1.5L;		a_u_y=0.6L;
+	v_0=90.0L/u_ref;		v_x=-15.0L/u_ref;			v_y=8.5L/u_ref;				a_v_x=0.5L;		a_v_y=2.L/3.L;
+	p_0=100000.0L/p_ref;	p_x=0.2L*100000.0L/p_ref;	p_y=0.5L*100000.0L/p_ref;	a_p_x=2.0L;		a_p_y=1.0L;
 	}
 
-	pnt_U_lastStep->rho[ijk]=(rho_0+rho_x*sinl(a_rho_x*M_PIl*pnt_mesh->x[ijk]/L)+rho_y*cosl(a_rho_y*M_PIl*pnt_mesh->y[ijk]/L));
-	pnt_U_lastStep->u[ijk]=(u_0+u_x*sinl(a_u_x*M_PIl*pnt_mesh->x[ijk]/L)+u_y*cosl(a_u_y*M_PIl*pnt_mesh->y[ijk]/L));
-	pnt_U_lastStep->v[ijk]=(v_0+v_x*cosl(a_v_x*M_PIl*pnt_mesh->x[ijk]/L)+v_y*sinl(a_v_y*M_PIl*pnt_mesh->y[ijk]/L));
-	pnt_U_lastStep->p[ijk]=(p_0+p_x*cosl(a_p_x*M_PIl*pnt_mesh->x[ijk]/L)+p_y*sinl(a_p_y*M_PIl*pnt_mesh->y[ijk]/L));
+	CoordX=(long double)pnt_mesh->x[ijk];
+	CoordY=(long double)pnt_mesh->y[ijk];
+
+	pnt_U_lastStep->rho[ijk]=(rho_0+rho_x*sinl(a_rho_x*MY_PI*CoordX/L)+rho_y*cosl(a_rho_y*MY_PI*CoordY/L));
+	pnt_U_lastStep->u[ijk]=(u_0+u_x*sinl(a_u_x*MY_PI*CoordX/L)+u_y*cosl(a_u_y*MY_PI*CoordY/L));
+	pnt_U_lastStep->v[ijk]=(v_0+v_x*cosl(a_v_x*MY_PI*CoordX/L)+v_y*sinl(a_v_y*MY_PI*CoordY/L));
+	pnt_U_lastStep->p[ijk]=(p_0+p_x*cosl(a_p_x*MY_PI*CoordX/L)+p_y*sinl(a_p_y*MY_PI*CoordY/L));
 
 	pnt_U_lastStep->e[ijk]=(0.5*((pnt_U_lastStep->u[ijk]*pnt_U_lastStep->u[ijk])+(pnt_U_lastStep->v[ijk]*pnt_U_lastStep->v[ijk])+(pnt_U_lastStep->w[ijk]*pnt_U_lastStep->w[ijk]))+
 							pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]/(pnt_config->gammaNumber-1.0)*pnt_config->Upsilon);
@@ -349,14 +367,16 @@ long double GetRhoManufacturedSolution(
 		struct strct_U * pnt_U_lastStep,
 		int ijk)
 {
-	long double rho_ref=1.0;
-	long double L=1.0;
+	long double rho_ref=1.0L;
+	long double L=1.0L;
 	long double rho_0,rho_x,rho_y,a_rho_x,a_rho_y;
+	long double CoordX,CoordY;
 
+	rho_0=1.0L/rho_ref;	rho_x=0.15L/rho_ref;	rho_y=-0.1L/rho_ref;	a_rho_x=1.0L;	a_rho_y=0.5L;
+	CoordX=(long double)pnt_mesh->x[ijk];
+	CoordY=(long double)pnt_mesh->y[ijk];
 
-	rho_0=1.0/rho_ref;	rho_x=0.15/rho_ref;	rho_y=-0.1/rho_ref;	a_rho_x=1.0;	a_rho_y=0.5;
-
-	long double rho=(rho_0+rho_x*sinl(a_rho_x*M_PIl*pnt_mesh->x[ijk]/L)+rho_y*cosl(a_rho_y*M_PIl*pnt_mesh->y[ijk]/L));
+	long double rho=(rho_0+rho_x*sinl(a_rho_x*MY_PI*CoordX/L)+rho_y*cosl(a_rho_y*MY_PI*CoordY/L));
 	return rho;
 }
 
@@ -366,101 +386,139 @@ long double GetPressureManufacturedSolution(
 		struct strct_U * pnt_U_lastStep,
 		int ijk)
 {
-	long double rho_ref=(long double)1.0;
-	long double u_ref=(long double)pnt_config->u0_dim;
-	long double p_ref=(long double)rho_ref*u_ref*u_ref*pnt_config->Upsilon;
-	long double L=(long double)1.0;
-
+	long double rho_ref=1.0L;
+	long double u_ref=(long double)(pnt_config->machNumber*sqrtl(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim));
+	long double p_ref=(long double)rho_ref*u_ref*u_ref/(pnt_config->gammaNumber*pnt_config->machNumber*pnt_config->machNumber);
+	long double L=1.0L;
+	long double CoordX,CoordY;
 	long double p_0,p_x,p_y,a_p_x,a_p_y;
 
-	p_0=100000.0/p_ref;	p_x=0.2*100000.0/p_ref;	p_y=0.5*100000.0/p_ref;	a_p_x=2.0;		a_p_y=1.0;
-
+	p_0=100000.0L/p_ref;	p_x=0.2L*100000.0L/p_ref;	p_y=0.5L*100000.0L/p_ref;	a_p_x=2.0L;		a_p_y=1.0L;
+	CoordX=(long double)pnt_mesh->x[ijk];
+	CoordY=(long double)pnt_mesh->y[ijk];
 
 	long double pressure;
-	pressure=(p_0+p_x*cosl(a_p_x*M_PIl*pnt_mesh->x[ijk]/L)+p_y*sinl(a_p_y*M_PIl*pnt_mesh->y[ijk]/L));
+	pressure=(p_0+p_x*cosl(a_p_x*MY_PI*CoordX/L)+p_y*sinl(a_p_y*MY_PI*CoordY/L));
 	return pressure;
 }
 
 void ErrorManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
-		struct strct_U * pnt_U_lastStep)
+		struct strct_U * pnt_U_lastStep,
+		int flag)
 {
-	long double Linf_norm_rho=0.0;
-	long double Linf_norm_pressure=0.0;
-	long double L2_norm_rho=0.0;
-	long double L2_norm_pressure=0.0;
+	long double Linf_norm_rho=0.0L;
+	long double Linf_norm_pressure=0.0L;
+	long double L2_norm_rho=0.0L;
+	long double L2_norm_pressure=0.0L;
 	long double rho_exact,pressure_exact;
 	long double N=pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints;
-	for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
+
+	if(flag==1)
 	{
-		for (j=pnt_config->int_jStartReal; j <= pnt_config->int_jEndReal; j++)
+		if(pnt_config->MPI_rank==0)
 		{
-			for (k=pnt_config->int_kEndReal; k <= pnt_config->int_kEndReal; k++)
+			FILE * file0;
+			char filename[200];
+			sprintf(filename,"ManufacturedSolutions_W%d.dat",SPACEORDER);
+			file0=fopen(filename,"a");
+			fprintf(file0," %d %Le %Le %Le %Le %Le\n",
+					PRECISION,
+					(long double)(pnt_mesh->y[0]-pnt_mesh->y[1]),
+					pnt_config->all_L2_norm_rho,
+					pnt_config->all_L2_norm_pressure,
+					pnt_config->all_Linf_norm_rho,
+					pnt_config->all_Linf_norm_pressure);
+			fclose(file0);
+		}
+	}
+
+	if(flag==0)
+	{
+		for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
+		{
+			for (j=pnt_config->int_jStartReal; j <= pnt_config->int_jEndReal; j++)
 			{
-				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-				rho_exact=GetRhoManufacturedSolution(
-						pnt_config,
-						pnt_mesh,
-						pnt_U_lastStep,
-						ijk);
-				L2_norm_rho+=powl((rho_exact-pnt_U_lastStep->rho[ijk]),2.0)/(N);
-				if(Linf_norm_rho<fabsl(rho_exact-pnt_U_lastStep->rho[ijk])){Linf_norm_rho=fabsl(rho_exact-pnt_U_lastStep->rho[ijk]);}
+				for (k=pnt_config->int_kEndReal; k <= pnt_config->int_kEndReal; k++)
+				{
+					ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+					rho_exact=GetRhoManufacturedSolution(
+							pnt_config,
+							pnt_mesh,
+							pnt_U_lastStep,
+							ijk);
+					L2_norm_rho+=powl((rho_exact-pnt_U_lastStep->rho[ijk]),2.0L)/(N);
+					if(Linf_norm_rho<fabsl(rho_exact-pnt_U_lastStep->rho[ijk])){Linf_norm_rho=fabsl(rho_exact-pnt_U_lastStep->rho[ijk]);}
 
-				pressure_exact=GetPressureManufacturedSolution(
-										pnt_config,
-										pnt_mesh,
-										pnt_U_lastStep,
-										ijk);
-				L2_norm_pressure+=powl((pressure_exact-pnt_U_lastStep->p[ijk]),2.0)/(N);
-				if(Linf_norm_pressure<fabsl(pressure_exact-pnt_U_lastStep->p[ijk])){Linf_norm_pressure=fabsl(pressure_exact-pnt_U_lastStep->p[ijk]);}
+					pressure_exact=GetPressureManufacturedSolution(
+											pnt_config,
+											pnt_mesh,
+											pnt_U_lastStep,
+											ijk);
+					L2_norm_pressure+=powl((pressure_exact-pnt_U_lastStep->p[ijk]),2.0L)/(N);
+					if(Linf_norm_pressure<fabsl(pressure_exact-pnt_U_lastStep->p[ijk])){Linf_norm_pressure=fabsl(pressure_exact-pnt_U_lastStep->p[ijk]);}
 
+				}
+			}
+		}
+
+		long double* all_L2_norm_rho;
+		all_L2_norm_rho = (long double *)malloc(1*sizeof(long double));
+		MPI_Reduce( &L2_norm_rho, all_L2_norm_rho,1,MPI_LONG_DOUBLE,MPI_SUM,0,pnt_config->MPI_comm);
+		all_L2_norm_rho[0]=sqrtl(all_L2_norm_rho[0]);
+
+
+		long double* all_L2_norm_pressure;
+		all_L2_norm_pressure = (long double *)malloc(1*sizeof(long double));
+		MPI_Reduce( &L2_norm_pressure, all_L2_norm_pressure,1,MPI_LONG_DOUBLE,MPI_SUM,0,pnt_config->MPI_comm);
+		all_L2_norm_pressure[0]=sqrtl(all_L2_norm_pressure[0]);
+
+
+		long double* all_Linf_norm_rho;
+		all_Linf_norm_rho = (long double *)malloc(1*sizeof(long double));
+		MPI_Reduce( &Linf_norm_rho, all_Linf_norm_rho,1,MPI_LONG_DOUBLE,MPI_MAX,0,pnt_config->MPI_comm);
+
+
+		long double* all_Linf_norm_pressure;
+		all_Linf_norm_pressure = (long double *)malloc(1*sizeof(long double));
+		MPI_Reduce( &Linf_norm_pressure, all_Linf_norm_pressure,1,MPI_LONG_DOUBLE,MPI_MAX,0,pnt_config->MPI_comm);
+
+
+		pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_rho[0]);
+		pnt_config->ManufacturedSolution_L2_last=all_L2_norm_rho[0];
+
+		/*if(pnt_config->MPI_rank==0){printf("SHOCK: L2_norm(rho):%.10Le (delta:%.8Le)\n",
+				all_L2_norm_rho[0],
+				delta);}*/
+
+		MPI_Bcast(&pnt_config->ManufacturedSolution_L2_Delta,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
+
+		if((pnt_config->ManufacturedSolution_L2_Delta<CONV_ERROR)&&(pnt_config->int_actualIteration>500))
+		{
+
+			MPI_Bcast(all_L2_norm_rho,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
+			MPI_Bcast(all_L2_norm_pressure,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
+			MPI_Bcast(all_Linf_norm_rho,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
+			MPI_Bcast(all_Linf_norm_pressure,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
+
+			pnt_config->all_L2_norm_rho+=all_L2_norm_rho[0]/10.L;
+			pnt_config->all_L2_norm_pressure+=all_L2_norm_pressure[0]/10.L;
+			pnt_config->all_Linf_norm_rho+=all_Linf_norm_rho[0]/10.L;
+			pnt_config->all_Linf_norm_pressure+=all_Linf_norm_pressure[0]/10.L;
+
+			pnt_config->ManufacturedSolution_L2_counter++;
+
+			if(pnt_config->ManufacturedSolution_L2_counter==10)
+			{
+				if(pnt_config->MPI_rank==0){printf("SHOCK: %d. time: Convergence limit (%.8Le) of L2_norm(last Delta:%.8Le) reached. Exit!\n",
+						pnt_config->ManufacturedSolution_L2_counter,
+						CONV_ERROR,
+						pnt_config->ManufacturedSolution_L2_Delta);}
+				pnt_config->int_actualIteration=pnt_config->int_EndIteration+100;
 			}
 		}
 	}
-	long double* all_L2_norm_rho;
-	all_L2_norm_rho = (long double *)malloc(1*sizeof(long double));
-	MPI_Reduce( &L2_norm_rho, all_L2_norm_rho,1,MPI_LONG_DOUBLE,MPI_SUM,0,pnt_config->MPI_comm);
-	all_L2_norm_rho[0]=sqrt(all_L2_norm_rho[0]);
-	if(pnt_config->MPI_rank==0){printf("SHOCK: ManufacturedSolution: L2_norm(rho):%.8le\n",
-			(double)all_L2_norm_rho[0]);}
 
-	long double* all_L2_norm_pressure;
-	all_L2_norm_pressure = (long double *)malloc(1*sizeof(long double));
-	MPI_Reduce( &L2_norm_pressure, all_L2_norm_pressure,1,MPI_LONG_DOUBLE,MPI_SUM,0,pnt_config->MPI_comm);
-	all_L2_norm_pressure[0]=sqrt(all_L2_norm_pressure[0]);
-	if(pnt_config->MPI_rank==0){printf("SHOCK: ManufacturedSolution: L2_norm(pressure):%.8le\n",
-			(double)all_L2_norm_pressure[0]);}
-
-	long double* all_Linf_norm_rho;
-	all_Linf_norm_rho = (long double *)malloc(1*sizeof(long double));
-	MPI_Reduce( &Linf_norm_rho, all_Linf_norm_rho,1,MPI_LONG_DOUBLE,MPI_MAX,0,pnt_config->MPI_comm);
-	if(pnt_config->MPI_rank==0){printf("SHOCK: ManufacturedSolution: Linf_norm(rho):%.8le\n",
-			(double)all_Linf_norm_rho[0]);}
-
-	long double* all_Linf_norm_pressure;
-	all_Linf_norm_pressure = (long double *)malloc(1*sizeof(long double));
-	MPI_Reduce( &Linf_norm_pressure, all_Linf_norm_pressure,1,MPI_LONG_DOUBLE,MPI_MAX,0,pnt_config->MPI_comm);
-	if(pnt_config->MPI_rank==0){printf("SHOCK: ManufacturedSolution: Linf_norm(pressure):%.8le\n",
-			(double)all_Linf_norm_pressure[0]);}
-
-
-	if(pnt_config->MPI_rank==0)
-	{
-		FILE * file0;
-		char filename[200];
-		sprintf(filename,"ManufacturedSolutions_W%d.dat",SPACEORDER);
-		file0=fopen(filename,"a");
-		fprintf(file0," %d %le %le %le %le %le\n",
-				PRECISION,
-				(double)(pnt_mesh->y[0]-pnt_mesh->y[1]),
-				(double)all_L2_norm_rho[0],
-				(double)all_L2_norm_pressure[0],
-				(double)all_Linf_norm_rho[0],
-				(double)all_Linf_norm_pressure[0]);
-		fclose(file0);
-
-
-	}
 
 }

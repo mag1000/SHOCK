@@ -832,7 +832,7 @@ void postprocessLoad(
 						if((strcmp(pnt_config->BC_Bottom,pnt_config->BCWallViscous)==0)&&(pnt_config->int_initializeType==-1))
 						{
 							//printf("Creating 3D-waves...\n");
-							pnt_U_lastStep->w[ijk]=0.01*sin(pnt_mesh->z[ijk]/total_z_size*3.0*2.0*M_PI);
+							pnt_U_lastStep->w[ijk]=0.01*sin(pnt_mesh->z[ijk]/total_z_size*3.0*2.0*MY_PI);
 						}
 						else
 						{
@@ -846,7 +846,7 @@ void postprocessLoad(
 						if((strcmp(pnt_config->BC_Bottom,pnt_config->BCWallViscous)==0)&&(pnt_config->int_initializeType==-1))
 						{
 							//printf("Creating 3D-waves...\n");
-							pnt_U_lastStep->w[ijk]=0.01*sin(pnt_mesh->z[ijk]/total_z_size*3.0*2.0*M_PI);
+							pnt_U_lastStep->w[ijk]=0.01*sin(pnt_mesh->z[ijk]/total_z_size*3.0*2.0*MY_PI);
 						}
 						else
 						{
@@ -1497,7 +1497,7 @@ void InitializeSpecialConditions(
 
 //				Validation: interaction of oblique shock with wall
 				case 3:
-					if((pnt_mesh->y[ijk]>0.0)&&(pnt_mesh->x[ijk]<=(2.664-(pnt_mesh->y[ijk]+0.0001)/tan(27.90066761/180.0*M_PI))))
+					if((pnt_mesh->y[ijk]>0.0)&&(pnt_mesh->x[ijk]<=(2.664-(pnt_mesh->y[ijk]+0.0001)/tan(27.90066761/180.0*MY_PI))))
 					{gebiet=0;}
 					else
 					{gebiet=1;}
@@ -1612,7 +1612,7 @@ void InitializeSpecialConditions(
 
 //				Stoss-STK
 				case 6:
-					if(pnt_mesh->x[ijk]<-0.1+0.01*sin(2.0*M_PI*(pnt_mesh->z[ijk]-0.025)/0.1)){gebiet=0;} //L
+					if(pnt_mesh->x[ijk]<-0.1+0.01*sin(2.0*MY_PI*(pnt_mesh->z[ijk]-0.025)/0.1)){gebiet=0;} //L
 					else					 {gebiet=1;} //R
 
 
@@ -1833,7 +1833,6 @@ void DefineParameters(struct strct_configuration * pnt_config)
 //    Mapped weighted essentially non-oscillatory schemes: Achieving optimal order near critical points, Henrick, A.K.,2005
 	pnt_config->wenoEpsilon=10.*pow(MY_FLT_MIN,0.5);
 
-
 	pnt_config->wenoP=2.;
 	pnt_config->wenoOptimalerKoeffizient_W9[0]=1./126.;
 	pnt_config->wenoOptimalerKoeffizient_W9[1]=10./63.;
@@ -1994,6 +1993,13 @@ void DefineParameters(struct strct_configuration * pnt_config)
     //Gamma wird nach dem Import des Gitters bei postprocessload definiert
 
 	pnt_config->flag_reinitialization=0;
+
+	pnt_config->ManufacturedSolution_L2_last=999.;
+	pnt_config->ManufacturedSolution_L2_counter=0;
+	pnt_config->all_L2_norm_rho=0;
+	pnt_config->all_L2_norm_pressure=0;
+	pnt_config->all_Linf_norm_rho=0;
+	pnt_config->all_Linf_norm_pressure=0;
 }
 
 void CalcRungeKutta(
@@ -4756,7 +4762,7 @@ void IBC_prepare(
 				&&
 				(pnt_mesh->y[ijk]>y_kolben)
 				&&
-				(pnt_mesh->x[ijk]>=(actual_x-(pnt_mesh->y[ijk]-y_kolben)/tan(alpha_kolben/180.0*M_PI)))
+				(pnt_mesh->x[ijk]>=(actual_x-(pnt_mesh->y[ijk]-y_kolben)/tan(alpha_kolben/180.0*MY_PI)))
 					)
 				{
 					pnt_mesh->flag_IBC[ijk]=1;
@@ -4793,7 +4799,7 @@ void IBC_prepare(
 				&&
 				(pnt_mesh->y[ijk]<y_kolben_max)
 				&&
-				(pnt_mesh->x[ijk]>=(actual_x-(pnt_mesh->y[ijk]-y_kolben)/tan(alpha_kolben/180.0*M_PI)))
+				(pnt_mesh->x[ijk]>=(actual_x-(pnt_mesh->y[ijk]-y_kolben)/tan(alpha_kolben/180.0*MY_PI)))
 					)
 				{
 					pnt_mesh->flag_IBC[ijk]=1;
@@ -4893,9 +4899,9 @@ void inducePressureWavesPlateau(
 					delta_t=(r-pnt_config->pw_r0*Ma_r)/(Ma_r*c)*pnt_config->L0_dim/pnt_config->u0_dim;
 
 					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+
-							pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->time_dim-delta_t))*sqrt(Ma_r*pnt_config->pw_r0/r);
+							pnt_config->pw_amplitude*sin(2.0*MY_PI*pnt_config->pw_frequency*(pnt_config->time_dim-delta_t))*sqrt(Ma_r*pnt_config->pw_r0/r);
 
-//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->time_dim));
+//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*MY_PI*pnt_config->pw_frequency*(pnt_config->time_dim));
 
 				    pnt_U_lastStep->T[ijk]=pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk];					
 					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->gammaNumber);
@@ -4939,7 +4945,7 @@ void inducePressureWaves(
 				if(pnt_mesh->flag_PressureWaves[ijk]==1)
 				{
 					alpha=atan((y_Q-pnt_mesh->y[ijk])/(x_Q-pnt_mesh->x[ijk]));
-					if(pnt_mesh->x[ijk]<x_Q){alpha=M_PI-alpha;}
+					if(pnt_mesh->x[ijk]<x_Q){alpha=MY_PI-alpha;}
 
 					u_alpha=1.0*cos(alpha)+sqrt(pow(1.0/pnt_config->machNumber,2.)-pow(1.0*sin(alpha),2.));
 
@@ -4949,11 +4955,11 @@ void inducePressureWaves(
 
 					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+
 							pnt_config->pw_amplitude
-							*sin(2.0*M_PI*(pnt_config->pw_frequency*(pnt_config->time_dim-pnt_config->start_Time)-r/lambda_alpha+r_quelle/lambda))
+							*sin(2.0*MY_PI*(pnt_config->pw_frequency*(pnt_config->time_dim-pnt_config->start_Time)-r/lambda_alpha+r_quelle/lambda))
 					//*sqrt(lambda_alpha/r*r_quelle/lambda);
 					*sqrt(1.0/r);
 
-//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*M_PI*pnt_config->pw_frequency*(pnt_config->time_dim));
+//					pnt_U_lastStep->p[ijk]=pnt_mesh->startPressure_PressureWaves[ijk]+pnt_config->pw_amplitude*sin(2.0*MY_PI*pnt_config->pw_frequency*(pnt_config->time_dim));
 
 				    pnt_U_lastStep->T[ijk]=pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk];					
 					pnt_U_lastStep->rho[ijk]=pow(pnt_U_lastStep->p[ijk],1.0/pnt_config->gammaNumber);
@@ -5257,15 +5263,15 @@ void InitializeVortex(
 				{
 					beta = pnt_config->Vortex_beta;
 
-					pnt_U_lastStep->u[ijk] += y_quer*beta/(2.*M_PI)*exp((1.- radius)/2.);
+					pnt_U_lastStep->u[ijk] += y_quer*beta/(2.*MY_PI)*exp((1.- radius)/2.);
 
-					pnt_U_lastStep->v[ijk] -= x_quer*beta/(2.*M_PI)*exp((1.- radius)/2.);
+					pnt_U_lastStep->v[ijk] -= x_quer*beta/(2.*MY_PI)*exp((1.- radius)/2.);
 
 					beta = 1.;
 
 					pnt_U_lastStep->rho[ijk] = pow((pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]
 					- (pnt_config->gammaNumber - 1.)*beta*beta/
-					(8.*pnt_config->gammaNumber*M_PI*M_PI)/pnt_config->Upsilon*exp(1. - radius)), (1./(pnt_config->gammaNumber - 1.)));
+					(8.*pnt_config->gammaNumber*MY_PI*MY_PI)/pnt_config->Upsilon*exp(1. - radius)), (1./(pnt_config->gammaNumber - 1.)));
 
 					pnt_U_lastStep->p[ijk] = pow(pnt_U_lastStep->rho[ijk], pnt_config->gammaNumber);
 
@@ -5952,8 +5958,8 @@ FLT CalcLambda2(
 	al = acos(q/(2.*rrr*rrr*rrr));
 
 	yy1 =  -2.*rrr*cos(al/3.);
-	yy2 = 2.*rrr*cos(M_PI/3.-al/3.);
-	yy3 = 2.*rrr*cos(M_PI/3.+al/3.);
+	yy2 = 2.*rrr*cos(MY_PI/3.-al/3.);
+	yy3 = 2.*rrr*cos(MY_PI/3.+al/3.);
 
 	/**********************************************************************/
 	lam1 = yy1 - f1/3;    lam2 = yy2 - f1/3;    lam3 = yy3 - f1/3;
@@ -6095,7 +6101,7 @@ FLT IBC_getActualPosition(
 			else
 			{
 				//new piston movement bases on EWM manuscript p.24
-				Y = 100.*(1.-cos(X/16.5*M_PI));
+				Y = 100.*(1.-cos(X/16.5*MY_PI));
 			}
 
 			return (pnt_config->IBC_StartpositionX+Y);
@@ -6105,7 +6111,7 @@ FLT IBC_getActualPosition(
 			Y=pnt_config->time_dim*pnt_config->IBC_MovingSpeed/pnt_config->L0_dim;
 
 //			Y = 0.5*sin(X*1000);
-//			if(X>((M_PI/2)/1000.))
+//			if(X>((MY_PI/2)/1000.))
 //			{
 //			Y=0.5;
 //			}
