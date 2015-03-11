@@ -420,7 +420,7 @@ void ErrorManufacturedSolution(
 		{
 			FILE * file0;
 			char filename[200];
-			sprintf(filename,"ManufacturedSolutions_W%d.dat",SPACEORDER);
+			sprintf(filename,"ManufacturedSolutions_W%d_%dP.dat",SPACEORDER,PRECISION);
 			file0=fopen(filename,"a");
 			fprintf(file0," %d %Le %Le %Le %Le %Le\n",
 					PRECISION,
