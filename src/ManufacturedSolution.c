@@ -15,7 +15,6 @@
 #include "float.h"
 #include "string.h"
 #include "cgnslib.h"
-#include <quadmath.h>
 
 #include "SHOCK.h"
 #include "Functions.h"
