@@ -467,7 +467,10 @@ void ErrorManufacturedSolution(
 	long double L2_norm_pressure=0.0L;
 	long double rho_exact,pressure_exact;
 	long double N=pnt_config->int_iMeshPoints*pnt_config->int_jMeshPoints*pnt_config->int_kMeshPoints;
+	int ijk1,ijk2;
 
+	ijk1=1*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+0*pnt_config->int_kMeshPointsGhostCells+0;
+	ijk2=2*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+0*pnt_config->int_kMeshPointsGhostCells+0;
 	if(flag==1)
 	{
 		if(pnt_config->MPI_rank==0)
@@ -478,7 +481,7 @@ void ErrorManufacturedSolution(
 			file0=fopen(filename,"a");
 			fprintf(file0," %d %Le %Le %Le %Le %Le\n",
 					PRECISION,
-					(long double)(pnt_mesh->y[0]-pnt_mesh->y[1]),
+					(long double)(pnt_mesh->x[ijk2]-pnt_mesh->x[ijk1]),
 					pnt_config->all_L2_norm_rho,
 					pnt_config->all_L2_norm_pressure,
 					pnt_config->all_Linf_norm_rho,
@@ -541,6 +544,30 @@ void ErrorManufacturedSolution(
 		pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_rho[0]);
 		pnt_config->ManufacturedSolution_L2_last=all_L2_norm_rho[0];
 
+		if(pnt_config->MPI_rank==0)
+		{
+			FILE * file0;
+			char filename[200];
+			sprintf(filename,"Residual_W%d_%dP.dat",SPACEORDER,PRECISION);
+
+			if (pnt_config->int_actualIteration==1)
+			{
+				file0=fopen(filename,"w");
+				fprintf(file0,"VARIABLES = \"Iteration\" \"L2\" \"Residual_rho\"\n");
+				fprintf(file0,"TITLE=\"Convergence\"\n");
+				fprintf(file0,"ZONE T=\"W%d-%d\", F=POINT, I=0, DT=(DOUBLE)\n",SPACEORDER,PRECISION);
+			}
+			else
+			{
+				file0=fopen(filename,"a");
+			}
+			fprintf(file0," %d %Le %Le\n",
+					pnt_config->int_actualIteration,
+					pnt_config->ManufacturedSolution_L2_last,
+					pnt_config->ManufacturedSolution_L2_Delta);
+			fclose(file0);
+		}
+
 		/*if(pnt_config->MPI_rank==0){printf("SHOCK: L2_norm(rho):%.10Le (delta:%.8Le)\n",
 				all_L2_norm_rho[0],
 				delta);}*/
@@ -555,14 +582,14 @@ void ErrorManufacturedSolution(
 			MPI_Bcast(all_Linf_norm_rho,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
 			MPI_Bcast(all_Linf_norm_pressure,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
 
-			pnt_config->all_L2_norm_rho+=all_L2_norm_rho[0]/10.L;
-			pnt_config->all_L2_norm_pressure+=all_L2_norm_pressure[0]/10.L;
-			pnt_config->all_Linf_norm_rho+=all_Linf_norm_rho[0]/10.L;
-			pnt_config->all_Linf_norm_pressure+=all_Linf_norm_pressure[0]/10.L;
+			pnt_config->all_L2_norm_rho+=all_L2_norm_rho[0]/1.L;
+			pnt_config->all_L2_norm_pressure+=all_L2_norm_pressure[0]/1.L;
+			pnt_config->all_Linf_norm_rho+=all_Linf_norm_rho[0]/1.L;
+			pnt_config->all_Linf_norm_pressure+=all_Linf_norm_pressure[0]/1.L;
 
 			pnt_config->ManufacturedSolution_L2_counter++;
 
-			if(pnt_config->ManufacturedSolution_L2_counter==10)
+			if(pnt_config->ManufacturedSolution_L2_counter==1)
 			{
 				if(pnt_config->MPI_rank==0){printf("SHOCK: %d. time: Convergence limit (%.8Le) of L2_norm(last Delta:%.8Le) reached. Exit!\n",
 						pnt_config->ManufacturedSolution_L2_counter,

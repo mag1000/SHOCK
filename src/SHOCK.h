@@ -18,7 +18,7 @@
 	#define MY_FLT_MIN DBL_MIN
 	#define MPI_FLT MPI_DOUBLE
 	#define MY_PI 3.14159265358979323846264338327950288419716939937510
-	#define CONV_ERROR	1.0E-16L
+	#define CONV_ERROR	1.0E-18L
 #elif PRECISION == 3
 	#define FLT_name "long double"
 	#define FLT long double
