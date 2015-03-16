@@ -2439,6 +2439,12 @@ void CalcValues(
 
 					pnt_U->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
 							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->SutherlandConstant));
+
+					if(pnt_config->flag_ManufacturedSolution==1)
+					{
+						pnt_U->mue[ijk]=1.0;
+					}
+
 				}
 			}
 		}
