@@ -407,10 +407,16 @@ struct strct_configuration
 	char BCManufacturedSolution[30];
 	long double ManufacturedSolution_L2_last;
 	long double ManufacturedSolution_L2_Delta;
+	char ManufacturedSolution_L2_Delta_name[32];
 	long double all_L2_norm_rho;
 	long double all_L2_norm_pressure;
 	long double all_Linf_norm_rho;
 	long double all_Linf_norm_pressure;
+	long double ManufacturedSolution_param_rho[7];
+	long double ManufacturedSolution_param_u[7];
+	long double ManufacturedSolution_param_v[7];
+	long double ManufacturedSolution_param_w[7];
+	long double ManufacturedSolution_param_p[7];
 	int ManufacturedSolution_L2_counter;
 
 

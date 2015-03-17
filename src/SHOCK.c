@@ -746,7 +746,8 @@ void startSimulation(
 			}
 			if(pnt_config->flag_ManufacturedSolution==1)
 			{
-				if(pnt_config->MPI_rank==0){printf("SHOCK: Recent L2-Delta(rho): %.8Le)\n",
+				if(pnt_config->MPI_rank==0){printf("SHOCK: Recent L2-Delta(%s): %.8Le)\n",
+						pnt_config->ManufacturedSolution_L2_Delta_name,
 						pnt_config->ManufacturedSolution_L2_Delta);}
 			}
 			if(pnt_config->MPI_rank==0){printf("SHOCK: --------\n");}
