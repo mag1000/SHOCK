@@ -87,7 +87,6 @@ int main(int argc, char *argv[])
 			configuration.MPI_comm,
 			&configuration.MPI_rank);
 
-
 	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
 	if(configuration.MPI_rank==0){printf("SHOCK:                Start\n");}
 	if(configuration.MPI_rank==0){printf("SHOCK: (git-ID: %s)\n",GITID);}
@@ -321,6 +320,7 @@ int main(int argc, char *argv[])
 				&configuration,
 				&mesh,
 				&U_lastStep,
+				&Film,
 				1);
 	}
 
@@ -758,6 +758,7 @@ void startSimulation(
 					pnt_config,
 					pnt_mesh,
 					pnt_U_lastStep,
+					pnt_Film,
 					0);
 		}
 	}

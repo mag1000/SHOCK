@@ -18,7 +18,7 @@
 	#define MY_FLT_MIN DBL_MIN
 	#define MPI_FLT MPI_DOUBLE
 	#define MY_PI 3.14159265358979323846264338327950288419716939937510
-	#define CONV_ERROR	1.0E-18L
+	#define CONV_ERROR	1.0E-17L
 #elif PRECISION == 3
 	#define FLT_name "long double"
 	#define FLT long double
@@ -406,6 +406,7 @@ struct strct_configuration
 	int ManufacturedSolution_case;
 	char BCManufacturedSolution[30];
 	long double ManufacturedSolution_L2_last;
+	int ManufacturedSolution_L2_Converged[15];
 	long double ManufacturedSolution_L2_Delta;
 	char ManufacturedSolution_L2_Delta_name[32];
 	long double all_L2_norm_rho;
@@ -631,36 +632,6 @@ struct strct_Flux
 	FLT *etaMomentum;
 	FLT *zetaMomentum;
 	FLT *Energy;
-};
-
-//Derzeit nicht unter Verwendung
-struct strct_ZD
-{
-	FLT *u_xi;
-	FLT *u_eta;
-	FLT *u_zeta;
-	FLT *v_xi;
-	FLT *v_eta;
-	FLT *v_zeta;
-	FLT *w_xi;
-	FLT *w_eta;
-	FLT *w_zeta;
-	FLT *T_xi;
-	FLT *T_eta;
-	FLT *T_zeta;
-	FLT *mue_xi;
-	FLT *mue_eta;
-	FLT *mue_zeta;
-
-	FLT *tau_xx;
-	FLT *tau_yy;
-	FLT *tau_zz;
-	FLT *tau_xy;
-	FLT *tau_xz;
-	FLT *tau_yz;
-	FLT *q_x;
-	FLT *q_y;
-	FLT *q_z;
 };
 
 //Variables

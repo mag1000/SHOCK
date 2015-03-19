@@ -80,12 +80,13 @@ void AddManufacturedSolutionSource(
 	long double CoordX,CoordY,CoordZ,Upsilon,Psi,Gamma,gammaNumber,mue;
 
 
-	mue=1.0;
+
 	Upsilon=(long double)pnt_config->Upsilon;
 	Psi=(long double)pnt_config->Psi;
-	Gamma=(long double)(1.0/((pnt_config->gammaNumber-1.0)*pow(pnt_config->machNumber,2.0)*pnt_config->reynoldsNumber*pnt_config->prandtlNumber));
+	Gamma=(long double)(1.0L/(((long double)pnt_config->gammaNumber-1.0L)*powl((long double)pnt_config->machNumber,2.0L)*(long double)pnt_config->reynoldsNumber*(long double)pnt_config->prandtlNumber));
 	gammaNumber=(long double)pnt_config->gammaNumber;
 
+	mue=1.0L;
 	//long double value_old,value_new;
 
 
@@ -112,14 +113,8 @@ void AddManufacturedSolutionSource(
 				else
 				{
 					mass = (MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))/L+(MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L-(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L;
-
-
 					x_momentum = (MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0L))/L-(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/L+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_u_y*a_u_y)*mue*u_y*cosl((CoordY*MY_PI*a_u_y)/L)+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_u_x*a_u_x)*mue*u_x*sinl((CoordX*MY_PI*a_u_x)/L)*(4.0L/3.0L)+(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*2.0L)/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L-(MY_PI*a_u_y*u_y*sinl((CoordY*MY_PI*a_u_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L-(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L;
-
-
 					y_momentum = -(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0L))/L+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/L+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_v_x*a_v_x)*mue*v_x*cosl((CoordX*MY_PI*a_v_x)/L)+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_v_y*a_v_y)*mue*v_y*sinl((CoordY*MY_PI*a_v_y)/L)*(4.0L/3.0L)+(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L))*2.0L)/L+(MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L-(MY_PI*a_v_x*v_x*sinl((CoordX*MY_PI*a_v_x)/L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L;
-
-
 					energy = -(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*(-(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L+(MY_PI*a_v_x*v_x*sinl((CoordX*MY_PI*a_v_x)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L+(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/(L*(gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))+(MY_PI*Upsilon*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0L))/(L*(gammaNumber-1.0L)))-(MY_PI*a_rho_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))))/L+(MY_PI*Upsilon*a_p_x*p_x*sinl((CoordX*MY_PI*a_p_x)/L))/L)+(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L))*((rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))*((MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L)))/L-(MY_PI*a_u_y*u_y*sinl((CoordY*MY_PI*a_u_y)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L)))/L+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/(L*(gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))+(MY_PI*Upsilon*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0L))/(L*(gammaNumber-1.0L)))-(MY_PI*a_rho_y*rho_y*sinl((CoordY*MY_PI*a_rho_y)/L)*(powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)))))/L+(MY_PI*Upsilon*a_p_y*p_y*cosl((CoordY*MY_PI*a_p_y)/L))/L)-Gamma*mue*(-(1.0L/(L*L)*(MY_PI*MY_PI)*(a_p_x*a_p_x)*p_x*cosl((CoordX*MY_PI*a_p_x)/L))/(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))+1.0L/(L*L)*(MY_PI*MY_PI)*(a_rho_x*a_rho_x)*rho_x*sinl((CoordX*MY_PI*a_rho_x)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0L)+1.0L/(L*L)*(MY_PI*MY_PI)*(a_rho_x*a_rho_x)*(rho_x*rho_x)*powl(cosl((CoordX*MY_PI*a_rho_x)/L),2.0L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),3.0L)*2.0L+1.0L/(L*L)*(MY_PI*MY_PI)*a_p_x*a_rho_x*p_x*rho_x*cosl((CoordX*MY_PI*a_rho_x)/L)*sinl((CoordX*MY_PI*a_p_x)/L)*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0L)*2.0L)-Gamma*mue*(-(1.0L/(L*L)*(MY_PI*MY_PI)*(a_p_y*a_p_y)*p_y*sinl((CoordY*MY_PI*a_p_y)/L))/(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))+1.0L/(L*L)*(MY_PI*MY_PI)*(a_rho_y*a_rho_y)*(rho_y*rho_y)*powl(sinl((CoordY*MY_PI*a_rho_y)/L),2.0L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),3.0L)*2.0L+1.0L/(L*L)*(MY_PI*MY_PI)*(a_rho_y*a_rho_y)*rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0L)+1.0L/(L*L)*(MY_PI*MY_PI)*a_p_y*a_rho_y*p_y*rho_y*cosl((CoordY*MY_PI*a_p_y)/L)*sinl((CoordY*MY_PI*a_rho_y)/L)*1.0L/powl(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L),2.0L)*2.0L)+(MY_PI*a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*((powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))))*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))))/L+(MY_PI*a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*((powl(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L),2.0L)*(1.0L/2.0L)+powl(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L),2.0L)*(1.0L/2.0L)+(Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L)))/((gammaNumber-1.0L)*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))))*(rho_0+rho_y*cosl((CoordY*MY_PI*a_rho_y)/L)+rho_x*sinl((CoordX*MY_PI*a_rho_x)/L))+Upsilon*(p_0+p_x*cosl((CoordX*MY_PI*a_p_x)/L)+p_y*sinl((CoordY*MY_PI*a_p_y)/L))))/L-1.0L/(L*L)*(MY_PI*MY_PI)*Psi*a_u_x*mue*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*(a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)*2.0L-a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L))*(2.0L/3.0L)+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*a_v_y*mue*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*(a_u_x*u_x*cosl((CoordX*MY_PI*a_u_x)/L)-a_v_y*v_y*cosl((CoordY*MY_PI*a_v_y)/L)*2.0L)*(2.0L/3.0L)+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_u_y*a_u_y)*mue*u_y*cosl((CoordY*MY_PI*a_u_y)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_v_x*a_v_x)*mue*v_x*cosl((CoordX*MY_PI*a_v_x)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L))-1.0L/(L*L)*(MY_PI*MY_PI)*Psi*a_u_y*mue*u_y*sinl((CoordY*MY_PI*a_u_y)/L)*(a_u_y*u_y*sinl((CoordY*MY_PI*a_u_y)/L)+a_v_x*v_x*sinl((CoordX*MY_PI*a_v_x)/L))-1.0L/(L*L)*(MY_PI*MY_PI)*Psi*a_v_x*mue*v_x*sinl((CoordX*MY_PI*a_v_x)/L)*(a_u_y*u_y*sinl((CoordY*MY_PI*a_u_y)/L)+a_v_x*v_x*sinl((CoordX*MY_PI*a_v_x)/L))+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_u_x*a_u_x)*mue*u_x*sinl((CoordX*MY_PI*a_u_x)/L)*(u_0+u_y*cosl((CoordY*MY_PI*a_u_y)/L)+u_x*sinl((CoordX*MY_PI*a_u_x)/L))*(4.0L/3.0L)+1.0L/(L*L)*(MY_PI*MY_PI)*Psi*(a_v_y*a_v_y)*mue*v_y*sinl((CoordY*MY_PI*a_v_y)/L)*(v_0+v_x*cosl((CoordX*MY_PI*a_v_x)/L)+v_y*sinl((CoordY*MY_PI*a_v_y)/L))*(4.0L/3.0L);
 
 				}
@@ -380,12 +375,13 @@ void ConfigureManufacturedSolution(
 	long double rho_ref=1.0L;
 	long double u_ref=(long double)(pnt_config->machNumber*sqrtl(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim));
 	long double p_ref=(long double)rho_ref*u_ref*u_ref/(pnt_config->gammaNumber*pnt_config->machNumber*pnt_config->machNumber);
+	p_ref=86100.0L; //p=rho*R*T
 
-	p_z=0.0L;	a_p_z=0.0;
-	u_z=0.0L;	a_u_z=0.0;
-	v_z=0.0L;	a_v_z=0.0;
-	rho_z=0.0L;	a_rho_z=0.0;
-	w_0=0.0;w_x=0;w_y=0.0L;w_z=0.0L;a_w_x=0.0L;a_w_y=0.0L;a_w_z=0.0L;
+	p_z=0.0L;	a_p_z=0.0L;
+	u_z=0.0L;	a_u_z=0.0L;
+	v_z=0.0L;	a_v_z=0.0L;
+	rho_z=0.0L;	a_rho_z=0.0L;
+	w_0=0.0L;	w_x=0.0L;	w_y=0.0L;	w_z=0.0L;	a_w_x=0.0L;	a_w_y=0.0L;	a_w_z=0.0L;
 
 #if MESHDIMENSIONS==2
 	if (pnt_config->ManufacturedSolution_case==1)
@@ -553,7 +549,7 @@ void WriteManufacturedSolution(
 			sqrt(pnt_config->Upsilon*
 			pnt_config->gammaNumber*pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]);
 
-	pnt_U_lastStep->mue[ijk]=1.0;;
+	pnt_U_lastStep->mue[ijk]=1.0;
 
 }
 
@@ -619,6 +615,7 @@ void ErrorManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep,
+		struct strct_Film * pnt_Film,
 		int flag)
 {
 	long double Linf_norm_rho=0.0L;
@@ -702,14 +699,14 @@ void ErrorManufacturedSolution(
 
 
 		//Monitoring of Convergence by Density
-		//strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Density");
-		//pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_rho[0]);
-		//pnt_config->ManufacturedSolution_L2_last=all_L2_norm_rho[0];
+		strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Density");
+		pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_rho[0]);
+		pnt_config->ManufacturedSolution_L2_last=all_L2_norm_rho[0];
 
 		//Monitoring of Convergence by Pressure
-		strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Pressure");
-		pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_pressure[0]);
-		pnt_config->ManufacturedSolution_L2_last=all_L2_norm_pressure[0];
+		//strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Pressure");
+		//pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_pressure[0]);
+		//pnt_config->ManufacturedSolution_L2_last=all_L2_norm_pressure[0];
 
 		if(pnt_config->MPI_rank==0)
 		{
@@ -749,11 +746,17 @@ void ErrorManufacturedSolution(
 			MPI_Bcast(all_Linf_norm_rho,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
 			MPI_Bcast(all_Linf_norm_pressure,1,MPI_LONG_DOUBLE,0,pnt_config->MPI_comm);
 
+			for(i=0;i<14;i++)
+			{
+				pnt_config->ManufacturedSolution_L2_Converged[i]=pnt_config->ManufacturedSolution_L2_Converged[i+1];
+			}
+			pnt_config->ManufacturedSolution_L2_Converged[14]=pnt_config->int_actualIteration;
+
 			//gemittelte Variante
-			pnt_config->all_L2_norm_rho+=all_L2_norm_rho[0]/15.L;
-			pnt_config->all_L2_norm_pressure+=all_L2_norm_pressure[0]/15.L;
-			pnt_config->all_Linf_norm_rho+=all_Linf_norm_rho[0]/15.L;
-			pnt_config->all_Linf_norm_pressure+=all_Linf_norm_pressure[0]/15.L;
+			//pnt_config->all_L2_norm_rho+=all_L2_norm_rho[0]/15.L;
+			//pnt_config->all_L2_norm_pressure+=all_L2_norm_pressure[0]/15.L;
+			//pnt_config->all_Linf_norm_rho+=all_Linf_norm_rho[0]/15.L;
+			//pnt_config->all_Linf_norm_pressure+=all_Linf_norm_pressure[0]/15.L;
 
 			//Variante letzter Fehlerwert
 			pnt_config->all_L2_norm_rho=all_L2_norm_rho[0];
@@ -763,13 +766,21 @@ void ErrorManufacturedSolution(
 
 			pnt_config->ManufacturedSolution_L2_counter++;
 
-			if(pnt_config->ManufacturedSolution_L2_counter==1)
+			if(pnt_config->int_actualIteration==pnt_config->ManufacturedSolution_L2_Converged[0]+14)
 			{
 				if(pnt_config->MPI_rank==0){printf("SHOCK: %d. time: Convergence limit (%.8Le) of L2_norm(last Delta:%.8Le) reached. Exit!\n",
 						pnt_config->ManufacturedSolution_L2_counter,
 						CONV_ERROR,
 						pnt_config->ManufacturedSolution_L2_Delta);}
 				pnt_config->int_actualIteration=pnt_config->int_EndIteration+100;
+
+				pnt_config->int_actualSample=pnt_config->int_Samples-1;
+				WriteValuesFromUToFilm(
+					pnt_config,
+					pnt_U_lastStep,
+					pnt_Film,
+					pnt_mesh);
+
 			}
 		}
 	}
