@@ -24,8 +24,8 @@ cd ..
 #HDF5
 #
 export CC=mpicc
-tar -zxvf hdf5-1.8.13.tar.gz
-cd hdf5-1.8.13
+tar -zxvf hdf5-1.8.14.tar.gz
+cd hdf5-1.8.14
 ./configure --prefix=/usr/local --with-szlib=/usr/local --with-zlib=/usr/local/include,/usr/local/lib --enable-production --enable-shared
 make
 #make check
@@ -34,4 +34,4 @@ cd ..
 
 rm -fr szip-2.1
 rm -fr zlib-1.2.8
-rm -fr hdf5-1.8.13
+rm -fr hdf5-1.8.14
