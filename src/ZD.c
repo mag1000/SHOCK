@@ -5,6 +5,45 @@
 #include <stdlib.h>
 #include <math.h>
 
+int i,j,k;
+int ijk;
+int ijkPlus1,ijkPlus2,ijkPlus3,ijkPlus4,ijkPlus5;
+int ijkMinus1,ijkMinus2,ijkMinus3,ijkMinus4,ijkMinus5;
+int iPlus1jk,iPlus2jk,iPlus3jk,iPlus4jk,iPlus5jk;
+int iMinus1jk,iMinus2jk,iMinus3jk,iMinus4jk,iMinus5jk;
+int ijPlus1k,ijPlus2k,ijPlus3k,ijPlus4k,ijPlus5k;
+int ijMinus1k,ijMinus2k,ijMinus3k,ijMinus4k,ijMinus5k;
+
+FLT xImpuls_xi;
+FLT yImpuls_xi;
+FLT zImpuls_xi;
+FLT Energie_xi;
+
+FLT xImpuls_eta;
+FLT yImpuls_eta;
+FLT zImpuls_eta;
+FLT Energie_eta;
+
+FLT xImpuls_zeta;
+FLT yImpuls_zeta;
+FLT zImpuls_zeta;
+FLT Energie_zeta;
+
+FLT xImpuls_xi_help[11];
+FLT yImpuls_xi_help[11];
+FLT zImpuls_xi_help[11];
+FLT Energie_xi_help[11];
+
+FLT xImpuls_eta_help[11];
+FLT yImpuls_eta_help[11];
+FLT zImpuls_eta_help[11];
+FLT Energie_eta_help[11];
+
+FLT xImpuls_zeta_help[11];
+FLT yImpuls_zeta_help[11];
+FLT zImpuls_zeta_help[11];
+FLT Energie_zeta_help[11];
+
 void CalcViscidFluxesInXiDirectionDirectly(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
@@ -70,9 +109,9 @@ void CalcViscidFluxesInXiDirectionDirectly(
 					v_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];		v_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
 					T_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];		T_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
 
-					u_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_xi];	u_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_xi];
-					v_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];	v_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
-					T_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];	T_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
+					u_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_xi];	u_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_xi];
+					v_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];	v_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
+					T_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];	T_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
 
 					u_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexMinus_xi];	u_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexPlus_xi];
 					v_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexMinus_xi];	v_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexPlus_xi];
@@ -82,7 +121,7 @@ void CalcViscidFluxesInXiDirectionDirectly(
 
 						w_iMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];		w_iPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
 
-						w_xi_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];	w_xi_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
+						w_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];	w_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
 
 						w_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexMinus_xi];	w_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexPlus_xi];
 
@@ -273,9 +312,9 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 					v_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];		v_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
 					T_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];		T_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
 
-					u_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_eta];	u_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_eta];
-					v_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];	v_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
-					T_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];	T_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
+					u_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_eta];	u_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_eta];
+					v_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];	v_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
+					T_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];	T_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
 
 					u_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_eta];	u_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_eta];
 					v_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_eta];	v_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_eta];
@@ -284,7 +323,7 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 #if MESHDIMENSIONS==3
 						w_jMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];		w_jPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
 
-						w_eta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];	w_eta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
+						w_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];	w_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
 
 						w_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexMinus_eta];	w_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexPlus_eta];
 
@@ -473,10 +512,10 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 					w_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexMinus_zeta];		w_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w[indexPlus_zeta];
 					T_kMinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexMinus_zeta];		T_kPlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T[indexPlus_zeta];
 
-					u_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_zeta];	u_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_zeta];
-					v_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_zeta];	v_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_zeta];
-					w_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_zeta];	w_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_zeta];
-					T_zeta_MinusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_zeta];	T_zeta_PlusHalf+=pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_zeta];
+					u_zeta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_zeta];	u_zeta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_zeta];
+					v_zeta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_zeta];	v_zeta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_zeta];
+					w_zeta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_zeta];	w_zeta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_zeta];
+					T_zeta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_zeta];	T_zeta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_zeta];
 
 					u_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_zeta];	u_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_zeta];
 					v_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_zeta];	v_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_zeta];
@@ -579,53 +618,6 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 		}
 	}
 }
-
-
-#include "SHOCK.h"
-#include "Functions.h"
-#include "ZD.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
-int i,j,k;
-int ijk;
-int ijkPlus1,ijkPlus2,ijkPlus3,ijkPlus4,ijkPlus5;
-int ijkMinus1,ijkMinus2,ijkMinus3,ijkMinus4,ijkMinus5;
-int iPlus1jk,iPlus2jk,iPlus3jk,iPlus4jk,iPlus5jk;
-int iMinus1jk,iMinus2jk,iMinus3jk,iMinus4jk,iMinus5jk;
-int ijPlus1k,ijPlus2k,ijPlus3k,ijPlus4k,ijPlus5k;
-int ijMinus1k,ijMinus2k,ijMinus3k,ijMinus4k,ijMinus5k;
-
-FLT xImpuls_xi;
-FLT yImpuls_xi;
-FLT zImpuls_xi;
-FLT Energie_xi;
-
-FLT xImpuls_eta;
-FLT yImpuls_eta;
-FLT zImpuls_eta;
-FLT Energie_eta;
-
-FLT xImpuls_zeta;
-FLT yImpuls_zeta;
-FLT zImpuls_zeta;
-FLT Energie_zeta;
-
-FLT xImpuls_xi_help[11];
-FLT yImpuls_xi_help[11];
-FLT zImpuls_xi_help[11];
-FLT Energie_xi_help[11];
-
-FLT xImpuls_eta_help[11];
-FLT yImpuls_eta_help[11];
-FLT zImpuls_eta_help[11];
-FLT Energie_eta_help[11];
-
-FLT xImpuls_zeta_help[11];
-FLT yImpuls_zeta_help[11];
-FLT zImpuls_zeta_help[11];
-FLT Energie_zeta_help[11];
 
 
 void CalcDeviationsForDirectViscidFluxes(

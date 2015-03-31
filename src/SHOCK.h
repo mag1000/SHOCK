@@ -18,7 +18,7 @@
 	#define MY_FLT_MIN DBL_MIN
 	#define MPI_FLT MPI_DOUBLE
 	#define MY_PI 3.14159265358979323846264338327950288419716939937510
-	#define CONV_ERROR	1.0E-17L
+	#define CONV_ERROR	1.0E-16L
 #elif PRECISION == 3
 	#define FLT_name "long double"
 	#define FLT long double
@@ -237,7 +237,7 @@ struct strct_configuration
 
 	//fuer neue ZD-Berechnung
 	FLT *ZD_Interpolation_Koeffizient;
-	FLT *ZD_ZweiteAbleitungZwischenPunkt_Koeffizient;
+	FLT *ZD_AbleitungZwischenPunkt_Koeffizient;
 	FLT *ZD_Ableitung_Koeffizient;
 	FLT *ZD_ZweiteAbleitung_Koeffizient;
 
@@ -406,6 +406,7 @@ struct strct_configuration
 	int ManufacturedSolution_case;
 	char BCManufacturedSolution[30];
 	long double ManufacturedSolution_L2_last;
+	long double ManufacturedSolution_L2_last_pressure;
 	int ManufacturedSolution_L2_Converged[15];
 	long double ManufacturedSolution_L2_Delta;
 	char ManufacturedSolution_L2_Delta_name[32];

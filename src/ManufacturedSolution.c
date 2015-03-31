@@ -372,10 +372,14 @@ void ConfigureManufacturedSolution(
 	long double w_0,w_x,w_y,w_z,a_w_x,a_w_y,a_w_z;
 	long double p_0,p_x,p_y,p_z,a_p_x,a_p_y,a_p_z;
 
-	long double rho_ref=1.0L;
-	long double u_ref=(long double)(pnt_config->machNumber*sqrtl(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim));
-	long double p_ref=(long double)rho_ref*u_ref*u_ref/(pnt_config->gammaNumber*pnt_config->machNumber*pnt_config->machNumber);
-	p_ref=86100.0L; //p=rho*R*T
+	long double rho_ref;//=1.0L;
+	long double u_ref;//=(long double)(pnt_config->machNumber*sqrtl(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim));
+	long double p_ref;//=(long double)rho_ref*u_ref*u_ref/(pnt_config->gammaNumber*pnt_config->machNumber*pnt_config->machNumber);
+
+	p_ref=100000.0L;
+	u_ref=(long double)(pnt_config->machNumber*sqrtl(pnt_config->gammaNumber*pnt_config->gasConstantNumber*pnt_config->T0_dim));
+	rho_ref=p_ref/pnt_config->gasConstantNumber/pnt_config->T0_dim;
+
 
 	p_z=0.0L;	a_p_z=0.0L;
 	u_z=0.0L;	a_u_z=0.0L;
@@ -549,7 +553,8 @@ void WriteManufacturedSolution(
 			sqrt(pnt_config->Upsilon*
 			pnt_config->gammaNumber*pnt_U_lastStep->p[ijk]/pnt_U_lastStep->rho[ijk]);
 
-	pnt_U_lastStep->mue[ijk]=1.0;
+	pnt_U_lastStep->mue[ijk]=1.0/pnt_config->reynoldsNumber;
+
 
 }
 
@@ -699,14 +704,15 @@ void ErrorManufacturedSolution(
 
 
 		//Monitoring of Convergence by Density
+		long double delta_rho,delta_pressure;
 		strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Density");
-		pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_rho[0]);
+		delta_rho=(long double)fabsl(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_rho[0]);
+		delta_pressure=(long double)fabsl(pnt_config->ManufacturedSolution_L2_last_pressure-all_L2_norm_pressure[0]);
+		pnt_config->ManufacturedSolution_L2_Delta=fabsl(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_rho[0]);
 		pnt_config->ManufacturedSolution_L2_last=all_L2_norm_rho[0];
+		pnt_config->ManufacturedSolution_L2_last_pressure=all_L2_norm_pressure[0];
 
-		//Monitoring of Convergence by Pressure
-		//strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Pressure");
-		//pnt_config->ManufacturedSolution_L2_Delta=fabs(pnt_config->ManufacturedSolution_L2_last-all_L2_norm_pressure[0]);
-		//pnt_config->ManufacturedSolution_L2_last=all_L2_norm_pressure[0];
+
 
 		if(pnt_config->MPI_rank==0)
 		{
@@ -717,7 +723,7 @@ void ErrorManufacturedSolution(
 			if (pnt_config->int_actualIteration==1)
 			{
 				file0=fopen(filename,"w");
-				fprintf(file0,"VARIABLES = \"Iteration\" \"L2\" \"Residual_rho\"\n");
+				fprintf(file0,"VARIABLES = \"Iteration\" \"L2(rho)\" \"Residual(rho)\" \"L2(pressure)\" \"Residual(pressure)\"\n");
 				fprintf(file0,"TITLE=\"Convergence\"\n");
 				fprintf(file0,"ZONE T=\"W%d-%d\", F=POINT, I=0, DT=(DOUBLE)\n",SPACEORDER,PRECISION);
 			}
@@ -725,10 +731,12 @@ void ErrorManufacturedSolution(
 			{
 				file0=fopen(filename,"a");
 			}
-			fprintf(file0," %d %Le %Le\n",
+			fprintf(file0," %d %Le %Le %Le %Le\n",
 					pnt_config->int_actualIteration,
-					pnt_config->ManufacturedSolution_L2_last,
-					pnt_config->ManufacturedSolution_L2_Delta);
+					(long double)all_L2_norm_rho[0],
+					delta_rho,
+					(long double)all_L2_norm_pressure[0],
+					delta_pressure);
 			fclose(file0);
 		}
 
@@ -773,6 +781,27 @@ void ErrorManufacturedSolution(
 						CONV_ERROR,
 						pnt_config->ManufacturedSolution_L2_Delta);}
 				pnt_config->int_actualIteration=pnt_config->int_EndIteration+100;
+
+//				for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
+//				{
+//					for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
+//					{
+//						for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
+//						{
+//							ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+////							rho_exact=GetRhoManufacturedSolution(
+////									pnt_config,
+////									pnt_mesh,
+////									pnt_U_lastStep,
+////									ijk);
+////							pnt_U_lastStep->rho[ijk]=fabs(pnt_U_lastStep->rho[ijk]-rho_exact);
+//
+//							pnt_U_lastStep->rho[ijk]=pnt_U_lastStep->T[ijk];
+//						}
+//					}
+//				}
+
+
 
 				pnt_config->int_actualSample=pnt_config->int_Samples-1;
 				WriteValuesFromUToFilm(
