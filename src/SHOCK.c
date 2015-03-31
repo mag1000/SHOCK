@@ -87,7 +87,6 @@ int main(int argc, char *argv[])
 			configuration.MPI_comm,
 			&configuration.MPI_rank);
 
-
 	if(configuration.MPI_rank==0){printf("SHOCK: ####################################\n");}
 	if(configuration.MPI_rank==0){printf("SHOCK:                Start\n");}
 	if(configuration.MPI_rank==0){printf("SHOCK: (git-ID: %s)\n",GITID);}
@@ -321,6 +320,7 @@ int main(int argc, char *argv[])
 				&configuration,
 				&mesh,
 				&U_lastStep,
+				&Film,
 				1);
 	}
 
@@ -746,7 +746,8 @@ void startSimulation(
 			}
 			if(pnt_config->flag_ManufacturedSolution==1)
 			{
-				if(pnt_config->MPI_rank==0){printf("SHOCK: Recent L2-Delta(rho): %.8Le)\n",
+				if(pnt_config->MPI_rank==0){printf("SHOCK: Recent L2-Delta(%s): %.8Le)\n",
+						pnt_config->ManufacturedSolution_L2_Delta_name,
 						pnt_config->ManufacturedSolution_L2_Delta);}
 			}
 			if(pnt_config->MPI_rank==0){printf("SHOCK: --------\n");}
@@ -757,6 +758,7 @@ void startSimulation(
 					pnt_config,
 					pnt_mesh,
 					pnt_U_lastStep,
+					pnt_Film,
 					0);
 		}
 	}

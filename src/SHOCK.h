@@ -18,7 +18,7 @@
 	#define MY_FLT_MIN DBL_MIN
 	#define MPI_FLT MPI_DOUBLE
 	#define MY_PI 3.14159265358979323846264338327950288419716939937510
-	#define CONV_ERROR	1.0E-18L
+	#define CONV_ERROR	1.0E-16L
 #elif PRECISION == 3
 	#define FLT_name "long double"
 	#define FLT long double
@@ -237,7 +237,7 @@ struct strct_configuration
 
 	//fuer neue ZD-Berechnung
 	FLT *ZD_Interpolation_Koeffizient;
-	FLT *ZD_ZweiteAbleitungZwischenPunkt_Koeffizient;
+	FLT *ZD_AbleitungZwischenPunkt_Koeffizient;
 	FLT *ZD_Ableitung_Koeffizient;
 	FLT *ZD_ZweiteAbleitung_Koeffizient;
 
@@ -406,11 +406,19 @@ struct strct_configuration
 	int ManufacturedSolution_case;
 	char BCManufacturedSolution[30];
 	long double ManufacturedSolution_L2_last;
+	long double ManufacturedSolution_L2_last_pressure;
+	int ManufacturedSolution_L2_Converged[15];
 	long double ManufacturedSolution_L2_Delta;
+	char ManufacturedSolution_L2_Delta_name[32];
 	long double all_L2_norm_rho;
 	long double all_L2_norm_pressure;
 	long double all_Linf_norm_rho;
 	long double all_Linf_norm_pressure;
+	long double ManufacturedSolution_param_rho[7];
+	long double ManufacturedSolution_param_u[7];
+	long double ManufacturedSolution_param_v[7];
+	long double ManufacturedSolution_param_w[7];
+	long double ManufacturedSolution_param_p[7];
 	int ManufacturedSolution_L2_counter;
 
 
@@ -625,36 +633,6 @@ struct strct_Flux
 	FLT *etaMomentum;
 	FLT *zetaMomentum;
 	FLT *Energy;
-};
-
-//Derzeit nicht unter Verwendung
-struct strct_ZD
-{
-	FLT *u_xi;
-	FLT *u_eta;
-	FLT *u_zeta;
-	FLT *v_xi;
-	FLT *v_eta;
-	FLT *v_zeta;
-	FLT *w_xi;
-	FLT *w_eta;
-	FLT *w_zeta;
-	FLT *T_xi;
-	FLT *T_eta;
-	FLT *T_zeta;
-	FLT *mue_xi;
-	FLT *mue_eta;
-	FLT *mue_zeta;
-
-	FLT *tau_xx;
-	FLT *tau_yy;
-	FLT *tau_zz;
-	FLT *tau_xy;
-	FLT *tau_xz;
-	FLT *tau_yz;
-	FLT *q_x;
-	FLT *q_y;
-	FLT *q_z;
 };
 
 //Variables

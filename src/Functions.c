@@ -1853,12 +1853,13 @@ void DefineParameters(struct strct_configuration * pnt_config)
 	pnt_config->wenoOptimalerKoeffizient_W5[2]=3./10.;
 
 
-	pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
+	pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
 	pnt_config->ZD_Interpolation_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
 	pnt_config->ZD_Ableitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
 	pnt_config->ZD_ZweiteAbleitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
 	if(SPACEORDER==9)
 	{
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
 		pnt_config->ZD_Interpolation_Koeffizient[0] =       1. / 1260.;
 		pnt_config->ZD_Interpolation_Koeffizient[1] =     -23. / 2520.;
 		pnt_config->ZD_Interpolation_Koeffizient[2] =     127. / 2520.;
@@ -1870,17 +1871,19 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_Interpolation_Koeffizient[8] =     -23. / 2520.;
 		pnt_config->ZD_Interpolation_Koeffizient[9] =       1. / 1260.;
 
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =     -3. /  9450.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    351. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -2649. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =  15351. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =-110649. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] = 110649. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[6] = -15351. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[7] =   2649. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[8] =   -351. / 75600.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[9] =      3. /  9450.;
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[0] =     -3. /  9450.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[1] =    351. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[2] =  -2649. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[3] =  15351. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[4] =-110649. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[5] = 110649. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[6] = -15351. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[7] =   2649. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[8] =   -351. / 75600.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[9] =      3. /  9450.;
 
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
 		pnt_config->ZD_Ableitung_Koeffizient[0]=   -1./1260.;
 		pnt_config->ZD_Ableitung_Koeffizient[1]=   25./2520.;
 		pnt_config->ZD_Ableitung_Koeffizient[2]= -150./2520.;
@@ -1893,6 +1896,7 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_Ableitung_Koeffizient[9]=  -25./2520.;
 		pnt_config->ZD_Ableitung_Koeffizient[10]=   1./1260.;
 
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
 		pnt_config->ZD_ZweiteAbleitung_Koeffizient[0]=      24./75600.;
 		pnt_config->ZD_ZweiteAbleitung_Koeffizient[1]=    -375./75600.;
 		pnt_config->ZD_ZweiteAbleitung_Koeffizient[2]=    3000./75600.;
@@ -1907,6 +1911,7 @@ void DefineParameters(struct strct_configuration * pnt_config)
 	}
 	else
 	{
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
 		pnt_config->ZD_Interpolation_Koeffizient[0] =   1. / 60.;
 		pnt_config->ZD_Interpolation_Koeffizient[1] =  -8. / 60.;
 		pnt_config->ZD_Interpolation_Koeffizient[2] =  37. / 60.;
@@ -1914,13 +1919,15 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_Interpolation_Koeffizient[4] =  -8. / 60.;
 		pnt_config->ZD_Interpolation_Koeffizient[5] =   1. / 60.;
 
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[0] =    -1. / 90.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[1] =    25. / 180.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[2] =  -245. / 180.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[3] =   245. / 180.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[4] =   -25. / 180.;
-		pnt_config->ZD_ZweiteAbleitungZwischenPunkt_Koeffizient[5] =     1. / 90.;
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[0] =    -1. / 90.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[1] =    25. / 180.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[2] =  -245. / 180.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[3] =   245. / 180.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[4] =   -25. / 180.;
+		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[5] =     1. / 90.;
 
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
 		pnt_config->ZD_Ableitung_Koeffizient[0]=    -1./60.;
 		pnt_config->ZD_Ableitung_Koeffizient[1]=     3./20.;
 		pnt_config->ZD_Ableitung_Koeffizient[2]=    -3./4.;
@@ -1929,6 +1936,7 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_Ableitung_Koeffizient[5]=    -3./20.;
 		pnt_config->ZD_Ableitung_Koeffizient[6]=     1./60.;
 
+		// checked (30.03.2015 Koeffizientenvergleich.xls)
 		pnt_config->ZD_ZweiteAbleitung_Koeffizient[0]=      2./180.;
 		pnt_config->ZD_ZweiteAbleitung_Koeffizient[1]=    -27./180.;
 		pnt_config->ZD_ZweiteAbleitung_Koeffizient[2]=    270./180.;
@@ -1994,15 +2002,16 @@ void DefineParameters(struct strct_configuration * pnt_config)
 	}
 
 
-	pnt_config->Upsilon=1.0/(pnt_config->gammaNumber*pow(pnt_config->machNumber,2.0));
-	pnt_config->Psi=1.0/pnt_config->reynoldsNumber;
-	pnt_config->SutherlandConstant=100.4/pnt_config->T0_dim;
+	pnt_config->Upsilon=1.0L/(pnt_config->gammaNumber*(pnt_config->machNumber*pnt_config->machNumber));
+	pnt_config->Psi=1.0L/pnt_config->reynoldsNumber;
+	pnt_config->SutherlandConstant=100.4L/pnt_config->T0_dim;
 
     //Gamma wird nach dem Import des Gitters bei postprocessload definiert
 
 	pnt_config->flag_reinitialization=0;
 
 	pnt_config->ManufacturedSolution_L2_last=999.;
+	pnt_config->ManufacturedSolution_L2_last_pressure=999.;
 	pnt_config->ManufacturedSolution_L2_counter=0;
 	pnt_config->all_L2_norm_rho=0;
 	pnt_config->all_L2_norm_pressure=0;
@@ -2450,7 +2459,7 @@ void CalcValues(
 
 					if(pnt_config->flag_ManufacturedSolution==1)
 					{
-						pnt_U->mue[ijk]=1.0;
+						pnt_U->mue[ijk]=1.0/pnt_config->reynoldsNumber;
 					}
 
 				}
@@ -6228,109 +6237,108 @@ void CreateViscidMetric(
 			{
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
-					pnt_mesh->xiFluss_Faktor[0*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.* pow(pnt_mesh->xi_x[ijk],2)+pow(pnt_mesh->xi_y[ijk],2)+pow(pnt_mesh->xi_z[ijk],2));
-					pnt_mesh->xiFluss_Faktor[1*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[2*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[3*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_y[ijk];
-					pnt_mesh->xiFluss_Faktor[4*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->xiFluss_Faktor[5*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->xiFluss_Faktor[6*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_z[ijk];
-					pnt_mesh->xiFluss_Faktor[7*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[8*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[0*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L* powl(pnt_mesh->xi_x[ijk],2.0L)+powl(pnt_mesh->xi_y[ijk],2.0L)+powl(pnt_mesh->xi_z[ijk],2.0L));
+				pnt_mesh->xiFluss_Faktor[1*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[2*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[3*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_y[ijk];
+				pnt_mesh->xiFluss_Faktor[4*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->xiFluss_Faktor[5*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->xiFluss_Faktor[6*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_z[ijk];
+				pnt_mesh->xiFluss_Faktor[7*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[8*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
 
-					pnt_mesh->xiFluss_Faktor[9*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_y[ijk];
-					pnt_mesh->xiFluss_Faktor[10*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]-2./3.* pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->xiFluss_Faktor[11*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->xiFluss_Faktor[12*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->xi_x[ijk],2)+4./3.*pow(pnt_mesh->xi_y[ijk],2)+pow(pnt_mesh->xi_z[ijk],2));
-					pnt_mesh->xiFluss_Faktor[13*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+4./3.*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[14*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+4./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[15*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->xi_y[ijk]*pnt_mesh->xi_z[ijk];
-					pnt_mesh->xiFluss_Faktor[16*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[17*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[9*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_y[ijk];
+				pnt_mesh->xiFluss_Faktor[10*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L* pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->xiFluss_Faktor[11*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->xiFluss_Faktor[12*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->xi_x[ijk],2.0L)+4.0L/3.0L*powl(pnt_mesh->xi_y[ijk],2.0L)+powl(pnt_mesh->xi_z[ijk],2.0L));
+				pnt_mesh->xiFluss_Faktor[13*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+4.0L/3.0L*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[14*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+4.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[15*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->xi_y[ijk]*pnt_mesh->xi_z[ijk];
+				pnt_mesh->xiFluss_Faktor[16*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[17*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
 
-					pnt_mesh->xiFluss_Faktor[18*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_z[ijk];
-					pnt_mesh->xiFluss_Faktor[19*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]-2./3.*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[20*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[21*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->xi_y[ijk]*pnt_mesh->xi_z[ijk];
-					pnt_mesh->xiFluss_Faktor[22*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]-2./3.*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[23*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]-2./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[24*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->xi_x[ijk],2)+pow(pnt_mesh->xi_y[ijk],2)+4./3.* pow(pnt_mesh->xi_z[ijk],2));
-					pnt_mesh->xiFluss_Faktor[25*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+4./3.*pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[26*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+4./3.*pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[18*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->xi_x[ijk]*pnt_mesh->xi_z[ijk];
+				pnt_mesh->xiFluss_Faktor[19*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[20*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[21*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->xi_y[ijk]*pnt_mesh->xi_z[ijk];
+				pnt_mesh->xiFluss_Faktor[22*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]-2.0L/3.0L*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[23*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]-2.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[24*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->xi_x[ijk],2.0L)+powl(pnt_mesh->xi_y[ijk],2.0L)+4.0L/3.0L* powl(pnt_mesh->xi_z[ijk],2.0L));
+				pnt_mesh->xiFluss_Faktor[25*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+4.0L/3.0L*pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[26*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+4.0L/3.0L*pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
 
-					pnt_mesh->xiFluss_Faktor[27*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->xi_x[ijk],2)+pow(pnt_mesh->xi_y[ijk],2)+pow(pnt_mesh->xi_z[ijk],2));
-					pnt_mesh->xiFluss_Faktor[28*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->xiFluss_Faktor[29*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[27*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->xi_x[ijk],2.0L)+powl(pnt_mesh->xi_y[ijk],2.0L)+powl(pnt_mesh->xi_z[ijk],2.0L));
+				pnt_mesh->xiFluss_Faktor[28*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->xiFluss_Faktor[29*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
 
 
-					pnt_mesh->etaFluss_Faktor[0*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[1*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.* pow(pnt_mesh->eta_x[ijk],2)+pow(pnt_mesh->eta_y[ijk],2)+pow(pnt_mesh->eta_z[ijk],2));
-					pnt_mesh->etaFluss_Faktor[2*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[3*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]-2./3.*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->etaFluss_Faktor[4*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_y[ijk];
-					pnt_mesh->etaFluss_Faktor[5*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
-					pnt_mesh->etaFluss_Faktor[6*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]-2./3.*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[7*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_z[ijk];
-					pnt_mesh->etaFluss_Faktor[8*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[0*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[1*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L* powl(pnt_mesh->eta_x[ijk],2.0L)+powl(pnt_mesh->eta_y[ijk],2.0L)+powl(pnt_mesh->eta_z[ijk],2.0L));
+				pnt_mesh->etaFluss_Faktor[2*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[3*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->etaFluss_Faktor[4*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_y[ijk];
+				pnt_mesh->etaFluss_Faktor[5*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
+				pnt_mesh->etaFluss_Faktor[6*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L*pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[7*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_z[ijk];
+				pnt_mesh->etaFluss_Faktor[8*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
 
-					pnt_mesh->etaFluss_Faktor[9*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->etaFluss_Faktor[10*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_y[ijk];
-					pnt_mesh->etaFluss_Faktor[11*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
-					pnt_mesh->etaFluss_Faktor[12*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+4./3.*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[13*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->eta_x[ijk],2)+4./3.*pow(pnt_mesh->eta_y[ijk],2)+pow(pnt_mesh->eta_z[ijk],2));
-					pnt_mesh->etaFluss_Faktor[14*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+4./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[15*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]-2./3.*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[16*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->eta_y[ijk]*pnt_mesh->eta_z[ijk];
-					pnt_mesh->etaFluss_Faktor[17*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[9*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->eta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->etaFluss_Faktor[10*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_y[ijk];
+				pnt_mesh->etaFluss_Faktor[11*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
+				pnt_mesh->etaFluss_Faktor[12*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+4.0L/3.0L*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[13*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->eta_x[ijk],2.0L)+4.0L/3.0L*powl(pnt_mesh->eta_y[ijk],2.0L)+powl(pnt_mesh->eta_z[ijk],2.0L));
+				pnt_mesh->etaFluss_Faktor[14*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+4.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[15*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]-2.0L/3.0L*pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[16*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->eta_y[ijk]*pnt_mesh->eta_z[ijk];
+				pnt_mesh->etaFluss_Faktor[17*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
 
-					pnt_mesh->etaFluss_Faktor[18*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[19*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_z[ijk];
-					pnt_mesh->etaFluss_Faktor[20*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[21*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[22*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->eta_y[ijk]*pnt_mesh->eta_z[ijk];
-					pnt_mesh->etaFluss_Faktor[23*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]-2./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[24*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+4./3.*pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[25*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->eta_x[ijk],2)+pow(pnt_mesh->eta_y[ijk],2)+4./3.*pow(pnt_mesh->eta_z[ijk],2));
-					pnt_mesh->etaFluss_Faktor[26*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+4./3.*pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[18*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[19*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->eta_x[ijk]*pnt_mesh->eta_z[ijk];
+				pnt_mesh->etaFluss_Faktor[20*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[21*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->eta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[22*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->eta_y[ijk]*pnt_mesh->eta_z[ijk];
+				pnt_mesh->etaFluss_Faktor[23*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]-2.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[24*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+4.0L/3.0L*pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[25*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->eta_x[ijk],2.0L)+powl(pnt_mesh->eta_y[ijk],2.0L)+4.0L/3.0L*powl(pnt_mesh->eta_z[ijk],2.0L));
+				pnt_mesh->etaFluss_Faktor[26*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+4.0L/3.0L*pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
 
-					pnt_mesh->etaFluss_Faktor[27*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->etaFluss_Faktor[28*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->eta_x[ijk],2)+pow(pnt_mesh->eta_y[ijk],2)+pow(pnt_mesh->eta_z[ijk],2));
-					pnt_mesh->etaFluss_Faktor[29*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[27*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->eta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->eta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->eta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->etaFluss_Faktor[28*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->eta_x[ijk],2.0L)+powl(pnt_mesh->eta_y[ijk],2.0L)+powl(pnt_mesh->eta_z[ijk],2.0L));
+				pnt_mesh->etaFluss_Faktor[29*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
 
-					pnt_mesh->zetaFluss_Faktor[0*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[1*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[2*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4./3.*pow(pnt_mesh->zeta_x[ijk],2)+pow(pnt_mesh->zeta_y[ijk],2)+pow(pnt_mesh->zeta_z[ijk],2));
-					pnt_mesh->zetaFluss_Faktor[3*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->zetaFluss_Faktor[4*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
-					pnt_mesh->zetaFluss_Faktor[5*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_y[ijk];
-					pnt_mesh->zetaFluss_Faktor[6*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[7*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]-2./3.*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[8*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_z[ijk];
+				pnt_mesh->zetaFluss_Faktor[0*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[1*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[2*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(4.0L/3.0L*powl(pnt_mesh->zeta_x[ijk],2.0L)+powl(pnt_mesh->zeta_y[ijk],2.0L)+powl(pnt_mesh->zeta_z[ijk],2.0L));
+				pnt_mesh->zetaFluss_Faktor[3*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->zetaFluss_Faktor[4*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
+				pnt_mesh->zetaFluss_Faktor[5*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_y[ijk];
+				pnt_mesh->zetaFluss_Faktor[6*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[7*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]-2.0L/3.0L*pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[8*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_z[ijk];
 
-					pnt_mesh->zetaFluss_Faktor[9*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
-					pnt_mesh->zetaFluss_Faktor[10*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
-					pnt_mesh->zetaFluss_Faktor[11*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_y[ijk];
-					pnt_mesh->zetaFluss_Faktor[12*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+4./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[13*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+4./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[14*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->zeta_x[ijk],2)+4./3.*pow(pnt_mesh->zeta_y[ijk],2)+pow(pnt_mesh->zeta_z[ijk],2));
-					pnt_mesh->zetaFluss_Faktor[15*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]-2./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[16*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]-2./3.*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[17*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->zeta_y[ijk]*pnt_mesh->zeta_z[ijk];
+				pnt_mesh->zetaFluss_Faktor[9*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_y[ijk]);
+				pnt_mesh->zetaFluss_Faktor[10*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_y[ijk]);
+				pnt_mesh->zetaFluss_Faktor[11*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_y[ijk];
+				pnt_mesh->zetaFluss_Faktor[12*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+4.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[13*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+4.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[14*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->zeta_x[ijk],2.0L)+4.0L/3.0L*powl(pnt_mesh->zeta_y[ijk],2.0L)+powl(pnt_mesh->zeta_z[ijk],2.0L));
+				pnt_mesh->zetaFluss_Faktor[15*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]-2.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[16*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]-2.0L/3.0L*pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[17*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->zeta_y[ijk]*pnt_mesh->zeta_z[ijk];
 
-					pnt_mesh->zetaFluss_Faktor[18*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[19*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[20*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_z[ijk];
-					pnt_mesh->zetaFluss_Faktor[21*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[22*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2./3.* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[23*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1./3.* pnt_mesh->zeta_y[ijk]*pnt_mesh->zeta_z[ijk];
-					pnt_mesh->zetaFluss_Faktor[24*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+4./3.*pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[25*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+4./3.*pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[26*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->zeta_x[ijk],2)+pow(pnt_mesh->zeta_y[ijk],2)+4./3.*pow(pnt_mesh->zeta_z[ijk],2));
+				pnt_mesh->zetaFluss_Faktor[18*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[19*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[20*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->zeta_x[ijk]*pnt_mesh->zeta_z[ijk];
+				pnt_mesh->zetaFluss_Faktor[21*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[22*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(-2.0L/3.0L* pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[23*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*1.0L/3.0L* pnt_mesh->zeta_y[ijk]*pnt_mesh->zeta_z[ijk];
+				pnt_mesh->zetaFluss_Faktor[24*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+4.0L/3.0L*pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[25*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+4.0L/3.0L*pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[26*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->zeta_x[ijk],2.0L)+powl(pnt_mesh->zeta_y[ijk],2.0L)+4.0L/3.0L*powl(pnt_mesh->zeta_z[ijk],2.0L));
 
-					pnt_mesh->zetaFluss_Faktor[27*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[28*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
-					pnt_mesh->zetaFluss_Faktor[29*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pow(pnt_mesh->zeta_x[ijk],2)+pow(pnt_mesh->zeta_y[ijk],2)+pow(pnt_mesh->zeta_z[ijk],2));
-
+				pnt_mesh->zetaFluss_Faktor[27*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->xi_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->xi_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->xi_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[28*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(pnt_mesh->zeta_x[ijk]*pnt_mesh->eta_x[ijk]+pnt_mesh->zeta_y[ijk]*pnt_mesh->eta_y[ijk]+pnt_mesh->zeta_z[ijk]*pnt_mesh->eta_z[ijk]);
+				pnt_mesh->zetaFluss_Faktor[29*ijkMAX+ijk]=pnt_mesh->jacobian[ijk]*(powl(pnt_mesh->zeta_x[ijk],2.0L)+powl(pnt_mesh->zeta_y[ijk],2.0L)+powl(pnt_mesh->zeta_z[ijk],2.0L));
 			}
 		}
 	}
@@ -6404,28 +6412,28 @@ void CreateMetric(
 
 				if(MESHDIMENSIONS==2)
 				{
-					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->deltaXi;
-					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->deltaXi;
-					z_xi=0.0;
-					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->deltaEta;
-					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->deltaEta;
-					z_eta=0.0;
-					x_zeta=0.0;
-					y_zeta=0.0;
-					z_zeta=1.0;
+					x_xi=(-0.5L*pnt_mesh->x_extrapolate[iMinus1jk]+0.5L*pnt_mesh->x_extrapolate[iPlus1jk]);// /pnt_config->deltaXi;
+					y_xi=(-0.5L*pnt_mesh->y_extrapolate[iMinus1jk]+0.5L*pnt_mesh->y_extrapolate[iPlus1jk]);// /pnt_config->deltaXi;
+					z_xi=0.0L;
+					x_eta=(-0.5L*pnt_mesh->x_extrapolate[ijMinus1k]+0.5L*pnt_mesh->x_extrapolate[ijPlus1k]);// /pnt_config->deltaEta;
+					y_eta=(-0.5L*pnt_mesh->y_extrapolate[ijMinus1k]+0.5L*pnt_mesh->y_extrapolate[ijPlus1k]);// /pnt_config->deltaEta;
+					z_eta=0.0L;
+					x_zeta=0.0L;
+					y_zeta=0.0L;
+					z_zeta=1.0L;
 
 				}
 				else
 				{
-					x_xi=(-0.5*pnt_mesh->x_extrapolate[iMinus1jk]+0.5*pnt_mesh->x_extrapolate[iPlus1jk])/pnt_config->deltaXi;
-					y_xi=(-0.5*pnt_mesh->y_extrapolate[iMinus1jk]+0.5*pnt_mesh->y_extrapolate[iPlus1jk])/pnt_config->deltaXi;
-					z_xi=(-0.5*pnt_mesh->z_extrapolate[iMinus1jk]+0.5*pnt_mesh->z_extrapolate[iPlus1jk])/pnt_config->deltaXi;
-					x_eta=(-0.5*pnt_mesh->x_extrapolate[ijMinus1k]+0.5*pnt_mesh->x_extrapolate[ijPlus1k])/pnt_config->deltaEta;
-					y_eta=(-0.5*pnt_mesh->y_extrapolate[ijMinus1k]+0.5*pnt_mesh->y_extrapolate[ijPlus1k])/pnt_config->deltaEta;
-					z_eta=(-0.5*pnt_mesh->z_extrapolate[ijMinus1k]+0.5*pnt_mesh->z_extrapolate[ijPlus1k])/pnt_config->deltaEta;
-					x_zeta=(-0.5*pnt_mesh->x_extrapolate[ijkMinus1]+0.5*pnt_mesh->x_extrapolate[ijkPlus1])/pnt_config->deltaZeta;
-					y_zeta=(-0.5*pnt_mesh->y_extrapolate[ijkMinus1]+0.5*pnt_mesh->y_extrapolate[ijkPlus1])/pnt_config->deltaZeta;
-					z_zeta=(-0.5*pnt_mesh->z_extrapolate[ijkMinus1]+0.5*pnt_mesh->z_extrapolate[ijkPlus1])/pnt_config->deltaZeta;
+					x_xi=(-0.5L*pnt_mesh->x_extrapolate[iMinus1jk]+0.5L*pnt_mesh->x_extrapolate[iPlus1jk]);// /pnt_config->deltaXi;
+					y_xi=(-0.5L*pnt_mesh->y_extrapolate[iMinus1jk]+0.5L*pnt_mesh->y_extrapolate[iPlus1jk]);// /pnt_config->deltaXi;
+					z_xi=(-0.5L*pnt_mesh->z_extrapolate[iMinus1jk]+0.5L*pnt_mesh->z_extrapolate[iPlus1jk]);// /pnt_config->deltaXi;
+					x_eta=(-0.5L*pnt_mesh->x_extrapolate[ijMinus1k]+0.5L*pnt_mesh->x_extrapolate[ijPlus1k]);// /pnt_config->deltaEta;
+					y_eta=(-0.5L*pnt_mesh->y_extrapolate[ijMinus1k]+0.5L*pnt_mesh->y_extrapolate[ijPlus1k]);// /pnt_config->deltaEta;
+					z_eta=(-0.5L*pnt_mesh->z_extrapolate[ijMinus1k]+0.5L*pnt_mesh->z_extrapolate[ijPlus1k]);// /pnt_config->deltaEta;
+					x_zeta=(-0.5L*pnt_mesh->x_extrapolate[ijkMinus1]+0.5L*pnt_mesh->x_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
+					y_zeta=(-0.5L*pnt_mesh->y_extrapolate[ijkMinus1]+0.5L*pnt_mesh->y_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
+					z_zeta=(-0.5L*pnt_mesh->z_extrapolate[ijkMinus1]+0.5L*pnt_mesh->z_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
 				}
 
 

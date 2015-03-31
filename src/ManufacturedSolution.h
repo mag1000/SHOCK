@@ -56,6 +56,7 @@ void ErrorManufacturedSolution(
 		struct strct_configuration * pnt_config,
 		struct strct_mesh * pnt_mesh,
 		struct strct_U * pnt_U_lastStep,
+		struct strct_Film * pnt_Film,
 		int flag);
 
 long double GetRhoManufacturedSolution(
