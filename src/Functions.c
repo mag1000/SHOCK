@@ -1125,7 +1125,9 @@ void AllocMemoryMesh(
 	// 1)Gitter
 	// 2)Erhaltungsgrößen lastStep
 	// 3)Erhaltungsgrößen nextStep
-	pnt_mesh->BC_Corrector = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_mesh->BC_Corrector_xiMomentum = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_mesh->BC_Corrector_etaMomentum = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_mesh->BC_Corrector_zetaMomentum = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 
 	//Gitter
 	pnt_mesh->x = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
@@ -4881,7 +4883,9 @@ void IBC_set(
 					pnt_U->mue[ijk]=((1.0+pnt_config->SutherlandConstant)*pow(pnt_U->p[ijk]/pnt_U->rho[ijk],1.5)/
 							(pnt_U->p[ijk]/pnt_U->rho[ijk]+pnt_config->SutherlandConstant));
 
-					pnt_mesh->BC_Corrector[ijk]=1.0;
+					pnt_mesh->BC_Corrector_xiMomentum[ijk]=1.0;
+					pnt_mesh->BC_Corrector_etaMomentum[ijk]=1.0;
+					pnt_mesh->BC_Corrector_zetaMomentum[ijk]=1.0;
 				}
 			}
 		}
@@ -5542,7 +5546,9 @@ void IBC_BornCells(
 					pnt_U_lastStep->c[ijk]=pnt_U_RK->c[ijk];
 					pnt_U_lastStep->mue[ijk]=pnt_U_RK->mue[ijk];
 
-					pnt_mesh->BC_Corrector[ijk]=1.0;
+					pnt_mesh->BC_Corrector_xiMomentum[ijk]=1.0;
+					pnt_mesh->BC_Corrector_etaMomentum[ijk]=1.0;
+					pnt_mesh->BC_Corrector_zetaMomentum[ijk]=1.0;
 				}
 			}
 
@@ -6182,7 +6188,9 @@ void check_Metric(
 			for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 			{
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-				pnt_mesh->BC_Corrector[ijk]=1.0;
+				pnt_mesh->BC_Corrector_xiMomentum[ijk]=1.0;
+				pnt_mesh->BC_Corrector_etaMomentum[ijk]=1.0;
+				pnt_mesh->BC_Corrector_zetaMomentum[ijk]=1.0;
 				if(pnt_mesh->jacobian[ijk]<0.0)
 				{
 					flag_negjacobian++;
@@ -6413,7 +6421,6 @@ void CreateMetric(
 					x_zeta=0.0L;
 					y_zeta=0.0L;
 					z_zeta=1.0L;
-
 				}
 				else
 				{

@@ -2670,7 +2670,9 @@ void WriteWallNoSlipBoundary(
 	pnt_U->v[ijk]=-pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk]=-pnt_U->w[ijkSymmetry];
 
-	pnt_mesh->BC_Corrector[ijk]=-1.0;
+	pnt_mesh->BC_Corrector_xiMomentum[ijk]=-1.0;
+	pnt_mesh->BC_Corrector_etaMomentum[ijk]=-1.0;
+	pnt_mesh->BC_Corrector_zetaMomentum[ijk]=-1.0;
 
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];
 	pnt_U->p[ijk]=pnt_U->p[ijkSymmetry];
@@ -2699,7 +2701,9 @@ void WriteWallSlipBoundary(
 	pnt_U->v[ijk]=-(-pnt_U->theta1[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_z[ijk]+pnt_U->theta1[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_x[ijk]+pnt_U->theta2[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->zeta_z[ijk]-pnt_U->theta2[ijk]*pnt_mesh->xi_z[ijk]*pnt_mesh->zeta_x[ijk]-pnt_U->theta3[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->eta_z[ijk]+pnt_U->theta3[ijk]*pnt_mesh->xi_z[ijk]*pnt_mesh->eta_x[ijk])/(-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_z[ijk]+pnt_mesh->xi_x[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_y[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_z[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_x[ijk]-pnt_mesh->xi_z[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_y[ijk]+pnt_mesh->xi_z[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_x[ijk]);
 	pnt_U->w[ijk]=-(-pnt_U->theta1[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_y[ijk]+pnt_U->theta1[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_x[ijk]+pnt_U->theta2[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->zeta_y[ijk]-pnt_U->theta2[ijk]*pnt_mesh->xi_y[ijk]*pnt_mesh->zeta_x[ijk]-pnt_U->theta3[ijk]*pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]+pnt_U->theta3[ijk]*pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk])/(pnt_mesh->xi_x[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_z[ijk]-pnt_mesh->xi_x[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_y[ijk]-pnt_mesh->xi_y[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_z[ijk]+pnt_mesh->xi_y[ijk]*pnt_mesh->eta_z[ijk]*pnt_mesh->zeta_x[ijk]+pnt_mesh->xi_z[ijk]*pnt_mesh->eta_x[ijk]*pnt_mesh->zeta_y[ijk]-pnt_mesh->xi_z[ijk]*pnt_mesh->eta_y[ijk]*pnt_mesh->zeta_x[ijk]);
 
-	pnt_mesh->BC_Corrector[ijk]=-1.0;
+	pnt_mesh->BC_Corrector_xiMomentum[ijk]=corrector[0];
+	pnt_mesh->BC_Corrector_etaMomentum[ijk]=corrector[1];
+	pnt_mesh->BC_Corrector_zetaMomentum[ijk]=corrector[2];
 
 
 //	printf("u:%g v:%g || u':%g v':%g\n",pnt_U->u[ijk],pnt_U->v[ijk],pnt_U->u[ijkSymmetry],pnt_U->v[ijkSymmetry]);
@@ -2724,8 +2728,8 @@ void WriteMovingWallSlipBoundary(
 {   
 	//pnt_U->u[ijk]=-pnt_U->u[ijkSymmetry]+2.0*(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;
 	pnt_U->u[ijk]=(pnt_config->IBC_MovingActualPosition-pnt_config->IBC_MovingLastPosition)/pnt_config->numericalTau;
-	pnt_U->v[ijk]=pnt_U->v[ijkSymmetry];
-	pnt_U->w[ijk]=pnt_U->w[ijkSymmetry];
+	pnt_U->v[ijk]=-pnt_U->v[ijkSymmetry];
+	pnt_U->w[ijk]=-pnt_U->w[ijkSymmetry];
 
     pnt_U->theta1[ijk]=
 			pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
@@ -2740,7 +2744,9 @@ void WriteMovingWallSlipBoundary(
 			pnt_U->v[ijk]*pnt_mesh->zeta_y[ijk]+
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 			
-	pnt_mesh->BC_Corrector[ijk]=1.0;
+	pnt_mesh->BC_Corrector_xiMomentum[ijk]=1.0;
+	pnt_mesh->BC_Corrector_etaMomentum[ijk]=1.0;
+	pnt_mesh->BC_Corrector_zetaMomentum[ijk]=1.0;
 
     pnt_U->p[ijk]=pnt_U->p[ijkSymmetry];
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];
@@ -2781,7 +2787,9 @@ void WriteMovingWallNoSlipIsothermalBoundary(
 			pnt_U->v[ijk]*pnt_mesh->zeta_y[ijk]+
 			pnt_U->w[ijk]*pnt_mesh->zeta_z[ijk];
 
-	pnt_mesh->BC_Corrector[ijk]=1.0;
+	pnt_mesh->BC_Corrector_xiMomentum[ijk]=1.0;
+	pnt_mesh->BC_Corrector_etaMomentum[ijk]=1.0;
+	pnt_mesh->BC_Corrector_zetaMomentum[ijk]=1.0;
 
 	pnt_U->p[ijk]=pnt_U->p[ijkSymmetry];
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];
@@ -2949,7 +2957,9 @@ void WriteWallNoSlipIsothermalBoundary(
 	pnt_U->v[ijk]=-pnt_U->v[ijkSymmetry];
 	pnt_U->w[ijk]=-pnt_U->w[ijkSymmetry];
 
-	pnt_mesh->BC_Corrector[ijk]=-1.0;
+	pnt_mesh->BC_Corrector_xiMomentum[ijk]=-1.0;
+	pnt_mesh->BC_Corrector_etaMomentum[ijk]=-1.0;
+	pnt_mesh->BC_Corrector_zetaMomentum[ijk]=-1.0;
 
     pnt_U->p[ijk]=pnt_U->p[ijkSymmetry];
 	pnt_U->rho[ijk]=pnt_U->rho[ijkSymmetry];

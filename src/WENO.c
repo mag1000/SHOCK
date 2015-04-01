@@ -262,19 +262,19 @@ void CalcFluxesInXiDirection(
 
                 pnt_Flux->xiMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta1[ijk]*pnt_U_RK->u[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta1[ijk]*pnt_U_RK->u[ijk]*pnt_mesh->BC_Corrector_xiMomentum[ijk]+
  pnt_mesh->xi_x[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
                 pnt_Flux->etaMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta1[ijk]*pnt_U_RK->v[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta1[ijk]*pnt_U_RK->v[ijk]*pnt_mesh->BC_Corrector_etaMomentum[ijk]+
  pnt_mesh->xi_y[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
                 pnt_Flux->zetaMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta1[ijk]*pnt_U_RK->w[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta1[ijk]*pnt_U_RK->w[ijk]*pnt_mesh->BC_Corrector_zetaMomentum[ijk]+
  pnt_mesh->xi_z[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
@@ -550,19 +550,19 @@ void CalcFluxesInEtaDirection(
 
                 pnt_Flux->xiMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta2[ijk]*pnt_U_RK->u[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta2[ijk]*pnt_U_RK->u[ijk]*pnt_mesh->BC_Corrector_xiMomentum[ijk]+
  pnt_mesh->eta_x[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
                 pnt_Flux->etaMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta2[ijk]*pnt_U_RK->v[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta2[ijk]*pnt_U_RK->v[ijk]*pnt_mesh->BC_Corrector_etaMomentum[ijk]+
  pnt_mesh->eta_y[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
                 pnt_Flux->zetaMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta2[ijk]*pnt_U_RK->w[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta2[ijk]*pnt_U_RK->w[ijk]*pnt_mesh->BC_Corrector_zetaMomentum[ijk]+
  pnt_mesh->eta_z[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
@@ -853,19 +853,19 @@ void CalcFluxesInZetaDirection(
 
                 pnt_Flux->xiMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta3[ijk]*pnt_U_RK->u[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta3[ijk]*pnt_U_RK->u[ijk]*pnt_mesh->BC_Corrector_xiMomentum[ijk]+
  pnt_mesh->zeta_x[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
                 pnt_Flux->etaMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta3[ijk]*pnt_U_RK->v[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta3[ijk]*pnt_U_RK->v[ijk]*pnt_mesh->BC_Corrector_etaMomentum[ijk]+
  pnt_mesh->zeta_y[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
                 pnt_Flux->zetaMomentum[ijk]=
                         pnt_mesh->jacobian[ijk]*(
- pnt_U_RK->rho[ijk]*pnt_U_RK->theta3[ijk]*pnt_U_RK->w[ijk]*pnt_mesh->BC_Corrector[ijk]+
+ pnt_U_RK->rho[ijk]*pnt_U_RK->theta3[ijk]*pnt_U_RK->w[ijk]*pnt_mesh->BC_Corrector_zetaMomentum[ijk]+
  pnt_mesh->zeta_z[ijk]*pnt_U_RK->p[ijk]*
                                 pnt_config->Upsilon);
 
