@@ -104,7 +104,7 @@ void MeshMetricExport(
 			{
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
-				fprintf(file0," %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le %le\n",
+				fprintf(file0," %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le\n",
 						(double)pnt_mesh->x[ijk],
 						(double)pnt_mesh->y[ijk],
 						(double)pnt_mesh->z[ijk],

@@ -321,6 +321,7 @@ int main(int argc, char *argv[])
 				&mesh,
 				&U_lastStep,
 				&Film,
+				&Q_sum,
 				1);
 	}
 
@@ -759,6 +760,7 @@ void startSimulation(
 					pnt_mesh,
 					pnt_U_lastStep,
 					pnt_Film,
+					pnt_Q_sum,
 					0);
 		}
 	}

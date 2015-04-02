@@ -1850,7 +1850,7 @@ void DefineParameters(struct strct_configuration * pnt_config)
 	pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
 	pnt_config->ZD_Interpolation_Koeffizient = (FLT *)calloc((SPACEORDER+1), sizeof(FLT ));
 	pnt_config->ZD_Ableitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
-	pnt_config->ZD_ZweiteAbleitung_Koeffizient = (FLT *)calloc((SPACEORDER+2), sizeof(FLT ));
+
 	if(SPACEORDER==9)
 	{
 		// checked (30.03.2015 Koeffizientenvergleich.xls)
@@ -1878,6 +1878,8 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[9] =      3. /  9450.;
 
 		// checked (30.03.2015 Koeffizientenvergleich.xls)
+		// Im Unterschied zu Prof. Klioutchnikovs Version wird die Ableitung u_xi=(u_i+1/2-u_i-1/2)/xi nicht
+		//mittels der zweifachen Anwendung von Interpolationskoeffizienten berechnet sondern DIREKT mittels dieser Ableitungskoeffizienten
 		pnt_config->ZD_Ableitung_Koeffizient[0]=   -1./1260.;
 		pnt_config->ZD_Ableitung_Koeffizient[1]=   25./2520.;
 		pnt_config->ZD_Ableitung_Koeffizient[2]= -150./2520.;
@@ -1889,19 +1891,6 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_Ableitung_Koeffizient[8]=  150./2520.;
 		pnt_config->ZD_Ableitung_Koeffizient[9]=  -25./2520.;
 		pnt_config->ZD_Ableitung_Koeffizient[10]=   1./1260.;
-
-		// checked (30.03.2015 Koeffizientenvergleich.xls)
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[0]=      24./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[1]=    -375./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[2]=    3000./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[3]=  -18000./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[4]=  126000./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[5]= -221298./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[6]=  126000./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[7]=  -18000./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[8]=    3000./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[9]=    -375./75600.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[10]=     24./75600.;
 	}
 	else
 	{
@@ -1921,7 +1910,10 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[4] =   -25. / 180.;
 		pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[5] =     1. / 90.;
 
+
 		// checked (30.03.2015 Koeffizientenvergleich.xls)
+		// Im Unterschied zu Prof. Klioutchnikovs Version wird die Ableitung u_xi=(u_i+1/2-u_i-1/2)/xi nicht
+		//mittels der zweifachen Anwendung von Interpolationskoeffizienten berechnet sondern DIREKT mittels dieser Ableitungskoeffizienten
 		pnt_config->ZD_Ableitung_Koeffizient[0]=    -1./60.;
 		pnt_config->ZD_Ableitung_Koeffizient[1]=     3./20.;
 		pnt_config->ZD_Ableitung_Koeffizient[2]=    -3./4.;
@@ -1929,15 +1921,6 @@ void DefineParameters(struct strct_configuration * pnt_config)
 		pnt_config->ZD_Ableitung_Koeffizient[4]=     3./4.;
 		pnt_config->ZD_Ableitung_Koeffizient[5]=    -3./20.;
 		pnt_config->ZD_Ableitung_Koeffizient[6]=     1./60.;
-
-		// checked (30.03.2015 Koeffizientenvergleich.xls)
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[0]=      2./180.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[1]=    -27./180.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[2]=    270./180.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[3]=   -490./180.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[4]=    270./180;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[5]=    -27./180.;
-		pnt_config->ZD_ZweiteAbleitung_Koeffizient[6]=      2./180.;
 	}
 
 
@@ -2004,9 +1987,13 @@ void DefineParameters(struct strct_configuration * pnt_config)
 
 	pnt_config->flag_reinitialization=0;
 
-	pnt_config->ManufacturedSolution_L2_last=999.;
-	pnt_config->ManufacturedSolution_L2_last_pressure=999.;
+	pnt_config->ManufacturedSolution_L2_last=1.;
+	pnt_config->ManufacturedSolution_L2_last_pressure=1.;
 	pnt_config->ManufacturedSolution_L2_counter=0;
+	pnt_config->ManufacturedSolution_last_Q_Mass=1.;
+	pnt_config->ManufacturedSolution_last_Q_xiMomentum=1.;
+	pnt_config->ManufacturedSolution_last_Q_etaMomentum=1.;
+	pnt_config->ManufacturedSolution_last_Q_Energy=1.;
 	pnt_config->all_L2_norm_rho=0;
 	pnt_config->all_L2_norm_pressure=0;
 	pnt_config->all_Linf_norm_rho=0;
@@ -6421,6 +6408,9 @@ void CreateMetric(
 					x_zeta=0.0L;
 					y_zeta=0.0L;
 					z_zeta=1.0L;
+
+					y_xi=0.0L;
+					x_eta=0.0L;
 				}
 				else
 				{

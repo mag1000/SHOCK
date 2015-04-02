@@ -104,7 +104,8 @@ void ConfigImport(
 	pnt_config->T0_dim = iniparser_getdouble(ini, "fluidproperties:T", -1);
 	pnt_config->L0_dim = iniparser_getdouble(ini, "fluidproperties:L", -1);
 
-	pnt_config->reynoldsNumber=1.0L*sqrtl(1.4L*100000.0L/1.0L)/10.0L;
+	pnt_config->reynoldsNumber=1.0L*sqrtl(1.4L*100000.0L/1.0L)/1000.0L;
+	pnt_config->reynoldsNumber=1.0L;
 	pnt_config->T0_dim=100000L/1.0L/287.0L;
 
 //	Export
