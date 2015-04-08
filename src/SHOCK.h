@@ -18,7 +18,7 @@
 	#define MY_FLT_MIN DBL_MIN
 	#define MPI_FLT MPI_DOUBLE
 	#define MY_PI 3.14159265358979323846264338327950288419716939937510
-	#define CONV_ERROR	1.0E-16L
+	#define CONV_ERROR	1.0E-17L
 #elif PRECISION == 3
 	#define FLT_name "long double"
 	#define FLT long double
@@ -36,7 +36,7 @@
 #endif
 
 #ifndef SPACEORDER
-#define SPACEORDER 5
+#define SPACEORDER 9
 #endif
 
 #ifndef GITID
@@ -406,6 +406,7 @@ struct strct_configuration
 	char BCManufacturedSolution[30];
 	long double ManufacturedSolution_L2_last;
 	long double ManufacturedSolution_L2_last_pressure;
+	long double ManufacturedSolution_fluxRatio;
 	long double ManufacturedSolution_last_Q_Mass;
 	long double ManufacturedSolution_last_Q_xiMomentum;
 	long double ManufacturedSolution_last_Q_etaMomentum;

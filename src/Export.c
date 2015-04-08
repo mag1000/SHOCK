@@ -93,9 +93,9 @@ void MeshMetricExport(
 
 
 	fprintf(file0,"variables = x, y, z, xi_x, xi_y, xi_z, eta_x, eta_y, eta_z, zeta_x, zeta_y, zeta_z, jacobian, u, v, w, p, rho\n");
-	fprintf(file0,"zone t='1', k= %d, j= %d, i= %d, f=point \n",pnt_config->int_kMeshPointsGhostCells,pnt_config->int_jMeshPointsGhostCells,pnt_config->int_iMeshPointsGhostCells);
+	fprintf(file0,"zone t='1', k= %d, j= %d, i= %d, F=POINT, DT=(DOUBLE) \n",pnt_config->int_kMeshPointsGhostCells,pnt_config->int_jMeshPointsGhostCells,pnt_config->int_iMeshPointsGhostCells);
 
-
+//int ijkMAX=pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
 	for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
 	{
 		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
@@ -104,13 +104,14 @@ void MeshMetricExport(
 			{
 				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
 
-				fprintf(file0," %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le %.14le\n",
+				fprintf(file0," %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e %.14e\n",
 						(double)pnt_mesh->x[ijk],
 						(double)pnt_mesh->y[ijk],
 						(double)pnt_mesh->z[ijk],
 						(double)pnt_mesh->xi_x[ijk],
 						(double)pnt_mesh->xi_y[ijk],
 						(double)pnt_mesh->xi_z[ijk],
+						//(double)pnt_mesh->etaFluss_Faktor[0*ijkMAX+ijk],
 						(double)pnt_mesh->eta_x[ijk],
 						(double)pnt_mesh->eta_y[ijk],
 						(double)pnt_mesh->eta_z[ijk],

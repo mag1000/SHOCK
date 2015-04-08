@@ -101,19 +101,19 @@
 
 \subsection{Einführung von dimensionslosen Größen}
 \begin{align*}
-x=\frac{\tilde{x}}{\tilde{L}},\ 
-y=\frac{\tilde{y}}{\tilde{L}},\ 
-z=\frac{\tilde{z}}{\tilde{L}},\ 
-t=\frac{\tilde{t}}{\tilde{u}_{ref} \tilde{L}},\ 
-u=\frac{\tilde{u}}{\tilde{u}_{ref}},\
-v=\frac{\tilde{v}}{\tilde{u}_{ref}},\ 
-w=\frac{\tilde{w}}{\tilde{u}_{ref}},\  
-\rho=\frac{\tilde{\rho}}{\tilde{\rho}},\ 
-e=\frac{\tilde{e}}{\tilde{u}_{ref}^2},\ 
-p=\frac{\tilde{p}}{\tilde{p}_{ref}},\ 
-T=\frac{\tilde{T}}{\tilde{T}_{ref}},\
-\mu=\frac{\tilde{\mu}}{\tilde{\mu}_{ref}},\ 
-\lambda=\frac{\tilde{\lambda}}{\tilde{\lambda}_{ref}},\  
+x=\frac{\tilde{x}}{{L}_{ref}},\ 
+y=\frac{\tilde{y}}{{L}_{ref}},\ 
+z=\frac{\tilde{z}}{{L}_{ref}},\ 
+t=\frac{\tilde{t}}{{u}_{ref} {L}_{ref}},\ 
+u=\frac{\tilde{u}}{{u}_{ref}},\
+v=\frac{\tilde{v}}{{u}_{ref}},\ 
+w=\frac{\tilde{w}}{{u}_{ref}},\  
+\rho=\frac{\tilde{\rho}}{{\rho}_{ref}},\ 
+e=\frac{\tilde{e}}{{u}_{ref}^2},\ 
+p=\frac{\tilde{p}}{{p}_{ref}},\ 
+T=\frac{\tilde{T}}{{T}_{ref}},\
+\mu=\frac{\tilde{\mu}}{{\mu}_{ref}},\ 
+\lambda=\frac{\tilde{\lambda}}{{\lambda}_{ref}},\  
 \end{align*}
 
 
@@ -180,7 +180,7 @@ w\left(\rho e+\Upsilon p\right)
 \\
 \Psi \tau_{xz}
 \\
-\Psi \tau_{xx}u+\Psi \tau_{xy}v+\Psi \tau_{xz}w+\Gamma q_x
+\Psi \tau_{xx}u+\Psi \tau_{xy}v+\Psi \tau_{xz}w-\Gamma q_x
 \end{pmatrix}
 +\frac{\partial}{\partial y}
 \begin{pmatrix}
@@ -192,7 +192,7 @@ w\left(\rho e+\Upsilon p\right)
 \\
 \Psi \tau_{yz}
 \\
-\Psi \tau_{yx}u+\Psi \tau_{yy}v+\Psi \tau_{yz}w+\Gamma q_y
+\Psi \tau_{yx}u+\Psi \tau_{yy}v+\Psi \tau_{yz}w-\Gamma q_y
 \end{pmatrix}
 +
 \frac{\partial}{\partial z}
@@ -205,7 +205,7 @@ w\left(\rho e+\Upsilon p\right)
 \\
 \Psi \tau_{zz}
 \\
-\Psi \tau_{zx}u+\Psi \tau_{zy}v+\Psi \tau_{zz}w+\Gamma q_z
+\Psi \tau_{zx}u+\Psi \tau_{zy}v+\Psi \tau_{zz}w-\Gamma q_z
 \end{pmatrix}
 \end{align*}
 
@@ -221,16 +221,16 @@ e=\frac{T}{\gamma \left(\gamma -1\right)Ma_{ref}^2}+\frac{1}{2}\left(u^2+v^2+w^2
 \ \ \ \ \ \ \ \ \ 
 p=\rho T
 \ \ \ \ \ \ \ \ \ 
-\mu=\frac{1+S}{T+S}T^\frac{3}{2},\ S=\frac{100,4K}{\tilde{T_{ref}}}
+\mu=\frac{1+S}{T+S}T^\frac{3}{2},\ S=\frac{100,4K}{{T_{ref}}}
 \ \ \ \ \ \ \ \ \ 
 \lambda=\mu
 \end{align*}
 \begin{align*}
-q_x=\lambda \frac{\partial T}{\partial x}
+q_x=-\lambda \frac{\partial T}{\partial x}
 \ \ \ \ \ \ \ \ \ 
-q_y=\lambda \frac{\partial T}{\partial y}
+q_y=-\lambda \frac{\partial T}{\partial y}
 \ \ \ \ \ \ \ \ \ 
-q_z=\lambda \frac{\partial T}{\partial z}
+q_z=-\lambda \frac{\partial T}{\partial z}
 \end{align*}
 
 \begin{align*}
@@ -257,6 +257,22 @@ Die allgemeine Beziehung der Koordinatentransformation lautet:
 \frac{\partial f}{\partial y}=\xi_y\frac{\partial f}{\partial \xi}+\eta_y\frac{\partial f}{\partial \eta}+\zeta_y\frac{\partial f}{\partial \zeta}
 \ \ \ \ \ \ \ \ \ 
 \frac{\partial f}{\partial z}=\xi_z\frac{\partial f}{\partial \xi}+\eta_z\frac{\partial f}{\partial \eta}+\zeta_z\frac{\partial f}{\partial \zeta}
+\end{align*}
+Mithilfe des strukturierten Gitters lassen sich die Ableitungen $(x,y,z)_{(\xi,\eta,\zeta)}$ berechnen und die Jakobischen Determinante J bestimmen:
+\begin{align*}
+J=x_\xi*y_\eta*z_\zeta+x_\eta*y_\zeta*z_\xi+x_\zeta*y_\xi*z_\eta-x_\zeta*y_\eta*z_\xi-x_\eta*y_\xi*z_\zeta-x_\xi*y_\zeta*z_\eta;
+\end{align*}
+Daraus ergeben sich die metrischen Koeffizienten:
+\begin{align*}
+\xi_x=(y_\eta*z_\zeta-y_\zeta*z_\eta)/J\ \ \ \ \ \ \ \ \ 
+\xi_y=(x_\zeta*z_\eta-x_\eta*z_\zeta)/J\ \ \ \ \ \ \ \ \ 
+\xi_z=(x_\eta*y_\zeta-x_\zeta*y_\eta)/J\\
+\eta_x=(y_\zeta*z_\xi-y_\xi*z_\zeta)/J\ \ \ \ \ \ \ \ \ 
+\eta_y=(x_\xi*z_\zeta-x_\zeta*z_\xi)/J\ \ \ \ \ \ \ \ \ 
+\eta_z=(x_\zeta*y_\xi-x_\xi*y_\zeta)/J\\
+\zeta_x=(y_\xi*z_\eta-y_\eta*z_\xi)/J\ \ \ \ \ \ \ \ \ 
+\zeta_y=(x_\eta*z_\xi-x_\xi*z_\eta)/J\ \ \ \ \ \ \ \ \ 
+\zeta_z=(x_\xi*y_\eta-x_\eta*y_\xi)/J
 \end{align*}
 Angewendet auf die Erhaltungsgleichungen ergibt dies:
 \begin{align*}
@@ -319,13 +335,21 @@ Verwendet wird aber folgende Form, die: \\
 \overbrace{
 \frac{\partial \hat{F}}{\partial \xi}+\frac{\partial \hat{G}}{\partial \eta}+\frac{\partial \hat{H}}{\partial \zeta}
 }^{WENO}
-=
+&=
 \overbrace{
 \frac{\partial \hat{F}^\nu}{\partial \xi}+\frac{\partial \hat{G}^\nu}{\partial \eta}+\frac{\partial \hat{H}^\nu}{\partial \zeta}
-}^{Zentrale Differenzen}
+}^{Zentrale\ Differenzen}
+\\
+\frac{\partial U}{\partial t} &= Q
+\\
+Q&=
+-\frac{\partial \hat{F}}{\partial \xi}-\frac{\partial \hat{F}}{\partial \eta}-\frac{\partial \hat{G}}{\partial \zeta}
++
+\frac{\partial \hat{F}^\nu}{\partial \xi}+\frac{\partial \hat{G}^\nu}{\partial \eta}+\frac{\partial \hat{H}^\nu}{\partial \zeta}
+% \frac{U^{n+1}-U^{n}}{\varDelta t}&=Q\left(U^{n}\right)
 \end{align*}
 
-\subsection{Erhaltungsgrößen [Runge Kutta]}
+\subsection{Erhaltungsgrößen}
 \subsubsection{Erhaltungsvektor $U$}
 \begin{align*}
 U
@@ -361,9 +385,9 @@ J
 J \left(\Psi \left(
 u\left(\xi_x \tau_{xx} + \xi_y \tau_{xy} + \xi_z \tau_{xz}\right)+
 v\left(\xi_x \tau_{xy} + \xi_y \tau_{yy} + \xi_z \tau_{yz}\right)+
-w\left(\xi_x \tau_{xz} + \xi_y \tau_{yz} + \xi_z \tau_{zz}\right)+
-\right)+
-\Gamma \left(
+w\left(\xi_x \tau_{xz} + \xi_y \tau_{yz} + \xi_z \tau_{zz}\right)
+\right)
+-\Gamma \left(
 \xi_x q_x+\xi_y q_y+\xi_z q_z
 \right)
 \right)
@@ -384,9 +408,9 @@ w\left(\xi_x \tau_{xz} + \xi_y \tau_{yz} + \xi_z \tau_{zz}\right)+
 J \left(\Psi \left(
 u\left(\eta_x \tau_{xx} + \eta_y \tau_{xy} + \eta_z \tau_{xz}\right)+
 v\left(\eta_x \tau_{xy} + \eta_y \tau_{yy} + \eta_z \tau_{yz}\right)+
-w\left(\eta_x \tau_{xz} + \eta_y \tau_{yz} + \eta_z \tau_{zz}\right)+
-\right)+
-\Gamma \left(
+w\left(\eta_x \tau_{xz} + \eta_y \tau_{yz} + \eta_z \tau_{zz}\right)
+\right)
+-\Gamma \left(
 \eta_x q_x+\eta_y q_y+\eta_z q_z
 \right)
 \right)
@@ -407,9 +431,9 @@ w\left(\eta_x \tau_{xz} + \eta_y \tau_{yz} + \eta_z \tau_{zz}\right)+
 J \left(\Psi \left(
 u\left(\zeta_x \tau_{xx} + \zeta_y \tau_{xy} + \zeta_z \tau_{xz}\right)+
 v\left(\zeta_x \tau_{xy} + \zeta_y \tau_{yy} + \zeta_z \tau_{yz}\right)+
-w\left(\zeta_x \tau_{xz} + \zeta_y \tau_{yz} + \zeta_z \tau_{zz}\right)+
-\right)+
-\Gamma \left(
+w\left(\zeta_x \tau_{xz} + \zeta_y \tau_{yz} + \zeta_z \tau_{zz}\right)
+\right)
+-\Gamma \left(
 \zeta_x q_x+\zeta_y q_y+\zeta_z q_z
 \right)
 \right)
@@ -417,11 +441,11 @@ w\left(\zeta_x \tau_{xz} + \zeta_y \tau_{yz} + \zeta_z \tau_{zz}\right)+
 \end{align*}
 
 \begin{align*}
-q_x&=\lambda\frac{\partial T}{\partial x}=\lambda \left(\xi_x\frac{\partial T}{\partial \xi}+\eta_x\frac{\partial T}{\partial \eta}+\zeta_x\frac{\partial T}{\partial \zeta}\right)
+q_x&=-\lambda\frac{\partial T}{\partial x}=-\lambda \left(\xi_x\frac{\partial T}{\partial \xi}+\eta_x\frac{\partial T}{\partial \eta}+\zeta_x\frac{\partial T}{\partial \zeta}\right)
 \\
-q_y&=\lambda\frac{\partial T}{\partial y}=\lambda \left(\xi_y\frac{\partial T}{\partial \xi}+\eta_y\frac{\partial T}{\partial \eta}+\zeta_y\frac{\partial T}{\partial \zeta}\right)
+q_y&=-\lambda\frac{\partial T}{\partial y}=-\lambda \left(\xi_y\frac{\partial T}{\partial \xi}+\eta_y\frac{\partial T}{\partial \eta}+\zeta_y\frac{\partial T}{\partial \zeta}\right)
 \\
-q_z&=\lambda\frac{\partial T}{\partial z}=\lambda \left(\xi_z\frac{\partial T}{\partial \xi}+\eta_z\frac{\partial T}{\partial \eta}+\zeta_z\frac{\partial T}{\partial \zeta}\right)
+q_z&=-\lambda\frac{\partial T}{\partial z}=-\lambda \left(\xi_z\frac{\partial T}{\partial \xi}+\eta_z\frac{\partial T}{\partial \eta}+\zeta_z\frac{\partial T}{\partial \zeta}\right)
 \end{align*}
 
 \begin{align*}
@@ -467,13 +491,9 @@ Folgende Gleichungen erhält man:
 \\
 \\
 \Psi J \mu  \left\{
-\frac{\Gamma}{\Psi} \left[
-\frac{\partial T}{\partial \xi} \left(\xi _x^2+\xi _y^2+\xi _z^2\right)+\frac{\partial T}{\partial \eta} \left(\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)
-\right] \right.
-\\
-+u \left(
+u \left(
 \frac{\partial u}{\partial \xi} \left(\frac{4}{3} \xi _x^2+\xi _y^2+\xi _z^2\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3}\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial v}{\partial \xi} \frac{1}{3} \xi _x \xi _y+\frac{\partial v}{\partial \eta} \left(-\frac{2}{3} \eta _y \xi _x+\eta _x \xi _y\right)+\frac{\partial v}{\partial \zeta} \left(-\frac{2}{3} \zeta _y \xi _x+\zeta _x \xi _y\right)+\frac{\partial w}{\partial \xi}\frac{1}{3} \xi _x \xi _z+\frac{\partial w}{\partial \eta} \left(-\frac{2}{3} \eta _z \xi _x+\eta _x \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \xi _x+\zeta _x \xi _z\right)
-\right)
+\right) \right.
 \\
 +v \left(
 \frac{\partial u}{\partial \xi} \frac{1}{3} \xi _x \xi _y+\frac{\partial u}{\partial \eta} \left(\eta _y \xi _x-\frac{2}{3} \eta _x \xi _y\right)+\frac{\partial u}{\partial \zeta} \left(\zeta _y \xi _x-\frac{2}{3}\zeta _x \xi _y\right)+\frac{\partial v}{\partial \xi} \left(\xi _x^2+\frac{4}{3}\xi _y^2+\xi _z^2\right)+\frac{\partial v}{\partial \eta} \left(\eta _x \xi _x+\frac{4}{3}\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x \xi _x+\frac{4}{3}\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial w}{\partial \xi} \frac{1}{3} \xi _y \xi _z+\frac{\partial w}{\partial \eta} \left(-\frac{2}{3} \eta _z \xi _y+\eta _y \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \xi _y+\zeta _y \xi _z\right)
@@ -482,6 +502,11 @@ Folgende Gleichungen erhält man:
 +w \left( \left.
 \frac{\partial u}{\partial \xi} \frac{1}{3} \xi _x \xi _z+\frac{\partial u}{\partial \eta} \left(\eta _z \xi _x-\frac{2}{3}\eta _x \xi _z\right)+\frac{\partial u}{\partial \zeta} \left(\zeta _z \xi _x-\frac{2}{3}\zeta _x \xi _z\right)+\frac{\partial v}{\partial \xi} \frac{1}{3} \xi _y \xi _z+\frac{\partial v}{\partial \eta} \left(\eta _z \xi _y-\frac{2}{3}\eta _y \xi _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _z \xi _y-\frac{2}{3}\zeta _y \xi _z\right)+\frac{\partial w}{\partial \xi} \left(\xi _x^2+\xi _y^2+\frac{4}{3} \xi _z^2\right)+\frac{\partial w}{\partial \eta} \left(\eta _x \xi _x+\eta _y \xi _y+\frac{4}{3}\eta _z \xi _z\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x \xi _x+\zeta _y \xi _y+\frac{4}{3}\zeta _z \xi _z\right)
 \right) \right\}
+\\
+-\Gamma  J \mu \left\{
+\frac{\partial T}{\partial \xi} \left(\xi _x^2+\xi _y^2+\xi _z^2\right)+\frac{\partial T}{\partial \eta} \left(\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)
+\right\}
+\\
 \end{pmatrix}
 \end{align*}
 
@@ -507,12 +532,9 @@ Folgende Gleichungen erhält man:
 \\
 \\
 \Psi J \mu  \left\{
-\frac{\Gamma}{\Psi} \left[
-\frac{\partial T}{\partial \xi} \left(\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+ \frac{\partial T}{\partial \eta} \left(\eta _x^2+\eta _y^2+\eta _z^2\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)
-\right] \right.
-\\+u \left(
+u \left(
 \frac{\partial u}{\partial \xi} \left(\frac{4}{3}\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3} \eta _x^2+\eta _y^2+\eta _z^2\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial v}{\partial \xi} \left(\eta _y \xi _x-\frac{2}{3}\eta _x \xi _y\right)+\frac{\partial v}{\partial \eta} \frac{1}{3} \eta _x \eta _y+\frac{\partial v}{\partial \zeta} \left(-\frac{2}{3} \zeta _y \eta _x+\zeta _x \eta _y\right)+\frac{\partial w}{\partial \xi} \left(\eta _z \xi _x-\frac{2}{3}\eta _x \xi _z\right)+\frac{\partial w}{\partial \eta}\frac{1}{3} \eta _x \eta _z+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \eta _x+\zeta _x \eta _z\right)
-\right)
+\right)\right.
 \\+v \left(
 \frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \eta _y \xi _x+\eta _x \xi _y\right)+\frac{\partial u}{\partial \eta}\frac{1}{3} \eta _x \eta _y+\frac{\partial u}{\partial \zeta} \left(\zeta _y \eta _x-\frac{2 \zeta _x \eta _y}{3}\right)+\frac{\partial v}{\partial \xi} \left(\eta _x \xi _x+\frac{4}{3}\eta _y \xi _y+\eta _z \xi _z\right)+\frac{\partial v}{\partial \eta} \left(\eta _x^2+\frac{4}{3}\eta _y^2+\eta _z^2\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x \eta _x+\frac{4}{3}\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial w}{\partial \xi} \left(\eta _z \xi _y-\frac{2}{3}\eta _y \xi _z\right)+\frac{\partial w}{\partial \eta}\frac{1}{3} \eta _y \eta _z+\frac{\partial w}{\partial \zeta} \left(-\frac{2}{3} \zeta _z \eta _y+\zeta _y \eta _z\right)
 \right)
@@ -521,6 +543,11 @@ Folgende Gleichungen erhält man:
 \frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \eta _z \xi _x+\eta _x \xi _z\right)+\frac{\partial u}{\partial \eta} \frac{1}{3} \eta _x \eta _z+\frac{\partial u}{\partial \zeta} \left(\zeta _z \eta _x-\frac{2}{3}\zeta _x \eta _z\right)+\frac{\partial v}{\partial \xi} \left(-\frac{2}{3} \eta _z \xi _y+\eta _y \xi _z\right)+\frac{\partial v}{\partial \eta}\frac{1}{3} \eta _y \eta _z+\frac{\partial v}{\partial \zeta} \left(\zeta _z \eta _y-\frac{2}{3}\zeta _y \eta _z\right)+\frac{\partial w}{\partial \xi} \left(\eta _x \xi _x+\eta _y \xi _y+\frac{4}{3}\eta _z \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\eta _x^2+\eta _y^2+\frac{4}{3}\eta _z^2\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\frac{4}{3}\zeta _z \eta _z\right)
 \right)
 \right\}
+\\
+-\Gamma J \mu  \left\{
+\frac{\partial T}{\partial \xi} \left(\eta _x \xi _x+\eta _y \xi _y+\eta _z \xi _z\right)+ \frac{\partial T}{\partial \eta} \left(\eta _x^2+\eta _y^2+\eta _z^2\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)
+\right\}
+\\
 \end{pmatrix}
 \end{align*}
 
@@ -546,12 +573,9 @@ Folgende Gleichungen erhält man:
 \\
 \\
 \Psi J \mu  \left\{
-\frac{\Gamma}{\Psi} \left[
-\frac{\partial T}{\partial \xi} \left(\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial T}{\partial \eta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x^2+\zeta _y^2+\zeta _z^2\right)
-\right] \right.
-\\+u \left(
+u \left(
 \frac{\partial u}{\partial \xi} \left(\frac{4}{3}\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial u}{\partial \eta} \left(\frac{4}{3}\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial u}{\partial \zeta} \left(\frac{4}{3}\zeta _x^2+\zeta _y^2+\zeta _z^2\right)+\frac{\partial v}{\partial \xi} \left(\zeta _y \xi _x-\frac{2}{3}\zeta _x \xi _y\right)+\frac{\partial v}{\partial \eta} \left(\zeta _y \eta _x-\frac{2}{3}\zeta _x \eta _y\right)+\frac{\partial v}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _y+\frac{\partial w}{\partial \xi} \left(\zeta _z \xi _x-\frac{2}{3}\zeta _x \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _z \eta _x-\frac{2}{3}\zeta _x \eta _z\right)+\frac{\partial w}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _z
-\right)
+\right)\right.
 \\+v \left(
 \frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \zeta _y \xi _x+\zeta _x \xi _y\right)+\frac{\partial u}{\partial \eta} \left(-\frac{2}{3} \zeta _y \eta _x+\zeta _x \eta _y\right)+\frac{\partial u}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _y+\frac{\partial v}{\partial \xi} \left(\zeta _x \xi _x+\frac{4}{3}\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial v}{\partial \eta} \left(\zeta _x \eta _x+\frac{4}{3}\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial v}{\partial \zeta} \left(\zeta _x^2+\frac{4}{3}\zeta _y^2+\zeta _z^2\right)+\frac{\partial w}{\partial \xi} \left(\zeta _z \xi _y-\frac{2}{3}\zeta _y \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _z \eta _y-\frac{2}{3}\zeta _y \eta _z\right)+\frac{\partial w}{\partial \zeta}\frac{1}{3} \zeta _y \zeta _z
 \right)
@@ -559,6 +583,11 @@ Folgende Gleichungen erhält man:
 \left.
 \frac{\partial u}{\partial \xi} \left(-\frac{2}{3} \zeta _z \xi _x+\zeta _x \xi _z\right)+\frac{\partial u}{\partial \eta} \left(-\frac{2}{3} \zeta _z \eta _x+\zeta _x \eta _z\right)+\frac{\partial u}{\partial \zeta}\frac{1}{3} \zeta _x \zeta _z+\frac{\partial v}{\partial \xi} \left(-\frac{2}{3} \zeta _z \xi _y+\zeta _y \xi _z\right)+\frac{\partial v}{\partial \eta} \left(-\frac{2}{3} \zeta _z \eta _y+\zeta _y \eta _z\right)+\frac{\partial v}{\partial \zeta}\frac{1}{3} \zeta _y \zeta _z+\frac{\partial w}{\partial \xi} \left(\zeta _x \xi _x+\zeta _y \xi _y+\frac{4}{3}\zeta _z \xi _z\right)+\frac{\partial w}{\partial \eta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\frac{4}{3}\zeta _z \eta _z\right)+\frac{\partial w}{\partial \zeta} \left(\zeta _x^2+\zeta _y^2+\frac{4}{3}\zeta _z^2\right)
 \right)
+\right\}
+\\
+-
+\Gamma J \mu \left\{
+\frac{\partial T}{\partial \xi} \left(\zeta _x \xi _x+\zeta _y \xi _y+\zeta _z \xi _z\right)+\frac{\partial T}{\partial \eta} \left(\zeta _x \eta _x+\zeta _y \eta _y+\zeta _z \eta _z\right)+\frac{\partial T}{\partial \zeta} \left(\zeta _x^2+\zeta _y^2+\zeta _z^2\right)
 \right\}
 \end{pmatrix}
 \end{align*}
@@ -715,7 +744,7 @@ v\left(\rho e+\Upsilon p\right)
 \\
 \rho v^2 - \Psi \tau_{yy}
 \\
-v\left(\rho e+\Upsilon p\right) - \Psi \tau_{xy} u - \Psi \tau_{yy} v - \Gamma q_y
+v\left(\rho e+\Upsilon p\right) - \Psi \tau_{xy} u - \Psi \tau_{yy} v + \Gamma q_y
 \end{pmatrix}
 =
 \frac{\partial}{\partial x}
@@ -726,7 +755,7 @@ v\left(\rho e+\Upsilon p\right) - \Psi \tau_{xy} u - \Psi \tau_{yy} v - \Gamma q
 \\
 \Psi \tau_{xy}
 \\
-\Psi \tau_{xx}u+\Psi \tau_{xy}v+\Gamma q_x
+\Psi \tau_{xx}u+\Psi \tau_{xy}v-\Gamma q_x
 \end{pmatrix}
 +\frac{\partial}{\partial y}
 \begin{pmatrix}
@@ -736,7 +765,7 @@ v\left(\rho e+\Upsilon p\right) - \Psi \tau_{xy} u - \Psi \tau_{yy} v - \Gamma q
 \\
 \Psi \tau_{yy}
 \\
-\Psi \tau_{yx}u+\Psi \tau_{yy}v+\Gamma q_y
+\Psi \tau_{yx}u+\Psi \tau_{yy}v-\Gamma q_y
 \end{pmatrix}
 \end{align*}
 
@@ -752,14 +781,14 @@ e=\frac{T}{\gamma \left(\gamma -1\right)Ma_{ref}^2}+\frac{1}{2}\left(u^2+v^2\rig
 \ \ \ \ \ \ \ \ \ 
 p=\rho T
 \ \ \ \ \ \ \ \ \ 
-\mu=\frac{1+S}{T+S}T^\frac{3}{2},\ S=\frac{100,4K}{\tilde{T_{ref}}}
+\mu=\frac{1+S}{T+S}T^\frac{3}{2},\ S=\frac{100,4K}{{T_{ref}}}
 \ \ \ \ \ \ \ \ \ 
 \lambda=\mu
 \end{align*}
 \begin{align*}
-q_x=\lambda \frac{\partial T}{\partial x}
+q_x=-\lambda \frac{\partial T}{\partial x}
 \ \ \ \ \ \ \ \ \ 
-q_y=\lambda \frac{\partial T}{\partial y}
+q_y=-\lambda \frac{\partial T}{\partial y}
 \end{align*}
 \begin{align*}
 \tau_{xx}=\mu \left(\frac{4}{3}\frac{\partial u}{\partial x}-\frac{2}{3}\left(\frac{\partial v}{\partial y} +\frac{v}{y}\right)\right)
@@ -772,15 +801,6 @@ q_y=\lambda \frac{\partial T}{\partial y}
 
 \section{Numerische Methode}
 \subsection{Approximation der zeitlichen Ableitung [Runge-Kutta]}
-\begin{align*}
-\left. \frac{\partial U}{\partial t} \right|_n &=Q\left(U^{n}\right)
-\\
-Q\left(U^{n}\right)&=
--\frac{\partial \hat{F}}{\partial \xi}-\frac{\partial \hat{F}}{\partial \eta}-\frac{\partial \hat{G}}{\partial \zeta}
-+
-\frac{\partial \hat{F}^\nu}{\partial \xi}+\frac{\partial \hat{G}^\nu}{\partial \eta}+\frac{\partial \hat{H}^\nu}{\partial \zeta}
-% \frac{U^{n+1}-U^{n}}{\varDelta t}&=Q\left(U^{n}\right)
-\end{align*}
 Folgende Definitionen der Zwischenschritte sind verwendet:
 \subsubsection{TVD 3.Ordnung}
 \begin{align*}
