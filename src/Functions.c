@@ -1671,8 +1671,17 @@ void InitializeSpecialConditions(
 					}
 					
 					break;
-//				Taylor-Green Vortex
+//				Taylor-Green Vortex 2D
 				case 8:
+					u = pnt_config->InitializeValues_u0*sin(2*M_PI*pnt_mesh->x[ijk])*cos(2*M_PI*pnt_mesh->y[ijk]);
+					v = -pnt_config->InitializeValues_u0*cos(2*M_PI*pnt_mesh->x[ijk])*sin(2*M_PI*pnt_mesh->y[ijk]);
+					p = 1.0+(1.0/pnt_config->Upsilon)*pnt_config->InitializeValues_rho0/4*(cos(2*2*M_PI*pnt_mesh->x[ijk])+cos(2*2*M_PI*pnt_mesh->y[ijk]));
+					rho=pnt_config->InitializeValues_rho0;
+					break;
+
+ 
+//				Taylor-Green Vortex 3D
+				case 9:
 					u = pnt_config->InitializeValues_u0*sin(pnt_mesh->x[ijk])*cos(pnt_mesh->y[ijk])*cos(pnt_mesh->z[ijk]);
 					v = -pnt_config->InitializeValues_u0*cos(pnt_mesh->x[ijk])*sin(pnt_mesh->y[ijk])*cos(pnt_mesh->z[ijk]);
 					w = 0.0;
