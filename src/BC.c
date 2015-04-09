@@ -2969,7 +2969,7 @@ void WriteWallNoSlipIsothermalBoundary(
 
 //				Viskose Randbedingungen
 	pnt_U->mue[ijk]=pnt_U->mue[ijkSymmetry];
-	pnt_U->T[ijk]=1.0;
+	pnt_U->T[ijk]=pnt_config->T_wall;
 	
 	// um die Wärmeflüsse an Wand zu kontrollieren.			
     prandtl_local=0.72;

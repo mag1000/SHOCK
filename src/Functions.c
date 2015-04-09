@@ -2024,7 +2024,7 @@ void DefineParameters(struct strct_configuration * pnt_config)
 
 	pnt_config->flag_reinitialization=0;
 
-	strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Pressure");
+	strcpy(pnt_config->ManufacturedSolution_L2_Delta_name,"Density");
 	pnt_config->ManufacturedSolution_L2_last=1.0L;
 	pnt_config->ManufacturedSolution_L2_last_pressure=1.0L;
 	pnt_config->ManufacturedSolution_L2_counter=0;
@@ -2226,25 +2226,6 @@ void CalcRungeKutta(
 //###########################################
 //		REIBUNGSBEHAFTETE FLUSSBERECHNUNG
 //##########################################
-		if(pnt_config->flag_ManufacturedSolution==1)
-		{
-			int i,j,k,ijk;
-			pnt_config->ManufacturedSolution_fluxRatio=0.0;
-			for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
-			{
-				for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
-				{
-					for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
-					{
-						ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-
-						pnt_config->ManufacturedSolution_fluxRatio+=fabs(pnt_Q->etaMomentum[ijk]);
-					}
-				}
-			}
-			//printf("hier: %e\n",pnt_config->ManufacturedSolution_fluxRatio);
-		}
-
 		if (pnt_config->flag_Inviscid!=1)
 		{
 
@@ -2310,23 +2291,6 @@ void CalcRungeKutta(
 
 		if(pnt_config->flag_ManufacturedSolution==1)
 		{
-			int i,j,k,ijk;
-			long double ManufacturedSolution_fluxRatio_tmp=0.0;
-			for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
-			{
-				for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
-				{
-					for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
-					{
-						ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
-
-						ManufacturedSolution_fluxRatio_tmp+=fabs(pnt_Q->etaMomentum[ijk]);
-					}
-				}
-			}
-			pnt_config->ManufacturedSolution_fluxRatio=(ManufacturedSolution_fluxRatio_tmp-pnt_config->ManufacturedSolution_fluxRatio)/pnt_config->ManufacturedSolution_fluxRatio;
-			//printf("pnt_config->ManufacturedSolution_fluxRatio: %le\n",pnt_config->ManufacturedSolution_fluxRatio);
-
 			AddManufacturedSolutionSource(
 					pnt_config,
 					pnt_mesh,
@@ -5475,10 +5439,12 @@ int checkNAN(
 				if( (isinf(pnt_U->rho[ijk])||isnan(pnt_U->rho[ijk])) && (pnt_mesh->flag_IBC[ijk]==0))
 				{
 					NANCounter++;
+					/*
 					printf("SHOCK: NAN bei x=%g, y=%g, z=%g\n",
 							(double)pnt_mesh->x[ijk],
 							(double)pnt_mesh->y[ijk],
 							(double)pnt_mesh->z[ijk]);
+							*/
 //					MPI_Abort(pnt_config->MPI_comm,13370);
 					pnt_config->flag_NAN=1;
 

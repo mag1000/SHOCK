@@ -576,6 +576,7 @@ void startSimulation(
 //		Nach jedem Iterationsschritt wird das Gebiet nach NaN abgesucht
 		if(checkNAN(pnt_config,pnt_U_RK,pnt_mesh)==1)
 		{
+			if(pnt_config->MPI_rank==0){printf("!!! SHOCK: NAN detected !!!\n");}
 			if(int_ResetCounter>=pnt_config->int_NumberResets)
 			{
 				pnt_config->int_actualIteration=pnt_config->int_EndIteration;
