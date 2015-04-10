@@ -98,21 +98,23 @@ void CalcViscidFluxesInXiDirectionDirectly(
 
 					u_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_xi];	u_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_xi];
 					v_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_xi];	v_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_xi];
+#if MESHDIMENSIONS==3
+					w_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];	w_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
+#endif
 					T_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_xi];	T_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_xi];
 
-					u_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexMinus_xi];	u_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexPlus_xi];
-					v_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexMinus_xi];	v_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexPlus_xi];
-					T_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexMinus_xi];	T_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexPlus_xi];
+					u_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexMinus_xi];		u_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_eta[indexPlus_xi];
+					v_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexMinus_xi];		v_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_eta[indexPlus_xi];
+#if MESHDIMENSIONS==3
+					w_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexMinus_xi];		w_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexPlus_xi];
+#endif
+					T_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexMinus_xi];		T_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_eta[indexPlus_xi];
 
 #if MESHDIMENSIONS==3
-						w_xi_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_xi];	w_xi_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_xi];
-
-						w_eta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexMinus_xi];	w_eta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_eta[indexPlus_xi];
-
-						u_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_xi];	u_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_xi];
-						v_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_xi];	v_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_xi];
-						w_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_xi];	w_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_xi];
-						T_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_xi];	T_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_xi];
+					u_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_xi];		u_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_xi];
+					v_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_xi];		v_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_xi];
+					w_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_xi];		w_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_xi];
+					T_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_xi];		T_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_xi];
 #endif
 				}
 
@@ -175,108 +177,91 @@ void CalcViscidFluxesInXiDirectionDirectly(
 					pnt_config->flag_rotation_symmetric*EtaMomRotSymm;
 
 #if MESHDIMENSIONS==3
-					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+
-							pnt_config->Psi*(
-						u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18]+
-						u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19]+
-						u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20]+
-						v_xi_PlusHalf*Koeffizient_PlusHalf[21]-v_xi_MinusHalf*Koeffizient_MinusHalf[21]+
-						v_eta_PlusHalf*Koeffizient_PlusHalf[22]-v_eta_MinusHalf*Koeffizient_MinusHalf[22]+
-						v_zeta_PlusHalf*Koeffizient_PlusHalf[23]-v_zeta_MinusHalf*Koeffizient_MinusHalf[23]+
-						w_xi_PlusHalf*Koeffizient_PlusHalf[24]-w_xi_MinusHalf*Koeffizient_MinusHalf[24]+
-						w_eta_PlusHalf*Koeffizient_PlusHalf[25]-w_eta_MinusHalf*Koeffizient_MinusHalf[25]+
-						w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26]);
+				pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+
+						pnt_config->Psi*(
+					u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18]+
+					u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19]+
+					u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20]+
+					v_xi_PlusHalf*Koeffizient_PlusHalf[21]-v_xi_MinusHalf*Koeffizient_MinusHalf[21]+
+					v_eta_PlusHalf*Koeffizient_PlusHalf[22]-v_eta_MinusHalf*Koeffizient_MinusHalf[22]+
+					v_zeta_PlusHalf*Koeffizient_PlusHalf[23]-v_zeta_MinusHalf*Koeffizient_MinusHalf[23]+
+					w_xi_PlusHalf*Koeffizient_PlusHalf[24]-w_xi_MinusHalf*Koeffizient_MinusHalf[24]+
+					w_eta_PlusHalf*Koeffizient_PlusHalf[25]-w_eta_MinusHalf*Koeffizient_MinusHalf[25]+
+					w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26]);
 #endif
 
-					pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+
-							0.5*(pnt_config->Gamma[iPlus1jk]+pnt_config->Gamma[ijk])*(
-						T_xi_PlusHalf*Koeffizient_PlusHalf[27]-T_xi_MinusHalf*Koeffizient_MinusHalf[27]+
-						T_eta_PlusHalf*Koeffizient_PlusHalf[28]-T_eta_MinusHalf*Koeffizient_MinusHalf[28]+
-						T_zeta_PlusHalf*Koeffizient_PlusHalf[29]-T_zeta_MinusHalf*Koeffizient_MinusHalf[29])
+				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+
+						0.5*(pnt_config->Gamma[iPlus1jk]+pnt_config->Gamma[ijk])*(
+					T_xi_PlusHalf*Koeffizient_PlusHalf[27]-T_xi_MinusHalf*Koeffizient_MinusHalf[27]+
+					T_eta_PlusHalf*Koeffizient_PlusHalf[28]-T_eta_MinusHalf*Koeffizient_MinusHalf[28]+
+					T_zeta_PlusHalf*Koeffizient_PlusHalf[29]-T_zeta_MinusHalf*Koeffizient_MinusHalf[29])
 
-						// Bestimmung der Ableitung mittels Produktregel:
-						// du/dx(u*df/dx) = (u*d^2f/dx^2) + du/dx*df/dx
+					// Bestimmung der Ableitung mittels Produktregel:
+					// du/dx(u*df/dx) = (u*d^2f/dx^2) + du/dx*df/dx
 
-						+pnt_config->Psi*(
-						//hier: (u*d^2f/dx^2)
-						(
-						pnt_U_RK->u[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_xi_MinusHalf*Koeffizient_MinusHalf[0])+
-						pnt_U_RK->u[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_eta_MinusHalf*Koeffizient_MinusHalf[1])+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_zeta_MinusHalf*Koeffizient_MinusHalf[2])+
-#endif
-						pnt_U_RK->u[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[3]-v_xi_MinusHalf*Koeffizient_MinusHalf[3])+
-						pnt_U_RK->u[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[4]-v_eta_MinusHalf*Koeffizient_MinusHalf[4])+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[5]-v_zeta_MinusHalf*Koeffizient_MinusHalf[5])+
-						pnt_U_RK->u[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[6]-w_xi_MinusHalf*Koeffizient_MinusHalf[6])+
-						pnt_U_RK->u[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[7]-w_eta_MinusHalf*Koeffizient_MinusHalf[7])+
-						pnt_U_RK->u[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[8]-w_zeta_MinusHalf*Koeffizient_MinusHalf[8])+
-#endif
-						pnt_U_RK->v[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[9]-u_xi_MinusHalf*Koeffizient_MinusHalf[9])+
-						pnt_U_RK->v[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[10]-u_eta_MinusHalf*Koeffizient_MinusHalf[10])+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->v[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[11]-u_zeta_MinusHalf*Koeffizient_MinusHalf[11])+
-#endif
-						pnt_U_RK->v[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[12]-v_xi_MinusHalf*Koeffizient_MinusHalf[12])+
-						pnt_U_RK->v[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[13]-v_eta_MinusHalf*Koeffizient_MinusHalf[13])
-#if MESHDIMENSIONS==3
-						+
-						pnt_U_RK->v[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[14]-v_zeta_MinusHalf*Koeffizient_MinusHalf[14])+
-						pnt_U_RK->v[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[15]-w_xi_MinusHalf*Koeffizient_MinusHalf[15])+
-						pnt_U_RK->v[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[16]-w_eta_MinusHalf*Koeffizient_MinusHalf[16])+
-						pnt_U_RK->v[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[17]-w_zeta_MinusHalf*Koeffizient_MinusHalf[17])+
+					+pnt_config->Psi*(
+					//hier: (u*d^2f/dx^2)
+					(
+					pnt_U_RK->u[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_xi_MinusHalf*Koeffizient_MinusHalf[0])+
+					pnt_U_RK->u[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_eta_MinusHalf*Koeffizient_MinusHalf[1])+
+					pnt_U_RK->u[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_zeta_MinusHalf*Koeffizient_MinusHalf[2])+
+					pnt_U_RK->u[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[3]-v_xi_MinusHalf*Koeffizient_MinusHalf[3])+
+					pnt_U_RK->u[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[4]-v_eta_MinusHalf*Koeffizient_MinusHalf[4])+
+					pnt_U_RK->u[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[5]-v_zeta_MinusHalf*Koeffizient_MinusHalf[5])+
+					pnt_U_RK->u[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[6]-w_xi_MinusHalf*Koeffizient_MinusHalf[6])+
+					pnt_U_RK->u[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[7]-w_eta_MinusHalf*Koeffizient_MinusHalf[7])+
+					pnt_U_RK->u[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[8]-w_zeta_MinusHalf*Koeffizient_MinusHalf[8])+
+					pnt_U_RK->v[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[9]-u_xi_MinusHalf*Koeffizient_MinusHalf[9])+
+					pnt_U_RK->v[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[10]-u_eta_MinusHalf*Koeffizient_MinusHalf[10])+
+					pnt_U_RK->v[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[11]-u_zeta_MinusHalf*Koeffizient_MinusHalf[11])+
+					pnt_U_RK->v[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[12]-v_xi_MinusHalf*Koeffizient_MinusHalf[12])+
+					pnt_U_RK->v[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[13]-v_eta_MinusHalf*Koeffizient_MinusHalf[13])
+					+
+					pnt_U_RK->v[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[14]-v_zeta_MinusHalf*Koeffizient_MinusHalf[14])+
+					pnt_U_RK->v[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[15]-w_xi_MinusHalf*Koeffizient_MinusHalf[15])+
+					pnt_U_RK->v[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[16]-w_eta_MinusHalf*Koeffizient_MinusHalf[16])+
+					pnt_U_RK->v[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[17]-w_zeta_MinusHalf*Koeffizient_MinusHalf[17])+
 
-						pnt_U_RK->w[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18])+
-						pnt_U_RK->w[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19])+
-						pnt_U_RK->w[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20])+
-						pnt_U_RK->w[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[21]-v_xi_MinusHalf*Koeffizient_MinusHalf[21])+
-						pnt_U_RK->w[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[22]-v_eta_MinusHalf*Koeffizient_MinusHalf[22])+
-						pnt_U_RK->w[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[23]-v_zeta_MinusHalf*Koeffizient_MinusHalf[23])+
-						pnt_U_RK->w[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[24]-w_xi_MinusHalf*Koeffizient_MinusHalf[24])+
-						pnt_U_RK->w[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[25]-w_eta_MinusHalf*Koeffizient_MinusHalf[25])+
-						pnt_U_RK->w[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26])
-#endif
-						)+
-
-						//hier: du/dx*df/dx
-						(
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[0*ijkMAX+ijk]+
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[1*ijkMAX+ijk]+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[2*ijkMAX+ijk]+
-#endif
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[3*ijkMAX+ijk]+
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[4*ijkMAX+ijk]+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[5*ijkMAX+ijk]+
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[6*ijkMAX+ijk]+
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[7*ijkMAX+ijk]+
-						pnt_U_RK->u_xi[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[8*ijkMAX+ijk]+
-#endif
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[9*ijkMAX+ijk]+
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[10*ijkMAX+ijk]+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[11*ijkMAX+ijk]+
-#endif
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[12*ijkMAX+ijk]+
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[13*ijkMAX+ijk]
-#if MESHDIMENSIONS==3
-						+pnt_U_RK->v_xi[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[14*ijkMAX+ijk]+
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[15*ijkMAX+ijk]+
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[16*ijkMAX+ijk]+
-						pnt_U_RK->v_xi[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[17*ijkMAX+ijk]+
-
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[18*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[19*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[20*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[21*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[22*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[23*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[24*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[25*ijkMAX+ijk]+
-						pnt_U_RK->w_xi[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[26*ijkMAX+ijk]
-	#endif
+					pnt_U_RK->w[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18])+
+					pnt_U_RK->w[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19])+
+					pnt_U_RK->w[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20])+
+					pnt_U_RK->w[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[21]-v_xi_MinusHalf*Koeffizient_MinusHalf[21])+
+					pnt_U_RK->w[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[22]-v_eta_MinusHalf*Koeffizient_MinusHalf[22])+
+					pnt_U_RK->w[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[23]-v_zeta_MinusHalf*Koeffizient_MinusHalf[23])+
+					pnt_U_RK->w[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[24]-w_xi_MinusHalf*Koeffizient_MinusHalf[24])+
+					pnt_U_RK->w[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[25]-w_eta_MinusHalf*Koeffizient_MinusHalf[25])+
+					pnt_U_RK->w[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26])
+					)
+					+
+					//hier: du/dx*df/dx
+					(
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[0*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[1*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[2*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[3*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[4*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[5*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[6*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[7*ijkMAX+ijk]+
+					pnt_U_RK->u_xi[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[8*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[9*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[10*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[11*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[12*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[13*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[14*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[15*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[16*ijkMAX+ijk]+
+					pnt_U_RK->v_xi[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[17*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[18*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[19*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[20*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[21*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[22*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[23*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[24*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[25*ijkMAX+ijk]+
+					pnt_U_RK->w_xi[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->xiFluss_Faktor[26*ijkMAX+ijk]
 					)
 					)
 					+pnt_config->flag_rotation_symmetric*EnergyRotSymm;
@@ -341,21 +326,23 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 
 					u_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexMinus_eta];	u_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->u[indexPlus_eta];
 					v_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexMinus_eta];	v_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->v[indexPlus_eta];
-					T_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];	T_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
-
-					u_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_eta];	u_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_eta];
-					v_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_eta];	v_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_eta];
-					T_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexMinus_eta];	T_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexPlus_eta];
-
 #if MESHDIMENSIONS==3
 					w_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexMinus_eta];	w_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->w[indexPlus_eta];
+#endif
+					T_eta_MinusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexMinus_eta];	T_eta_PlusHalf+=pnt_config->ZD_AbleitungZwischenPunkt_Koeffizient[l]*pnt_U_RK->T[indexPlus_eta];
 
-					w_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexMinus_eta];	w_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexPlus_eta];
+					u_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexMinus_eta];			u_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_xi[indexPlus_eta];
+					v_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexMinus_eta];			v_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_xi[indexPlus_eta];
+#if MESHDIMENSIONS==3
+					w_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexMinus_eta];			w_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_xi[indexPlus_eta];
+#endif
+					T_xi_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexMinus_eta];			T_xi_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_xi[indexPlus_eta];
 
-					u_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_eta];	u_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_eta];
-					v_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_eta];	v_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_eta];
-					w_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_eta];	w_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_eta];
-					T_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_eta];	T_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_eta];
+#if MESHDIMENSIONS==3
+					u_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexMinus_eta];		u_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->u_zeta[indexPlus_eta];
+					v_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexMinus_eta];		v_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->v_zeta[indexPlus_eta];
+					w_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexMinus_eta];		w_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->w_zeta[indexPlus_eta];
+					T_zeta_MinusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexMinus_eta];		T_zeta_PlusHalf+=pnt_config->ZD_Interpolation_Koeffizient[l]*pnt_U_RK->T_zeta[indexPlus_eta];
 #endif
 				}
 
@@ -419,7 +406,7 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 
 
 #if MESHDIMENSIONS==3
-					pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+
+				pnt_Q->zetaMomentum[ijk]=pnt_Q->zetaMomentum[ijk]+
 						pnt_config->Psi*(
 					u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18]+
 					u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19]+
@@ -432,94 +419,77 @@ void CalcViscidFluxesInEtaDirectionDirectly(
 					w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26]);
 #endif
 
-					pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+
-							0.5*(pnt_config->Gamma[ijPlus1k]+pnt_config->Gamma[ijk])*(
-						T_xi_PlusHalf*Koeffizient_PlusHalf[27]-T_xi_MinusHalf*Koeffizient_MinusHalf[27]+
-						T_eta_PlusHalf*Koeffizient_PlusHalf[28]-T_eta_MinusHalf*Koeffizient_MinusHalf[28]+
-						T_zeta_PlusHalf*Koeffizient_PlusHalf[29]-T_zeta_MinusHalf*Koeffizient_MinusHalf[29])
+				pnt_Q->Energy[ijk]=pnt_Q->Energy[ijk]+
+						0.5*(pnt_config->Gamma[ijPlus1k]+pnt_config->Gamma[ijk])*(
+					T_xi_PlusHalf*Koeffizient_PlusHalf[27]-T_xi_MinusHalf*Koeffizient_MinusHalf[27]+
+					T_eta_PlusHalf*Koeffizient_PlusHalf[28]-T_eta_MinusHalf*Koeffizient_MinusHalf[28]+
+					T_zeta_PlusHalf*Koeffizient_PlusHalf[29]-T_zeta_MinusHalf*Koeffizient_MinusHalf[29])
 
-						// Bestimmung der Ableitung mittels Produktregel.
-						// Bspw: du/dx(u*df/dx) = (u*d^2f/dx^2) + du/dx*df/dx
+					// Bestimmung der Ableitung mittels Produktregel.
+					// Bspw: du/dx(u*df/dx) = (u*d^2f/dx^2) + du/dx*df/dx
 
-						+pnt_config->Psi*(
-						//hier: (u*d^2f/dx^2)
-						(
-						pnt_U_RK->u[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_xi_MinusHalf*Koeffizient_MinusHalf[0])+
-						pnt_U_RK->u[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_eta_MinusHalf*Koeffizient_MinusHalf[1])+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_zeta_MinusHalf*Koeffizient_MinusHalf[2])+
-#endif
-						pnt_U_RK->u[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[3]-v_xi_MinusHalf*Koeffizient_MinusHalf[3])+
-						pnt_U_RK->u[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[4]-v_eta_MinusHalf*Koeffizient_MinusHalf[4])+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[5]-v_zeta_MinusHalf*Koeffizient_MinusHalf[5])+
-						pnt_U_RK->u[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[6]-w_xi_MinusHalf*Koeffizient_MinusHalf[6])+
-						pnt_U_RK->u[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[7]-w_eta_MinusHalf*Koeffizient_MinusHalf[7])+
-						pnt_U_RK->u[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[8]-w_zeta_MinusHalf*Koeffizient_MinusHalf[8])+
-#endif
-						pnt_U_RK->v[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[9]-u_xi_MinusHalf*Koeffizient_MinusHalf[9])+
-						pnt_U_RK->v[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[10]-u_eta_MinusHalf*Koeffizient_MinusHalf[10])+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->v[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[11]-u_zeta_MinusHalf*Koeffizient_MinusHalf[11])+
-#endif
-						pnt_U_RK->v[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[12]-v_xi_MinusHalf*Koeffizient_MinusHalf[12])+
-						pnt_U_RK->v[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[13]-v_eta_MinusHalf*Koeffizient_MinusHalf[13])
-#if MESHDIMENSIONS==3
-						+pnt_U_RK->v[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[14]-v_zeta_MinusHalf*Koeffizient_MinusHalf[14])+
-						pnt_U_RK->v[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[15]-w_xi_MinusHalf*Koeffizient_MinusHalf[15])+
-						pnt_U_RK->v[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[16]-w_eta_MinusHalf*Koeffizient_MinusHalf[16])+
-						pnt_U_RK->v[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[17]-w_zeta_MinusHalf*Koeffizient_MinusHalf[17])+
+					+pnt_config->Psi*(
+					//hier: (u*d^2f/dx^2)
+					(
+					pnt_U_RK->u[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[0]-u_xi_MinusHalf*Koeffizient_MinusHalf[0])+
+					pnt_U_RK->u[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[1]-u_eta_MinusHalf*Koeffizient_MinusHalf[1])+
+					pnt_U_RK->u[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[2]-u_zeta_MinusHalf*Koeffizient_MinusHalf[2])+
+					pnt_U_RK->u[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[3]-v_xi_MinusHalf*Koeffizient_MinusHalf[3])+
+					pnt_U_RK->u[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[4]-v_eta_MinusHalf*Koeffizient_MinusHalf[4])+
+					pnt_U_RK->u[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[5]-v_zeta_MinusHalf*Koeffizient_MinusHalf[5])+
+					pnt_U_RK->u[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[6]-w_xi_MinusHalf*Koeffizient_MinusHalf[6])+
+					pnt_U_RK->u[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[7]-w_eta_MinusHalf*Koeffizient_MinusHalf[7])+
+					pnt_U_RK->u[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[8]-w_zeta_MinusHalf*Koeffizient_MinusHalf[8])+
+					pnt_U_RK->v[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[9]-u_xi_MinusHalf*Koeffizient_MinusHalf[9])+
+					pnt_U_RK->v[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[10]-u_eta_MinusHalf*Koeffizient_MinusHalf[10])+
+					pnt_U_RK->v[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[11]-u_zeta_MinusHalf*Koeffizient_MinusHalf[11])+
+					pnt_U_RK->v[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[12]-v_xi_MinusHalf*Koeffizient_MinusHalf[12])+
+					pnt_U_RK->v[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[13]-v_eta_MinusHalf*Koeffizient_MinusHalf[13])+
+					pnt_U_RK->v[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[14]-v_zeta_MinusHalf*Koeffizient_MinusHalf[14])+
+					pnt_U_RK->v[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[15]-w_xi_MinusHalf*Koeffizient_MinusHalf[15])+
+					pnt_U_RK->v[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[16]-w_eta_MinusHalf*Koeffizient_MinusHalf[16])+
+					pnt_U_RK->v[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[17]-w_zeta_MinusHalf*Koeffizient_MinusHalf[17])+
 
-						pnt_U_RK->w[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18])+
-						pnt_U_RK->w[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19])+
-						pnt_U_RK->w[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20])+
-						pnt_U_RK->w[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[21]-v_xi_MinusHalf*Koeffizient_MinusHalf[21])+
-						pnt_U_RK->w[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[22]-v_eta_MinusHalf*Koeffizient_MinusHalf[22])+
-						pnt_U_RK->w[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[23]-v_zeta_MinusHalf*Koeffizient_MinusHalf[23])+
-						pnt_U_RK->w[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[24]-w_xi_MinusHalf*Koeffizient_MinusHalf[24])+
-						pnt_U_RK->w[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[25]-w_eta_MinusHalf*Koeffizient_MinusHalf[25])+
-						pnt_U_RK->w[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26])
-#endif
-						)+
-
-						//hier: du/dx*df/dx
-						(
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[0*ijkMAX+ijk]+
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[1*ijkMAX+ijk]+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[2*ijkMAX+ijk]+
-#endif
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[3*ijkMAX+ijk]+
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[4*ijkMAX+ijk]+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[5*ijkMAX+ijk]+
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[6*ijkMAX+ijk]+
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[7*ijkMAX+ijk]+
-						pnt_U_RK->u_eta[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[8*ijkMAX+ijk]+
-#endif
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[9*ijkMAX+ijk]+
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[10*ijkMAX+ijk]+
-#if MESHDIMENSIONS==3
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[11*ijkMAX+ijk]+
-#endif
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[12*ijkMAX+ijk]+
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[13*ijkMAX+ijk]
-#if MESHDIMENSIONS==3
-						+pnt_U_RK->v_eta[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[14*ijkMAX+ijk]+
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[15*ijkMAX+ijk]+
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[16*ijkMAX+ijk]+
-						pnt_U_RK->v_eta[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[17*ijkMAX+ijk]+
-
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[18*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[19*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[20*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[21*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[22*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[23*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[24*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[25*ijkMAX+ijk]+
-						pnt_U_RK->w_eta[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[26*ijkMAX+ijk]
-#endif
+					pnt_U_RK->w[ijk]*(u_xi_PlusHalf*Koeffizient_PlusHalf[18]-u_xi_MinusHalf*Koeffizient_MinusHalf[18])+
+					pnt_U_RK->w[ijk]*(u_eta_PlusHalf*Koeffizient_PlusHalf[19]-u_eta_MinusHalf*Koeffizient_MinusHalf[19])+
+					pnt_U_RK->w[ijk]*(u_zeta_PlusHalf*Koeffizient_PlusHalf[20]-u_zeta_MinusHalf*Koeffizient_MinusHalf[20])+
+					pnt_U_RK->w[ijk]*(v_xi_PlusHalf*Koeffizient_PlusHalf[21]-v_xi_MinusHalf*Koeffizient_MinusHalf[21])+
+					pnt_U_RK->w[ijk]*(v_eta_PlusHalf*Koeffizient_PlusHalf[22]-v_eta_MinusHalf*Koeffizient_MinusHalf[22])+
+					pnt_U_RK->w[ijk]*(v_zeta_PlusHalf*Koeffizient_PlusHalf[23]-v_zeta_MinusHalf*Koeffizient_MinusHalf[23])+
+					pnt_U_RK->w[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[24]-w_xi_MinusHalf*Koeffizient_MinusHalf[24])+
+					pnt_U_RK->w[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[25]-w_eta_MinusHalf*Koeffizient_MinusHalf[25])+
+					pnt_U_RK->w[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26])
+					)
+					+
+					//hier: du/dx*df/dx
+					(
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[0*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[1*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[2*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[3*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[4*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[5*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[6*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[7*ijkMAX+ijk]+
+					pnt_U_RK->u_eta[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[8*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[9*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[10*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[11*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[12*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[13*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[14*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[15*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[16*ijkMAX+ijk]+
+					pnt_U_RK->v_eta[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[17*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[18*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->u_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[19*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->u_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[20*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->v_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[21*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->v_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[22*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->v_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[23*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->w_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[24*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->w_eta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[25*ijkMAX+ijk]+
+					pnt_U_RK->w_eta[ijk]*pnt_U_RK->w_zeta[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->etaFluss_Faktor[26*ijkMAX+ijk]
 					)
 					)
 
@@ -548,13 +518,6 @@ void CalcViscidFluxesInZetaDirectionDirectly(
  	FLT w_xi_PlusHalf, w_eta_PlusHalf, w_zeta_PlusHalf;
  	FLT T_xi_PlusHalf, T_eta_PlusHalf, T_zeta_PlusHalf;
 
-	FLT u_kMinusHalf, u_kPlusHalf;
-	FLT v_kMinusHalf, v_kPlusHalf;
-	FLT w_kMinusHalf, w_kPlusHalf;
-	FLT T_kMinusHalf, T_kPlusHalf;
-
-
-
 
 	ijkMAX=pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells;
 
@@ -578,10 +541,6 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 				u_xi_PlusHalf=0.;		v_xi_PlusHalf=0.;			w_xi_PlusHalf=0.;		T_xi_PlusHalf=0.;
 				u_eta_PlusHalf=0.;		v_eta_PlusHalf=0.;			w_eta_PlusHalf=0.;		T_eta_PlusHalf=0.;
 				u_zeta_PlusHalf=0.;		v_zeta_PlusHalf=0.;			w_zeta_PlusHalf=0.;		T_zeta_PlusHalf=0.;
-
-				u_kMinusHalf=0.;		v_kMinusHalf=0.;			w_kMinusHalf=0.;		T_kMinusHalf=0.;
-				u_kPlusHalf=0.;			v_kPlusHalf=0.;				w_kPlusHalf=0.;			T_kPlusHalf=0.;
-
 
 				for(l=0;l<=SPACEORDER;l++)
 				{
@@ -694,8 +653,8 @@ void CalcViscidFluxesInZetaDirectionDirectly(
 					pnt_U_RK->w[ijk]*(w_xi_PlusHalf*Koeffizient_PlusHalf[24]-w_xi_MinusHalf*Koeffizient_MinusHalf[24])+
 					pnt_U_RK->w[ijk]*(w_eta_PlusHalf*Koeffizient_PlusHalf[25]-w_eta_MinusHalf*Koeffizient_MinusHalf[25])+
 					pnt_U_RK->w[ijk]*(w_zeta_PlusHalf*Koeffizient_PlusHalf[26]-w_zeta_MinusHalf*Koeffizient_MinusHalf[26])
-					)+
-
+					)
+					+
 					//hier: du/dx*df/dx
 					(
 					pnt_U_RK->u_zeta[ijk]*pnt_U_RK->u_xi[ijk]*pnt_U_RK->mue[ijk]*pnt_mesh->zetaFluss_Faktor[0*ijkMAX+ijk]+

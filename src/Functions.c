@@ -1191,19 +1191,16 @@ void AllocMemoryStrctU(
 
 	pnt_strctU->u_xi = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 	pnt_strctU->u_eta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_strctU->u_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 	pnt_strctU->v_xi = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 	pnt_strctU->v_eta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_strctU->v_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_strctU->w_xi = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_strctU->w_eta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
+	pnt_strctU->w_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 	pnt_strctU->T_xi = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 	pnt_strctU->T_eta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
-	if(MESHDIMENSIONS==3)
-	{
-		pnt_strctU->u_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
-		pnt_strctU->v_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
-		pnt_strctU->T_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
-		pnt_strctU->w_xi = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
-		pnt_strctU->w_eta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
-		pnt_strctU->w_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
-	}
+	pnt_strctU->T_zeta = (FLT *)calloc(pnt_config->int_iMeshPointsGhostCells*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells, sizeof(FLT ));
 }
 
 void FreeMemoryStrctU(
@@ -1226,20 +1223,16 @@ void FreeMemoryStrctU(
 	free(pnt_strctU->MachNumber);
 	free(pnt_strctU->u_xi);
 	free(pnt_strctU->u_eta);
+	free(pnt_strctU->u_zeta);
 	free(pnt_strctU->v_xi);
 	free(pnt_strctU->v_eta);
+	free(pnt_strctU->v_zeta);
+	free(pnt_strctU->w_xi);
+	free(pnt_strctU->w_eta);
+	free(pnt_strctU->w_zeta);
 	free(pnt_strctU->T_xi);
 	free(pnt_strctU->T_eta);
-
-	if(MESHDIMENSIONS==3)
-	{
-		free(pnt_strctU->u_zeta);
-		free(pnt_strctU->v_zeta);
-		free(pnt_strctU->T_zeta);
-		free(pnt_strctU->w_xi);
-		free(pnt_strctU->w_eta);
-		free(pnt_strctU->w_zeta);
-	}
+	free(pnt_strctU->T_zeta);
 }
 
 void AllocMemoryStrctFilm(
@@ -2152,22 +2145,6 @@ void CalcRungeKutta(
 				pnt_U_RK,
 				pnt_U_lastStep);
 
-		/*if(pnt_config->flag_IBC==1)
-		{
-			IBC_set(
-					pnt_config,
-					pnt_mesh,
-					pnt_U_RK);
-		}*/
-
-//		if(pnt_config->flag_PressureWaves==1)
-//		{
-//			inducePressureWaves(
-//					pnt_config,
-//					pnt_mesh,
-//					pnt_U_RK);
-//		}
-
 
 //###########################################
 //		REIBUNGSFREIE FLUSSBERECHNUNG
@@ -2205,21 +2182,21 @@ void CalcRungeKutta(
 				pnt_Q);
 
 #if MESHDIMENSIONS==3
-			if(pnt_config->flag_IBC==1)
-			{
-				IBC_ApplyBC4FluxInZeta(
-						pnt_config,
-						pnt_mesh,
-						pnt_U_RK);
-			}
-
-			CalcFluxesInZetaDirection(
+		if(pnt_config->flag_IBC==1)
+		{
+			IBC_ApplyBC4FluxInZeta(
 					pnt_config,
 					pnt_mesh,
-					pnt_U_RK,
-					pnt_Flux,
-					pnt_Flux_PlusHalf,
-					pnt_Q);
+					pnt_U_RK);
+		}
+
+		CalcFluxesInZetaDirection(
+				pnt_config,
+				pnt_mesh,
+				pnt_U_RK,
+				pnt_Flux,
+				pnt_Flux_PlusHalf,
+				pnt_Q);
 #endif
 
 
@@ -2262,24 +2239,22 @@ void CalcRungeKutta(
 					pnt_U_RK,
 					pnt_Q);
 
-			if(MESHDIMENSIONS==3)
+#if MESHDIMENSIONS==3
+			if(pnt_config->flag_IBC==1)
 			{
-				if(pnt_config->flag_IBC==1)
-				{
-					IBC_ApplyBC4FluxInZeta(
-							pnt_config,
-							pnt_mesh,
-							pnt_U_RK);
-				}
-
-				CalcViscidFluxesInZetaDirectionDirectly(
+				IBC_ApplyBC4FluxInZeta(
 						pnt_config,
 						pnt_mesh,
-						pnt_U_RK,
-						pnt_Q);
+						pnt_U_RK);
 			}
-		}
 
+			CalcViscidFluxesInZetaDirectionDirectly(
+					pnt_config,
+					pnt_mesh,
+					pnt_U_RK,
+					pnt_Q);
+#endif
+		}
 		if(pnt_config->flag_rotation_symmetric==1)
 		{
 			AddRotationSymmetricFluxes(
@@ -2340,17 +2315,16 @@ void CalcRungeKutta(
 											))/pnt_U_RK->rho[ijk];
 
 #if MESHDIMENSIONS==3
-						pnt_U_RK->w[ijk]=
-												(pnt_config->RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->w[ijk]*pnt_U_lastStep->rho[ijk]+
-												pnt_config->RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->w[ijk]*rho_letzterRK_Schritt+
-												pnt_config->numericalTau/pnt_mesh->jacobian[ijk]*
-												(
-												pnt_config->RK_Q_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk]+
-												pnt_config->RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->zetaMomentum[ijk]
-												))/pnt_U_RK->rho[ijk];
-#endif
-#if MESHDIMENSION==2
-						pnt_U_RK->w[ijk]=0.0;
+					pnt_U_RK->w[ijk]=
+											(pnt_config->RK_U_n_Faktor[int_RKSchritt]*pnt_U_lastStep->w[ijk]*pnt_U_lastStep->rho[ijk]+
+											pnt_config->RK_U_ABC_Faktor[int_RKSchritt]*pnt_U_RK->w[ijk]*rho_letzterRK_Schritt+
+											pnt_config->numericalTau/pnt_mesh->jacobian[ijk]*
+											(
+											pnt_config->RK_Q_Faktor[int_RKSchritt]*pnt_Q->zetaMomentum[ijk]+
+											pnt_config->RK_Q_Summe_Flag[int_RKSchritt]*pnt_Q_sum->zetaMomentum[ijk]
+											))/pnt_U_RK->rho[ijk];
+#else
+					pnt_U_RK->w[ijk]=0.0;
 #endif
 
 					pnt_U_RK->e[ijk]=
@@ -2408,8 +2382,7 @@ void CalcValues(
 
 	//Im Vergleich zu Klioutchnikovs Code fehlt hier die Subtraktion durch die Jakobische.
 	//Diese steckt aber bereits im xi_x []= (y_eta*z_zeta-y_zeta*z_eta)/jacobian]
-					if(MESHDIMENSIONS==2)
-					{
+#if MESHDIMENSIONS==2
 						pnt_U->theta1[ijk]=
 								pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
 								pnt_U->v[ijk]*pnt_mesh->xi_y[ijk];
@@ -2432,9 +2405,7 @@ void CalcValues(
 								(pnt_U->v[ijk]*pnt_U->v[ijk])
 								)
 								));
-					}
-					else
-					{
+#else
 						pnt_U->theta1[ijk]=
 								pnt_U->u[ijk]*pnt_mesh->xi_x[ijk]+
 								pnt_U->v[ijk]*pnt_mesh->xi_y[ijk]+
@@ -2463,7 +2434,7 @@ void CalcValues(
 								(pnt_U->w[ijk]*pnt_U->w[ijk])
 								)
 								));
-					}
+#endif
 
 					pnt_U->T[ijk]=
 							fabs(pnt_U->p[ijk]/pnt_U->rho[ijk]);
@@ -6462,7 +6433,6 @@ void CreateMetric(
 					y_zeta=(-0.5*pnt_mesh->y_extrapolate[ijkMinus1]+0.5*pnt_mesh->y_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
 					z_zeta=(-0.5*pnt_mesh->z_extrapolate[ijkMinus1]+0.5*pnt_mesh->z_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
 				}
-
 
 				pnt_mesh->jacobian[ijk]=
 						x_xi*y_eta*z_zeta+x_eta*y_zeta*z_xi+x_zeta*y_xi*z_eta
