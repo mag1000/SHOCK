@@ -10,3 +10,11 @@
 /Debug
 /Release
 /build*
+*.aux
+*.bak
+~*
+*.swp
+*.[ao]
+*.bbl
+*.log
+
