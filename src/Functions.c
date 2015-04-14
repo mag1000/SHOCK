@@ -2105,6 +2105,7 @@ void CalcRungeKutta(
 	}
 
 	for(int_RKSchritt=0;int_RKSchritt<pnt_config->int_TimeOrder;int_RKSchritt++)
+	//for(int_RKSchritt=0;int_RKSchritt<2;int_RKSchritt++)
 	{
 //				In Q werden die Flüsse für jede Richtung gespeichert. Am Anfang jedes RK-Schrittes muss dieser gelöscht werden.
 		DeleteQ(
@@ -2164,7 +2165,10 @@ void CalcRungeKutta(
 				pnt_Flux,
 				pnt_Flux_PlusHalf,
 				pnt_Q);
-
+		//ijk=4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+4*pnt_config->int_kMeshPointsGhostCells+4;
+		//if((pnt_mesh->x[ijk]==pnt_mesh->y[ijk])&&(pnt_mesh->y[ijk]==pnt_mesh->z[ijk]))
+		//printf("Nach InviscidX: mass: %.10e - x: %.10e - y: %.10e - z: %.10e - energy: %.10e\n",pnt_Q->Mass[ijk],pnt_Q->xiMomentum[ijk],pnt_Q->etaMomentum[ijk],pnt_Q->zetaMomentum[ijk],pnt_Q->Energy[ijk]);
+		//DeleteQ(pnt_config,pnt_Q);
 		if(pnt_config->flag_IBC==1)
 		{
 			IBC_ApplyBC4FluxInEta(
@@ -2180,7 +2184,10 @@ void CalcRungeKutta(
 				pnt_Flux,
 				pnt_Flux_PlusHalf,
 				pnt_Q);
-
+		//ijk=4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+4*pnt_config->int_kMeshPointsGhostCells+4;
+		//if((pnt_mesh->x[ijk]==pnt_mesh->y[ijk])&&(pnt_mesh->y[ijk]==pnt_mesh->z[ijk]))
+		//printf("Nach InviscidY: mass: %.10e - x: %.10e - y: %.10e - z: %.10e - energy: %.10e\n",pnt_Q->Mass[ijk],pnt_Q->xiMomentum[ijk],pnt_Q->etaMomentum[ijk],pnt_Q->zetaMomentum[ijk],pnt_Q->Energy[ijk]);
+		//DeleteQ(pnt_config,pnt_Q);
 #if MESHDIMENSIONS==3
 		if(pnt_config->flag_IBC==1)
 		{
@@ -2198,7 +2205,10 @@ void CalcRungeKutta(
 				pnt_Flux_PlusHalf,
 				pnt_Q);
 #endif
-
+		//ijk=4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+4*pnt_config->int_kMeshPointsGhostCells+4;
+		//if((pnt_mesh->x[ijk]==pnt_mesh->y[ijk])&&(pnt_mesh->y[ijk]==pnt_mesh->z[ijk]))
+		//printf("Nach InviscidZ: mass: %.10e - x: %.10e - y: %.10e - z: %.10e - energy: %.10e\n",pnt_Q->Mass[ijk],pnt_Q->xiMomentum[ijk],pnt_Q->etaMomentum[ijk],pnt_Q->zetaMomentum[ijk],pnt_Q->Energy[ijk]);
+		//DeleteQ(pnt_config,pnt_Q);
 
 //###########################################
 //		REIBUNGSBEHAFTETE FLUSSBERECHNUNG
@@ -2224,7 +2234,10 @@ void CalcRungeKutta(
 					pnt_mesh,
 					pnt_U_RK,
 					pnt_Q);
-
+			//ijk=4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+4*pnt_config->int_kMeshPointsGhostCells+4;
+			//if((pnt_mesh->x[ijk]==pnt_mesh->y[ijk])&&(pnt_mesh->y[ijk]==pnt_mesh->z[ijk]))
+			//printf("Nach ViscousX: mass: %.10e - x: %.10e - y: %.10e - z: %.10e - energy: %.10e\n",pnt_Q->Mass[ijk],pnt_Q->xiMomentum[ijk],pnt_Q->etaMomentum[ijk],pnt_Q->zetaMomentum[ijk],pnt_Q->Energy[ijk]);
+			//DeleteQ(pnt_config,pnt_Q);
 			if(pnt_config->flag_IBC==1)
 			{
 				IBC_ApplyBC4FluxInEta(
@@ -2232,12 +2245,15 @@ void CalcRungeKutta(
 						pnt_mesh,
 						pnt_U_RK);
 			}
-
 			CalcViscidFluxesInEtaDirectionDirectly(
 					pnt_config,
 					pnt_mesh,
 					pnt_U_RK,
 					pnt_Q);
+			//ijk=4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+4*pnt_config->int_kMeshPointsGhostCells+4;
+			//if((pnt_mesh->x[ijk]==pnt_mesh->y[ijk])&&(pnt_mesh->y[ijk]==pnt_mesh->z[ijk]))
+			//printf("Nach ViscousY: mass: %.10e - x: %.10e - y: %.10e - z: %.10e - energy: %.10e\n",pnt_Q->Mass[ijk],pnt_Q->xiMomentum[ijk],pnt_Q->etaMomentum[ijk],pnt_Q->zetaMomentum[ijk],pnt_Q->Energy[ijk]);
+			//DeleteQ(pnt_config,pnt_Q);
 
 #if MESHDIMENSIONS==3
 			if(pnt_config->flag_IBC==1)
@@ -2253,6 +2269,10 @@ void CalcRungeKutta(
 					pnt_mesh,
 					pnt_U_RK,
 					pnt_Q);
+			//ijk=4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+4*pnt_config->int_kMeshPointsGhostCells+4;
+			//if((pnt_mesh->x[ijk]==pnt_mesh->y[ijk])&&(pnt_mesh->y[ijk]==pnt_mesh->z[ijk]))
+			//printf("Nach ViscousZ: mass: %.10e - x: %.10e - y: %.10e - z: %.10e - energy: %.10e\n",pnt_Q->Mass[ijk],pnt_Q->xiMomentum[ijk],pnt_Q->etaMomentum[ijk],pnt_Q->zetaMomentum[ijk],pnt_Q->Energy[ijk]);
+			//DeleteQ(pnt_config,pnt_Q);
 #endif
 		}
 		if(pnt_config->flag_rotation_symmetric==1)
@@ -2272,6 +2292,10 @@ void CalcRungeKutta(
 					pnt_Q);
 		}
 
+		//ijk=4*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+4*pnt_config->int_kMeshPointsGhostCells+4;
+		//if((pnt_mesh->x[ijk]==pnt_mesh->y[ijk])&&(pnt_mesh->y[ijk]==pnt_mesh->z[ijk]))
+		//printf("Nach AddManu: mass: %.10e - x: %.10e - y: %.10e - z: %.10e - energy: %.10e\n",pnt_Q->Mass[ijk],pnt_Q->xiMomentum[ijk],pnt_Q->etaMomentum[ijk],pnt_Q->zetaMomentum[ijk],pnt_Q->Energy[ijk]);
+		//DeleteQ(pnt_config,pnt_Q);
 
 		for (i=pnt_config->int_iStartReal; i <= pnt_config->int_iEndReal; i++)
 		{
@@ -2363,7 +2387,6 @@ void CalcRungeKutta(
 				pnt_mesh,
 				pnt_U_lastStep);
 	}
-
 }
 
 void CalcValues(
@@ -6340,6 +6363,26 @@ void CreateViscidMetric(
 			}
 		}
 	}
+	/*
+	for (i=pnt_config->int_iStartGhosts; i <= pnt_config->int_iEndGhosts; i++)
+	{
+		for (j=pnt_config->int_jStartGhosts; j <= pnt_config->int_jEndGhosts; j++)
+		{
+			for (k=pnt_config->int_kStartGhosts; k <= pnt_config->int_kEndGhosts; k++)
+			{
+				int l,ijkl;
+				ijk=i*pnt_config->int_jMeshPointsGhostCells*pnt_config->int_kMeshPointsGhostCells+j*pnt_config->int_kMeshPointsGhostCells+k;
+				for(l=0;l<30;l++)
+				{
+					ijkl=l*ijkMAX+ijk;
+					pnt_mesh->xiFluss_Faktor[ijkl]=1.0;
+					pnt_mesh->etaFluss_Faktor[ijkl]=1.0;
+					pnt_mesh->zetaFluss_Faktor[ijkl]=1.0;
+				}
+			}
+		}
+	}
+	*/
 }
 
 void CreateMetric(
@@ -6432,6 +6475,14 @@ void CreateMetric(
 					x_zeta=(-0.5*pnt_mesh->x_extrapolate[ijkMinus1]+0.5*pnt_mesh->x_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
 					y_zeta=(-0.5*pnt_mesh->y_extrapolate[ijkMinus1]+0.5*pnt_mesh->y_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
 					z_zeta=(-0.5*pnt_mesh->z_extrapolate[ijkMinus1]+0.5*pnt_mesh->z_extrapolate[ijkPlus1]);// /pnt_config->deltaZeta;
+
+					y_xi=0.0;
+					z_xi=0.0;
+					x_eta=0.0;
+					z_eta=0.0;
+					x_zeta=0.0;
+					y_zeta=0.0;
+
 				}
 
 				pnt_mesh->jacobian[ijk]=

@@ -111,7 +111,6 @@ void MeshMetricExport(
 						(double)pnt_mesh->xi_x[ijk],
 						(double)pnt_mesh->xi_y[ijk],
 						(double)pnt_mesh->xi_z[ijk],
-						//(double)pnt_mesh->etaFluss_Faktor[0*ijkMAX+ijk],
 						(double)pnt_mesh->eta_x[ijk],
 						(double)pnt_mesh->eta_y[ijk],
 						(double)pnt_mesh->eta_z[ijk],

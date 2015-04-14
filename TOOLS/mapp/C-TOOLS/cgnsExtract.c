@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
 {
 	int c;
 	int fileflag=0;
+	int errorflag;
 	opterr = 0;
 	char actual_file[500];
 	while ((c = getopt (argc, argv, "f:")) != -1)
